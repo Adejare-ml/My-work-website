@@ -1,69 +1,95 @@
 // =========================================
-// 1. NEURAL BACKGROUND ANIMATION
+// 1. ENHANCED NEURAL BACKGROUND
 // =========================================
 (function initNeuralBackground() {
     const canvas = document.getElementById("neural-bg");
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
-    let particles = [];
-    const particleCount = window.matchMedia('(pointer: coarse)').matches ? 40 : 80;
-    const connectionDistance = 120;
-    const mouseRadius = 150;
+    const isMobile = window.matchMedia('(pointer: coarse)').matches;
+    const particleCount = isMobile ? 45 : 90;
+    const connectionDistance = 130;
+    const mouseRadius = 160;
     let mouse = { x: null, y: null };
     let animationId;
+    let particles = [];
+    let time = 0;
 
     function resizeCanvas() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
     }
 
-    window.addEventListener("resize", resizeCanvas);
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => { resizeCanvas(); init(); }, 200);
+    });
     resizeCanvas();
 
-    window.addEventListener("mousemove", (e) => {
-        mouse.x = e.x;
-        mouse.y = e.y;
-    });
-
-    window.addEventListener("mouseout", () => {
-        mouse.x = null;
-        mouse.y = null;
-    });
+    window.addEventListener("mousemove", (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+    window.addEventListener("mouseout", () => { mouse.x = null; mouse.y = null; });
 
     class Particle {
-        constructor() {
+        constructor() { this.reset(true); }
+
+        reset(randomY = false) {
             this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 2 + 1.5;
-            this.speedX = (Math.random() - 0.5) * 0.8;
-            this.speedY = (Math.random() - 0.5) * 0.8;
+            this.y = randomY ? Math.random() * canvas.height : Math.random() * canvas.height;
+            this.baseSize = Math.random() * 1.5 + 0.8;
+            this.size = this.baseSize;
+            this.speedX = (Math.random() - 0.5) * 0.6;
+            this.speedY = (Math.random() - 0.5) * 0.6;
+            this.opacity = Math.random() * 0.5 + 0.2;
+            this.pulseSpeed = Math.random() * 0.02 + 0.01;
+            this.pulseOffset = Math.random() * Math.PI * 2;
+            // Occasional "hot" nodes
+            this.isHot = Math.random() < 0.08;
         }
 
-        update() {
+        update(t) {
             this.x += this.speedX;
             this.y += this.speedY;
 
-            if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-            if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            // Pulse size
+            this.size = this.baseSize + Math.sin(t * this.pulseSpeed + this.pulseOffset) * 0.5;
 
+            // Wrap edges with a soft margin
+            const margin = 10;
+            if (this.x < -margin) this.x = canvas.width + margin;
+            if (this.x > canvas.width + margin) this.x = -margin;
+            if (this.y < -margin) this.y = canvas.height + margin;
+            if (this.y > canvas.height + margin) this.y = -margin;
+
+            // Mouse repulsion (smooth)
             if (mouse.x !== null) {
                 const dx = mouse.x - this.x;
                 const dy = mouse.y - this.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < mouseRadius) {
-                    const force = (mouseRadius - distance) / mouseRadius;
-                    this.x -= (dx / distance) * force * 2;
-                    this.y -= (dy / distance) * force * 2;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < mouseRadius) {
+                    const force = (mouseRadius - dist) / mouseRadius;
+                    const angle = Math.atan2(dy, dx);
+                    this.x -= Math.cos(angle) * force * 2.5;
+                    this.y -= Math.sin(angle) * force * 2.5;
                 }
             }
         }
 
         draw() {
-            ctx.fillStyle = "rgba(0, 229, 255, 0.6)";
+            // Hot nodes glow brighter
+            const alpha = this.isHot ? Math.min(this.opacity * 1.8, 0.9) : this.opacity;
+            const color = this.isHot ? `rgba(0, 180, 255, ${alpha})` : `rgba(0, 229, 255, ${alpha})`;
+
+            ctx.save();
+            if (this.isHot) {
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = 'rgba(0, 229, 255, 0.6)';
+            }
+            ctx.fillStyle = color;
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fill();
+            ctx.restore();
         }
     }
 
@@ -72,12 +98,24 @@
             for (let b = a + 1; b < particles.length; b++) {
                 const dx = particles[a].x - particles[b].x;
                 const dy = particles[a].y - particles[b].y;
-                const distanceSq = dx * dx + dy * dy;
-                if (distanceSq < connectionDistance * connectionDistance) {
-                    const distance = Math.sqrt(distanceSq);
-                    const opacity = 1 - (distance / connectionDistance);
-                    ctx.strokeStyle = `rgba(0, 229, 255, ${opacity * 0.15})`;
-                    ctx.lineWidth = 1;
+                const distSq = dx * dx + dy * dy;
+                if (distSq < connectionDistance * connectionDistance) {
+                    const dist = Math.sqrt(distSq);
+                    const t = 1 - dist / connectionDistance;
+                    // Hot connections glow brighter
+                    const isHotLink = particles[a].isHot || particles[b].isHot;
+                    const base = isHotLink ? 0.22 : 0.1;
+                    const alpha = t * base;
+
+                    const gradient = ctx.createLinearGradient(
+                        particles[a].x, particles[a].y, particles[b].x, particles[b].y
+                    );
+                    gradient.addColorStop(0, `rgba(0, 229, 255, ${alpha})`);
+                    gradient.addColorStop(0.5, `rgba(0, 100, 255, ${alpha * 0.6})`);
+                    gradient.addColorStop(1, `rgba(0, 229, 255, ${alpha})`);
+
+                    ctx.strokeStyle = gradient;
+                    ctx.lineWidth = isHotLink ? 1.2 : 0.7;
                     ctx.beginPath();
                     ctx.moveTo(particles[a].x, particles[a].y);
                     ctx.lineTo(particles[b].x, particles[b].y);
@@ -89,17 +127,13 @@
 
     function init() {
         particles = [];
-        for (let i = 0; i < particleCount; i++) {
-            particles.push(new Particle());
-        }
+        for (let i = 0; i < particleCount; i++) particles.push(new Particle());
     }
 
     function animate() {
+        time++;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => {
-            p.update();
-            p.draw();
-        });
+        particles.forEach(p => { p.update(time); p.draw(); });
         connectParticles();
         animationId = requestAnimationFrame(animate);
     }
@@ -120,15 +154,12 @@
 // 2. SCROLL PROGRESS
 // =========================================
 (function initScrollProgress() {
-    const progressBar = document.querySelector('.scroll-progress');
-    if (!progressBar) return;
-
+    const bar = document.querySelector('.scroll-progress');
+    if (!bar) return;
     window.addEventListener('scroll', () => {
-        const scrollTop = window.scrollY;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrollPercent = (scrollTop / docHeight) * 100;
-        progressBar.style.width = scrollPercent + '%';
-    });
+        const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        bar.style.width = pct + '%';
+    }, { passive: true });
 })();
 
 // =========================================
@@ -140,11 +171,8 @@
     if (!toggle || !navLinks) return;
 
     toggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        const isOpen = navLinks.classList.contains('active');
+        const isOpen = navLinks.classList.toggle('active');
         toggle.setAttribute('aria-expanded', isOpen);
-        
-        // Animate hamburger
         const spans = toggle.querySelectorAll('span');
         if (isOpen) {
             spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
@@ -162,9 +190,8 @@
             navLinks.classList.remove('active');
             toggle.setAttribute('aria-expanded', 'false');
             const spans = toggle.querySelectorAll('span');
-            spans[0].style.transform = '';
+            spans.forEach(s => s.style.transform = '');
             spans[1].style.opacity = '1';
-            spans[2].style.transform = '';
         });
     });
 })();
@@ -173,42 +200,24 @@
 // 4. TYPING EFFECT
 // =========================================
 (function initTypeWriter() {
-    const txtElement = document.querySelector(".txt-type");
-    if (!txtElement) return;
+    const el = document.querySelector(".txt-type");
+    if (!el) return;
 
-    const words = JSON.parse(txtElement.getAttribute("data-words"));
-    const wait = parseInt(txtElement.getAttribute("data-wait")) || 2000;
-    
-    let txt = '';
-    let wordIndex = 0;
-    let isDeleting = false;
+    const words = JSON.parse(el.getAttribute("data-words"));
+    const wait = parseInt(el.getAttribute("data-wait")) || 2000;
+    let txt = '', wordIndex = 0, isDeleting = false;
 
     function type() {
-        const current = wordIndex % words.length;
-        const fullTxt = words[current];
+        const full = words[wordIndex % words.length];
+        txt = isDeleting ? full.substring(0, txt.length - 1) : full.substring(0, txt.length + 1);
+        el.innerHTML = txt + '<span class="cursor">|</span>';
 
-        if (isDeleting) {
-            txt = fullTxt.substring(0, txt.length - 1);
-        } else {
-            txt = fullTxt.substring(0, txt.length + 1);
-        }
+        let speed = isDeleting ? 45 : 95;
+        if (!isDeleting && txt === full) { speed = wait; isDeleting = true; }
+        else if (isDeleting && txt === '') { isDeleting = false; wordIndex++; speed = 500; }
 
-        txtElement.innerHTML = `<span class="txt">${txt}</span><span class="cursor">|</span>`;
-
-        let typeSpeed = isDeleting ? 50 : 100;
-
-        if (!isDeleting && txt === fullTxt) {
-            typeSpeed = wait;
-            isDeleting = true;
-        } else if (isDeleting && txt === '') {
-            isDeleting = false;
-            wordIndex++;
-            typeSpeed = 500;
-        }
-
-        setTimeout(type, typeSpeed);
+        setTimeout(type, speed);
     }
-
     type();
 })();
 
@@ -217,291 +226,147 @@
 // =========================================
 (function initCounters() {
     const counters = document.querySelectorAll(".counter");
-    if (counters.length === 0) return;
+    if (!counters.length) return;
 
-    const observerOptions = { threshold: 0.5 };
-    
-    const observer = new IntersectionObserver((entries) => {
+    const obs = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const counter = entry.target;
-                const target = parseInt(counter.getAttribute("data-target"));
-                const duration = 2000;
-                const startTime = performance.now();
+            if (!entry.isIntersecting) return;
+            const counter = entry.target;
+            const target = parseInt(counter.getAttribute("data-target"));
+            let start = 0;
+            const duration = 1500;
+            const startTime = performance.now();
 
-                function updateCounter(currentTime) {
-                    const elapsed = currentTime - startTime;
-                    const progress = Math.min(elapsed / duration, 1);
-                    const easeOut = 1 - Math.pow(1 - progress, 3);
-                    const current = Math.floor(easeOut * target);
-                    
-                    counter.innerText = current;
-                    
-                    if (progress < 1) {
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        counter.innerText = target + (target >= 100 ? "+" : "");
-                    }
-                }
-
-                requestAnimationFrame(updateCounter);
-                observer.unobserve(counter);
+            function step(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                // Ease out cubic
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const value = Math.ceil(eased * target);
+                counter.textContent = value + (progress === 1 && target >= 100 ? '+' : '');
+                if (progress < 1) requestAnimationFrame(step);
             }
+            requestAnimationFrame(step);
+            obs.unobserve(counter);
         });
-    }, observerOptions);
+    }, { threshold: 0.5 });
 
-    counters.forEach(counter => observer.observe(counter));
+    counters.forEach(c => obs.observe(c));
 })();
 
 // =========================================
 // 6. SCROLL ANIMATIONS
 // =========================================
 (function initScrollAnimations() {
-    const animatedElements = document.querySelectorAll(".scroll-animate, .timeline-item, .glow-card, .stat-item");
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("visible");
-                observer.unobserve(entry.target);
+    const els = document.querySelectorAll(".scroll-animate, .glow-card, .stat-item, .timeline-item");
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add("visible");
+                obs.unobserve(e.target);
             }
         });
-    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
-
-    animatedElements.forEach(el => observer.observe(el));
+    }, { threshold: 0.1 });
+    els.forEach(el => obs.observe(el));
 })();
 
 // =========================================
-// 7. PROJECT DATA & MODAL
+// 7. CONTACT PAGE — DATA STREAMS ANIMATION
 // =========================================
-const projectData = {
-    'cancer_fusion': {
-        title: 'Multimodal Breast Cancer Detection',
-        desc: `<strong>Overview:</strong><br>Final year thesis project combining ultrasound imaging with clinical data for early breast cancer detection.<br><br>
-               <strong>Technical Approach:</strong>
-               <ul>
-                   <li>Used <strong>MedCLIP</strong> for extracting semantic embeddings from medical images</li>
-                   <li>Implemented <strong>TabNet</strong> for processing tabular clinical data</li>
-                   <li>Early Fusion strategy combining both modalities</li>
-               </ul>
-               <strong>Results:</strong> 82.7% Accuracy, 87.1% ROC-AUC`,
-        code: `# Multimodal Fusion Architecture
-class CancerDetectionModel(nn.Module):
-    def __init__(self):
-        self.medclip = MedCLIPModel()
-        self.tabnet = TabNetEncoder()
-        self.fusion = nn.Linear(576, 2)
-    
-    def forward(self, image, tabular):
-        img_emb = self.medclip(image)      # 512-dim
-        tab_emb = self.tabnet(tabular)     # 64-dim
-        combined = torch.cat([img_emb, tab_emb], dim=1)
-        return self.fusion(combined)`,
-        link: 'https://github.com/adelugbaadejare034-blip/Breast_cancer_detention_using_muilt_modal_analysis'
-    },
-    'polling': {
-        title: 'Nigeria Polling Unit Scraper',
-        desc: `<strong>Overview:</strong><br>Large-scale web scraping system for electoral data collection across all 36 Nigerian states.<br><br>
-               <strong>Features:</strong>
-               <ul>
-                   <li>Automated navigation of multi-layered government websites</li>
-                   <li>Robust error handling and retry mechanisms</li>
-                   <li>Real-time data validation and cleaning</li>
-                   <li>Direct PostgreSQL database integration</li>
-               </ul>
-               <strong>Impact:</strong> 99.9% accuracy, 90% time reduction`,
-        code: `from selenium import webdriver
-from selenium.webdriver.common.by import By
-import pandas as pd
-from sqlalchemy import create_engine
+(function initContactPageEffects() {
+    // Only run on contact page
+    if (!document.querySelector('.contact-container')) return;
 
-class PollingUnitScraper:
-    def __init__(self):
-        self.driver = webdriver.Chrome()
-        self.db = create_engine('postgresql://...')
-    
-    def scrape_state(self, state_code):
-        # Navigate state portal
-        # Extract LGA data
-        # Store in PostgreSQL
-        pass`,
-        link: '#'
-    },
-    'automation': {
-        title: 'TETFund Workflow Automation',
-        desc: `<strong>Overview:</strong><br>Python automation pipeline for institutional report processing.<br><br>
-               <strong>Components:</strong>
-               <ul>
-                   <li>PDF and Excel report parsing</li>
-                   <li>Data validation and standardization</li>
-                   <li>Automated classification and routing</li>
-                   <li>Excel generation with formatting</li>
-               </ul>`,
-        code: `import pandas as pd
-from pathlib import Path
-import openpyxl
+    // Inject orb elements
+    const orbsContainer = document.createElement('div');
+    orbsContainer.className = 'contact-orbs';
+    orbsContainer.innerHTML = `
+        <div class="contact-orb contact-orb-1"></div>
+        <div class="contact-orb contact-orb-2"></div>
+        <div class="contact-orb contact-orb-3"></div>
+    `;
+    document.body.prepend(orbsContainer);
 
-class ReportAutomator:
-    def process_reports(self, input_dir):
-        reports = Path(input_dir).glob("*.xlsx")
-        for report in reports:
-            df = pd.read_excel(report)
-            cleaned = self.validate_data(df)
-            self.generate_summary(cleaned)`,
-        link: '#'
-    },
-    'salary': {
-        title: 'Global Tech Salary Prediction',
-        desc: `<strong>Overview:</strong><br>Machine learning model predicting global tech salaries based on job metadata.<br><br>
-               <strong>Techniques:</strong>
-               <ul>
-                   <li>Feature engineering for categorical data</li>
-                   <li>Random Forest and XGBoost regression</li>
-                   <li>Cross-validation and hyperparameter tuning</li>
-               </ul>`,
-        code: `from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import GridSearchCV
+    // Inject data streams
+    const streamsContainer = document.createElement('div');
+    streamsContainer.className = 'data-streams';
 
-model = RandomForestRegressor(n_estimators=100)
-model.fit(X_train, y_train)
-predictions = model.predict(X_test)`,
-        link: 'https://github.com/adelugbaadejare034-blip/Salary-Prediction-Using-Global-Tech-Job-Metadata-Regression-Model-'
-    },
-    'har': {
-        title: 'Human Activity Recognition',
-        desc: `<strong>Overview:</strong><br>Deep learning system for activity recognition using wearable sensor data.<br><br>
-               <strong>Architecture:</strong>
-               <ul>
-                   <li>Transformer-based time series processing</li>
-                   <li>HAR-70 dataset with 12 activity classes</li>
-                   <li>Real-time inference optimization</li>
-               </ul>`,
-        code: `class HARTransformer(nn.Module):
-    def __init__(self, input_dim=6, d_model=128):
-        super().__init__()
-        self.embedding = nn.Linear(input_dim, d_model)
-        self.encoder = nn.TransformerEncoder(
-            nn.TransformerEncoderLayer(d_model, nhead=8), 
-            num_layers=4
-        )
-        self.classifier = nn.Linear(d_model, 12)`,
-        link: 'https://github.com/adelugbaadejare034-blip/Real-Time-Human-Activity-Recognition-Using-Time-Series-Transformers-Wearable-Sensors-HAR-70-Dataset-'
-    },
-    'heart': {
-        title: 'Heart Disease Prediction',
-        desc: `<strong>Overview:</strong><br>Clinical decision support system for heart disease risk assessment.<br><br>
-               <strong>Methodology:</strong>
-               <ul>
-                   <li>Comprehensive EDA and feature selection</li>
-                   <li>Multiple algorithm comparison (RF, XGBoost, LR)</li>
-                   <li>Optimized for recall to minimize false negatives</li>
-               </ul>`,
-        code: `from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import classification_report, roc_auc_score
-
-model = RandomForestClassifier(n_estimators=200, class_weight='balanced')
-model.fit(X_train, y_train)
-print(f"ROC-AUC: {roc_auc_score(y_test, model.predict_proba(X_test)[:,1]):.3f}")`,
-        link: 'https://github.com/adelugbaadejare034-blip/Heart_disease_risk_prediction_system'
-    },
-    'bac': {
-        title: 'Bunmi Adelugba & Co. Website',
-        desc: `<strong>Overview:</strong><br>Professional corporate website for chartered accounting firm.<br><br>
-               <strong>Features:</strong>
-               <ul>
-                   <li>Responsive design for all devices</li>
-                   <li>Service portfolio showcase</li>
-                   <li>Contact integration and SEO optimization</li>
-               </ul>`,
-        code: `<!-- Responsive Navigation -->
-<nav class="navbar">
-  <div class="logo">BAC Chartered</div>
-  <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>`,
-        link: 'https://github.com/2kkiller/BAC'
-    },
-    'calc': {
-        title: 'C# Calculator',
-        desc: `<strong>Overview:</strong><br>Desktop calculator application with advanced features.<br><br>
-               <strong>Capabilities:</strong>
-               <ul>
-                   <li>Basic arithmetic operations</li>
-                   <li>Memory functions and history</li>
-                   <li>Error handling and input validation</li>
-               </ul>`,
-        code: `public class Calculator {
-    public double Calculate(double a, double b, string operation) {
-        return operation switch {
-            "+" => a + b,
-            "-" => a - b,
-            "*" => a * b,
-            "/" => b != 0 ? a / b : throw new DivideByZeroException(),
-            _ => throw new InvalidOperationException()
-        };
+    const streamCount = 12;
+    for (let i = 0; i < streamCount; i++) {
+        const stream = document.createElement('div');
+        stream.className = 'data-stream';
+        stream.style.left = (Math.random() * 100) + '%';
+        stream.style.height = (Math.random() * 80 + 60) + 'px';
+        stream.style.animationDuration = (Math.random() * 6 + 4) + 's';
+        stream.style.animationDelay = (Math.random() * 8) + 's';
+        stream.style.opacity = '0';
+        streamsContainer.appendChild(stream);
     }
-}`,
-        link: 'https://github.com/lifeishardtomove/CALCULATOR'
+    document.body.prepend(streamsContainer);
+
+    // Typed greeting on page load
+    const header = document.querySelector('.page-header h1');
+    if (header) {
+        header.style.opacity = '0';
+        header.style.transform = 'translateY(20px)';
+        header.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+        setTimeout(() => {
+            header.style.opacity = '1';
+            header.style.transform = 'translateY(0)';
+        }, 300);
     }
-};
 
-// Modal functions
-window.openModal = function (id) {
-    const modal = document.getElementById("projectModal");
-    const data = projectData[id];
-    
-    if (!data || !modal) return;
-    
-    document.getElementById("modalTitle").innerText = data.title;
-    document.getElementById("modalDescription").innerHTML = data.desc;
-    
-    const link = document.getElementById("modalLink");
-    link.href = data.link;
-    link.style.display = data.link === '#' ? 'none' : 'inline-flex';
-    
-    const codeBlock = document.getElementById("modalCodeBlock");
-    let codeHtml = data.code
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/\n/g, '<br>')
-        .replace(/(def|import|from|return|class|self|if|else|for|while|try|except|public|private|switch|case|void|int|float)/g, '<span class="code-keyword">$1</span>')
-        .replace(/(#.*$)/gm, '<span style="color: #64748b;">$1</span>');
-        
-    codeBlock.innerHTML = `<code>${codeHtml}</code>`;
-    
-    modal.style.display = "flex";
-    document.body.style.overflow = "hidden";
-};
+    // Stagger contact panels
+    const panels = document.querySelectorAll('.contact-info, .contact-form');
+    panels.forEach((panel, i) => {
+        panel.style.opacity = '0';
+        panel.style.transform = 'translateY(30px)';
+        panel.style.transition = 'all 0.7s cubic-bezier(0.4, 0, 0.2, 1)';
+        setTimeout(() => {
+            panel.style.opacity = '1';
+            panel.style.transform = 'translateY(0)';
+        }, 400 + i * 180);
+    });
 
-window.closeModal = function () {
-    const modal = document.getElementById("projectModal");
-    if (modal) {
-        modal.style.display = "none";
-        document.body.style.overflow = "";
-    }
-};
+    // Magnetic effect on social buttons
+    document.querySelectorAll('.social-btn').forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            const dx = (e.clientX - cx) * 0.3;
+            const dy = (e.clientY - cy) * 0.3;
+            btn.style.transform = `translate(${dx}px, ${dy - 4}px)`;
+        });
+        btn.addEventListener('mouseleave', () => {
+            btn.style.transform = '';
+            btn.style.transition = 'all 0.4s ease';
+        });
+    });
 
-// Close modal on outside click
-window.onclick = function (e) {
-    const modal = document.getElementById("projectModal");
-    if (e.target === modal) {
-        closeModal();
-    }
-};
+    // Input focus glow ripple
+    document.querySelectorAll('.form-group input, .form-group textarea').forEach(input => {
+        input.addEventListener('focus', () => {
+            const group = input.closest('.form-group');
+            group.style.transform = 'scale(1.01)';
+            group.style.transition = 'transform 0.2s ease';
+        });
+        input.addEventListener('blur', () => {
+            const group = input.closest('.form-group');
+            group.style.transform = '';
+        });
+    });
+})();
 
-// Close on Escape key
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeModal();
-});
-
-// Smooth scroll for anchor links
+// =========================================
+// 8. SMOOTH SCROLL
+// =========================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href"));
+    anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        const target = document.querySelector(href);
         if (target) {
+            e.preventDefault();
             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     });
