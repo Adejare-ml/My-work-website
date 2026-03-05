@@ -1,31 +1,32 @@
 // =========================================
 // 1. NEURAL BACKGROUND ANIMATION
 // =========================================
+(function initNeuralBackground() {
+    const canvas = document.getElementById("neural-bg");
+    if (!canvas) return;
 
-const canvas = document.getElementById("neural-bg");
-if (canvas) {
     const ctx = canvas.getContext("2d");
+    let particles = [];
+    const particleCount = window.matchMedia('(pointer: coarse)').matches ? 40 : 80;
+    const connectionDistance = 120;
+    const mouseRadius = 150;
+    let mouse = { x: null, y: null };
+    let animationId;
 
     function resizeCanvas() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
     }
-    resizeCanvas();
+
     window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
 
-    let particles = [];
-    const particleCount = window.matchMedia('(pointer: coarse)').matches ? 50 : 90;
-    const connectionDistance = 120;
-    const mouseRadius = 150;
-
-    const mouse = { x: null, y: null };
-
-    window.addEventListener("mousemove", function (event) {
-        mouse.x = event.x;
-        mouse.y = event.y;
+    window.addEventListener("mousemove", (e) => {
+        mouse.x = e.x;
+        mouse.y = e.y;
     });
 
-    window.addEventListener("mouseout", function () {
+    window.addEventListener("mouseout", () => {
         mouse.x = null;
         mouse.y = null;
     });
@@ -37,44 +38,32 @@ if (canvas) {
             this.size = Math.random() * 2 + 1.5;
             this.speedX = (Math.random() - 0.5) * 0.8;
             this.speedY = (Math.random() - 0.5) * 0.8;
-            this.opacity = Math.random() * 0.5 + 0.5;
         }
 
         update() {
             this.x += this.speedX;
             this.y += this.speedY;
 
-            // Bounce off edges
             if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
             if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
 
-            // Mouse interaction
-            if (mouse.x !== null && mouse.y !== null) {
+            if (mouse.x !== null) {
                 const dx = mouse.x - this.x;
                 const dy = mouse.y - this.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
-
                 if (distance < mouseRadius) {
                     const force = (mouseRadius - distance) / mouseRadius;
-                    const angle = Math.atan2(dy, dx);
-                    this.x -= Math.cos(angle) * force * 3;
-                    this.y -= Math.sin(angle) * force * 3;
+                    this.x -= (dx / distance) * force * 2;
+                    this.y -= (dy / distance) * force * 2;
                 }
             }
         }
 
         draw() {
-            ctx.fillStyle = `rgba(0, 229, 255, ${this.opacity})`;
+            ctx.fillStyle = "rgba(0, 229, 255, 0.6)";
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fill();
-        }
-    }
-
-    function initParticles() {
-        particles = [];
-        for (let i = 0; i < particleCount; i++) {
-            particles.push(new Particle());
         }
     }
 
@@ -83,12 +72,11 @@ if (canvas) {
             for (let b = a + 1; b < particles.length; b++) {
                 const dx = particles[a].x - particles[b].x;
                 const dy = particles[a].y - particles[b].y;
-                const distanceSquared = dx * dx + dy * dy;
-
-                if (distanceSquared < connectionDistance * connectionDistance) {
-                    const distance = Math.sqrt(distanceSquared);
+                const distanceSq = dx * dx + dy * dy;
+                if (distanceSq < connectionDistance * connectionDistance) {
+                    const distance = Math.sqrt(distanceSq);
                     const opacity = 1 - (distance / connectionDistance);
-                    ctx.strokeStyle = `rgba(0, 229, 255, ${opacity * 0.2})`;
+                    ctx.strokeStyle = `rgba(0, 229, 255, ${opacity * 0.15})`;
                     ctx.lineWidth = 1;
                     ctx.beginPath();
                     ctx.moveTo(particles[a].x, particles[a].y);
@@ -99,172 +87,189 @@ if (canvas) {
         }
     }
 
-    let animationId;
-    let lastTime = 0;
-    const fps = 30;
-    const fpsInterval = 1000 / fps;
-
-    function animateParticles(currentTime) {
-        animationId = requestAnimationFrame(animateParticles);
-        
-        const elapsed = currentTime - lastTime;
-        if (elapsed < fpsInterval) return;
-        lastTime = currentTime - (elapsed % fpsInterval);
-
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        particles.forEach(particle => {
-            particle.update();
-            particle.draw();
-        });
-        
-        connectParticles();
+    function init() {
+        particles = [];
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
     }
 
-    initParticles();
-    animateParticles(0);
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+        connectParticles();
+        animationId = requestAnimationFrame(animate);
+    }
 
-    // Pause when tab is hidden
+    init();
+    animate();
+
     document.addEventListener("visibilitychange", () => {
         if (document.hidden) {
             cancelAnimationFrame(animationId);
         } else {
-            animateParticles(0);
+            animate();
         }
     });
-}
+})();
 
 // =========================================
 // 2. SCROLL PROGRESS
 // =========================================
-const scrollProgress = document.querySelector('.scroll-progress');
-if (scrollProgress) {
+(function initScrollProgress() {
+    const progressBar = document.querySelector('.scroll-progress');
+    if (!progressBar) return;
+
     window.addEventListener('scroll', () => {
-        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (window.scrollY / windowHeight) * 100;
-        scrollProgress.style.width = scrolled + '%';
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / docHeight) * 100;
+        progressBar.style.width = scrollPercent + '%';
     });
-}
+})();
 
 // =========================================
 // 3. MOBILE MENU
 // =========================================
-const menuToggle = document.querySelector('.mobile-menu-toggle');
-const navLinks = document.querySelector('.nav-links');
+(function initMobileMenu() {
+    const toggle = document.querySelector('.mobile-menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    if (!toggle || !navLinks) return;
 
-if (menuToggle && navLinks) {
-    menuToggle.addEventListener('click', () => {
+    toggle.addEventListener('click', () => {
         navLinks.classList.toggle('active');
         const isOpen = navLinks.classList.contains('active');
-        menuToggle.setAttribute('aria-expanded', isOpen);
+        toggle.setAttribute('aria-expanded', isOpen);
+        
+        // Animate hamburger
+        const spans = toggle.querySelectorAll('span');
+        if (isOpen) {
+            spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+            spans[1].style.opacity = '0';
+            spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+        } else {
+            spans[0].style.transform = '';
+            spans[1].style.opacity = '1';
+            spans[2].style.transform = '';
+        }
     });
 
     navLinks.querySelectorAll('.nav-item').forEach(link => {
         link.addEventListener('click', () => {
             navLinks.classList.remove('active');
-            menuToggle.setAttribute('aria-expanded', 'false');
+            toggle.setAttribute('aria-expanded', 'false');
+            const spans = toggle.querySelectorAll('span');
+            spans[0].style.transform = '';
+            spans[1].style.opacity = '1';
+            spans[2].style.transform = '';
         });
     });
-}
+})();
 
 // =========================================
 // 4. TYPING EFFECT
 // =========================================
-class TypeWriter {
-    constructor(txtElement, words, wait = 3000) {
-        this.txtElement = txtElement;
-        this.words = words;
-        this.txt = '';
-        this.wordIndex = 0;
-        this.wait = parseInt(wait, 10);
-        this.isDeleting = false;
-        this.type();
-    }
+(function initTypeWriter() {
+    const txtElement = document.querySelector(".txt-type");
+    if (!txtElement) return;
 
-    type() {
-        const current = this.wordIndex % this.words.length;
-        const fullTxt = this.words[current];
+    const words = JSON.parse(txtElement.getAttribute("data-words"));
+    const wait = parseInt(txtElement.getAttribute("data-wait")) || 2000;
+    
+    let txt = '';
+    let wordIndex = 0;
+    let isDeleting = false;
 
-        this.txt = this.isDeleting
-            ? fullTxt.substring(0, this.txt.length - 1)
-            : fullTxt.substring(0, this.txt.length + 1);
+    function type() {
+        const current = wordIndex % words.length;
+        const fullTxt = words[current];
 
-        this.txtElement.innerHTML = `<span class="txt">${this.txt}</span>`;
+        if (isDeleting) {
+            txt = fullTxt.substring(0, txt.length - 1);
+        } else {
+            txt = fullTxt.substring(0, txt.length + 1);
+        }
 
-        let typeSpeed = this.isDeleting ? 50 : 100;
+        txtElement.innerHTML = `<span class="txt">${txt}</span><span class="cursor">|</span>`;
 
-        if (!this.isDeleting && this.txt === fullTxt) {
-            typeSpeed = this.wait;
-            this.isDeleting = true;
-        } else if (this.isDeleting && this.txt === '') {
-            this.isDeleting = false;
-            this.wordIndex++;
+        let typeSpeed = isDeleting ? 50 : 100;
+
+        if (!isDeleting && txt === fullTxt) {
+            typeSpeed = wait;
+            isDeleting = true;
+        } else if (isDeleting && txt === '') {
+            isDeleting = false;
+            wordIndex++;
             typeSpeed = 500;
         }
 
-        setTimeout(() => this.type(), typeSpeed);
+        setTimeout(type, typeSpeed);
     }
-}
 
-document.addEventListener("DOMContentLoaded", () => {
-    const txtElement = document.querySelector(".txt-type");
-    if (txtElement) {
-        const words = JSON.parse(txtElement.getAttribute("data-words"));
-        const wait = txtElement.getAttribute("data-wait");
-        new TypeWriter(txtElement, words, wait);
-    }
-});
+    type();
+})();
 
 // =========================================
 // 5. COUNTER ANIMATION
 // =========================================
-const counters = document.querySelectorAll(".counter");
-let countersStarted = false;
+(function initCounters() {
+    const counters = document.querySelectorAll(".counter");
+    if (counters.length === 0) return;
 
-function runCounters() {
-    counters.forEach(counter => {
-        const target = +counter.getAttribute("data-target");
-        const duration = 2000;
-        const increment = target / (duration / 16);
-        let current = 0;
+    const observerOptions = { threshold: 0.5 };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counter = entry.target;
+                const target = parseInt(counter.getAttribute("data-target"));
+                const duration = 2000;
+                const startTime = performance.now();
 
-        const updateCounter = () => {
-            current += increment;
-            if (current < target) {
-                counter.innerText = Math.ceil(current);
+                function updateCounter(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const easeOut = 1 - Math.pow(1 - progress, 3);
+                    const current = Math.floor(easeOut * target);
+                    
+                    counter.innerText = current;
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.innerText = target + (target >= 100 ? "+" : "");
+                    }
+                }
+
                 requestAnimationFrame(updateCounter);
-            } else {
-                counter.innerText = target + (target >= 100 ? "+" : "");
+                observer.unobserve(counter);
             }
-        };
+        });
+    }, observerOptions);
 
-        updateCounter();
-    });
-}
+    counters.forEach(counter => observer.observe(counter));
+})();
 
 // =========================================
-// 6. SCROLL OBSERVER
+// 6. SCROLL ANIMATIONS
 // =========================================
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: "0px 0px -50px 0px"
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            
-            if (entry.target.classList.contains("stats-section") && !countersStarted) {
-                countersStarted = true;
-                runCounters();
+(function initScrollAnimations() {
+    const animatedElements = document.querySelectorAll(".scroll-animate, .timeline-item, .glow-card, .stat-item");
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
             }
-        }
-    });
-}, observerOptions);
+        });
+    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
 
-document.querySelectorAll(".scroll-animate, .stats-section, .timeline-item, .glow-card, .stat-item")
-    .forEach(el => observer.observe(el));
+    animatedElements.forEach(el => observer.observe(el));
+})();
 
 // =========================================
 // 7. PROJECT DATA & MODAL
@@ -442,31 +447,32 @@ print(f"ROC-AUC: {roc_auc_score(y_test, model.predict_proba(X_test)[:,1]):.3f}")
     }
 };
 
+// Modal functions
 window.openModal = function (id) {
     const modal = document.getElementById("projectModal");
     const data = projectData[id];
     
-    if (data && modal) {
-        document.getElementById("modalTitle").innerText = data.title;
-        document.getElementById("modalDescription").innerHTML = data.desc;
+    if (!data || !modal) return;
+    
+    document.getElementById("modalTitle").innerText = data.title;
+    document.getElementById("modalDescription").innerHTML = data.desc;
+    
+    const link = document.getElementById("modalLink");
+    link.href = data.link;
+    link.style.display = data.link === '#' ? 'none' : 'inline-flex';
+    
+    const codeBlock = document.getElementById("modalCodeBlock");
+    let codeHtml = data.code
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\n/g, '<br>')
+        .replace(/(def|import|from|return|class|self|if|else|for|while|try|except|public|private|switch|case|void|int|float)/g, '<span class="code-keyword">$1</span>')
+        .replace(/(#.*$)/gm, '<span style="color: #64748b;">$1</span>');
         
-        const link = document.getElementById("modalLink");
-        link.href = data.link;
-        link.style.display = data.link === '#' ? 'none' : 'inline-flex';
-        
-        const codeBlock = document.getElementById("modalCodeBlock");
-        let codeHtml = data.code
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/\n/g, '<br>')
-            .replace(/(def|import|from|return|class|self|if|else|for|while|try|except|public|private|switch|case|void|int|float)/g, '<span class="code-keyword">$1</span>')
-            .replace(/(#.*$)/gm, '<span style="color: #64748b;">$1</span>');
-            
-        codeBlock.innerHTML = `<code>${codeHtml}</code>`;
-        
-        modal.style.display = "flex";
-        document.body.style.overflow = "hidden";
-    }
+    codeBlock.innerHTML = `<code>${codeHtml}</code>`;
+    
+    modal.style.display = "flex";
+    document.body.style.overflow = "hidden";
 };
 
 window.closeModal = function () {
@@ -477,6 +483,7 @@ window.closeModal = function () {
     }
 };
 
+// Close modal on outside click
 window.onclick = function (e) {
     const modal = document.getElementById("projectModal");
     if (e.target === modal) {
@@ -484,22 +491,18 @@ window.onclick = function (e) {
     }
 };
 
+// Close on Escape key
 document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeModal();
-    }
+    if (e.key === 'Escape') closeModal();
 });
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const target = document.querySelector(this.getAttribute('href"));
         if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     });
 });
