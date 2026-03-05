@@ -20,7 +20,7 @@
         <div class="nav-links">
             <a href="index.html" class="nav-item active">HOME</a>
             <a href="about.html" class="nav-item">ABOUT</a>
-            <a href="projects.html" class="nav-item">PROJECTS & EXP</a>
+            <a href="projects.html" class="nav-item">PROJECTS &amp; EXP</a>
             <a href="contact.html" class="nav-item">CONTACT</a>
         </div>
     </nav>
@@ -31,9 +31,9 @@
             <h2 class="typing-text">
                 I am a <span class="txt-type" data-wait="2000" data-words='["Machine Learning Engineer", "Data Scientist", "Python Programmer", "Automation Specialist"]'></span>
             </h2>
-            <p>Computer Science Graduate | IT Support, Data Systems & Automation</p>
+            <p>Computer Science Graduate | IT Support, Data Systems &amp; Automation</p>
             <div class="hero-buttons">
-                <button class="btn btn-primary" onclick="document.querySelector('.stats-section').scrollIntoView({behavior: 'smooth'})">View Impact</button>
+                <button class="btn btn-primary" onclick="document.querySelector('.stats-section').scrollIntoView({behavior:'smooth'})">View Impact</button>
                 <a href="https://github.com/adejare-dev" target="_blank" rel="noopener noreferrer">
                     <button class="btn btn-secondary"><i class="fab fa-github"></i> GitHub Profile</button>
                 </a>
@@ -42,7 +42,7 @@
         <div class="hero-image-container">
             <img src="per work.jpg" alt="Adejare Adelugba" class="profile-pic">
         </div>
-        <div class="scroll-down" onclick="document.querySelector('.stats-section').scrollIntoView({behavior: 'smooth'})">
+        <div class="scroll-down" onclick="document.querySelector('.stats-section').scrollIntoView({behavior:'smooth'})">
             <i class="fas fa-chevron-down"></i>
         </div>
     </section>
@@ -58,30 +58,33 @@
         <div class="glow-card scroll-animate">
             <div class="card-content">
                 <h3>Multimodal Cancer Detection</h3>
-                <p><strong>B.Sc. Final Year Project:</strong> Early breast cancer detection using MedCLIP and TabNet.</p>
+                <p class="tech-stack">PyTorch • MedCLIP • TabNet</p>
+                <p><strong>B.Sc. Final Year Project:</strong> Early breast cancer detection fusing ultrasound imaging with clinical data.</p>
                 <button class="card-btn" onclick="openModal('cancer_fusion')">View Analysis</button>
             </div>
         </div>
         <div class="glow-card scroll-animate">
             <div class="card-content">
                 <h3>Polling Unit Scraper</h3>
-                <p>Selenium-based automation collecting polling unit data across all Nigerian states.</p>
+                <p class="tech-stack">Python • Selenium • PostgreSQL</p>
+                <p>Selenium-based automation collecting polling unit data across all 36 Nigerian states with 99.9% accuracy.</p>
                 <button class="card-btn" onclick="openModal('polling')">View Details</button>
             </div>
         </div>
         <div class="glow-card scroll-animate">
             <div class="card-content">
                 <h3>Workflow Automation</h3>
-                <p>Reduced manual reporting time via Python pipelines at TETFund.</p>
+                <p class="tech-stack">Python • Pandas • openpyxl</p>
+                <p>Reduced manual reporting time by 90% via Python automation pipelines at TETFund.</p>
                 <button class="card-btn" onclick="openModal('automation')">View Details</button>
             </div>
         </div>
         <div class="glow-card scroll-animate github-card">
             <div class="card-content center-content">
                 <h3>Explore More</h3>
-                <p>Check out my other repositories on GitHub.</p>
+                <p>Check out my other repositories and contributions on GitHub.</p>
                 <a href="https://github.com/adelugbaadejare034-blip" target="_blank" rel="noopener noreferrer">
-                    <button class="card-btn">Visit Profile →</button>
+                    <button class="card-btn">Visit Profile &rarr;</button>
                 </a>
             </div>
         </div>
@@ -100,7 +103,7 @@
                 </div>
             </div>
             <div class="skill-category">
-                <h4>AI & Machine Learning</h4>
+                <h4>AI &amp; Machine Learning</h4>
                 <div class="skills-wrapper">
                     <span class="skill-tag accent">PyTorch</span>
                     <span class="skill-tag accent">MedCLIP</span>
@@ -109,7 +112,7 @@
                 </div>
             </div>
             <div class="skill-category">
-                <h4>Tools & Platforms</h4>
+                <h4>Tools &amp; Platforms</h4>
                 <div class="skills-wrapper">
                     <span class="skill-tag dark">Selenium</span>
                     <span class="skill-tag dark">Git/GitHub</span>
@@ -121,264 +124,118 @@
     </section>
 
     <footer class="footer">
-        <p>Contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="caabaeafa6bfada8ababaeafa0abb8affaf98aada7aba3a6e4a9a5a7">[email&#160;protected]</a> | Abuja, Nigeria</p>
+        <div class="footer-content">
+            <p>Contact: adelugbaadejare03@gmail.com | Abuja, Nigeria</p>
+            <div class="footer-social">
+                <a href="https://github.com/adejare-dev" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+        </div>
     </footer>
 
+    <!-- Project Modal -->
     <div id="projectModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal()" aria-label="Close modal">&times;</button>
-            <h2 id="modalTitle">Project Title</h2>
+            <h2 id="modalTitle" style="padding:2.5rem 2.5rem 0;">Project Title</h2>
             <div class="modal-body">
-                <div id="modalDescription">Details...</div>
+                <div id="modalDescription"></div>
                 <div class="code-block" id="modalCodeBlock"></div>
                 <div class="modal-link-container">
-                    <a id="modalLink" href="#" target="_blank" rel="noopener noreferrer">View Repository <i class="fas fa-external-link-alt"></i></a>
+                    <a id="modalLink" href="#" target="_blank" rel="noopener noreferrer">
+                        View Repository <i class="fas fa-external-link-alt"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- INLINE SCRIPT FOR INDEX.HTML - CRITICAL -->
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    // PROJECT DATA FOR INDEX PAGE
+    <script src="script.js"></script>
+    <script>
+    // Project data for modal
     const projectData = {
         'cancer_fusion': {
             title: 'Multimodal Breast Cancer Detection',
-            desc: `<strong>Overview:</strong><br>Final year thesis combining ultrasound imaging with clinical data.<br><br>
-                   <strong>Results:</strong> 82.7% Accuracy, 87.1% ROC-AUC`,
+            desc: `<strong>Overview:</strong><br>Final year thesis combining ultrasound imaging with clinical data using an early fusion strategy.<br><br>
+                   <strong>Results:</strong> 82.7% Accuracy &bull; 87.1% ROC-AUC`,
             code: `class CancerDetectionModel(nn.Module):
     def __init__(self):
         self.medclip = MedCLIPModel()
         self.tabnet = TabNetEncoder()
         self.fusion = nn.Linear(576, 2)
-    
+
     def forward(self, image, tabular):
-        img_emb = self.medclip(image)
-        tab_emb = self.tabnet(tabular)
+        img_emb = self.medclip(image)      # 512-dim
+        tab_emb = self.tabnet(tabular)     # 64-dim
         combined = torch.cat([img_emb, tab_emb], dim=1)
         return self.fusion(combined)`,
             link: 'https://github.com/adelugbaadejare034-blip/Breast_cancer_detention_using_muilt_modal_analysis'
         },
         'polling': {
             title: 'Nigeria Polling Unit Scraper',
-            desc: `<strong>Overview:</strong><br>Large-scale web scraping across all 36 Nigerian states.<br><br>
-                   <strong>Impact:</strong> 99.9% accuracy, 90% time reduction`,
+            desc: `<strong>Overview:</strong><br>Large-scale web scraping system for electoral data collection across all 36 Nigerian states.<br><br>
+                   <strong>Impact:</strong> 99.9% accuracy &bull; 90% reduction in manual collection time`,
             code: `from selenium import webdriver
+from selenium.webdriver.common.by import By
 import pandas as pd
 
-class PollingUnitScraper:
-    def scrape_state(self, state_code):
-        # Automated data extraction
-        pass`,
+def scrape_polling_units():
+    driver = webdriver.Chrome()
+    data = []
+    for state in states:
+        results = extract_state_data(driver, state)
+        data.extend(results)
+    return pd.DataFrame(data)`,
             link: '#'
         },
         'automation': {
             title: 'TETFund Workflow Automation',
-            desc: `<strong>Overview:</strong><br>Python automation for institutional report processing.`,
+            desc: `<strong>Overview:</strong><br>Python automation pipeline for institutional report processing at TETFund.<br><br>
+                   <strong>Impact:</strong> 90% reduction in manual processing time`,
             code: `import pandas as pd
+from pathlib import Path
 
-class ReportAutomator:
-    def process_reports(self, input_dir):
-        # Automated processing
-        pass`,
+def process_reports(input_dir):
+    reports = Path(input_dir).glob("*.xlsx")
+    cleaned_data = []
+    for report in reports:
+        df = pd.read_excel(report)
+        cleaned = clean_and_validate(df)
+        cleaned_data.append(cleaned)
+    return pd.concat(cleaned_data)`,
             link: '#'
         }
     };
 
-    // NEURAL BACKGROUND
-    (function() {
-        const canvas = document.getElementById("neural-bg");
-        if (!canvas) return;
-        
-        const ctx = canvas.getContext("2d");
-        let particles = [];
-        const particleCount = 60;
-        const connectionDistance = 120;
-        let mouse = { x: null, y: null };
-
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener("resize", resize);
-        resize();
-
-        window.addEventListener("mousemove", (e) => {
-            mouse.x = e.x;
-            mouse.y = e.y;
-        });
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1;
-                this.speedX = (Math.random() - 0.5) * 0.8;
-                this.speedY = (Math.random() - 0.5) * 0.8;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-                
-                if (mouse.x) {
-                    const dx = mouse.x - this.x;
-                    const dy = mouse.y - this.y;
-                    const dist = Math.sqrt(dx*dx + dy*dy);
-                    if (dist < 150) {
-                        this.x -= dx * 0.02;
-                        this.y -= dy * 0.02;
-                    }
-                }
-            }
-            draw() {
-                ctx.fillStyle = "rgba(0, 229, 255, 0.6)";
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function init() {
-            particles = [];
-            for (let i = 0; i < particleCount; i++) particles.push(new Particle());
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            
-            for (let a = 0; a < particles.length; a++) {
-                for (let b = a + 1; b < particles.length; b++) {
-                    const dx = particles[a].x - particles[b].x;
-                    const dy = particles[a].y - particles[b].y;
-                    const dist = Math.sqrt(dx*dx + dy*dy);
-                    if (dist < connectionDistance) {
-                        ctx.strokeStyle = `rgba(0, 229, 255, ${0.2 * (1 - dist/connectionDistance)})`;
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[a].x, particles[a].y);
-                        ctx.lineTo(particles[b].x, particles[b].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-            requestAnimationFrame(animate);
-        }
-
-        init();
-        animate();
-    })();
-
-    // TYPING EFFECT
-    (function() {
-        const el = document.querySelector(".txt-type");
-        if (!el) return;
-        
-        const words = JSON.parse(el.getAttribute("data-words"));
-        const wait = parseInt(el.getAttribute("data-wait")) || 2000;
-        let txt = '', wordIndex = 0, isDeleting = false;
-
-        function type() {
-            const current = wordIndex % words.length;
-            const full = words[current];
-            txt = isDeleting ? full.substring(0, txt.length - 1) : full.substring(0, txt.length + 1);
-            el.innerHTML = txt + '<span class="cursor">|</span>';
-            
-            let speed = isDeleting ? 50 : 100;
-            if (!isDeleting && txt === full) { speed = wait; isDeleting = true; }
-            else if (isDeleting && txt === '') { isDeleting = false; wordIndex++; speed = 500; }
-            
-            setTimeout(type, speed);
-        }
-        type();
-    })();
-
-    // SCROLL PROGRESS
-    (function() {
-        const bar = document.querySelector('.scroll-progress');
-        if (!bar) return;
-        window.addEventListener('scroll', () => {
-            const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-            bar.style.width = pct + '%';
-        });
-    })();
-
-    // MOBILE MENU
-    (function() {
-        const toggle = document.querySelector('.mobile-menu-toggle');
-        const nav = document.querySelector('.nav-links');
-        if (!toggle || !nav) return;
-        
-        toggle.addEventListener('click', () => {
-            nav.classList.toggle('active');
-            const spans = toggle.querySelectorAll('span');
-            if (nav.classList.contains('active')) {
-                spans[0].style.transform = 'rotate(45deg) translate(5px,5px)';
-                spans[1].style.opacity = '0';
-                spans[2].style.transform = 'rotate(-45deg) translate(5px,-5px)';
-            } else {
-                spans[0].style.transform = '';
-                spans[1].style.opacity = '1';
-                spans[2].style.transform = '';
-            }
-        });
-    })();
-
-    // COUNTERS
-    (function() {
-        const counters = document.querySelectorAll(".counter");
-        if (counters.length === 0) return;
-        
-        const obs = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const counter = entry.target;
-                    const target = parseInt(counter.getAttribute("data-target"));
-                    let current = 0;
-                    const inc = target / 50;
-                    const timer = setInterval(() => {
-                        current += inc;
-                        if (current >= target) {
-                            counter.innerText = target + (target >= 100 ? "+" : "");
-                            clearInterval(timer);
-                        } else {
-                            counter.innerText = Math.ceil(current);
-                        }
-                    }, 40);
-                    obs.unobserve(counter);
-                }
-            });
-        }, { threshold: 0.5 });
-        
-        counters.forEach(c => obs.observe(c));
-    })();
-
-    // SCROLL ANIMATIONS
-    (function() {
-        const els = document.querySelectorAll(".scroll-animate, .glow-card, .stat-item");
-        const obs = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); obs.unobserve(e.target); }});
-        }, { threshold: 0.1 });
-        els.forEach(el => obs.observe(el));
-    })();
-
-    // MODAL FUNCTIONS
     window.openModal = function(id) {
         const data = projectData[id];
         if (!data) return;
-        document.getElementById("modalTitle").innerText = data.title;
-        document.getElementById("modalDescription").innerHTML = data.desc;
-        document.getElementById("modalLink").href = data.link;
-        document.getElementById("modalCodeBlock").innerHTML = '<code>' + data.code.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>') + '</code>';
-        document.getElementById("projectModal").style.display = "flex";
-        document.body.style.overflow = "hidden";
+        document.getElementById('modalTitle').innerText = data.title;
+        document.getElementById('modalDescription').innerHTML = data.desc;
+        const link = document.getElementById('modalLink');
+        link.href = data.link;
+        link.style.display = data.link === '#' ? 'none' : 'inline-flex';
+        let code = data.code
+            .replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>')
+            .replace(/(def|import|from|return|class|self|torch|nn)\b/g, '<span class="code-keyword">$1</span>');
+        document.getElementById('modalCodeBlock').innerHTML = '<code>' + code + '</code>';
+        document.getElementById('projectModal').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
     };
 
     window.closeModal = function() {
-        document.getElementById("projectModal").style.display = "none";
-        document.body.style.overflow = "";
+        document.getElementById('projectModal').style.display = 'none';
+        document.body.style.overflow = '';
     };
 
-    window.oncl
+    window.addEventListener('click', function(e) {
+        if (e.target === document.getElementById('projectModal')) closeModal();
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeModal();
+    });
+    </script>
+</body>
+</html>
