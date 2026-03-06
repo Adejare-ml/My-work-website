@@ -1,0 +1,49 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Royal blue background -->
+  <rect width="100" height="100" rx="16" fill="#1E3FAE"/>
+  
+  <!--
+    Logo structure analysis:
+    - Two tall outer legs forming big A, with 3 crown spikes at top
+    - Inner smaller A shape (inverted triangle) with a horizontal crossbar
+    - Decorative horizontal feet at bottom of each leg
+    
+    Coordinate system: 0,0 top-left, 100,100 bottom-right
+    Center X = 50
+  -->
+  
+  <g fill="white">
+    <!-- ===== OUTER A FRAME ===== -->
+    <!-- Left outer leg: bottom-left to top-center -->
+    <polygon points="10,85 17,85 50,14 43,14"/>
+    <!-- Right outer leg: bottom-right to top-center -->
+    <polygon points="90,85 83,85 50,14 57,14"/>
+
+    <!-- ===== THREE CROWN SPIKES ===== -->
+    <!-- Left spike -->
+    <polygon points="43,18 47,18 43,6 38,12"/>
+    <!-- Center spike (tallest) -->
+    <polygon points="46,11 54,11 50,2"/>
+    <!-- Right spike -->
+    <polygon points="57,18 53,18 57,6 62,12"/>
+
+    <!-- ===== INNER A (smaller, creates the hollow effect) ===== -->
+    <!-- Inner left leg -->
+    <polygon points="28,82 34,82 50,36 46,36"/>
+    <!-- Inner right leg -->
+    <polygon points="72,82 66,82 50,36 54,36"/>
+
+    <!-- ===== CROSSBAR ===== -->
+    <rect x="34" y="57" width="32" height="6" rx="1"/>
+
+    <!-- ===== BOTTOM FEET (horizontal serifs) ===== -->
+    <!-- Outer left foot -->
+    <rect x="7"  y="80" width="14" height="5" rx="1"/>
+    <!-- Inner left foot -->
+    <rect x="26" y="78" width="10" height="5" rx="1"/>
+    <!-- Inner right foot -->
+    <rect x="64" y="78" width="10" height="5" rx="1"/>
+    <!-- Outer right foot -->
+    <rect x="79" y="80" width="14" height="5" rx="1"/>
+  </g>
+</svg>

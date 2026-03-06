@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Contact Adejare Adelugba - ML Engineer and Data Scientist available for freelance and full-time opportunities.">
+    <meta name="description" content="Contact Adejare Adelugba - ML Engineer open to freelance and full-time opportunities.">
+    <meta property="og:title" content="Contact | Adejare Adelugba">
+    <meta property="og:description" content="Get in touch to discuss ML projects, data engineering, and automation solutions.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="Gemini_Generated_Image_8u9w8n8u9w8n8u9w.png">
     <title>Contact | Adejare Adelugba</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -13,7 +18,26 @@
     <canvas id="neural-bg"></canvas>
 
     <nav>
-        <div class="logo">ADEJARE.AI</div>
+        <a href="index.html" class="logo">
+        <svg class="logo-mark" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="200" rx="32" fill="#1B3FA0"/>
+          <g fill="#FFFFFF">
+            <polygon points="12,168 42,168 100,30 74,30"/>
+            <polygon points="188,168 158,168 100,30 126,30"/>
+            <polygon points="74,34 86,34 72,6 64,14"/>
+            <polygon points="94,30 106,30 100,8"/>
+            <polygon points="126,34 114,34 128,6 136,14"/>
+            <polygon points="40,168 54,168 84,68 76,68"/>
+            <polygon points="160,168 146,168 116,68 124,68"/>
+            <rect x="52" y="106" width="96" height="14" rx="2"/>
+            <rect x="8"   y="158" width="42" height="12" rx="2"/>
+            <rect x="34"  y="154" width="28" height="12" rx="2"/>
+            <rect x="138" y="154" width="28" height="12" rx="2"/>
+            <rect x="150" y="158" width="42" height="12" rx="2"/>
+          </g>
+        </svg>
+        <span class="logo-text">ADEJARE.AI</span>
+      </a>
         <button class="mobile-menu-toggle" aria-label="Toggle navigation">
             <span></span><span></span><span></span>
         </button>
@@ -31,9 +55,8 @@
     </header>
 
     <div class="main-wrapper">
-        <div class="contact-container scroll-animate">
+        <div class="contact-container contact-entry">
 
-            <!-- Contact Info Panel -->
             <div class="contact-info">
                 <h3>Contact Information</h3>
                 <p class="info-text">I am currently open to freelance projects and full-time opportunities in Machine Learning and Data Science.</p>
@@ -44,9 +67,7 @@
                         <span class="label">Email</span>
                         <div class="value-box">
                             <span id="emailText">adelugbaadejare03@gmail.com</span>
-                            <button class="copy-btn" onclick="copyToClipboard('emailText', this)" title="Copy Email" aria-label="Copy email address">
-                                <i class="fas fa-copy"></i>
-                            </button>
+                            <button class="copy-btn" onclick="copyToClipboard('emailText', this)" title="Copy Email" aria-label="Copy email address"><i class="fas fa-copy"></i></button>
                         </div>
                     </div>
                 </div>
@@ -57,9 +78,7 @@
                         <span class="label">Phone</span>
                         <div class="value-box">
                             <span id="phoneText">0703 802 7765</span>
-                            <button class="copy-btn" onclick="copyToClipboard('phoneText', this)" title="Copy Number" aria-label="Copy phone number">
-                                <i class="fas fa-copy"></i>
-                            </button>
+                            <button class="copy-btn" onclick="copyToClipboard('phoneText', this)" title="Copy Number" aria-label="Copy phone number"><i class="fas fa-copy"></i></button>
                         </div>
                     </div>
                 </div>
@@ -78,47 +97,35 @@
                 </div>
 
                 <div class="social-links">
-                    <a href="https://github.com/adejare-dev" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="GitHub Profile">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn Profile">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="mailto:adelugbaadejare03@gmail.com" class="social-btn" aria-label="Send Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
+                    <a href="https://github.com/adejare-dev" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="mailto:adelugbaadejare03@gmail.com" class="social-btn" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="Adejare_Adelugba_CV.pdf" download class="social-btn" aria-label="Download CV" title="Download CV"><i class="fas fa-download"></i></a>
                 </div>
             </div>
 
-            <!-- Contact Form -->
             <form class="contact-form" name="submit-to-google-sheet" id="contactForm">
                 <h3>Send a Message</h3>
-
                 <div class="form-group">
                     <label for="name">Your Name</label>
                     <input type="text" id="name" name="name" placeholder="John Doe" required autocomplete="name">
                 </div>
-
                 <div class="form-group">
                     <label for="email">Email Address</label>
                     <input type="email" id="email" name="email" placeholder="john@example.com" required autocomplete="email">
                 </div>
-
                 <div class="form-group">
                     <label for="subject">Subject</label>
                     <input type="text" id="subject" name="subject" placeholder="Project Collaboration" required>
                 </div>
-
                 <div class="form-group">
                     <label for="message">Message</label>
                     <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
                 </div>
-
                 <button type="submit" class="btn btn-primary" id="submitBtn" style="width:100%;">
                     <span class="btn-text">Send Message</span>
                     <i class="fas fa-paper-plane"></i>
                 </button>
-
                 <div id="formStatus" class="form-status" role="status" aria-live="polite"></div>
             </form>
 
@@ -129,16 +136,14 @@
         <div class="footer-content">
             <p>Contact: adelugbaadejare03@gmail.com | Abuja, Nigeria</p>
             <div class="footer-social">
-                <a href="https://github.com/adejare-dev" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
+                <a href="https://github.com/adejare-dev" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
             </div>
         </div>
     </footer>
 
     <script src="script.js"></script>
     <script>
-    // Google Sheets form submission
     const scriptURL = 'https://script.google.com/macros/s/AKfycbzmSCWrVSrNNRVhTIIkfCzbWU52JWvMFRKdjRyUBY9a5XmlHhmKT60S8QDqR9GiNsdNrQ/exec';
     const form = document.getElementById('contactForm');
     const statusDiv = document.getElementById('formStatus');
@@ -150,53 +155,31 @@
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
         statusDiv.style.display = 'none';
         statusDiv.className = 'form-status';
-
         fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-            .then(function(response) {
-                if (!response.ok) throw new Error('Network error');
-                return response;
-            })
-            .then(function() {
-                showStatus("Message sent successfully! I'll get back to you soon.", 'success');
-                form.reset();
-            })
-            .catch(function(error) {
-                console.error('Error:', error);
-                showStatus('Error sending message. Please try again or email me directly.', 'error');
-            })
-            .finally(function() {
-                btn.disabled = false;
-                btn.innerHTML = '<span class="btn-text">Send Message</span> <i class="fas fa-paper-plane"></i>';
-            });
+            .then(r => { if (!r.ok) throw new Error('Network error'); return r; })
+            .then(() => { showStatus("Message sent! I'll get back to you soon.", 'success'); form.reset(); })
+            .catch(() => { showStatus('Error sending. Please email me directly.', 'error'); })
+            .finally(() => { btn.disabled = false; btn.innerHTML = '<span class="btn-text">Send Message</span> <i class="fas fa-paper-plane"></i>'; });
     });
 
-    function showStatus(message, type) {
-        statusDiv.innerText = message;
+    function showStatus(msg, type) {
+        statusDiv.innerText = msg;
         statusDiv.className = 'form-status ' + type;
         statusDiv.style.display = 'block';
-        if (type === 'success') {
-            setTimeout(function() { statusDiv.style.display = 'none'; }, 5000);
-        }
+        if (type === 'success') setTimeout(() => { statusDiv.style.display = 'none'; }, 5000);
     }
 
-    function copyToClipboard(elementId, btn) {
-        const text = document.getElementById(elementId).innerText;
-        navigator.clipboard.writeText(text).then(function() {
+    function copyToClipboard(id, btn) {
+        const text = document.getElementById(id).innerText;
+        navigator.clipboard.writeText(text).then(() => {
             const orig = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-check"></i>';
             btn.classList.add('copied');
-            setTimeout(function() {
-                btn.innerHTML = orig;
-                btn.classList.remove('copied');
-            }, 2000);
-        }).catch(function() {
-            // Fallback
+            setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+        }).catch(() => {
             const ta = document.createElement('textarea');
-            ta.value = text;
-            document.body.appendChild(ta);
-            ta.select();
-            document.execCommand('copy');
-            document.body.removeChild(ta);
+            ta.value = text; document.body.appendChild(ta); ta.select();
+            document.execCommand('copy'); document.body.removeChild(ta);
         });
     }
     </script>
