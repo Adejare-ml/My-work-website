@@ -1,265 +1,335 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#0D0810">
-  <title>Bunmi Adelugba & Co. | Excellence in Finance</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Adejare Adelugba - Machine Learning Engineer & Data Scientist. Building data infrastructure and intelligent automation systems.">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Adejare Adelugba | ML Engineer & Data Scientist">
+    <meta property="og:description" content="Computer Science Graduate specializing in ML, Data Systems & Automation. Based in Abuja, Nigeria.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://adejare.ai">
+    <meta property="og:image" content="Gemini_Generated_Image_8u9w8n8u9w8n8u9w.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Adejare Adelugba | ML Engineer">
+    <meta name="twitter:description" content="Building data infrastructure and intelligent automation systems.">
+    <title>Adejare Adelugba | ML Engineer & Data Scientist</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <nav class="site-nav">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 120" width="220" height="52"><defs><linearGradient id="gidx" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#E5C158"/><stop offset="100%" stop-color="#C59B27"/></linearGradient></defs><g stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M 22 20 L 46 20 A 16 16 0 0 1 46 52 L 22 52 Z" stroke="#F5F0EC"/><path d="M 22 52 L 50 52 A 18 18 0 0 1 50 88 L 22 88 Z" stroke="#F5F0EC"/><line x1="22" y1="20" x2="22" y2="88" stroke="#F5F0EC"/><path d="M 70 88 L 94 20 L 118 88" stroke="url(#gidx)"/><line x1="80" y1="62" x2="108" y2="62" stroke="url(#gidx)"/></g><text x="140" y="58" font-family="Cormorant Garamond,serif" font-size="30" font-weight="400" fill="#F5F0EC" letter-spacing="0.5">Bunmi Adelugba <tspan fill="url(#gidx)">&amp; Co.</tspan></text><text x="142" y="82" font-family="DM Sans,sans-serif" font-size="9" font-weight="500" fill="rgba(245,240,236,0.5)" letter-spacing="4">FINANCE &amp; CONSULTING</text></svg></a>
-      <ul class="nav-menu">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="blog.html">Insights</a></li>
-      </ul>
-      <a href="contact.html" class="nav-cta">Engage Us</a>
-      <button class="hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
-  <div class="nav-mobile-overlay" role="dialog" aria-label="Navigation menu">
-    <a href="index.html" class="active">Home</a>
-    <a href="about.html">About</a>
-    <a href="services.html">Services</a>
-    <a href="blog.html">Insights</a>
-    <a href="contact.html">Contact</a>
-  </div>
+    <div class="scroll-progress"></div>
+    <canvas id="neural-bg"></canvas>
 
-  <section class="hero-index">
-    <div class="hero-left">
-      <div class="hero-eyebrow reveal" data-delay="1">
-        <div class="eyebrow-line"></div>
-        <span class="eyebrow-text">Trusted Financial Advisory &middot; Abuja, Nigeria</span>
-      </div>
-      <h1 class="hero-h1 reveal" data-delay="2">
-        Excellence<br>in Finance.<br><em>Rooted in<br>Integrity.</em>
-      </h1>
-      <p class="hero-sub reveal" data-delay="3">
-        Premium audit, tax, and advisory solutions for the modern Nigerian business. We transform corporate complexity into strategic clarity.
-      </p>
-      <div class="hero-actions reveal" data-delay="4">
-        <a href="contact.html" class="btn-primary-gold"><span>Begin Conversation</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        <a href="services.html" class="btn-ghost">Our Services <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-      </div>
-    </div>
-    <div class="hero-right">
-      <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Professional Financial Advisory" class="hero-image-main" data-parallax="0.08">
-      <div class="hero-overlay-panel">
-        <div class="overlay-stat-num"><span class="counter" data-target="100">0</span>%</div>
-        <div class="overlay-stat-label">Client Compliance Rate</div>
-      </div>
-    </div>
-    <div class="hero-scroll-hint">
-      <div class="scroll-line"></div>
-      <span class="scroll-label">Scroll</span>
-    </div>
-  </section>
-
-  <div class="marquee-section">
-    <div class="marquee-track">
-      <div class="marquee-item"><span class="marquee-dot"></span>Tax Advisory</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>Statutory Audit</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>Financial Strategy</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>Corporate Governance</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>Risk Management</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>Bookkeeping &amp; Accounting</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>FIRS Compliance</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>Financial Reporting</div>
-    </div>
-  </div>
-
-  <div class="metrics-band">
-    <div class="metrics-inner">
-      <div class="metric-item reveal">
-        <div class="metric-num"><span class="counter" data-target="15">0</span>+</div>
-        <div class="metric-label">Years of Excellence</div>
-      </div>
-      <div class="metric-item reveal" data-delay="2">
-        <div class="metric-num"><span class="counter" data-target="100">0</span>+</div>
-        <div class="metric-label">Corporate Clients Served</div>
-      </div>
-      <div class="metric-item reveal" data-delay="4">
-        <div class="metric-num">Top<span style="color:var(--gold)">.</span></div>
-        <div class="metric-label">Tier Advisory Firm</div>
-      </div>
-    </div>
-  </div>
-
-  <section class="section">
-    <div class="section-inner">
-      <div class="section-header">
-        <div>
-          <div class="section-label reveal"><div class="section-label-line"></div><span class="section-label-text">What We Do</span></div>
-          <h2 class="section-title reveal" data-delay="2">Our <em>Expertise</em></h2>
+    <nav>
+        <a href="index.html" class="logo">
+        <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100" height="100" rx="16" fill="#1E3FAE"/>
+          <g fill="white">
+            <polygon points="10,85 17,85 50,14 43,14"/>
+            <polygon points="90,85 83,85 50,14 57,14"/>
+            <polygon points="43,18 47,18 43,6 38,12"/>
+            <polygon points="46,11 54,11 50,2"/>
+            <polygon points="57,18 53,18 57,6 62,12"/>
+            <polygon points="28,82 34,82 50,36 46,36"/>
+            <polygon points="72,82 66,82 50,36 54,36"/>
+            <rect x="34" y="57" width="32" height="6" rx="1"/>
+            <rect x="7"  y="80" width="14" height="5" rx="1"/>
+            <rect x="26" y="78" width="10" height="5" rx="1"/>
+            <rect x="64" y="78" width="10" height="5" rx="1"/>
+            <rect x="79" y="80" width="14" height="5" rx="1"/>
+          </g>
+        </svg>
+        <span class="logo-text">ADEJARE.AI</span>
+      </a>
+        <button class="mobile-menu-toggle" aria-label="Toggle navigation">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links">
+            <a href="index.html" class="nav-item active">HOME</a>
+            <a href="about.html" class="nav-item">ABOUT</a>
+            <a href="projects.html" class="nav-item">PROJECTS &amp; EXP</a>
+            <a href="contact.html" class="nav-item">CONTACT</a>
         </div>
-        <p class="section-desc reveal" data-delay="3">Comprehensive financial solutions engineered for sustainable growth and unwavering compliance.</p>
-      </div>
-    </div>
+    </nav>
 
-    <div class="service-img-grid reveal-group">
-      <div class="service-img-card">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tax Advisory">
-        <div class="service-img-overlay">
-          <span class="service-img-label">01</span>
-          <h3 class="service-img-title">Tax Advisory</h3>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Adejare Adelugba</h1>
+            <h2 class="typing-text">
+                I am a <span class="txt-type" data-wait="2000" data-words='["Machine Learning Engineer", "Data Scientist", "Python Programmer", "Automation Specialist"]'></span>
+            </h2>
+            <p>Computer Science Graduate | IT Support, Data Systems &amp; Automation</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="document.querySelector('.stats-section').scrollIntoView({behavior:'smooth'})">View Impact</button>
+                <a href="https://github.com/adejare-dev" target="_blank" rel="noopener noreferrer">
+                    <button class="btn btn-secondary"><i class="fab fa-github"></i> GitHub</button>
+                </a>
+                <a href="Adejare_Adelugba_CV.pdf" download>
+                    <button class="cv-download-btn cv-pulse"><i class="fas fa-download"></i> Download CV</button>
+                </a>
+            </div>
         </div>
-      </div>
-      <div class="service-img-card">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Audit">
-        <div class="service-img-overlay">
-          <span class="service-img-label">02</span>
-          <h3 class="service-img-title">Audit &amp; Assurance</h3>
+        <div class="hero-image-container">
+            <img src="per work.jpg" alt="Adejare Adelugba" class="profile-pic">
         </div>
-      </div>
-      <div class="service-img-card">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Financial Strategy">
-        <div class="service-img-overlay">
-          <span class="service-img-label">03</span>
-          <h3 class="service-img-title">Financial Strategy</h3>
+        <div class="scroll-down" onclick="document.querySelector('.stats-section').scrollIntoView({behavior:'smooth'})">
+            <i class="fas fa-chevron-down"></i>
         </div>
-      </div>
+    </section>
+
+    <!-- TICKER STRIP -->
+    <div class="ticker-strip">
+        <div class="ticker-track">
+            <span class="ticker-item"><i class="fab fa-python"></i> PYTHON</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-item"><i class="fas fa-brain"></i> MACHINE LEARNING</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-item"><i class="fas fa-database"></i> POSTGRESQL</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-item"><i class="fas fa-robot"></i> PYTORCH</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-item"><i class="fas fa-spider"></i> SELENIUM</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-item"><i class="fas fa-chart-line"></i> DATA SCIENCE</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-item"><i class="fas fa-bolt"></i> FASTAPI</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-item"><i class="fas fa-microscope"></i> MEDCLIP</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-item"><i class="fas fa-code-branch"></i> GIT / GITHUB</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-item"><i class="fas fa-table"></i> TABNET</span>
+            <span class="ticker-dot"></span>
+            <!-- duplicate for seamless loop -->
+            <span class="ticker-item"><i class="fab fa-python"></i> PYTHON</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-item"><i class="fas fa-brain"></i> MACHINE LEARNING</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-item"><i class="fas fa-database"></i> POSTGRESQL</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-item"><i class="fas fa-robot"></i> PYTORCH</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-item"><i class="fas fa-spider"></i> SELENIUM</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-item"><i class="fas fa-chart-line"></i> DATA SCIENCE</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-item"><i class="fas fa-bolt"></i> FASTAPI</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-item"><i class="fas fa-microscope"></i> MEDCLIP</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-item"><i class="fas fa-code-branch"></i> GIT / GITHUB</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-item"><i class="fas fa-table"></i> TABNET</span>
+            <span class="ticker-dot"></span>
+        </div>
     </div>
 
-    <div class="section-inner" style="margin-top:2px;">
-      <div class="services-grid">
-        <div class="service-tile reveal" data-delay="1">
-          <span class="service-tile-num">01</span>
-          <h3 class="service-tile-title">Tax Planning &amp; Compliance</h3>
-          <p class="service-tile-desc">Proactive strategies to optimise your corporate tax position while ensuring rigorous FIRS adherence.</p>
-          <div class="service-tile-arrow"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        </div>
-        <div class="service-tile reveal" data-delay="2">
-          <span class="service-tile-num">02</span>
-          <h3 class="service-tile-title">Statutory Audit</h3>
-          <p class="service-tile-desc">Thorough, independent examination providing stakeholders with absolute assurance and transparency.</p>
-          <div class="service-tile-arrow"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        </div>
-        <div class="service-tile reveal" data-delay="3">
-          <span class="service-tile-num">03</span>
-          <h3 class="service-tile-title">Financial Strategy</h3>
-          <p class="service-tile-desc">Data-driven modeling and capital structure advisory for mergers, acquisitions, and expansions.</p>
-          <div class="service-tile-arrow"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        </div>
-        <div class="service-tile reveal" data-delay="1">
-          <span class="service-tile-num">04</span>
-          <h3 class="service-tile-title">Bookkeeping &amp; Accounting</h3>
-          <p class="service-tile-desc">Accurate, timely ledger management and reporting for clear operational visibility.</p>
-          <div class="service-tile-arrow"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        </div>
-        <div class="service-tile reveal" data-delay="2">
-          <span class="service-tile-num">05</span>
-          <h3 class="service-tile-title">Risk Management</h3>
-          <p class="service-tile-desc">Identifying vulnerabilities and implementing robust controls to safeguard corporate assets.</p>
-          <div class="service-tile-arrow"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        </div>
-        <div class="service-tile reveal" data-delay="3">
-          <span class="service-tile-num">06</span>
-          <h3 class="service-tile-title">Corporate Governance</h3>
-          <p class="service-tile-desc">Frameworks that ensure transparency, accountability, and long-term stakeholder trust.</p>
-          <div class="service-tile-arrow"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        </div>
-      </div>
-    </div>
-  </section>
+    <section class="stats-section scroll-animate">
+        <div class="stat-item"><h2 class="counter" data-target="3">0</h2><p>Years Experience</p></div>
+        <div class="stat-item"><h2 class="counter" data-target="15">0</h2><p>Projects Completed</p></div>
+        <div class="stat-item"><h2 class="counter" data-target="87">0</h2><p>% Accuracy (Thesis)</p></div>
+        <div class="stat-item"><h2 class="counter" data-target="1000">0</h2><p>Data Points Scraped</p></div>
+    </section>
 
-  <div class="about-strip">
-    <div class="about-strip-inner">
-      <div class="about-image-wrap reveal-left">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="BAC Office">
-        <div class="about-image-accent"></div>
-      </div>
-      <div>
-        <div class="section-label reveal"><div class="section-label-line"></div><span class="section-label-text">Our Ethos</span></div>
-        <h2 class="section-title reveal" data-delay="2" style="margin:20px 0 0;">Rooted in <em>Excellence</em></h2>
-        <blockquote class="about-quote reveal" data-delay="3">"We do not merely file numbers. We build the financial confidence that companies need to lead."</blockquote>
-        <p class="about-body reveal" data-delay="4">Established with a singular vision: to elevate the standard of financial reporting, tax planning, and corporate advisory in Nigeria. We partner with businesses of all sizes, providing the clarity and foresight necessary to navigate complex financial landscapes.</p>
-        <a href="about.html" class="btn-primary-gold reveal" data-delay="5"><span>Our Story</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-      </div>
-    </div>
-  </div>
+    <section class="grid-container">
+        <div class="glow-card scroll-animate">
+            <div class="card-content">
+                <h3>Multimodal Cancer Detection</h3>
+                <p class="tech-stack">PyTorch &bull; MedCLIP &bull; TabNet</p>
+                <p><strong>B.Sc. Final Year Project:</strong> Early breast cancer detection fusing ultrasound imaging with clinical data.</p>
+                <button class="card-btn" onclick="openModal('cancer_fusion')">View Analysis</button>
+            </div>
+        </div>
+        <div class="glow-card scroll-animate">
+            <div class="card-content">
+                <h3>Polling Unit Scraper</h3>
+                <p class="tech-stack">Python &bull; Selenium &bull; PostgreSQL</p>
+                <p>Selenium-based automation collecting polling unit data across all 36 Nigerian states with 99.9% accuracy.</p>
+                <button class="card-btn" onclick="openModal('polling')">View Details</button>
+            </div>
+        </div>
+        <div class="glow-card scroll-animate">
+            <div class="card-content">
+                <h3>Workflow Automation</h3>
+                <p class="tech-stack">Python &bull; Pandas &bull; openpyxl</p>
+                <p>Reduced manual reporting time by 90% via Python automation pipelines at TETFund.</p>
+                <button class="card-btn" onclick="openModal('automation')">View Details</button>
+            </div>
+        </div>
+        <div class="glow-card scroll-animate github-card">
+            <div class="card-content center-content">
+                <h3>Explore More</h3>
+                <p>Check out my other repositories and contributions on GitHub.</p>
+                <a href="https://github.com/adelugbaadejare034-blip" target="_blank" rel="noopener noreferrer">
+                    <button class="card-btn">Visit Profile &rarr;</button>
+                </a>
+            </div>
+        </div>
+    </section>
 
-  <section class="section">
-    <div class="section-inner">
-      <div class="section-header">
-        <div>
-          <div class="section-label reveal"><div class="section-label-line"></div><span class="section-label-text">Latest Thinking</span></div>
-          <h2 class="section-title reveal" data-delay="2">Industry <em>Insights</em></h2>
+    <!-- SKILLS RADAR -->
+    <section class="skills-radar-section scroll-animate">
+        <h2 class="skills-title" style="text-align:center;margin-bottom:3rem;">Skills &amp; Proficiency</h2>
+        <div class="radar-grid">
+            <div class="skill-bars">
+                <div class="skill-bar-item">
+                    <div class="skill-bar-header"><span>Python</span><span>92%</span></div>
+                    <div class="skill-bar-track"><div class="skill-bar-fill" data-width="92"></div></div>
+                </div>
+                <div class="skill-bar-item">
+                    <div class="skill-bar-header"><span>Machine Learning / AI</span><span>85%</span></div>
+                    <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
+                </div>
+                <div class="skill-bar-item">
+                    <div class="skill-bar-header"><span>Data Engineering</span><span>80%</span></div>
+                    <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div>
+                </div>
+                <div class="skill-bar-item">
+                    <div class="skill-bar-header"><span>SQL &amp; Databases</span><span>75%</span></div>
+                    <div class="skill-bar-track"><div class="skill-bar-fill" data-width="75"></div></div>
+                </div>
+                <div class="skill-bar-item">
+                    <div class="skill-bar-header"><span>Automation &amp; Scraping</span><span>88%</span></div>
+                    <div class="skill-bar-track"><div class="skill-bar-fill" data-width="88"></div></div>
+                </div>
+                <div class="skill-bar-item">
+                    <div class="skill-bar-header"><span>Web Development</span><span>65%</span></div>
+                    <div class="skill-bar-track"><div class="skill-bar-fill" data-width="65"></div></div>
+                </div>
+            </div>
+            <div class="radar-chart-wrap">
+                <svg id="radarSvg" class="radar-svg" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg"></svg>
+            </div>
         </div>
-        <a href="blog.html" class="btn-ghost reveal" data-delay="3">All Articles <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-      </div>
-    </div>
-    <div class="insights-grid">
-      <div class="insight-card reveal">
-        <div class="insight-img-wrap"><img loading="lazy" src="https://images.unsplash.com/photo-1554224154-26032ffc0d04?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tax"></div>
-        <div class="insight-body">
-          <span class="insight-tag">Tax Updates</span>
-          <h3 class="insight-title">Navigating the 2026 FIRS Guidelines</h3>
-          <p class="insight-excerpt">A breakdown of recent changes to corporate tax filings and what it means for your business going forward.</p>
-          <a href="#" class="insight-read-more">Read Article <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-      </div>
-      <div class="insight-card reveal" data-delay="2">
-        <div class="insight-img-wrap"><img loading="lazy" src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Audit"></div>
-        <div class="insight-body">
-          <span class="insight-tag">Audit &amp; Assurance</span>
-          <h3 class="insight-title">Internal Audits for Startups</h3>
-          <p class="insight-excerpt">Why early-stage companies shouldn&rsquo;t wait until their first funding round to organise their books.</p>
-          <a href="#" class="insight-read-more">Read Article <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-      </div>
-      <div class="insight-card reveal" data-delay="4">
-        <div class="insight-img-wrap"><img loading="lazy" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Strategy"></div>
-        <div class="insight-body">
-          <span class="insight-tag">Strategy</span>
-          <h3 class="insight-title">Cash Flow in a Volatile Economy</h3>
-          <p class="insight-excerpt">Building resilient financial models that withstand macroeconomic shifts in the Nigerian market.</p>
-          <a href="#" class="insight-read-more">Read Article <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-top">
-        <div>
-          <div class="footer-brand-name"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 120" width="260" height="60"><defs><linearGradient id="gfidx" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#E5C158"/><stop offset="100%" stop-color="#C59B27"/></linearGradient></defs><g stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M 22 20 L 46 20 A 16 16 0 0 1 46 52 L 22 52 Z" stroke="#F5F0EC"/><path d="M 22 52 L 50 52 A 18 18 0 0 1 50 88 L 22 88 Z" stroke="#F5F0EC"/><line x1="22" y1="20" x2="22" y2="88" stroke="#F5F0EC"/><path d="M 70 88 L 94 20 L 118 88" stroke="url(#gfidx)"/><line x1="80" y1="62" x2="108" y2="62" stroke="url(#gfidx)"/></g><text x="140" y="58" font-family="Cormorant Garamond,serif" font-size="30" font-weight="400" fill="#F5F0EC" letter-spacing="0.5">Bunmi Adelugba <tspan fill="url(#gfidx)">&amp; Co.</tspan></text><text x="142" y="82" font-family="DM Sans,sans-serif" font-size="9" font-weight="500" fill="rgba(245,240,236,0.5)" letter-spacing="4">FINANCE &amp; CONSULTING</text></svg></div>
-          <p class="footer-tagline">Transforming complex financials into clear, strategic growth paths for Nigerian businesses.</p>
+    <section class="skills-section scroll-animate">
+        <h2 class="skills-title">Technical Arsenal</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h4>Languages</h4>
+                <div class="skills-wrapper">
+                    <span class="skill-tag accent">Python</span>
+                    <span class="skill-tag dark">C#</span>
+                    <span class="skill-tag dark">C++</span>
+                    <span class="skill-tag dark">SQL</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h4>AI &amp; Machine Learning</h4>
+                <div class="skills-wrapper">
+                    <span class="skill-tag accent">PyTorch</span>
+                    <span class="skill-tag accent">MedCLIP</span>
+                    <span class="skill-tag accent">TabNet</span>
+                    <span class="skill-tag dark">Scikit-Learn</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h4>Tools &amp; Platforms</h4>
+                <div class="skills-wrapper">
+                    <span class="skill-tag dark">Selenium</span>
+                    <span class="skill-tag dark">Git/GitHub</span>
+                    <span class="skill-tag dark">PostgreSQL</span>
+                    <span class="skill-tag dark">FastAPI</span>
+                </div>
+            </div>
         </div>
-        <div>
-          <div class="footer-col-title">Navigation</div>
-          <ul class="footer-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="blog.html">Insights</a></li>
-            <li><a href="contact.html">Contact</a></li>
-          </ul>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Contact: adelugbaadejare03@gmail.com | Abuja, Nigeria</p>
+            <div class="footer-social">
+                <a href="https://github.com/adejare-dev" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
         </div>
-        <div>
-          <div class="footer-col-title">Contact</div>
-          <p class="footer-contact-item">badecharteredaccts.ng@gmail.com</p>
-          <p class="footer-contact-item">Plot 6, Ekikunam Street, Utako, Abuja.</p>
-          <p class="footer-contact-item">Mon &ndash; Fri: 8:00 AM &ndash; 5:00 PM</p>
+    </footer>
+
+    <div id="projectModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()" aria-label="Close">&times;</button>
+            <h2 id="modalTitle" style="padding:2.5rem 2.5rem 0;"></h2>
+            <div class="modal-body">
+                <div id="modalDescription"></div>
+                <div class="code-block" id="modalCodeBlock"></div>
+                <div class="modal-link-container">
+                    <a id="modalLink" href="#" target="_blank" rel="noopener noreferrer">View Repository <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="footer-bottom">
-        <p class="footer-copy">&copy; 2026 Bunmi Adelugba &amp; Co. All rights reserved.</p>
-        <div class="footer-legal">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
-        </div>
-      </div>
     </div>
-  </footer>
-  <script src="main.js"></script>
+
+    <script src="script.js"></script>
+    <script>
+    const projectData = {
+        'cancer_fusion': {
+            title: 'Multimodal Breast Cancer Detection',
+            desc: `<strong>Overview:</strong><br>Final year thesis combining ultrasound imaging with clinical data using early fusion.<br><br><strong>Results:</strong> 82.7% Accuracy &bull; 87.1% ROC-AUC`,
+            code: `class CancerDetectionModel(nn.Module):
+    def __init__(self):
+        self.medclip = MedCLIPModel()
+        self.tabnet = TabNetEncoder()
+        self.fusion = nn.Linear(576, 2)
+    def forward(self, image, tabular):
+        img_emb = self.medclip(image)
+        tab_emb = self.tabnet(tabular)
+        combined = torch.cat([img_emb, tab_emb], dim=1)
+        return self.fusion(combined)`,
+            link: 'https://github.com/adelugbaadejare034-blip/Breast_cancer_detention_using_muilt_modal_analysis'
+        },
+        'polling': {
+            title: 'Nigeria Polling Unit Scraper',
+            desc: `<strong>Overview:</strong><br>Large-scale web scraping across all 36 Nigerian states.<br><br><strong>Impact:</strong> 99.9% accuracy &bull; 90% time reduction`,
+            code: `from selenium import webdriver
+import pandas as pd
+
+def scrape_polling_units():
+    driver = webdriver.Chrome()
+    data = []
+    for state in states:
+        results = extract_state_data(driver, state)
+        data.extend(results)
+    return pd.DataFrame(data)`,
+            link: '#'
+        },
+        'automation': {
+            title: 'TETFund Workflow Automation',
+            desc: `<strong>Overview:</strong><br>Python automation pipeline for institutional report processing.<br><br><strong>Impact:</strong> 90% time reduction`,
+            code: `import pandas as pd
+from pathlib import Path
+
+def process_reports(input_dir):
+    reports = Path(input_dir).glob("*.xlsx")
+    cleaned_data = []
+    for report in reports:
+        df = pd.read_excel(report)
+        cleaned = clean_and_validate(df)
+        cleaned_data.append(cleaned)
+    return pd.concat(cleaned_data)`,
+            link: '#'
+        }
+    };
+    window.openModal = function(id) {
+        const data = projectData[id]; if (!data) return;
+        document.getElementById('modalTitle').innerText = data.title;
+        document.getElementById('modalDescription').innerHTML = data.desc;
+        const link = document.getElementById('modalLink');
+        link.href = data.link; link.style.display = data.link === '#' ? 'none' : 'inline-flex';
+        let code = data.code.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')
+            .replace(/(def|import|from|return|class|self|torch|nn)\b/g,'<span class="code-keyword">$1</span>');
+        document.getElementById('modalCodeBlock').innerHTML = '<code>' + code + '</code>';
+        document.getElementById('projectModal').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    };
+    window.closeModal = function() {
+        document.getElementById('projectModal').style.display = 'none';
+        document.body.style.overflow = '';
+    };
+    window.addEventListener('click', e => { if (e.target === document.getElementById('projectModal')) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+    </script>
 </body>
 </html>
-
