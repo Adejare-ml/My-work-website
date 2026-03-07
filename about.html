@@ -1,149 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#0D0810">
-  <title>About Us | Bunmi Adelugba & Co.</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="About Adejare Adelugba - ML Engineer specializing in data infrastructure and automation.">
+    <meta property="og:title" content="About | Adejare Adelugba">
+    <meta property="og:description" content="ML Engineer specializing in data infrastructure, automation and intelligent systems.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="Gemini_Generated_Image_8u9w8n8u9w8n8u9w.png">
+    <title>About | Adejare Adelugba</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <nav class="site-nav">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 120" width="220" height="52"><defs><linearGradient id="gabt" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#E5C158"/><stop offset="100%" stop-color="#C59B27"/></linearGradient></defs><g stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M 22 20 L 46 20 A 16 16 0 0 1 46 52 L 22 52 Z" stroke="#F5F0EC"/><path d="M 22 52 L 50 52 A 18 18 0 0 1 50 88 L 22 88 Z" stroke="#F5F0EC"/><line x1="22" y1="20" x2="22" y2="88" stroke="#F5F0EC"/><path d="M 70 88 L 94 20 L 118 88" stroke="url(#gabt)"/><line x1="80" y1="62" x2="108" y2="62" stroke="url(#gabt)"/></g><text x="140" y="58" font-family="Cormorant Garamond,serif" font-size="30" font-weight="400" fill="#F5F0EC" letter-spacing="0.5">Bunmi Adelugba <tspan fill="url(#gabt)">&amp; Co.</tspan></text><text x="142" y="82" font-family="DM Sans,sans-serif" font-size="9" font-weight="500" fill="rgba(245,240,236,0.5)" letter-spacing="4">FINANCE &amp; CONSULTING</text></svg></a>
-      <ul class="nav-menu">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html" class="active">About</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="blog.html">Insights</a></li>
-      </ul>
-      <a href="contact.html" class="nav-cta">Engage Us</a>
-      <button class="hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
-  <div class="nav-mobile-overlay" role="dialog" aria-label="Navigation menu">
-    <a href="index.html">Home</a>
-    <a href="about.html" class="active">About</a>
-    <a href="services.html">Services</a>
-    <a href="blog.html">Insights</a>
-    <a href="contact.html">Contact</a>
-  </div>
-  <div style="position:relative;background:var(--surface);border-bottom:1px solid var(--border);">
-    <div class="page-hero">
-      <div class="page-hero-num">01</div>
-      <div class="section-label reveal"><div class="section-label-line"></div><span class="section-label-text">Who We Are</span></div>
-      <h1 class="page-hero-title reveal" data-delay="2">About Our<br><em>Firm</em></h1>
-      <p class="page-hero-sub reveal" data-delay="3">Decades of collective experience delivering uncompromising financial integrity across Nigeria.</p>
-    </div>
-  </div>
-  <div class="page-divider"></div>
+    <div class="scroll-progress"></div>
+    <canvas id="neural-bg"></canvas>
 
-  <section class="section">
-    <div class="about-content">
-      <p class="about-lead reveal">Bunmi Adelugba &amp; Co. was established with a singular vision: to elevate the standard of financial reporting, tax planning, and corporate advisory in Nigeria.</p>
-      <div class="about-grid">
-        <div class="about-text-block">
-          <p class="reveal">We partner with businesses of all sizes — from emerging startups to established corporations — providing the clarity and strategic foresight necessary to navigate complex financial landscapes.</p>
-          <p class="reveal" data-delay="2">Our team comprises seasoned professionals with deep expertise in Nigerian tax law, international financial reporting standards, and corporate governance frameworks. We do not merely advise; we become strategic partners invested in your long-term success.</p>
-          <p class="reveal" data-delay="3">At BAC, integrity is not a policy — it is the foundation upon which every client engagement is built. We believe financial clarity is the bedrock of sustainable business growth.</p>
-          <div style="margin-top:3rem;">
-            <a href="contact.html" class="btn-primary-gold reveal" data-delay="4"><span>Partner With Us</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          </div>
+    <nav>
+        <a href="index.html" class="logo">
+        <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100" height="100" rx="16" fill="#1E3FAE"/>
+          <g fill="white">
+            <polygon points="10,85 17,85 50,14 43,14"/>
+            <polygon points="90,85 83,85 50,14 57,14"/>
+            <polygon points="43,18 47,18 43,6 38,12"/>
+            <polygon points="46,11 54,11 50,2"/>
+            <polygon points="57,18 53,18 57,6 62,12"/>
+            <polygon points="28,82 34,82 50,36 46,36"/>
+            <polygon points="72,82 66,82 50,36 54,36"/>
+            <rect x="34" y="57" width="32" height="6" rx="1"/>
+            <rect x="7"  y="80" width="14" height="5" rx="1"/>
+            <rect x="26" y="78" width="10" height="5" rx="1"/>
+            <rect x="64" y="78" width="10" height="5" rx="1"/>
+            <rect x="79" y="80" width="14" height="5" rx="1"/>
+          </g>
+        </svg>
+        <span class="logo-text">ADEJARE.AI</span>
+      </a>
+        <button class="mobile-menu-toggle" aria-label="Toggle navigation">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links">
+            <a href="index.html" class="nav-item">HOME</a>
+            <a href="about.html" class="nav-item active">ABOUT</a>
+            <a href="projects.html" class="nav-item">PROJECTS &amp; EXP</a>
+            <a href="contact.html" class="nav-item">CONTACT</a>
         </div>
-        <div>
-          <div class="section-label reveal" style="margin-bottom:24px;"><div class="section-label-line"></div><span class="section-label-text">Our Core Values</span></div>
-          <ul class="values-list reveal" data-delay="2">
-            <li class="value-item"><span class="value-num">01</span><div><div class="value-title">Integrity Above All</div><div class="value-desc">Every engagement is anchored by ethical conduct and transparent communication.</div></div></li>
-            <li class="value-item"><span class="value-num">02</span><div><div class="value-title">Precision &amp; Accuracy</div><div class="value-desc">We treat every figure with the gravity it deserves, leaving no detail unexamined.</div></div></li>
-            <li class="value-item"><span class="value-num">03</span><div><div class="value-title">Strategic Foresight</div><div class="value-desc">We look beyond compliance to identify opportunities that drive growth.</div></div></li>
-            <li class="value-item"><span class="value-num">04</span><div><div class="value-title">Client Partnership</div><div class="value-desc">We are not vendors — we are long-term partners invested in your outcomes.</div></div></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
+    </nav>
 
-  <div class="founder-section">
-    <div class="founder-inner">
-      <div class="founder-img-wrap reveal-left">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Bunmi Adelugba — Founder">
-        <div class="founder-img-frame"></div>
-        <div class="founder-img-caption">
-          <div class="founder-name">Bunmi Adelugba</div>
-          <div class="founder-title">Founder &amp; Principal Partner</div>
-        </div>
-      </div>
-      <div class="founder-content reveal" data-delay="2">
-        <div class="founder-role-badge">
-          <div class="eyebrow-line"></div>
-          <span class="eyebrow-text">Meet the Founder</span>
-        </div>
-        <h2 class="section-title" style="margin-bottom:1.5rem;">Bunmi <em>Adelugba</em></h2>
-        <p class="founder-bio">Bunmi Adelugba is a seasoned financial professional with over 15 years of experience in audit, tax advisory, and corporate financial management across Nigeria&rsquo;s private and public sectors.</p>
-        <p class="founder-bio">A fellow of the Institute of Chartered Accountants of Nigeria (ICAN), Bunmi founded BAC with a commitment to delivering financial services of the highest international standard, grounded in the realities of doing business in Nigeria.</p>
-        <p class="founder-bio">Her approach combines rigorous technical expertise with deep commercial insight — helping clients not only achieve compliance, but build lasting financial strength. Under her leadership, BAC has served over 100 corporate clients spanning manufacturing, real estate, professional services, and the public sector.</p>
-        <div class="founder-credentials">
-          <span class="credential-badge">ICAN Fellow</span>
-          <span class="credential-badge">15+ Years Experience</span>
-          <span class="credential-badge">Tax Specialist</span>
-          <span class="credential-badge">Corporate Governance</span>
-          <span class="credential-badge">FIRS Compliance</span>
-        </div>
-      </div>
-    </div>
-  </div>
+    <header class="page-header">
+        <h1>The Engineer Behind <span class="text-accent">the Code</span></h1>
+    </header>
 
-  <div class="about-strip" style="padding:80px 0;">
-    <div class="about-strip-inner">
-      <div class="about-image-wrap reveal-left">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="BAC Office">
-        <div class="about-image-accent"></div>
-      </div>
-      <div>
-        <div class="section-label reveal"><div class="section-label-line"></div><span class="section-label-text">Our Approach</span></div>
-        <h2 class="section-title reveal" data-delay="2" style="margin:20px 0 24px;">Where Precision<br>Meets <em>Strategy</em></h2>
-        <blockquote class="about-quote reveal" data-delay="3">"Financial clarity is not a luxury. It is the bedrock upon which every great business is built."</blockquote>
-        <p class="about-body reveal" data-delay="4">We combine deep technical expertise with a client-first philosophy. Our consultants engage with every business challenge as an opportunity — to uncover efficiencies, mitigate risks, and architect pathways to lasting financial strength.</p>
-      </div>
-    </div>
-  </div>
+    <section class="about-section">
+        <div class="about-content">
+            <div class="about-text">
+                <p class="lead">I specialize in building the data infrastructure that powers transparency and intelligent insights.</p>
+                <p>My professional journey is defined by solving complex bottlenecks. At <strong>Kontemporary Konsulting Ltd</strong>, I architected a <strong>Selenium-based scraping system</strong> that navigated multi-layered structures to extract polling unit results across all <strong>36 states of Nigeria</strong>.</p>
+                <p>Using <strong>Python</strong>, I transformed fragmented, unstructured web content into a clean, queryable <strong>PostgreSQL</strong> database with <strong>99.9% accuracy</strong>, reducing manual collection time by over <strong>90%</strong>.</p>
+                <p>My academic research into <strong>Multimodal Breast Cancer Detection</strong> — combining MedCLIP vision embeddings with TabNet tabular processing — achieved an <strong>87.1% ROC-AUC</strong>, demonstrating my ability to design and execute end-to-end ML pipelines.</p>
+                <div class="about-cta">
+                    <a href="projects.html" class="btn btn-primary">View My Projects</a>
+                    <a href="contact.html" class="btn btn-secondary">Get In Touch</a>
+                    <a href="Adejare_Adelugba_CV.pdf" download>
+                        <button class="cv-download-btn"><i class="fas fa-download"></i> Download CV</button>
+                    </a>
+                </div>
+            </div>
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-top">
-        <div>
-          <div class="footer-brand-name"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 120" width="260" height="60"><defs><linearGradient id="gfabt" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#E5C158"/><stop offset="100%" stop-color="#C59B27"/></linearGradient></defs><g stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M 22 20 L 46 20 A 16 16 0 0 1 46 52 L 22 52 Z" stroke="#F5F0EC"/><path d="M 22 52 L 50 52 A 18 18 0 0 1 50 88 L 22 88 Z" stroke="#F5F0EC"/><line x1="22" y1="20" x2="22" y2="88" stroke="#F5F0EC"/><path d="M 70 88 L 94 20 L 118 88" stroke="url(#gfabt)"/><line x1="80" y1="62" x2="108" y2="62" stroke="url(#gfabt)"/></g><text x="140" y="58" font-family="Cormorant Garamond,serif" font-size="30" font-weight="400" fill="#F5F0EC" letter-spacing="0.5">Bunmi Adelugba <tspan fill="url(#gfabt)">&amp; Co.</tspan></text><text x="142" y="82" font-family="DM Sans,sans-serif" font-size="9" font-weight="500" fill="rgba(245,240,236,0.5)" letter-spacing="4">FINANCE &amp; CONSULTING</text></svg></div>
-          <p class="footer-tagline">Transforming complex financials into clear, strategic growth paths for Nigerian businesses.</p>
+            <div class="about-highlight">
+                <div class="highlight-card">
+                    <h3>Quick Facts</h3>
+                    <ul>
+                        <li><strong>Education</strong><span>B.Sc. Computer Science</span></li>
+                        <li><strong>Primary Focus</strong><span>Data Systems &amp; ML</span></li>
+                        <li><strong>Key Tech</strong><span>FastAPI, Selenium, PostgreSQL</span></li>
+                        <li><strong>Location</strong><span>Abuja, Nigeria</span></li>
+                        <li><strong>Availability</strong><span class="status-available">Open to Opportunities</span></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div>
-          <div class="footer-col-title">Navigation</div>
-          <ul class="footer-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="blog.html">Insights</a></li>
-            <li><a href="contact.html">Contact</a></li>
-          </ul>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Contact: adelugbaadejare03@gmail.com | Abuja, Nigeria</p>
+            <div class="footer-social">
+                <a href="https://github.com/adejare-dev" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
         </div>
-        <div>
-          <div class="footer-col-title">Contact</div>
-          <p class="footer-contact-item">adelugbaadejare03@gmail.com</p>
-          <p class="footer-contact-item">Abuja, Nigeria</p>
-          <p class="footer-contact-item">Mon &ndash; Fri: 8:00 AM &ndash; 5:00 PM</p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p class="footer-copy">&copy; 2026 Bunmi Adelugba &amp; Co. All rights reserved.</p>
-        <div class="footer-legal">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
-        </div>
-      </div>
-    </div>
-  </footer>
-  <script src="main.js"></script>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
