@@ -144,69 +144,69 @@
 
     <script src="script.js"></script>
     <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzmSCWrVSrNNRVhTIIkfCzbWU52JWvMFRKdjRyUBY9a5XmlHhmKT60S8QDqR9GiNsdNrQ/exec';
-    const form      = document.getElementById('contactForm');
-    const statusDiv = document.getElementById('formStatus');
-    const btn       = document.getElementById('submitBtn');
+const scriptURL = 'https://script.google.com/macros/s/AKfycbzmSCWrVSrNNRVhTIIkfCzbWU52JWvMFRKdjRyUBY9a5XmlHhmKT60S8QDqR9GiNsdNrQ/exec';
+const form      = document.getElementById('contactForm');
+const statusDiv = document.getElementById('formStatus');
+const btn       = document.getElementById('submitBtn');
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-        statusDiv.style.display = 'none';
-        statusDiv.className = 'form-status';
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    statusDiv.style.display = 'none';
+    statusDiv.className = 'form-status';
 
-        // URLSearchParams — Apps Script e.parameter only reads
-        // application/x-www-form-urlencoded, NOT multipart FormData
-        const params = new URLSearchParams({
-            name:    document.getElementById('name').value,
-            email:   document.getElementById('email').value,
-            subject: document.getElementById('subject').value,
-            message: document.getElementById('message').value
-        });
-
-        fetch(scriptURL, {
-            method:  'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body:    params.toString()
-        })
-        .then(r => { if (!r.ok) throw new Error('Network error'); return r; })
-        .then(() => {
-            showStatus("Message sent! I'll get back to you soon.", 'success');
-            form.reset();
-        })
-        .catch(() => {
-            showStatus('Error sending. Please email me directly.', 'error');
-        })
-        .finally(() => {
-            btn.disabled = false;
-            btn.innerHTML = '<span class="btn-text">Send Message</span> <i class="fas fa-paper-plane"></i>';
-        });
+    // FIX: Apps Script e.parameter cannot read multipart/form-data (FormData).
+    // It ONLY reads application/x-www-form-urlencoded (URLSearchParams).
+    const params = new URLSearchParams({
+        name:    document.getElementById('name').value,
+        email:   document.getElementById('email').value,
+        subject: document.getElementById('subject').value,
+        message: document.getElementById('message').value
     });
 
-    function showStatus(msg, type) {
-        statusDiv.innerText = msg;
-        statusDiv.className = 'form-status ' + type;
-        statusDiv.style.display = 'block';
-        if (type === 'success') setTimeout(() => { statusDiv.style.display = 'none'; }, 5000);
-    }
+    fetch(scriptURL, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body:    params.toString()
+    })
+    .then(r => { if (!r.ok) throw new Error('Network error'); return r; })
+    .then(() => {
+        showStatus("Message sent! I'll get back to you soon.", 'success');
+        form.reset();
+    })
+    .catch(() => {
+        showStatus('Error sending. Please email me directly.', 'error');
+    })
+    .finally(() => {
+        btn.disabled = false;
+        btn.innerHTML = '<span class="btn-text">Send Message</span> <i class="fas fa-paper-plane"></i>';
+    });
+});
 
-    function copyToClipboard(id, btn) {
-        const text = document.getElementById(id).innerText;
-        navigator.clipboard.writeText(text).then(() => {
-            const orig = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-check"></i>';
-            btn.classList.add('copied');
-            setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
-        }).catch(() => {
-            const ta = document.createElement('textarea');
-            ta.value = text;
-            document.body.appendChild(ta);
-            ta.select();
-            document.execCommand('copy');
-            document.body.removeChild(ta);
-        });
-    }
-    </script>
+function showStatus(msg, type) {
+    statusDiv.innerText = msg;
+    statusDiv.className = 'form-status ' + type;
+    statusDiv.style.display = 'block';
+    if (type === 'success') setTimeout(() => { statusDiv.style.display = 'none'; }, 5000);
+}
+
+function copyToClipboard(id, btn) {
+    const text = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        const orig = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check"></i>';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+    }).catch(() => {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+    });
+}
+</script>
 </body>
 </html>
