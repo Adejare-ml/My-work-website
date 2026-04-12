@@ -708,8 +708,7 @@ nav {
     border:1px solid var(--glass-border);
     border-radius:16px; padding:2rem;
     backdrop-filter: blur(12px);
-    position: sticky;
-    top: 100px;
+    position: relative;
 }
 .highlight-card h3 {
     font-family: var(--font-heading);
@@ -1476,6 +1475,17 @@ nav {
     align-items: start;
     padding-top: 3rem;
 }
+/* Sidebar sticks as a whole column — individual cards scroll normally inside it */
+.about-sidebar {
+    position: sticky;
+    top: 96px;
+    max-height: calc(100vh - 110px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.about-sidebar::-webkit-scrollbar { display: none; }
 .about-section-title {
     font-size: clamp(1.3rem, 2.5vw, 1.7rem);
     font-weight: 800;
@@ -1970,7 +1980,12 @@ nav {
     .about-stat-divider { height: 30px; }
     .about-body { padding: 0 5% 3rem; }
     .about-body-inner { grid-template-columns: 1fr; }
-    .about-sidebar { order: -1; }
+    .about-sidebar {
+        order: -1;
+        position: static;
+        max-height: none;
+        overflow: visible;
+    }
 
     .contact-hero-header { padding: 100px 5% 2rem; }
     .open-to-section { padding: 0 5% 2rem; }
