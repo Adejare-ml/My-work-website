@@ -1,534 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Projects and Experience — Adejare Adelugba. Multimodal cancer detection, Nigeria electoral data infrastructure, ML automation, and more.">
-    <meta property="og:title" content="Projects & Experience | Adejare Adelugba">
-    <meta property="og:description" content="Real ML projects: Multimodal cancer detection (87.1% ROC-AUC), 36-state electoral scraper, transformer-based activity recognition, and production automation systems.">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="google.jpg">
-    <title>Projects &amp; Experience | Adejare Adelugba</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Projects and Experience — Adejare Adelugba. ML Engineer.">
+<meta property="og:title" content="Projects &amp; Experience | Adejare Adelugba">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://my-work-website.pages.dev/projects.html">
+<meta property="og:image" content="profile.jpeg">
+<title>Projects &amp; Experience | Adejare Adelugba</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="scroll-progress"></div>
-    <canvas id="neural-bg"></canvas>
+<canvas id="neural-bg"></canvas>
+<div class="scroll-progress"></div>
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100" height="100" rx="16" fill="#58a6ff"/>
+      <g fill="white">
+        <polygon points="10,85 17,85 50,14 43,14"/>
+        <polygon points="90,85 83,85 50,14 57,14"/>
+        <polygon points="46,11 54,11 50,2"/>
+        <polygon points="28,82 34,82 50,36 46,36"/>
+        <polygon points="72,82 66,82 50,36 54,36"/>
+        <rect x="34" y="57" width="32" height="6" rx="1"/>
+      </g>
+    </svg>
+    ADEJARE.AI
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="projects.html" class="active">Projects</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+</nav>
 
-    <nav>
-        <a href="index.html" class="logo">
-            <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-              <rect width="100" height="100" rx="16" fill="#1E3FAE"/>
-              <g fill="white">
-                <polygon points="10,85 17,85 50,14 43,14"/>
-                <polygon points="90,85 83,85 50,14 57,14"/>
-                <polygon points="43,18 47,18 43,6 38,12"/>
-                <polygon points="46,11 54,11 50,2"/>
-                <polygon points="57,18 53,18 57,6 62,12"/>
-                <polygon points="28,82 34,82 50,36 46,36"/>
-                <polygon points="72,82 66,82 50,36 54,36"/>
-                <rect x="34" y="57" width="32" height="6" rx="1"/>
-                <rect x="7"  y="80" width="14" height="5" rx="1"/>
-                <rect x="26" y="78" width="10" height="5" rx="1"/>
-                <rect x="64" y="78" width="10" height="5" rx="1"/>
-                <rect x="79" y="80" width="14" height="5" rx="1"/>
-              </g>
-            </svg>
-            <span class="logo-text">ADEJARE.AI</span>
-        </a>
-        <button class="mobile-menu-toggle" aria-label="Toggle navigation">
-            <span></span><span></span><span></span>
-        </button>
-        <div class="nav-links">
-            <a href="index.html" class="nav-item">HOME</a>
-            <a href="about.html" class="nav-item">ABOUT</a>
-            <a href="projects.html" class="nav-item active">PROJECTS &amp; EXP</a>
-            <a href="contact.html" class="nav-item">CONTACT</a>
-        </div>
-    </nav>
+<div class="page">
 
-    <header class="page-header">
-        <h1>Experience <span class="text-accent">&amp;</span> Projects</h1>
-        <p>A log of internships, research, and engineering work — with context on what was built and why.</p>
-    </header>
+<div class="page-header">
+  <h1>Experience &amp; Projects</h1>
+  <p>Internships, research, and engineering work &mdash; with context on what was built and why. Click any card to expand details.</p>
+</div>
 
-    <div class="main-wrapper">
-
-        <!-- ══════════════════════════
-             FLAGSHIP RESEARCH
-        ══════════════════════════ -->
-        <section id="research" class="section-block scroll-animate">
-            <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Featured Academic Research</h2>
-
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <div class="featured-badge" style="display:inline-flex;align-items:center;gap:6px;font-size:0.68rem;letter-spacing:1.5px;color:var(--bg-darkest);background:linear-gradient(135deg,var(--accent-color),var(--accent-secondary));padding:3px 10px;border-radius:20px;margin-bottom:10px;font-weight:700;text-transform:uppercase;font-family:'JetBrains Mono',monospace;">
-                                <i class="fas fa-star"></i> FLAGSHIP PROJECT
-                            </div>
-                            <h3>B.Sc. Final Year Project: Multimodal Breast Cancer Detection</h3>
-                            <span class="company-name">@ Landmark University — Department of Computer Science</span>
-                            <span class="timeline-date">2024 – 2025</span>
-                        </div>
-
-                        <div class="role-description">
-                            <p><strong><i class="fas fa-microscope"></i> Research Scope:</strong> Addressed the core limitation of single-modality breast cancer screening by designing a fusion architecture that combines heterogeneous data sources into a single, more accurate prediction model.</p>
-                        </div>
-
-                        <div class="project-list-block">
-                            <strong><i class="fas fa-layer-group"></i> Methodology &amp; Tech Stack:</strong>
-                            <ul>
-                                <li><strong>MedCLIP (Vision):</strong> Extracted 512-dimensional semantic embeddings from ultrasound images using a vision-language model pretrained on medical image–text pairs.</li>
-                                <li><strong>TabNet (Tabular):</strong> Processed clinical metadata — patient age, BI-RADS score, tissue density, and radiometric features — using an attention-based encoder.</li>
-                                <li><strong>Early Fusion Strategy:</strong> Concatenated image + tabular embeddings into a unified 576-dim representation, passed through a fully connected classification head.</li>
-                                <li><strong>Results: <span style="color:var(--accent-color);">82.7% Accuracy &bull; 87.1% ROC-AUC</span></strong> — significantly outperforming unimodal image-only and tabular-only baselines.</li>
-                            </ul>
-                            <div class="project-actions">
-                                <button class="btn btn-primary" onclick="openModal('cancer_fusion')"><i class="fas fa-code"></i> View Architecture &amp; Code</button>
-                                <a href="https://github.com/adelugbaadejare034-blip/Breast_cancer_detention_using_muilt_modal_analysis" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"><i class="fab fa-github"></i> Repository</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!-- FEATURED RESEARCH -->
+<section id="research" class="section">
+  <p class="section-label">Academic Research</p>
+  <h2 class="section-title reveal">Featured Research</h2>
+  <div class="projects-grid">
+    <div class="project-card featured reveal" style="grid-column:1/-1;">
+      <details>
+        <summary>
+          <div class="project-card-top">
+            <div>
+              <div class="featured-pill"><i class="fas fa-star"></i> Flagship &middot; Final Year Thesis</div>
+              <div class="project-title">Multimodal Breast Cancer Detection</div>
             </div>
-        </section>
-
-        <!-- ══════════════════════════
-             PROFESSIONAL TIMELINE
-        ══════════════════════════ -->
-        <section class="section-block scroll-animate">
-            <h2 class="section-title"><i class="fas fa-briefcase"></i> Professional Experience</h2>
-
-            <div class="timeline">
-
-                <!-- Kontemporary -->
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>IT &amp; Data Science Intern</h3>
-                            <span class="company-name">@ Kontemporary Konsulting Ltd.</span>
-                            <span class="timeline-date">2023</span>
-                        </div>
-                        <div class="role-description">
-                            <p><strong>Role:</strong> Built data collection infrastructure and ML prototypes for organizational research needs. Worked directly with real-world, unstructured data — no clean datasets, no prepared pipelines.</p>
-                        </div>
-                        <div class="project-list-block">
-                            <strong><i class="fas fa-code-branch"></i> Key Deliverables:</strong>
-                            <ul>
-                                <li><strong>Nigeria Polling Unit Scraper:</strong> Architected a Selenium system that navigated multi-layer portal structures to extract electoral data across all 36 Nigerian states. Loaded into PostgreSQL with 99.9% accuracy and 90% time reduction vs manual collection.</li>
-                                <li><strong>Brain Tumor Classification:</strong> Benchmarked ViT vs DINOv2 transformer architectures on MRI data with Grad-CAM visualization for explainability.</li>
-                                <li><strong>Kidney Disease Prediction:</strong> Deployed a Random Forest classifier with full preprocessing pipelines for clinical feature data.</li>
-                                <li><strong>Data Cleaning &amp; Documentation:</strong> Reduced data redundancy by 25%, organized records by state/LGA, and documented all systems for team handover.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- TETFund -->
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>IT &amp; Automation Intern</h3>
-                            <span class="company-name">@ Tertiary Education Trust Fund (TETFund)</span>
-                            <span class="timeline-date">2022 – 2023</span>
-                        </div>
-                        <div class="role-description">
-                            <p><strong>Role:</strong> Identified workflow bottlenecks in institutional data processing and replaced manual operations with Python automation pipelines.</p>
-                        </div>
-                        <div class="project-list-block">
-                            <strong><i class="fas fa-code-branch"></i> Key Deliverables:</strong>
-                            <ul>
-                                <li><strong>Workflow Automation:</strong> Python scripts to parse, classify, and route institutional Excel reports — 90% processing time reduction.</li>
-                                <li><strong>Data Migration:</strong> Migrated legacy Excel records to structured PostgreSQL databases with full validation and integrity checks.</li>
-                                <li><strong>Data Accuracy:</strong> Corrected inconsistencies and missing data across reporting records, increasing dataset reliability for team analysis.</li>
-                                <li><strong>IT Support &amp; Documentation:</strong> Technical support across departments and clear documentation for all automated processes.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- ══════════════════════════
-             PROJECT REPOSITORY
-        ══════════════════════════ -->
-        <section class="section-block scroll-animate">
-            <h2 class="section-title"><i class="fas fa-code"></i> Project Repository</h2>
-
-            <!-- Filter tabs -->
-            <div class="filter-tabs">
-                <button class="filter-tab active" data-filter="all">All</button>
-                <button class="filter-tab" data-filter="ml">ML / AI</button>
-                <button class="filter-tab" data-filter="automation">Automation</button>
-                <button class="filter-tab" data-filter="web">Web</button>
-            </div>
-
-            <div class="grid-container" style="padding:0;">
-
-                <!-- Cancer Detection — ML -->
-                <div class="glow-card featured-card scroll-animate" data-category="ml">
-                    <div class="card-content">
-                        <div class="featured-badge"><i class="fas fa-star"></i> FLAGSHIP</div>
-                        <h3>Multimodal Cancer Detection</h3>
-                        <p class="tech-stack">PyTorch &bull; MedCLIP &bull; TabNet</p>
-                        <p>Final year thesis — multimodal fusion of ultrasound imaging + clinical data for breast cancer detection.</p>
-                        <div class="card-metric">
-                            <span class="metric-chip">87.1% ROC-AUC</span>
-                            <span class="metric-chip">82.7% Accuracy</span>
-                        </div>
-                        <button class="card-btn" onclick="openModal('cancer_fusion')"><i class="fas fa-code"></i> View Details</button>
-                    </div>
-                </div>
-
-                <!-- HAR Transformer — ML -->
-                <div class="glow-card scroll-animate" data-category="ml">
-                    <div class="card-content">
-                        <h3>Human Activity Recognition</h3>
-                        <p class="tech-stack">PyTorch &bull; Transformers &bull; HAR-70</p>
-                        <p>Real-time activity recognition using a Transformer model on wearable sensor time-series data. 12 activity classes on the HAR-70 dataset.</p>
-                        <button class="card-btn" onclick="openModal('har')">View Details</button>
-                    </div>
-                </div>
-
-                <!-- Heart Disease — ML -->
-                <div class="glow-card scroll-animate" data-category="ml">
-                    <div class="card-content">
-                        <h3>Heart Disease Prediction</h3>
-                        <p class="tech-stack">Scikit-Learn &bull; Random Forest &bull; XGBoost</p>
-                        <p>Clinical decision support system optimized for high Recall to minimize false negatives — a deliberate design choice for medical contexts.</p>
-                        <button class="card-btn" onclick="openModal('heart')">View Details</button>
-                    </div>
-                </div>
-
-                <!-- Salary Prediction — ML -->
-                <div class="glow-card scroll-animate" data-category="ml">
-                    <div class="card-content">
-                        <h3>Global Tech Salary Prediction</h3>
-                        <p class="tech-stack">Python &bull; Random Forest &bull; XGBoost</p>
-                        <p>Regression model predicting tech salaries based on role, experience level, company size, and remote ratio. Includes feature importance analysis.</p>
-                        <button class="card-btn" onclick="openModal('salary')">View Details</button>
-                    </div>
-                </div>
-
-                <!-- Polling Scraper — Automation -->
-                <div class="glow-card scroll-animate" data-category="automation">
-                    <div class="card-content">
-                        <h3>Nigeria Polling Unit Scraper</h3>
-                        <p class="tech-stack">Python &bull; Selenium &bull; PostgreSQL</p>
-                        <p>Large-scale electoral data collection across all 36 Nigerian states. Multi-layer portal navigation with 99.9% accuracy and 90% time reduction.</p>
-                        <div class="card-metric">
-                            <span class="metric-chip">36 States</span>
-                            <span class="metric-chip">99.9% Accuracy</span>
-                        </div>
-                        <button class="card-btn" onclick="openModal('polling')">View Details</button>
-                    </div>
-                </div>
-
-                <!-- TETFund Automation -->
-                <div class="glow-card scroll-animate" data-category="automation">
-                    <div class="card-content">
-                        <h3>TETFund Workflow Automation</h3>
-                        <p class="tech-stack">Python &bull; Pandas &bull; openpyxl</p>
-                        <p>Automated institutional report parsing, cleaning, and routing at TETFund. Replaced a manual process with a Python pipeline — 90% time reduction.</p>
-                        <div class="card-metric">
-                            <span class="metric-chip">90% Time Saved</span>
-                        </div>
-                        <button class="card-btn" onclick="openModal('automation')">View Details</button>
-                    </div>
-                </div>
-
-                <!-- BAC Website — Web -->
-                <div class="glow-card scroll-animate" data-category="web">
-                    <div class="card-content">
-                        <h3>Bunmi Adelugba &amp; Co. Website</h3>
-                        <p class="tech-stack">HTML &bull; CSS &bull; JavaScript</p>
-                        <p>Responsive corporate website for a Chartered Accounting firm. Service portfolio, SEO-optimized, and deployed for public use.</p>
-                        <button class="card-btn" onclick="openModal('bac')">View Details</button>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- GitHub CTA -->
-        <section class="section-block scroll-animate" style="text-align:center; padding:2rem 0 3rem;">
-            <div style="background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:16px; padding:2.5rem; backdrop-filter:blur(12px); max-width:600px; margin:0 auto;">
-                <i class="fab fa-github" style="font-size:2rem; color:var(--accent-color); display:block; margin-bottom:1rem;"></i>
-                <h3 style="font-family:'Plus Jakarta Sans',sans-serif; font-size:1.2rem; font-weight:700; margin-bottom:0.6rem;">More on GitHub</h3>
-                <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:1.5rem; line-height:1.7;">Additional repositories, experiments, and contributions are available on my GitHub profile.</p>
-                <a href="https://github.com/adejare-dev" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-                    <i class="fab fa-github"></i> Visit GitHub Profile
-                </a>
-            </div>
-        </section>
-
-    </div>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5e3f3a3b322b393c3f3f3a3b343f2c3b6e6d1e39333f3732703d3133">[email&#160;protected]</a> &nbsp;·&nbsp; Abuja, Nigeria &nbsp;·&nbsp; Open to remote roles</p>
-            <div class="footer-social">
-                <a href="https://github.com/adejare-dev" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- PROJECT MODAL -->
-    <div id="projectModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal()" aria-label="Close">&times;</button>
-            <h2 id="modalTitle" style="padding:2.5rem 2.5rem 0; font-family:'Plus Jakarta Sans',sans-serif;"></h2>
-            <div class="modal-body">
-                <div id="modalDescription"></div>
-                <div class="code-block" id="modalCodeBlock"></div>
-                <div class="modal-link-container">
-                    <a id="modalLink" href="#" target="_blank" rel="noopener noreferrer">View Repository <i class="fas fa-external-link-alt"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="script.js"></script>
-    <script>
-    const projectData = {
-        'cancer_fusion': {
-            title: 'Multimodal Breast Cancer Detection',
-            desc: `<strong>Overview:</strong><br>B.Sc. final year thesis. Addressed single-modality screening limitations by fusing ultrasound imaging with clinical &amp; radiometric data using an early fusion strategy.<br><br>
-<strong>Architecture:</strong>
-<ul>
-  <li><strong>MedCLIP (Vision):</strong> 512-dimensional semantic embeddings from ultrasound images via a vision-language model pretrained on medical data.</li>
-  <li><strong>TabNet (Tabular):</strong> Attention-based processing of clinical metadata — age, BI-RADS, density, and radiometric features.</li>
-  <li><strong>Early Fusion:</strong> Image + tabular embeddings concatenated into a unified 576-dim vector, then passed through a classification head.</li>
-</ul>
-<br><strong>Results:</strong> <span style="color:var(--accent-color); font-weight:600;">82.7% Accuracy &bull; 87.1% ROC-AUC</span> — significantly outperforming unimodal baselines.`,
-            code: `class CancerFusionModel(nn.Module):
+            <i class="fas fa-chevron-right project-expand-icon"></i>
+          </div>
+          <div class="project-stack">PyTorch &bull; MedCLIP &bull; TabNet &bull; Early Fusion &bull; Landmark University 2024&ndash;2025</div>
+          <p class="project-desc">Addressed single-modality screening limitations by designing a fusion architecture combining ultrasound imaging with clinical and radiometric data. 87.1% ROC-AUC.</p>
+          <div class="project-chips">
+            <span class="chip chip-accent">87.1% ROC-AUC</span>
+            <span class="chip chip-accent">82.7% Accuracy</span>
+            <span class="chip">576-dim Fusion Vector</span>
+            <span class="chip">Outperforms Unimodal Baselines</span>
+          </div>
+        </summary>
+        <div class="project-body">
+          <ul>
+            <li><strong>MedCLIP (Vision):</strong> 512-dim semantic embeddings from ultrasound images via a vision-language model pretrained on medical data.</li>
+            <li><strong>TabNet (Tabular):</strong> Attention-based processing of clinical metadata &mdash; patient age, BI-RADS, tissue density, radiometric features.</li>
+            <li><strong>Early Fusion:</strong> Concatenated 576-dim vector passed through a classification head.</li>
+            <li><strong>Results: 82.7% Accuracy &bull; 87.1% ROC-AUC</strong> &mdash; significantly outperforming unimodal baselines.</li>
+          </ul>
+          <div class="code-snippet">class CancerFusionModel(nn.Module):
     def __init__(self):
-        self.medclip = MedCLIPModel()    # 512-dim image embeddings
-        self.tabnet  = TabNetEncoder()    # 64-dim tabular embeddings
-        self.head    = nn.Sequential(
-            nn.Linear(576, 128),
-            nn.ReLU(), nn.Dropout(0.3),
-            nn.Linear(128, 2)             # benign / malignant
-        )
+        self.medclip = MedCLIPModel()   # 512-dim
+        self.tabnet  = TabNetEncoder()  # 64-dim
+        self.head    = nn.Linear(576, 2)
+
     def forward(self, image, tabular):
-        img_emb = self.medclip(image)     # [B, 512]
-        tab_emb = self.tabnet(tabular)    # [B, 64]
-        fused   = torch.cat([img_emb, tab_emb], dim=1)
-        return self.head(fused)`,
-            link: 'https://github.com/adelugbaadejare034-blip/Breast_cancer_detention_using_muilt_modal_analysis'
-        },
-        'har': {
-            title: 'Human Activity Recognition (Transformer)',
-            desc: `<strong>Overview:</strong><br>Deep learning system for real-time activity recognition using transformer architecture on wearable sensor time-series data.<br><br>
-<strong>Architecture:</strong>
-<ul>
-  <li>Transformer Encoder with multi-head self-attention for capturing temporal dependencies in sensor streams</li>
-  <li>HAR-70 dataset — 70 participants, 12 activity classes</li>
-  <li>Input: 6-axis IMU data (accelerometer + gyroscope)</li>
-  <li>Real-time inference optimized for edge deployment</li>
-</ul>`,
-            code: `class HARTransformer(nn.Module):
-    def __init__(self, input_dim=6, d_model=128, nhead=8):
-        super().__init__()
-        self.embed   = nn.Linear(input_dim, d_model)
-        self.encoder = nn.TransformerEncoder(
-            nn.TransformerEncoderLayer(d_model, nhead=nhead,
-                dim_feedforward=512, dropout=0.1),
-            num_layers=4
-        )
-        self.head = nn.Linear(d_model, 12)  # 12 activity classes
-    def forward(self, x):
-        x = self.embed(x)       # [B, T, d_model]
-        x = self.encoder(x)     # [B, T, d_model]
-        return self.head(x.mean(dim=1))`,
-            link: 'https://github.com/adelugbaadejare034-blip/Real-Time-Human-Activity-Recognition-Using-Time-Series-Transformers-Wearable-Sensors-HAR-70-Dataset-'
-        },
-        'heart': {
-            title: 'Heart Disease Prediction System',
-            desc: `<strong>Overview:</strong><br>Clinical decision support system for heart disease risk assessment. Optimized specifically for high Recall to minimize false negatives — a deliberate medical design choice.<br><br>
-<strong>Methodology:</strong>
-<ul>
-  <li>Comprehensive EDA and feature selection on clinical attributes</li>
-  <li>Multi-algorithm comparison: Random Forest, XGBoost, Logistic Regression</li>
-  <li>Optimized for Recall over Accuracy — missing a positive case is costlier than a false alarm in medical AI</li>
-  <li>Class imbalance handled via <code>class_weight='balanced'</code> and oversampling</li>
-</ul>`,
-            code: `from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import roc_auc_score, recall_score
+        img = self.medclip(image)       # [B, 512]
+        tab = self.tabnet(tabular)      # [B,  64]
+        return self.head(torch.cat([img, tab], dim=1))</div>
+          <div class="project-links">
+            <a href="https://github.com/adelugbaadejare034-blip/Breast_cancer_detention_using_muilt_modal_analysis" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size:.82rem;padding:8px 16px;"><i class="fab fa-github"></i> View Repository</a>
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
 
-model = RandomForestClassifier(
-    n_estimators=200,
-    class_weight='balanced',  # handle imbalance
-    max_depth=12
-)
-model.fit(X_train, y_train)
-probs = model.predict_proba(X_test)[:, 1]
-print(f"ROC-AUC : {roc_auc_score(y_test, probs):.3f}")
-print(f"Recall  : {recall_score(y_test, probs > 0.4):.3f}")`,
-            link: 'https://github.com/adelugbaadejare034-blip/Heart_disease_risk_prediction_system'
-        },
-        'salary': {
-            title: 'Global Tech Salary Prediction',
-            desc: `<strong>Overview:</strong><br>ML regression model predicting tech salaries (in USD) based on global job market metadata — role title, experience level, company size, remote ratio, and location.<br><br>
-<strong>Process:</strong>
-<ul>
-  <li>Feature engineering for high-cardinality categorical variables (job titles, countries)</li>
-  <li>Comparison of Random Forest vs XGBoost regression with cross-validation</li>
-  <li>Feature importance analysis to identify which factors drive salary most</li>
-  <li>Visualization of salary distribution by region, role, and remote status</li>
-</ul>`,
-            code: `from sklearn.ensemble import RandomForestRegressor
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import LabelEncoder
+<!-- EXPERIENCE TIMELINE -->
+<section class="section">
+  <p class="section-label">Work History</p>
+  <h2 class="section-title reveal">Professional Experience</h2>
+  <div class="timeline">
 
-pipeline = Pipeline([
-    ('encoder', LabelEncoder()),
-    ('model', RandomForestRegressor(
-        n_estimators=200,
-        max_features='sqrt'
-    ))
-])
-pipeline.fit(X_train, y_train)
-print("Feature importances:", pipeline['model'].feature_importances_)`,
-            link: 'https://github.com/adelugbaadejare034-blip/Salary-Prediction-Using-Global-Tech-Job-Metadata-Regression-Model-'
-        },
-        'polling': {
-            title: 'Nigeria Polling Unit Scraper',
-            desc: `<strong>Overview:</strong><br>Large-scale Selenium automation collecting polling unit results across all 36 Nigerian states and the FCT. Built for real organizational use — not a demo project.<br><br>
-<strong>Engineering challenges:</strong>
-<ul>
-  <li>Multi-layer dynamic page navigation — standard scrapers fail at depth 3+</li>
-  <li>Inconsistent data formats across different state portals</li>
-  <li>Robust error handling and retry logic for network failures</li>
-  <li>PostgreSQL schema designed for efficient querying by state and LGA</li>
-</ul>
-<br><strong>Results:</strong> 99.9% data accuracy &bull; 90% reduction in manual collection time &bull; Data used directly for electoral analysis.<br><br>
-<em style="color:var(--text-secondary); font-size:0.85rem;">Note: Repository is private due to organizational data sensitivity.</em>`,
-            code: `from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-import psycopg2
+    <div class="tl-item reveal">
+      <div class="tl-left"><div class="tl-dot accent"></div><div class="tl-line"></div></div>
+      <div class="tl-content">
+        <div class="tl-meta">
+          <span class="tl-date"><i class="fas fa-calendar-alt"></i> Aug &ndash; Sep 2025</span>
+          <span class="tl-badge badge-work">Internship</span>
+        </div>
+        <div class="tl-title">IT &amp; Data Science Intern</div>
+        <div class="tl-org">Kontemporary Konsulting Ltd. &middot; Abuja</div>
+        <p class="tl-desc">Built data collection infrastructure and ML prototypes for organizational research. Worked directly with real-world unstructured data.</p>
+        <ul style="padding-left:1.2rem;margin-bottom:12px;">
+          <li class="tl-desc" style="margin-bottom:6px;"><strong>Polling Unit Scraper:</strong> Selenium system across all 36 Nigerian states &mdash; 85% manual entry reduction, 25% redundancy reduction.</li>
+          <li class="tl-desc" style="margin-bottom:6px;"><strong>Data Cleaning:</strong> Fixed missing values, inconsistent entries across all state portals.</li>
+          <li class="tl-desc"><strong>Brain Tumor Classification:</strong> Benchmarked ViT vs DINOv2 architectures on MRI data with Grad-CAM visualization.</li>
+        </ul>
+        <div class="tl-tags"><span class="tl-tag">Selenium</span><span class="tl-tag">PostgreSQL</span><span class="tl-tag">Python</span><span class="tl-tag">Pandas</span></div>
+      </div>
+    </div>
 
-def scrape_state(driver, state_code: str) -> list:
-    wait = WebDriverWait(driver, 15)
-    navigate_portal(driver, wait, state_code)
-    lgas = get_all_lgas(driver, wait)
-    results = []
-    for lga in lgas:
-        units = extract_polling_units(driver, wait, lga)
-        results.extend(clean_and_validate(units))
-    return results`,
-            link: null
-        },
-        'automation': {
-            title: 'TETFund Workflow Automation',
-            desc: `<strong>Overview:</strong><br>Python automation pipeline built at Tertiary Education Trust Fund (TETFund), replacing a fully manual report processing workflow with a validated, automated pipeline.<br><br>
-<strong>What was automated:</strong>
-<ul>
-  <li>Parsing and classifying incoming Excel reports across multiple institution types</li>
-  <li>Automated data cleaning: missing values, inconsistent entries, formatting errors</li>
-  <li>Legacy Excel record migration to structured PostgreSQL with integrity validation</li>
-  <li>Multi-sheet summary report generation for team review</li>
-  <li>Full process documentation for team handover</li>
-</ul>
-<br><strong>Impact:</strong> 90% reduction in manual processing time &bull; 25% redundancy reduction.<br><br>
-<em style="color:var(--text-secondary); font-size:0.85rem;">Note: Institutional data — repository is private.</em>`,
-            code: `import pandas as pd
-from pathlib import Path
+    <div class="tl-item reveal">
+      <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+      <div class="tl-content">
+        <div class="tl-meta">
+          <span class="tl-date"><i class="fas fa-calendar-alt"></i> Mar &ndash; Sep 2024</span>
+          <span class="tl-badge badge-work">Internship</span>
+        </div>
+        <div class="tl-title">IT Intern</div>
+        <div class="tl-org">Tertiary Education Trust Fund (TETFund) &middot; Abuja</div>
+        <p class="tl-desc">Identified data workflow bottlenecks and replaced manual operations with Python automation pipelines.</p>
+        <ul style="padding-left:1.2rem;margin-bottom:12px;">
+          <li class="tl-desc" style="margin-bottom:6px;"><strong>Workflow Automation:</strong> Python scripts to parse, classify, and route institutional Excel reports.</li>
+          <li class="tl-desc" style="margin-bottom:6px;"><strong>Data Accuracy:</strong> Identified and corrected inconsistencies across reporting records.</li>
+          <li class="tl-desc"><strong>Reporting:</strong> Structured multi-sheet Excel reports for internal team review.</li>
+        </ul>
+        <div class="tl-tags"><span class="tl-tag">Python</span><span class="tl-tag">Pandas</span><span class="tl-tag">openpyxl</span><span class="tl-tag">Excel</span></div>
+      </div>
+    </div>
 
-def process_report(filepath: Path) -> pd.DataFrame:
-    df = pd.read_excel(filepath)
-    df = clean_missing_values(df)
-    df = normalize_institution_names(df)
-    df = validate_funding_columns(df)
-    return df
+    <div class="tl-item reveal">
+      <div class="tl-left"><div class="tl-dot"></div></div>
+      <div class="tl-content">
+        <div class="tl-meta">
+          <span class="tl-date"><i class="fas fa-calendar-alt"></i> 2021 &ndash; 2025</span>
+          <span class="tl-badge badge-edu">Education</span>
+        </div>
+        <div class="tl-title">B.Sc. Computer Science</div>
+        <div class="tl-org">Landmark University &middot; Omu-Aran</div>
+        <p class="tl-desc">Algorithms, data structures, machine learning, and software engineering. Final year thesis on multimodal AI for medical diagnostics.</p>
+        <div class="tl-tags"><span class="tl-tag">Computer Science</span><span class="tl-tag">Machine Learning</span><span class="tl-tag">Software Engineering</span></div>
+      </div>
+    </div>
 
-def run_batch_pipeline(input_dir: str):
-    reports = list(Path(input_dir).glob("*.xlsx"))
-    results = [process_report(r) for r in reports]
-    combined = pd.concat(results, ignore_index=True)
-    export_to_postgres(combined)
-    generate_summary_report(combined)`,
-            link: null
-        },
-        'bac': {
-            title: 'Bunmi Adelugba & Co. Website',
-            desc: `<strong>Overview:</strong><br>Responsive corporate website designed and deployed for a Chartered Accounting firm — Bunmi Adelugba &amp; Co.<br><br>
-<strong>Features:</strong>
-<ul>
-  <li>Fully responsive design across mobile, tablet, and desktop</li>
-  <li>Service portfolio pages: Audit, Taxation, Consulting</li>
-  <li>Contact form and firm profile section</li>
-  <li>SEO-optimized meta tags and semantic HTML structure</li>
-</ul>`,
-            code: `<!-- Semantic page structure -->
-<nav class="navbar" role="navigation">
-  <div class="logo">BAC Chartered Accountants</div>
-  <ul class="nav-links">
-    <li><a href="#services">Audit &amp; Assurance</a></li>
-    <li><a href="#tax">Taxation</a></li>
-    <li><a href="#advisory">Advisory</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>`,
-            link: null
-        }
-    };
+  </div>
+</section>
 
-    window.openModal = function(id) {
-        const data = projectData[id];
-        if (!data) return;
-        document.getElementById('modalTitle').innerText = data.title;
-        document.getElementById('modalDescription').innerHTML = data.desc;
-        const link = document.getElementById('modalLink');
-        if (data.link) {
-            link.href = data.link;
-            link.style.display = 'inline-flex';
-        } else {
-            link.style.display = 'none';
-        }
-        let code = data.code
-            .replace(/</g,'&lt;').replace(/>/g,'&gt;')
-            .replace(/\n/g,'<br>')
-            .replace(/(def |import |from |return |class |self\.|torch\.|nn\.|for |if |print|super)\b/g,'<span class="code-keyword">$1</span>');
-        document.getElementById('modalCodeBlock').innerHTML = '<code>' + code + '</code>';
-        document.getElementById('projectModal').style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-    };
+<!-- ALL PROJECTS -->
+<section class="section">
+  <p class="section-label">Project Repository</p>
+  <h2 class="section-title reveal">All Projects</h2>
+  <div class="filter-tabs">
+    <button class="filter-tab active" data-filter="all">All</button>
+    <button class="filter-tab" data-filter="ml">ML / AI</button>
+    <button class="filter-tab" data-filter="automation">Automation</button>
+    <button class="filter-tab" data-filter="web">Web</button>
+  </div>
+  <div class="projects-grid">
 
-    window.closeModal = function() {
-        document.getElementById('projectModal').style.display = 'none';
-        document.body.style.overflow = '';
-    };
+    <div class="project-card featured reveal" data-category="ml">
+      <details>
+        <summary>
+          <div class="project-card-top"><div><div class="featured-pill"><i class="fas fa-star"></i> Flagship</div><div class="project-title">Multimodal Cancer Detection</div></div><i class="fas fa-chevron-right project-expand-icon"></i></div>
+          <div class="project-stack">PyTorch &bull; MedCLIP &bull; TabNet</div>
+          <div class="project-chips"><span class="chip chip-accent">87.1% ROC-AUC</span><span class="chip chip-accent">82.7% Accuracy</span></div>
+        </summary>
+        <div class="project-body">
+          <p>Final year thesis &mdash; <strong>87.1% ROC-AUC</strong> outperforming unimodal baselines.</p>
+          <div class="project-links"><a href="https://github.com/adelugbaadejare034-blip/Breast_cancer_detention_using_muilt_modal_analysis" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size:.82rem;padding:8px 16px;"><i class="fab fa-github"></i> Repository</a></div>
+        </div>
+      </details>
+    </div>
 
-    document.getElementById('projectModal').addEventListener('click', function(e) {
-        if (e.target === this) closeModal();
-    });
+    <div class="project-card reveal" data-category="ml">
+      <details>
+        <summary>
+          <div class="project-card-top"><div class="project-title">Human Activity Recognition</div><i class="fas fa-chevron-right project-expand-icon"></i></div>
+          <div class="project-stack">PyTorch &bull; Transformers &bull; HAR-70</div>
+          <p class="project-desc">Real-time activity recognition via Transformer on wearable sensor time-series. 12 activity classes.</p>
+        </summary>
+        <div class="project-body">
+          <ul><li>Multi-head self-attention for temporal dependencies</li><li>HAR-70 dataset &mdash; 70 participants, 12 classes</li><li>6-axis IMU input (accelerometer + gyroscope)</li></ul>
+          <div class="project-links"><a href="https://github.com/adelugbaadejare034-blip/Real-Time-Human-Activity-Recognition-Using-Time-Series-Transformers-Wearable-Sensors-HAR-70-Dataset-" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size:.82rem;padding:8px 16px;"><i class="fab fa-github"></i> Repository</a></div>
+        </div>
+      </details>
+    </div>
 
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+    <div class="project-card reveal" data-category="ml">
+      <details>
+        <summary>
+          <div class="project-card-top"><div class="project-title">Heart Disease Prediction</div><i class="fas fa-chevron-right project-expand-icon"></i></div>
+          <div class="project-stack">Scikit-Learn &bull; Random Forest &bull; XGBoost</div>
+          <p class="project-desc">Clinical decision support optimized for high Recall &mdash; minimizing false negatives in medical AI.</p>
+        </summary>
+        <div class="project-body">
+          <ul><li>Optimized for Recall over Accuracy in medical context</li><li>Multi-algorithm comparison with cross-validation</li><li>Class imbalance handled via class_weight and oversampling</li></ul>
+          <div class="project-links"><a href="https://github.com/adelugbaadejare034-blip/Heart_disease_risk_prediction_system" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size:.82rem;padding:8px 16px;"><i class="fab fa-github"></i> Repository</a></div>
+        </div>
+      </details>
+    </div>
 
-    // Filter tabs
-    document.querySelectorAll('.filter-tab').forEach(tab => {
-        tab.addEventListener('click', function() {
-            document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-            const filter = this.dataset.filter;
-            document.querySelectorAll('.glow-card[data-category]').forEach(card => {
-                if (filter === 'all' || card.dataset.category === filter) {
-                    card.classList.remove('hidden-card');
-                } else {
-                    card.classList.add('hidden-card');
-                }
-            });
-        });
-    });
-    </script>
+    <div class="project-card reveal" data-category="ml">
+      <details>
+        <summary>
+          <div class="project-card-top"><div class="project-title">Global Tech Salary Prediction</div><i class="fas fa-chevron-right project-expand-icon"></i></div>
+          <div class="project-stack">Python &bull; Random Forest &bull; XGBoost</div>
+          <p class="project-desc">Regression model predicting tech salaries (USD) based on role, experience, company size, remote ratio.</p>
+        </summary>
+        <div class="project-body">
+          <ul><li>Feature engineering for high-cardinality categoricals</li><li>RF vs XGBoost with cross-validation</li><li>Feature importance analysis</li></ul>
+          <div class="project-links"><a href="https://github.com/adelugbaadejare034-blip/Salary-Prediction-Using-Global-Tech-Job-Metadata-Regression-Model-" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size:.82rem;padding:8px 16px;"><i class="fab fa-github"></i> Repository</a></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="project-card reveal" data-category="automation">
+      <details>
+        <summary>
+          <div class="project-card-top"><div class="project-title">Nigeria Polling Unit Scraper</div><i class="fas fa-chevron-right project-expand-icon"></i></div>
+          <div class="project-stack">Python &bull; Selenium &bull; PostgreSQL</div>
+          <p class="project-desc">Electoral data collection across all 36 states. Multi-layer portal navigation.</p>
+          <div class="project-chips"><span class="chip chip-accent">36 States</span><span class="chip chip-accent">99.9% Accuracy</span></div>
+        </summary>
+        <div class="project-body">
+          <ul><li>Multi-layer dynamic portal navigation</li><li>Robust retry logic for network failures</li><li>PostgreSQL schema queryable by state and LGA</li></ul>
+          <p style="font-size:.8rem;color:var(--muted);font-style:italic;">Private repo &mdash; organizational data.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="project-card reveal" data-category="automation">
+      <details>
+        <summary>
+          <div class="project-card-top"><div class="project-title">TETFund Workflow Automation</div><i class="fas fa-chevron-right project-expand-icon"></i></div>
+          <div class="project-stack">Python &bull; Pandas &bull; openpyxl</div>
+          <p class="project-desc">Python pipeline replacing manual report processing &mdash; 90% time reduction.</p>
+          <div class="project-chips"><span class="chip chip-accent">90% Time Saved</span></div>
+        </summary>
+        <div class="project-body">
+          <ul><li>Parsing and classifying institutional Excel reports</li><li>Legacy migration to PostgreSQL with validation</li><li>Full documentation for team handover</li></ul>
+          <p style="font-size:.8rem;color:var(--muted);font-style:italic;">Private repo &mdash; institutional data.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="project-card reveal" data-category="web">
+      <details>
+        <summary>
+          <div class="project-card-top"><div class="project-title">Bunmi Adelugba &amp; Co. Website</div><i class="fas fa-chevron-right project-expand-icon"></i></div>
+          <div class="project-stack">HTML &bull; CSS &bull; JavaScript</div>
+          <p class="project-desc">Responsive corporate website for a Chartered Accounting firm. SEO-optimized.</p>
+        </summary>
+        <div class="project-body">
+          <ul><li>Fully responsive across all devices</li><li>Service pages: Audit, Taxation, Advisory</li><li>SEO-optimized meta tags and semantic HTML</li></ul>
+        </div>
+      </details>
+    </div>
+
+  </div>
+</section>
+
+<!-- GITHUB AUTO-FETCH SECTION -->
+<section class="gh-section">
+  <div class="gh-section-header">
+    <div>
+      <p class="section-label">Live from GitHub</p>
+      <h2 class="section-title reveal">All Public Repositories</h2>
+      <p style="font-size:.88rem;color:var(--muted);margin-top:4px;">Fetched automatically &mdash; always up to date.</p>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <span class="gh-live-badge">Live &bull; Auto-updated</span>
+      <a href="https://github.com/adejare-dev" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size:.82rem;padding:8px 16px;"><i class="fab fa-github"></i> View Profile</a>
+    </div>
+  </div>
+  <p id="gh-status" style="color:var(--muted);font-size:.88rem;padding:8px 0;">
+    <i class="fas fa-circle-notch fa-spin" style="color:var(--accent);margin-right:8px;"></i>Loading repositories from GitHub&hellip;
+  </p>
+  <div id="gh-repos-grid"></div>
+</section>
+
+<div class="cta-strip">
+  <div>
+    <h3>Let's work together</h3>
+    <p>ML Engineering &middot; Data Science &middot; Automation &middot; Remote available</p>
+  </div>
+  <div class="cta-actions">
+    <a href="contact.html" class="btn btn-primary"><i class="fas fa-envelope"></i> Get In Touch</a>
+    <a href="MyResume.pdf" download class="btn btn-outline"><i class="fas fa-download"></i> Download CV</a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <span class="footer-text"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b6d7d2d3dac3d1d4d7d7d2d3dcd7c4d38685f6d1dbd7dfda98d5d9db">[email&#160;protected]</a> &nbsp;&middot;&nbsp; Abuja, Nigeria</span>
+  <div class="footer-links">
+    <a href="https://github.com/adejare-dev" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+  </div>
+</footer>
+
+</div>
+<script data-cfasync="false" src="script.js"></script>
 </body>
 </html>
