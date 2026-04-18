@@ -2431,3 +2431,98 @@ body::after {
 .form-group textarea {
   background: rgba(13,17,23,.20) !important;
 }
+
+/* ============================================
+   v9 — ZERO GLASS — NEURAL BG FULLY VISIBLE
+   No backgrounds. No blur. Pure canvas.
+   ============================================ */
+
+/* Kill ALL backdrop-filter blur site-wide */
+*, *::before, *::after {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Every surface: fully transparent */
+.site-nav,
+.site-footer,
+.project-card,
+.project-card.featured,
+.skill-group,
+.sidebar-card,
+.radar-panel,
+.proficiency-panel,
+.liquid-glass,
+.gh-repo-card,
+.social-tile,
+.open-pill,
+.filter-tab,
+.stat-big,
+.stats-bar,
+.stats-section,
+.ticker,
+.cta-strip,
+.contact-sidebar,
+.contact-form-wrap,
+.skill-tag,
+.code-snippet,
+.hero-eyebrow,
+.chip,
+.chip-accent,
+.tl-badge,
+.cert-item,
+.sidebar-fact,
+.looking-tag,
+.contact-response,
+.contact-info-row {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Nav needs the slimmest possible tint so links stay readable on scroll */
+.site-nav {
+  background: rgba(13,17,23,.05) !important;
+  border-bottom-color: rgba(0,229,255,.08) !important;
+}
+
+/* Mobile nav dropdown — keep legible */
+@media (max-width: 900px) {
+  .nav-links {
+    background: rgba(13,17,23,.75) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+  }
+}
+
+/* Hover states — zero background */
+.project-card:hover,
+.skill-group:hover,
+.sidebar-card:hover,
+.social-tile:hover,
+.filter-tab:hover,
+.stat-big:hover,
+.liquid-glass:hover {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Form inputs — keep the absolute minimum so text is readable */
+.form-group input,
+.form-group textarea,
+.form-group select {
+  background: rgba(13,17,23,.15) !important;
+  backdrop-filter: none !important;
+}
+
+/* Kill pseudo-element radial gradient blobs */
+.stats-section::before,
+.hero::before,
+.cta-strip::before,
+.page-header::before {
+  display: none !important;
+}
+
+/* Liquid glass sheen animation — gone */
+.liquid-glass::before { display: none !important; }
+
+/* Borders stay — they define layout without blocking the canvas */
