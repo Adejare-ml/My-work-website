@@ -5,42 +5,148 @@
 (function() {
   'use strict';
 
-  /* ====== NEURAL BACKGROUND CANVAS ====== */
+  /* ====== NEURAL BACKGROUND CANVAS — v2 bright + interactive ====== */
   var canvas = document.getElementById('neural-bg');
   if (canvas) {
     var ctx = canvas.getContext('2d');
-    var nodes = [], NODE_COUNT = 55, MAX_DIST = 140, RAF_ID;
-    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-    resize();
-    window.addEventListener('resize', resize, { passive: true });
-    for (var i = 0; i < NODE_COUNT; i++) {
-      nodes.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35, r: Math.random() * 1.8 + 0.8 });
+    var RAF_ID;
+
+    /* --- Config --- */
+    var NODE_COUNT  = 90;    /* more nodes                        */
+    var MAX_DIST    = 200;   /* longer connection reach           */
+    var MOUSE_DIST  = 160;   /* mouse influence radius            */
+    var MOUSE_PUSH  = 90;    /* repulsion zone (push nodes away)  */
+    var BASE_SPEED  = 0.55;  /* node drift speed                  */
+
+    /* --- Canvas sizing --- */
+    function resize() {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
     }
+    resize();
+    window.addEventListener('resize', function() { resize(); }, { passive: true });
+
+    /* --- Mouse tracking --- */
+    var mouse = { x: -9999, y: -9999 };
+    window.addEventListener('mousemove', function(e) {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    }, { passive: true });
+    window.addEventListener('mouseleave', function() {
+      mouse.x = -9999; mouse.y = -9999;
+    }, { passive: true });
+    /* Touch support */
+    window.addEventListener('touchmove', function(e) {
+      if (e.touches.length) {
+        mouse.x = e.touches[0].clientX;
+        mouse.y = e.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    /* --- Create nodes --- */
+    var nodes = [];
+    for (var i = 0; i < NODE_COUNT; i++) {
+      var angle = Math.random() * Math.PI * 2;
+      var speed = BASE_SPEED * (0.5 + Math.random() * 0.9);
+      nodes.push({
+        x:  Math.random() * canvas.width,
+        y:  Math.random() * canvas.height,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        r:  Math.random() * 2.5 + 1.5,   /* radius 1.5 – 4px */
+        baseR: 0
+      });
+      nodes[i].baseR = nodes[i].r;
+    }
+
+    /* --- Draw loop --- */
     function drawNeural() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      /* Move nodes + mouse repulsion */
       nodes.forEach(function(n) {
+        /* Mouse push */
+        var mdx = n.x - mouse.x;
+        var mdy = n.y - mouse.y;
+        var mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+        if (mdist < MOUSE_PUSH && mdist > 0) {
+          var force = (MOUSE_PUSH - mdist) / MOUSE_PUSH;
+          n.vx += (mdx / mdist) * force * 0.8;
+          n.vy += (mdy / mdist) * force * 0.8;
+        }
+        /* Speed cap */
+        var spd = Math.sqrt(n.vx * n.vx + n.vy * n.vy);
+        if (spd > BASE_SPEED * 3) { n.vx *= 0.95; n.vy *= 0.95; }
+        /* Gentle drift back to base speed */
+        if (spd < BASE_SPEED * 0.3) { n.vx *= 1.03; n.vy *= 1.03; }
+
         n.x += n.vx; n.y += n.vy;
         if (n.x < 0 || n.x > canvas.width)  n.vx *= -1;
         if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+
+        /* Glow radius when near mouse */
+        var gd = Math.sqrt((n.x-mouse.x)*(n.x-mouse.x)+(n.y-mouse.y)*(n.y-mouse.y));
+        n.r = gd < MOUSE_DIST
+          ? n.baseR + (MOUSE_DIST - gd) / MOUSE_DIST * 3.5
+          : n.baseR;
       });
+
+      /* Node–node connections */
       for (var a = 0; a < nodes.length; a++) {
         for (var b = a + 1; b < nodes.length; b++) {
-          var dx = nodes[a].x - nodes[b].x, dy = nodes[a].y - nodes[b].y;
-          var dist = Math.sqrt(dx*dx + dy*dy);
+          var dx   = nodes[a].x - nodes[b].x;
+          var dy   = nodes[a].y - nodes[b].y;
+          var dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < MAX_DIST) {
-            ctx.beginPath(); ctx.moveTo(nodes[a].x, nodes[a].y); ctx.lineTo(nodes[b].x, nodes[b].y);
-            ctx.strokeStyle = 'rgba(88,166,255,' + ((1 - dist/MAX_DIST) * 0.18) + ')';
-            ctx.lineWidth = 0.7; ctx.stroke();
+            var alpha = (1 - dist / MAX_DIST) * 0.55;
+            ctx.beginPath();
+            ctx.moveTo(nodes[a].x, nodes[a].y);
+            ctx.lineTo(nodes[b].x, nodes[b].y);
+            ctx.strokeStyle = 'rgba(88,166,255,' + alpha + ')';
+            ctx.lineWidth = (1 - dist / MAX_DIST) * 1.4 + 0.3;
+            ctx.stroke();
           }
         }
       }
+
+      /* Mouse–node connections */
       nodes.forEach(function(n) {
-        ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(0,229,255,0.35)'; ctx.fill();
+        var dx   = n.x - mouse.x;
+        var dy   = n.y - mouse.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < MOUSE_DIST) {
+          var alpha = (1 - dist / MOUSE_DIST) * 0.75;
+          ctx.beginPath();
+          ctx.moveTo(n.x, n.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = 'rgba(0,229,255,' + alpha + ')';
+          ctx.lineWidth = (1 - dist / MOUSE_DIST) * 1.8 + 0.2;
+          ctx.stroke();
+        }
       });
+
+      /* Draw nodes */
+      nodes.forEach(function(n) {
+        /* Glow pass */
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r * 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0,229,255,0.07)';
+        ctx.fill();
+        /* Core dot */
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0,229,255,0.90)';
+        ctx.fill();
+        /* White highlight */
+        ctx.beginPath();
+        ctx.arc(n.x - n.r * 0.3, n.y - n.r * 0.3, n.r * 0.35, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,255,255,0.5)';
+        ctx.fill();
+      });
+
       RAF_ID = requestAnimationFrame(drawNeural);
     }
+
     drawNeural();
     document.addEventListener('visibilitychange', function() {
       if (document.hidden) cancelAnimationFrame(RAF_ID); else drawNeural();
