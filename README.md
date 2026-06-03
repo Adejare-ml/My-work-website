@@ -1,6 +1,6 @@
 # Adejare Adelugba — Portfolio Website
 
-[![Live](https://img.shields.io/badge/Live-https://adelugba-adejare.pages.dev-brightgreen?style=flat-square)](https://adelugba-adejare.pages.dev/)
+[![Live](https://img.shields.io/badge/Live-https://my-work-website.pages.dev/-brightgreen?style=flat-square)](https://adelugba-adejare.pages.dev/)
 [![Cloudflare Pages](https://img.shields.io/badge/Deployed-Cloudflare%20Pages-orange?style=flat-square)](https://pages.cloudflare.com)
 
 Personal portfolio site for **Adejare Adelugba** — ML Engineer & Data Scientist based in Abuja, Nigeria.
