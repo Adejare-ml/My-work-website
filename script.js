@@ -149,7 +149,7 @@
 
     drawNeural();
     document.addEventListener('visibilitychange', function() {
-      if (document.hidden) cancelAnimationFrame(RAF_ID); else drawNeural();
+      if (document.hidden) { cancelAnimationFrame(RAF_ID); } else { cancelAnimationFrame(RAF_ID); drawNeural(); }
     });
   }
 
@@ -305,7 +305,7 @@
    * Leave the array empty ([]) to show all public repos.
    */
   var FEATURED_REPOS = [
-    'Breast_cancer_detention_using_muilt_modal_analysis',
+    'Breast_cancer_detection_using_multimodal_analysis',
     'Real-Time-Human-Activity-Recognition-Using-Time-Series-Transformers-Wearable-Sensors-HAR-70-Dataset-',
     'Heart_disease_risk_prediction_system',
     'Salary-Prediction-Using-Global-Tech-Job-Metadata-Regression-Model-',
@@ -443,24 +443,4 @@
       });
     });
   });
-/* Filter button logic for projects page */
-document.addEventListener('DOMContentLoaded', function () {
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  if (!filterBtns.length) return;
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', function () {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-      const filter = this.dataset.filter;
-      document.querySelectorAll('.project-card[data-category]').forEach(card => {
-        if (filter === 'all' || card.dataset.category === filter) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
-        }
-      });
-    });
-  });
-});
 })();
