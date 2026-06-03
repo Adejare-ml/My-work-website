@@ -9,7 +9,7 @@ Personal portfolio site for **Adejare Adelugba** — ML Engineer & Data Scientis
 
 ## Live Site
 
-**[my-work-website.pages.dev](https://adelugba-adejare.pages.dev/))**
+**[[https://adelugba-adejare.pages.dev/]]((https://adelugba-adejare.pages.dev/))**
 
 ---
 
