@@ -1286,3 +1286,66 @@ a.channel:hover { color: var(--accent); }
   }
   /* flow-in never runs: JS bails, so nothing is left at opacity 0 */
 }
+
+/* ============================================================
+   motion enhancements — loader, bars, micro-interactions
+   Auto-motion is JS-guarded (reduced() bails) AND neutralised by
+   the reduced-motion block above, so this only runs when allowed.
+   ============================================================ */
+
+/* top progress loader */
+.top-loader {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px; width: 0;
+  background: var(--accent);
+  box-shadow: 0 0 10px rgba(167, 181, 242, 0.6);
+  z-index: 9999;
+  opacity: 0;
+  transition: width 0.2s linear, opacity 0.3s ease;
+}
+.top-loader.is-active { opacity: 1; }
+
+/* buttons — lift on hover, press on active */
+.btn {
+  transition: border-color var(--t-hover) var(--ease),
+              color var(--t-hover) var(--ease),
+              box-shadow var(--t-hover) var(--ease),
+              transform var(--t-hover) var(--ease);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0) scale(0.98); }
+
+/* cards / panels / jobs / minis — subtle lift on hover */
+.card, .panel, .job, .mini {
+  transition: border-color var(--t-hover) var(--ease),
+              color var(--t-hover) var(--ease),
+              box-shadow var(--t-hover) var(--ease),
+              transform var(--t-hover) var(--ease);
+}
+.card:hover, .panel:hover, .job:hover, .mini:hover { transform: translateY(-3px); }
+.card:hover .card-link { color: var(--ink); }
+
+/* nav — underline slides in on hover / current */
+.nav a { position: relative; }
+.nav a::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 100%; bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transition: right 0.25s var(--ease);
+}
+.nav a:hover::after,
+.nav a[aria-current="page"]::after { right: 0; }
+
+/* benchmark bars grow to their target width */
+.bar-fill { transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+
+/* portrait fades in once the image decodes (class added by JS) */
+.portrait-frame img.reveal-img { opacity: 0; transform: scale(1.02); }
+.portrait-frame img.reveal-img.is-loaded {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}

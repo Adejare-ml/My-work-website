@@ -315,14 +315,165 @@
     });
   }
 
+  /* ---------- top progress loader -------------------------
+     A thin accent bar at the top. Fills briefly on page load,
+     and creeps while an internal navigation is in flight so
+     multi-page moves get feedback. Skipped under reduced motion.
+     -------------------------------------------------------- */
+
+  function initTopLoader() {
+    if (reduced()) return;
+    var bar = document.createElement('div');
+    bar.className = 'top-loader';
+    bar.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(bar);
+    var to;
+    var start = function () {
+      clearTimeout(to);
+      bar.classList.add('is-active');
+      bar.style.width = '0%';
+      requestAnimationFrame(function () { bar.style.width = '85%'; });
+    };
+    var finish = function () {
+      bar.style.width = '100%';
+      clearTimeout(to);
+      to = setTimeout(function () {
+        bar.classList.remove('is-active');
+        bar.style.width = '0%';
+      }, 350);
+    };
+    /* page just rendered */
+    start();
+    setTimeout(finish, 240);
+    /* internal navigation starting */
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a || a.target === '_blank' || a.hasAttribute('download')) return;
+      var url;
+      try { url = new URL(a.href, location.href); } catch (err) { return; }
+      if (url.origin !== location.origin) return;
+      if (url.pathname === location.pathname) return; /* same page / anchor */
+      start();
+    }, true);
+  }
+
+  /* ---------- animated benchmark bars ---------------------
+     .bar-fill grows from 0 to its inline target width when
+     scrolled into view. Static (at target) under reduced motion.
+     -------------------------------------------------------- */
+
+  function initBars() {
+    var fills = Array.prototype.slice.call(document.querySelectorAll('.bar-fill'));
+    if (!fills.length) return;
+    fills.forEach(function (f) { f.dataset.w = f.style.width || ''; });
+    if (reduced() || !('IntersectionObserver' in window)) return;
+    fills.forEach(function (f) { if (f.dataset.w) f.style.width = '0%'; });
+    var restore = function (f) { if (f.dataset.w) f.style.width = f.dataset.w; };
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        io.unobserve(en.target);
+        var f = en.target;
+        requestAnimationFrame(function () { restore(f); });
+      });
+    }, { threshold: 0.3 });
+    fills.forEach(function (f) { io.observe(f); });
+    /* safety net: never leave a bar at 0 if the observer never fires */
+    setTimeout(function () { fills.forEach(restore); }, 2500);
+  }
+
+  /* ---------- count-up numbers ----------------------------
+     Animates the numeric part of .metric-num and .bar-val on
+     scroll-in, preserving surrounding markup (e.g. the % sup).
+     -------------------------------------------------------- */
+
+  function makeCounter(node) {
+    var raw = node.nodeType === 3 ? node.nodeValue : node.textContent;
+    var m = raw.match(/(\d[\d,]*(?:\.\d+)?)/);
+    if (!m) return null;
+    var numStr = m[1];
+    var target = parseFloat(numStr.replace(/,/g, ''));
+    if (!isFinite(target)) return null;
+    var decimals = (numStr.split('.')[1] || '').length;
+    var pre = raw.slice(0, m.index);
+    var post = raw.slice(m.index + numStr.length);
+    var write = function (v) {
+      var s = pre + Number(v).toFixed(decimals) + post;
+      if (node.nodeType === 3) node.nodeValue = s; else node.textContent = s;
+    };
+    write(0);
+    var ran = false;
+    return {
+      start: function () {
+        if (ran) return; ran = true;
+        var t0 = null, dur = 1100;
+        (function frame(ts) {
+          if (t0 === null) t0 = ts;
+          var p = Math.min((ts - t0) / dur, 1);
+          write(target * (1 - Math.pow(1 - p, 3)));
+          if (p < 1) requestAnimationFrame(frame); else write(target);
+        })(performance.now());
+      },
+      /* direct write of the final value — never depends on rAF firing */
+      done: function () { ran = true; write(target); }
+    };
+  }
+
+  function initCounters() {
+    if (reduced() || !('IntersectionObserver' in window)) return;
+    var items = [];
+    var add = function (owner, node) {
+      var c = makeCounter(node);
+      if (c) items.push({ owner: owner, ctl: c });
+    };
+    Array.prototype.forEach.call(document.querySelectorAll('.bar-val'), function (el) {
+      add(el, el.firstChild && el.firstChild.nodeType === 3 ? el.firstChild : el);
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('.metric-num'), function (el) {
+      if (el.firstChild && el.firstChild.nodeType === 3) add(el, el.firstChild);
+    });
+    if (!items.length) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        io.unobserve(en.target);
+        items.forEach(function (it) { if (it.owner === en.target) it.ctl.start(); });
+      });
+    }, { threshold: 0.4 });
+    items.forEach(function (it) { io.observe(it.owner); });
+    /* safety net: force final values if the observer never fires */
+    setTimeout(function () { items.forEach(function (it) { it.ctl.done(); }); }, 2600);
+  }
+
+  /* ---------- image fade-in on load ----------------------- */
+
+  function initImgReveal() {
+    if (reduced()) return;
+    var imgs = document.querySelectorAll('.portrait-frame img');
+    Array.prototype.forEach.call(imgs, function (img) {
+      img.classList.add('reveal-img');
+      var show = function () { img.classList.add('is-loaded'); };
+      if (img.complete && img.naturalWidth) show();
+      else {
+        img.addEventListener('load', show);
+        img.addEventListener('error', show);
+        setTimeout(show, 3000); /* never leave it hidden */
+      }
+    });
+  }
+
   /* ---------- boot ---------- */
 
   function boot() {
+    initTopLoader();
     initFlow(document);
     initHeroPlanes();
     initDisclosures();
     initContactForm();
     initCopy();
+    initBars();
+    initCounters();
+    initImgReveal();
   }
 
   if (document.readyState === 'loading') {
