@@ -1272,6 +1272,9 @@ a.channel:hover { color: var(--accent); }
   .fact dd { text-align: left; }
   .cta-link { flex-direction: column; align-items: flex-start; gap: 4px; }
   .cta-link-val { text-align: left; }
+  /* Nav: full-width row with 44px tap targets (base links are ~13px tall) */
+  .nav { width: 100%; justify-content: space-between; gap: 2px 10px; }
+  .nav a { min-height: 44px; padding: 0 4px; display: inline-flex; align-items: center; }
 }
 
 /* ---------- reduced motion ---------- */
