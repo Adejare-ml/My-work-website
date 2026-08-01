@@ -212,39 +212,63 @@
         return;
       }
 
-      /* Deliver to the Google Apps Script endpoint (fire-and-forget; no-cors
-         means we can't read the response, so the confirmation shows optimistically —
-         same contract as the previous production form). */
+      /* Loading state — disable submit and reflect progress. */
+      var submitBtn = form.querySelector('button[type="submit"]');
+      var btnLabel = submitBtn ? submitBtn.textContent : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.setAttribute('aria-busy', 'true');
+        submitBtn.textContent = 'sending…';
+      }
+      if (banner) banner.hidden = true;
+
+      /* Deliver to the Google Apps Script endpoint. no-cors gives an opaque
+         response, so fetch resolves on any server reply and rejects only on a
+         real network failure (offline) — enough to drive success vs. error. */
       var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwBiGV9ihPpi-xZfgoWJGsZeHtCg9OP7rI-AnzbNQULdqwsHmZosEoCbt3kUk2IYMQXog/exec';
       var payload = new URLSearchParams();
       ['name', 'email', 'subject', 'message'].forEach(function (k) {
         var el = form.querySelector('#' + k);
         payload.append(k, el ? el.value.trim() : '');
       });
-      if (window.fetch) {
-        fetch(SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: payload.toString()
-        }).catch(function () {});
-      }
 
-      var nameInput = form.querySelector('#name');
-      var firstName = nameInput ? nameInput.value.trim().split(/\s+/)[0] : '';
-      var stamp = new Date().toTimeString().slice(0, 5) + ' wat';
+      var showSent = function () {
+        var nameInput = form.querySelector('#name');
+        var firstName = nameInput ? nameInput.value.trim().split(/\s+/)[0] : '';
+        var stamp = new Date().toTimeString().slice(0, 5) + ' wat';
+        var nameSlot = document.getElementById('sent-name');
+        var stampSlot = document.getElementById('sent-stamp');
+        if (nameSlot) nameSlot.textContent = firstName;
+        if (stampSlot) stampSlot.textContent = stamp;
+        form.hidden = true;
+        if (sentPanel) {
+          sentPanel.hidden = false;
+          var heading = sentPanel.querySelector('.sent-title');
+          if (heading) { heading.setAttribute('tabindex', '-1'); heading.focus(); }
+        }
+      };
 
-      var nameSlot = document.getElementById('sent-name');
-      var stampSlot = document.getElementById('sent-stamp');
-      if (nameSlot) nameSlot.textContent = firstName;
-      if (stampSlot) stampSlot.textContent = stamp;
+      var showSendError = function () {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.removeAttribute('aria-busy');
+          submitBtn.textContent = btnLabel;
+        }
+        if (banner) {
+          banner.hidden = false;
+          banner.textContent = "couldn't send — email adelugbaadejare03@gmail.com directly ↗";
+          banner.focus && banner.setAttribute('tabindex', '-1');
+          if (banner.focus) banner.focus();
+        }
+      };
 
-      form.hidden = true;
-      if (sentPanel) {
-        sentPanel.hidden = false;
-        var heading = sentPanel.querySelector('.sent-title');
-        if (heading) { heading.setAttribute('tabindex', '-1'); heading.focus(); }
-      }
+      if (!window.fetch) { showSent(); return; }
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: payload.toString()
+      }).then(showSent, showSendError);
     });
 
     var reset = document.getElementById('write-another');

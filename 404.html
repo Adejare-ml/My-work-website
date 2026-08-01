@@ -1,70 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Page not found — Adejare Adelugba | ML Engineer">
-<title>404 — Page Not Found | Adejare Adelugba</title>
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>404 — Adejare Adelugba</title>
+<meta name="description" content="That page doesn't exist. Back to the work.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
-<canvas id="neural-bg"></canvas>
-<div class="scroll-progress"></div>
-
-<nav class="site-nav">
-  <a href="index.html" class="nav-logo">
-    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <rect width="100" height="100" rx="16" fill="#58a6ff"/>
-      <g fill="white">
-        <polygon points="10,85 17,85 50,14 43,14"/>
-        <polygon points="90,85 83,85 50,14 57,14"/>
-        <polygon points="46,11 54,11 50,2"/>
-        <polygon points="28,82 34,82 50,36 46,36"/>
-        <polygon points="72,82 66,82 50,36 54,36"/>
-        <rect x="34" y="57" width="32" height="6" rx="1"/>
-      </g>
-    </svg>
-    ADEJARE.AI
-  </a>
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="projects.html">Projects</a>
-    <a href="contact.html">Contact</a>
-  </div>
-  <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
-</nav>
+<a class="skip" href="#main">skip to content</a>
 
 <div class="page">
-  <div style="min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 8%;">
+  <div class="well">
 
-    <div style="font-family:var(--ff-mono);font-size:clamp(5rem,15vw,10rem);font-weight:700;line-height:1;
-                background:linear-gradient(135deg,#58a6ff,#00e5ff);
-                -webkit-background-clip:text;background-clip:text;color:transparent;
-                margin-bottom:1rem;
-                text-shadow:none;
-                filter:drop-shadow(0 0 30px rgba(0,229,255,.25));">
-      404
-    </div>
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a class="wordmark" href="index.html">~/adejare.ml<span>_</span></a>
+        <nav class="nav" aria-label="Main">
+          <a href="index.html">home</a>
+          <a href="about.html">about</a>
+          <a href="projects.html">projects</a>
+          <a href="contact.html">contact</a>
+        </nav>
+      </div>
+    </header>
 
-    <p style="font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:.6rem;">
-      Page Not Found
-    </p>
-    <p style="font-size:.95rem;color:var(--muted);max-width:420px;line-height:1.75;margin-bottom:2.5rem;">
-      This node doesn't exist in the network. The page may have been moved, deleted, or you followed a broken link.
-    </p>
+    <main id="main">
+      <section class="intro">
+        <span class="eyebrow" data-flow="up" data-flow-i="0"><b>[</b> 404 <b>]</b></span>
+        <h1 class="page-title" data-flow="up" data-flow-i="1">Not found<span class="dot">.</span></h1>
+        <p class="lede" data-flow="up" data-flow-i="2">That path doesn't resolve. The page may have moved, or the link was broken.</p>
+        <pre class="ascii" data-flow="up" data-flow-i="3" style="margin-top:1.6rem;">$ cd /that-page
+cd: no such file or directory</pre>
+        <p class="lede" data-flow="up" data-flow-i="4" style="margin-top:1.6rem;">
+          <a href="index.html">← back home</a> &nbsp;·&nbsp; <a href="projects.html">the work →</a>
+        </p>
+      </section>
+    </main>
 
-    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
-      <a href="index.html" class="btn btn-primary"><i class="fas fa-home"></i> Back to Home</a>
-      <a href="projects.html" class="btn btn-outline"><i class="fas fa-code"></i> View Projects</a>
-      <a href="contact.html" class="btn btn-muted"><i class="fas fa-envelope"></i> Contact</a>
-    </div>
+    <footer class="site-footer">
+      <div class="folio">
+        <span>© 2026 adejare adelugba</span>
+        <span>404</span>
+        <a href="tokens.html">spec: token sheet →</a>
+      </div>
+    </footer>
 
   </div>
 </div>
 
-<script data-cfasync="false" src="script.js"></script>
+<script src="assets/site.js"></script>
 </body>
 </html>
