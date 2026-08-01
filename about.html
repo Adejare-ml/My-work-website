@@ -1,218 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="About Adejare Adelugba — ML Engineer. 87.1% ROC-AUC cancer detection thesis. Abuja, Nigeria.">
-<meta property="og:title" content="About | Adejare Adelugba">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://my-work-website.pages.dev/about.html">
-<meta property="og:image" content="https://my-work-website.pages.dev/Profile_pic.png">
-<title>About | Adejare Adelugba</title>
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About — Adejare Adelugba</title>
+<meta name="description" content="Computer-science graduate from Landmark University doing machine learning where the data is worst. Experience, education, and the short version of the story.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
-<canvas id="neural-bg"></canvas>
-<div class="scroll-progress"></div>
-
-<nav class="site-nav">
-  <a href="index.html" class="nav-logo">
-    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <rect width="100" height="100" rx="16" fill="#58a6ff"/>
-      <g fill="white">
-        <polygon points="10,85 17,85 50,14 43,14"/>
-        <polygon points="90,85 83,85 50,14 57,14"/>
-        <polygon points="46,11 54,11 50,2"/>
-        <polygon points="28,82 34,82 50,36 46,36"/>
-        <polygon points="72,82 66,82 50,36 54,36"/>
-        <rect x="34" y="57" width="32" height="6" rx="1"/>
-      </g>
-    </svg>
-    ADEJARE.ML
-  </a>
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="about.html" class="active">About</a>
-    <a href="projects.html">Projects</a>
-    <a href="contact.html">Contact</a>
-  </div>
-  <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
-</nav>
+<a class="skip" href="#main">skip to content</a>
 
 <div class="page">
+  <div class="well">
 
-  <div class="about-hero">
-    <div class="about-photo-wrap">
-      <img src="Profile_pic.png" alt="Adejare Adelugba" class="about-photo">
-    </div>
-    <div>
-      <div class="hero-eyebrow" style="margin-bottom:.8rem;">ML Engineer &middot; Abuja, Nigeria</div>
-      <h1 class="about-hero-headline">The Engineer Behind the Code</h1>
-      <p class="about-bio">
-        I build ML systems that work on <strong>real, messy data</strong> &mdash; not clean benchmarks.
-        Computer Science graduate from Landmark University. My thesis achieved <strong>87.1% ROC-AUC</strong>
-        on multimodal breast cancer detection &mdash; a result driven by architectural decisions, not luck.
-      </p>
-      <div class="about-actions">
-        <a href="contact.html" class="btn btn-primary"><i class="fas fa-envelope"></i> Get In Touch</a>
-        <a href="projects.html" class="btn btn-outline"><i class="fas fa-code"></i> View Projects</a>
-        <a href="Adejare_Adelugba_Machine%20learning_engineer.pdf" download class="btn btn-muted"><i class="fas fa-download"></i> Download CV</a>
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a class="wordmark" href="index.html">~/adejare.ml<span>_</span></a>
+        <nav class="nav" aria-label="Main">
+          <a href="index.html">home</a>
+          <a href="about.html" aria-current="page">about</a>
+          <a href="projects.html">projects</a>
+          <a href="contact.html">contact</a>
+        </nav>
       </div>
-    </div>
+    </header>
+
+    <main id="main">
+
+      <!-- ============ portrait + bio ============ -->
+      <section class="about-hero">
+        <figure class="portrait-fig" data-flow="left" data-flow-i="0">
+          <div class="portrait-frame">
+            <picture>
+              <source srcset="profile-840.webp" type="image/webp">
+              <img src="profile-840.jpg" alt="Adejare Adelugba" width="840" height="1050"
+                   fetchpriority="high" decoding="async">
+            </picture>
+          </div>
+          <figcaption class="portrait-cap">
+            <i>// the author</i>
+            <span>abuja, 2026</span>
+          </figcaption>
+        </figure>
+
+        <div class="bio">
+          <span class="eyebrow" data-flow="right" data-flow-i="1"><b>[</b> WHO I AM <b>]</b></span>
+          <h1 class="page-title" data-flow="right" data-flow-i="2">About<span class="dot">.</span></h1>
+          <p data-flow="right" data-flow-i="3">I'm a computer-science graduate from Landmark University who does machine learning where the data is worst — hospital imaging archives, half-scanned government records, spreadsheets nobody trusts. My thesis fused MedCLIP image embeddings with TabNet clinical features and beat both single-modality baselines. Two internships taught me that shipped automation beats clever prototypes. Every project I publish documents what didn't work, not just what did.</p>
+        </div>
+      </section>
+
+      <!-- ============ experience ============ -->
+      <section class="section">
+        <div class="section-head" data-flow="up" data-flow-i="0">
+          <span class="eyebrow"><b>[</b> CAREER <b>]</b></span>
+          <div class="section-head-row">
+            <h2 class="section-title">Experience<span class="dot">.</span></h2>
+            <span class="comment">// 2021 — present</span>
+          </div>
+        </div>
+
+        <div data-disclosure-group data-label-open="[-] close" data-label-shut="[+] details">
+
+          <div class="disclosure is-open" data-disclosure data-flow="up" data-flow-i="1">
+            <button class="disclosure-btn" data-disclosure-btn type="button" aria-expanded="true" aria-controls="exp-0">
+              <span class="disclosure-date">aug–sep 2025</span>
+              <span class="disclosure-id">
+                <span class="disclosure-role">ML Engineering Intern</span>
+                <span class="disclosure-org">kontemporary konsulting · abuja</span>
+              </span>
+              <span class="disclosure-toggle">[-] close</span>
+            </button>
+            <div class="disclosure-panel" id="exp-0">
+              <div>
+                <ul class="bullets">
+                  <li>automated the firm's weekly consulting reports end-to-end: data collection to formatted memo</li>
+                  <li>designed, built, and shipped the corporate website</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="disclosure" data-disclosure data-flow="up" data-flow-i="2">
+            <button class="disclosure-btn" data-disclosure-btn type="button" aria-expanded="false" aria-controls="exp-1">
+              <span class="disclosure-date">mar–sep 2024</span>
+              <span class="disclosure-id">
+                <span class="disclosure-role">Data &amp; Automation Intern</span>
+                <span class="disclosure-org">tetfund · abuja</span>
+              </span>
+              <span class="disclosure-toggle">[+] details</span>
+            </button>
+            <div class="disclosure-panel" id="exp-1">
+              <div>
+                <ul class="bullets">
+                  <li>automated document-processing workflows across departments, cutting manual handling time by ~90%</li>
+                  <li>built validation scripts that caught entry errors before they reached official records</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="disclosure" data-disclosure data-flow="up" data-flow-i="3">
+            <button class="disclosure-btn" data-disclosure-btn type="button" aria-expanded="false" aria-controls="exp-2">
+              <span class="disclosure-date">2021 — 2025</span>
+              <span class="disclosure-id">
+                <span class="disclosure-role">B.Sc. Computer Science</span>
+                <span class="disclosure-org">landmark university · omu-aran</span>
+              </span>
+              <span class="disclosure-toggle">[+] details</span>
+            </button>
+            <div class="disclosure-panel" id="exp-2">
+              <div>
+                <ul class="bullets">
+                  <li>thesis: multimodal breast-cancer detection — image + clinical fusion, beating unimodal baselines</li>
+                  <li>focus areas: machine learning, databases, distributed systems</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============ at a glance ============ -->
+      <section class="section">
+        <div class="section-head" data-flow="up" data-flow-i="0">
+          <span class="eyebrow"><b>[</b> QUICK FACTS <b>]</b></span>
+          <div class="section-head-row">
+            <h2 class="section-title">At a glance<span class="dot">.</span></h2>
+            <span class="comment">// for the 90-second reader</span>
+          </div>
+        </div>
+
+        <dl class="facts">
+          <div class="fact" data-flow="up" data-flow-i="1">
+            <dt>education</dt>
+            <dd>B.Sc. Computer Science, Landmark University</dd>
+          </div>
+          <div class="fact" data-flow="up" data-flow-i="2">
+            <dt>focus</dt>
+            <dd>Multimodal ML · medical imaging · data infrastructure</dd>
+          </div>
+          <div class="fact" data-flow="up" data-flow-i="3">
+            <dt>stack</dt>
+            <dd>Python · PyTorch · PostgreSQL · FastAPI · Docker</dd>
+          </div>
+          <div class="fact" data-flow="up" data-flow-i="4">
+            <dt>location</dt>
+            <dd>Abuja, Nigeria — remote-friendly (WAT)</dd>
+          </div>
+          <div class="fact" data-flow="up" data-flow-i="5">
+            <dt>status</dt>
+            <dd class="is-accent">Open to ML Engineer &amp; Data Scientist roles</dd>
+          </div>
+          <div class="fact" data-flow="up" data-flow-i="6">
+            <dt>elsewhere</dt>
+            <dd>
+              <a href="https://github.com/Adejare-ml" target="_blank" rel="noopener">GitHub ↗</a> ·
+              <a href="https://linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener">LinkedIn ↗</a> ·
+              <a href="Adejare_Adelugba_Machine%20learning_engineer.pdf" download>CV (PDF) ↓</a>
+            </dd>
+          </div>
+        </dl>
+
+        <p class="certs" data-flow="up" data-flow-i="7">// certifications — deeplearning.ai deep learning specialization · google data analytics · full list on <a href="https://linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener">linkedin ↗</a></p>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="cta">
+        <div class="cta-copy" data-flow="left" data-flow-i="0">
+          <span class="eyebrow"><b>[</b> AVAILABILITY <b>]</b></span>
+          <h2 class="cta-title">Available for ML engineering and data science roles<span class="dot">.</span></h2>
+          <span class="comment">// replies within 24 hours</span>
+        </div>
+        <div class="cta-links" data-flow="right" data-flow-i="1">
+          <a class="cta-link" href="mailto:adelugbaadejare03@gmail.com"><span class="cta-link-key">email</span><span class="cta-link-val">adelugbaadejare03@gmail.com</span></a>
+          <a class="cta-link" href="https://github.com/Adejare-ml" target="_blank" rel="noopener"><span class="cta-link-key">github</span><span class="cta-link-val">github.com/Adejare-ml ↗</span></a>
+          <a class="cta-link" href="https://linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener"><span class="cta-link-key">linkedin</span><span class="cta-link-val">in/adejare-adelugba ↗</span></a>
+        </div>
+      </div>
+      <div class="folio">
+        <span>© 2026 adejare adelugba</span>
+        <span>p.02 / 04</span>
+        <a href="tokens.html">spec: token sheet →</a>
+      </div>
+    </footer>
+
   </div>
-
-  <section class="stats-section about-stats">
-    <div class="stats-section-grid">
-      <div class="stat-big reveal"><span class="stat-big-val"><span class="counter" data-target="87" data-decimal=".1" data-suffix="%">87.1%</span></span><div class="stat-big-lbl">ROC-AUC</div><div class="stat-big-sub">Cancer Detection Thesis</div></div>
-      <div class="stat-big reveal"><span class="stat-big-val"><span class="counter" data-target="36" data-suffix="">36</span></span><div class="stat-big-lbl">States Scraped</div><div class="stat-big-sub">All Nigerian States + FCT</div></div>
-      <div class="stat-big reveal"><span class="stat-big-val"><span class="counter" data-target="99" data-decimal=".9" data-suffix="%">99.9%</span></span><div class="stat-big-lbl">Data Accuracy</div><div class="stat-big-sub">Cross-validated vs official sources</div></div>
-      <div class="stat-big reveal"><span class="stat-big-val"><span class="counter" data-target="90" data-suffix="%">90%</span></span><div class="stat-big-lbl">Time Reduction</div><div class="stat-big-sub">Manual process eliminated</div></div>
-      <div class="stat-big reveal"><span class="stat-big-val"><span class="counter" data-target="8" data-suffix="+">8+</span></span><div class="stat-big-lbl">Projects Built</div><div class="stat-big-sub">Shipped &amp; documented</div></div>
-      <div class="stat-big reveal"><span class="stat-big-val"><span class="counter" data-target="2" data-suffix="">2</span></span><div class="stat-big-lbl">Internships</div><div class="stat-big-sub">Real-world engineering</div></div>
-    </div>
-  </section>
-
-  <div class="about-body">
-    <div class="about-main">
-
-      <div class="story-section reveal">
-        <h2>My Story</h2>
-        <p>I'm a Computer Science graduate from Landmark University with a sharp focus on applied machine learning and data engineering &mdash; specifically, making AI work outside controlled environments.</p>
-        <p>My thesis was the clearest demonstration of this. Rather than train another single-modality classifier on a clean benchmark, I designed a <strong>multimodal fusion system</strong> combining ultrasound image embeddings (MedCLIP) with clinical and radiometric tabular data (TabNet). Result: <strong>87.1% ROC-AUC</strong> &mdash; significantly outperforming unimodal baselines.</p>
-        <p>At <strong>Kontemporary Konsulting Ltd</strong> (Aug&ndash;Sep 2025), I architected a Selenium-based scraping system navigating multi-layer dynamically rendered structures across all 36 Nigerian states, loading everything into a clean queryable PostgreSQL database. 99.9% accuracy. 90% time reduction.</p>
-        <p>At <strong>TETFund</strong> (Mar&ndash;Sep 2024), I replaced manual report processing workflows with Python automation pipelines &mdash; handling messy institutional Excel files, correcting inconsistencies, and migrating legacy records into structured databases.</p>
-        <p>I write code that solves specific real problems. I document what I build. I work well with imperfect data &mdash; because that's all there is in the real world.</p>
-      </div>
-
-      <div class="story-section">
-        <h2>Experience Timeline</h2>
-        <div class="timeline">
-
-          <div class="tl-item reveal">
-            <div class="tl-left"><div class="tl-dot accent"></div><div class="tl-line"></div></div>
-            <div class="tl-content">
-              <div class="tl-meta"><span class="tl-date">2024 &ndash; 2025</span><span class="tl-badge badge-research">Research</span></div>
-              <div class="tl-title">B.Sc. Final Year Project &mdash; Multimodal Cancer Detection</div>
-              <div class="tl-org">Landmark University, Omu-Aran</div>
-              <p class="tl-desc">87.1% ROC-AUC via MedCLIP + TabNet early fusion architecture.</p>
-              <div class="tl-tags"><span class="tl-tag">PyTorch</span><span class="tl-tag">MedCLIP</span><span class="tl-tag">TabNet</span></div>
-            </div>
-          </div>
-
-          <div class="tl-item reveal">
-            <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
-            <div class="tl-content">
-              <div class="tl-meta"><span class="tl-date">Aug &ndash; Sep 2025</span><span class="tl-badge badge-work">Internship</span></div>
-              <div class="tl-title">IT &amp; Data Science Intern</div>
-              <div class="tl-org">Kontemporary Konsulting Ltd., Abuja</div>
-              <p class="tl-desc">Built Selenium electoral data infrastructure across 36 states (99.9% accuracy). Benchmarked ViT vs DINOv2 on brain tumor MRI with Grad-CAM visualization.</p>
-              <div class="tl-tags"><span class="tl-tag">Selenium</span><span class="tl-tag">PostgreSQL</span><span class="tl-tag">Python</span></div>
-            </div>
-          </div>
-
-          <div class="tl-item reveal">
-            <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
-            <div class="tl-content">
-              <div class="tl-meta"><span class="tl-date">Mar &ndash; Sep 2024</span><span class="tl-badge badge-work">Internship</span></div>
-              <div class="tl-title">IT Intern</div>
-              <div class="tl-org">Tertiary Education Trust Fund (TETFund), Abuja</div>
-              <p class="tl-desc">Automated report processing pipelines. Migrated legacy Excel records to PostgreSQL with full validation.</p>
-              <div class="tl-tags"><span class="tl-tag">Python</span><span class="tl-tag">Pandas</span><span class="tl-tag">PostgreSQL</span></div>
-            </div>
-          </div>
-
-          <div class="tl-item reveal">
-            <div class="tl-left"><div class="tl-dot"></div></div>
-            <div class="tl-content">
-              <div class="tl-meta"><span class="tl-date">2021 &ndash; 2025</span><span class="tl-badge badge-edu">Education</span></div>
-              <div class="tl-title">B.Sc. Computer Science</div>
-              <div class="tl-org">Landmark University, Omu-Aran</div>
-              <p class="tl-desc">Algorithms, data structures, machine learning, software engineering. Final year thesis on multimodal AI for medical diagnostics.</p>
-              <div class="tl-tags"><span class="tl-tag">Computer Science</span><span class="tl-tag">Machine Learning</span></div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-    </div>
-
-    <div class="about-sidebar">
-
-      <div class="sidebar-card reveal">
-        <div class="sidebar-card-title">Quick Facts</div>
-        <div class="sidebar-fact"><span class="sf-label">Education</span><span class="sf-value">B.Sc. Computer Science<br><small style="color:var(--muted);">Landmark University, 2021&ndash;2025</small></span></div>
-        <div class="sidebar-fact"><span class="sf-label">Focus</span><span class="sf-value">Applied ML &amp; Data Engineering</span></div>
-        <div class="sidebar-fact"><span class="sf-label">Key Stack</span><span class="sf-value">Python &middot; PyTorch &middot; PostgreSQL</span></div>
-        <div class="sidebar-fact"><span class="sf-label">Best Result</span><span class="sf-value accent">87.1% ROC-AUC</span></div>
-        <div class="sidebar-fact"><span class="sf-label">Location</span><span class="sf-value">Abuja, Nigeria &middot; Remote OK</span></div>
-        <div class="sidebar-fact"><span class="sf-label">Status</span><span class="sf-value green">Open to Opportunities</span></div>
-      </div>
-
-      <div class="sidebar-card reveal">
-        <div class="sidebar-card-title">Certifications</div>
-        <div class="cert-item">
-          <div class="cert-icon"><i class="fab fa-aws"></i></div>
-          <div><div class="cert-name">AWS ML Foundations</div><div class="cert-issuer">Amazon Web Services Educate</div></div>
-        </div>
-        <div class="cert-item">
-          <div class="cert-icon"><i class="fas fa-chart-bar"></i></div>
-          <div><div class="cert-name">Data Science Certificate</div><div class="cert-issuer">AfriHUB ICT Institute</div></div>
-        </div>
-
-        <div class="cert-item">
-          <div class="cert-icon cert-icon-anthropic" style="background:rgba(194,169,125,.12);border-color:rgba(194,169,125,.3);color:#c2a97d;"><i class="fas fa-comments"></i></div>
-          <div><div class="cert-name">Claude 101</div><div class="cert-issuer">Anthropic &middot; Apr 2026</div></div>
-        </div>
-        <div class="cert-item">
-          <div class="cert-icon cert-icon-anthropic" style="background:rgba(122,158,110,.12);border-color:rgba(122,158,110,.3);color:#7a9e6e;"><i class="fas fa-layer-group"></i></div>
-          <div><div class="cert-name">AI Fluency: Framework &amp; Foundations</div><div class="cert-issuer">Anthropic &middot; UCC &middot; Ringling College</div></div>
-        </div>
-        <div class="cert-item">
-          <div class="cert-icon cert-icon-anthropic" style="background:rgba(148,148,184,.12);border-color:rgba(148,148,184,.3);color:#9494b8;"><i class="fas fa-graduation-cap"></i></div>
-          <div><div class="cert-name">AI Fluency for Students</div><div class="cert-issuer">Anthropic &middot; UCC &middot; HEA</div></div>
-        </div>
-        <div class="cert-item">
-          <div class="cert-icon cert-icon-anthropic" style="background:rgba(91,138,180,.12);border-color:rgba(91,138,180,.3);color:#5b8ab4;"><i class="fas fa-project-diagram"></i></div>
-          <div><div class="cert-name">Introduction to Agent Skills</div><div class="cert-issuer">Anthropic</div></div>
-        </div>
-
-      </div>
-
-      <div class="sidebar-card reveal">
-        <div class="sidebar-card-title">Open To</div>
-        <div class="looking-tags">
-          <span class="looking-tag">ML Engineering</span><span class="looking-tag">Data Science</span>
-          <span class="looking-tag">Remote Roles</span><span class="looking-tag">Freelance</span>
-          <span class="looking-tag">Research</span>
-        </div>
-      </div>
-
-      <div class="sidebar-card reveal">
-        <div class="sidebar-card-title">Find Me Online</div>
-        <a href="https://github.com/Adejare-ml" target="_blank" rel="noopener noreferrer" class="online-link">
-          <i class="fab fa-github"></i><span>GitHub &mdash; Adejare-ml</span><i class="fas fa-external-link-alt arrow"></i>
-        </a>
-        <a href="https://linkedin.com/in/danieljare" target="_blank" rel="noopener noreferrer" class="online-link">
-          <i class="fab fa-linkedin-in"></i><span>LinkedIn &mdash; danieljare</span><i class="fas fa-external-link-alt arrow"></i>
-        </a>
-      </div>
-
-    </div>
-  </div>
-
-  <footer class="site-footer">
-    <span class="footer-text">adelugbaadejare03@gmail.com &nbsp;&middot;&nbsp; Abuja, Nigeria</span>
-    <div class="footer-links">
-      <a href="https://github.com/Adejare-ml" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
-      <a href="https://www.linkedin.com/in/danieljare/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-    </div>
-  </footer>
 </div>
 
-<script data-cfasync="false" src="script.js"></script>
+<script src="assets/site.js"></script>
 </body>
 </html>
-

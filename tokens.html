@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Sheet — terminal-editorial v5</title>
+<meta name="description" content="Design token specification: colour, type scale, spacing, radii, elevation, motion, and breakpoints.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<div class="page">
+  <div class="well">
+
+    <header>
+      <div class="spec-bar">
+        <a class="wordmark" href="index.html">~/adejare.ml<span>_</span></a>
+        <span class="spec-meta">spec — terminal-editorial v5 · <a href="index.html">← back to site</a></span>
+      </div>
+    </header>
+
+    <main class="spec-grid">
+
+      <!-- ============ colour ============ -->
+      <section class="spec-block is-full">
+        <div class="spec-head">
+          <h2>Color<span class="dot">.</span></h2>
+          <span class="spec-note">// one accent · no gradients · no github primer hexes</span>
+        </div>
+        <div class="swatches">
+          <div class="swatch"><span class="swatch-chip" style="background:#1c1d21; border:1px solid #2a2c33;"></span><span class="swatch-name">--bg&nbsp;&nbsp;#1C1D21</span><span class="swatch-use">page background</span></div>
+          <div class="swatch"><span class="swatch-chip" style="background:#1e2025; border:1px solid #2a2c33;"></span><span class="swatch-name">--card&nbsp;&nbsp;#1E2025</span><span class="swatch-use">cards, panels</span></div>
+          <div class="swatch"><span class="swatch-chip" style="background:#22242a; border:1px solid #2a2c33;"></span><span class="swatch-name">--surface&nbsp;&nbsp;#22242A</span><span class="swatch-use">code blocks, inputs</span></div>
+          <div class="swatch"><span class="swatch-chip" style="background:#2a2c33;"></span><span class="swatch-name">--hairline&nbsp;&nbsp;#2A2C33</span><span class="swatch-use">rules, resting borders</span></div>
+          <div class="swatch"><span class="swatch-chip" style="background:#3a3d47;"></span><span class="swatch-name">--border&nbsp;&nbsp;#3A3D47</span><span class="swatch-use">interactive borders (#4A4E5C hover)</span></div>
+          <div class="swatch"><span class="swatch-chip" style="background:#8f93a3;"></span><span class="swatch-name">--muted&nbsp;&nbsp;#8F93A3</span><span class="swatch-use">labels, comments, folios</span></div>
+          <div class="swatch"><span class="swatch-chip" style="background:#a0a4b2;"></span><span class="swatch-name">--text-2&nbsp;&nbsp;#A0A4B2</span><span class="swatch-use">body secondary</span></div>
+          <div class="swatch"><span class="swatch-chip" style="background:#c7cad6;"></span><span class="swatch-name">--text-1&nbsp;&nbsp;#C7CAD6</span><span class="swatch-use">body, links at rest</span></div>
+          <div class="swatch"><span class="swatch-chip" style="background:#f4f4f0;"></span><span class="swatch-name">--ink&nbsp;&nbsp;#F4F4F0</span><span class="swatch-use">headlines, wordmark</span></div>
+          <div class="swatch"><span class="swatch-chip" style="background:#a7b5f2;"></span><span class="swatch-name is-accent">--accent&nbsp;&nbsp;#A7B5F2</span><span class="swatch-use">periwinkle — spots only: brackets, periods, keywords, CTAs</span></div>
+          <div class="swatch"><span class="swatch-chip" style="background:#d98c85;"></span><span class="swatch-name">--error&nbsp;&nbsp;#D98C85</span><span class="swatch-use">form validation only (functional)</span></div>
+        </div>
+      </section>
+
+      <!-- ============ type scale ============ -->
+      <section class="spec-block">
+        <div class="spec-head">
+          <h2>Type scale<span class="dot">.</span></h2>
+          <span class="spec-note">// newsreader · hanken grotesk · jetbrains mono</span>
+        </div>
+        <div class="spec-rows">
+          <div class="spec-row"><span style="font-family:var(--serif); font-weight:500; font-size:44px; line-height:1;">Display<span class="dot">.</span></span><span class="spec-spec">newsreader 500 · clamp(44, 6.4vw, 84) / 1.02</span></div>
+          <div class="spec-row"><span style="font-family:var(--serif); font-weight:500; font-size:34px; line-height:1;">Page title<span class="dot">.</span></span><span class="spec-spec">newsreader 500 · clamp(38, 4.8vw, 64) / 1.05</span></div>
+          <div class="spec-row"><span style="font-family:var(--serif); font-weight:500; font-size:28px; line-height:1;">Section<span class="dot">.</span></span><span class="spec-spec">newsreader 500 · clamp(30, 3.6vw, 46) / 1.1</span></div>
+          <div class="spec-row"><span style="font-family:var(--serif); font-weight:500; font-size:22px; line-height:1;">Card heading</span><span class="spec-spec">newsreader 500 · clamp(19, 2.1vw, 27) / 1.2</span></div>
+          <div class="spec-row"><span style="font-size:18px; color:var(--text-2);">Lede paragraph</span><span class="spec-spec">hanken 400 · clamp(16, 1.5vw, 18–19) / 1.65</span></div>
+          <div class="spec-row"><span style="font-size:15px; color:var(--text-1);">Body copy</span><span class="spec-spec">hanken 400 · 14.5–15 / 1.65</span></div>
+          <div class="spec-row"><span style="font-size:13.5px; color:var(--text-2);">Card body / captions</span><span class="spec-spec">hanken 400 · 13.5 / 1.6</span></div>
+          <div class="spec-row"><span style="font-family:var(--mono); font-size:12.5px; color:var(--text-1);">nav / buttons / data — 12.5</span><span class="spec-spec">mono 400–700</span></div>
+          <div class="spec-row"><span class="eyebrow"><b>[</b> EYEBROW — 11 / LS 0.1EM <b>]</b></span><span class="spec-spec">mono 400 · uppercase · accent brackets</span></div>
+          <div class="spec-row"><span class="comment">// comment label — 10.5–11.5 italic</span><span class="spec-spec">mono 400 italic · lowercase</span></div>
+        </div>
+      </section>
+
+      <!-- ============ spacing + elevation ============ -->
+      <section class="spec-block" style="gap:28px;">
+        <div class="spec-block">
+          <div class="spec-head">
+            <h2>Spacing<span class="dot">.</span></h2>
+            <span class="spec-note">// one scale — no ad-hoc values</span>
+          </div>
+          <div class="scale">
+            <div class="scale-row"><span class="scale-num">4</span><span class="scale-bar" style="width:4px"></span></div>
+            <div class="scale-row"><span class="scale-num">8</span><span class="scale-bar" style="width:8px"></span></div>
+            <div class="scale-row"><span class="scale-num">12</span><span class="scale-bar" style="width:12px"></span></div>
+            <div class="scale-row"><span class="scale-num">16</span><span class="scale-bar" style="width:16px"></span></div>
+            <div class="scale-row"><span class="scale-num">24</span><span class="scale-bar" style="width:24px"></span></div>
+            <div class="scale-row"><span class="scale-num">32</span><span class="scale-bar" style="width:32px"></span></div>
+            <div class="scale-row"><span class="scale-num">48</span><span class="scale-bar" style="width:48px"></span></div>
+            <div class="scale-row"><span class="scale-num">64</span><span class="scale-bar" style="width:64px"></span></div>
+            <div class="scale-row"><span class="scale-num">96</span><span class="scale-bar" style="width:96px"></span></div>
+            <div class="scale-row"><span class="scale-num">128</span><span class="scale-bar" style="width:128px"></span></div>
+          </div>
+          <span class="spec-foot">section gaps fluid: clamp(56, 8vw, 96–104) · page gutter clamp(16, 4vw, 56) · content well max 1200</span>
+        </div>
+
+        <div class="spec-block">
+          <div class="spec-head">
+            <h2>Radii &amp; elevation<span class="dot">.</span></h2>
+            <span class="spec-note">// depth from layers, not shadows</span>
+          </div>
+          <div class="elevations">
+            <div class="elev"><span class="elev-box" style="background:#1c1d21; border:1px solid #2a2c33;"></span><span class="elev-label">r-0 · e-0 flat</span></div>
+            <div class="elev"><span class="elev-box" style="background:#1e2025; border:1px solid #2a2c33; border-radius:2px;"></span><span class="elev-label">r-2 chips/inputs</span></div>
+            <div class="elev"><span class="elev-box" style="background:#1e2025; border:1px solid #3a3d47; border-radius:3px;"></span><span class="elev-label">r-3 · e-1 card</span></div>
+            <div class="elev"><span class="elev-stack"><span style="background:#22242a; border:1px solid #2a2c33; transform:translate(6px, 6px);"></span><span style="background:#22242a; border:1px solid #3a3d47;"></span></span><span class="elev-label">e-2 stacked planes</span></div>
+            <div class="elev"><span class="elev-box" style="background:#1e2025; border:1px solid #a7b5f2; border-radius:3px; box-shadow:0 0 20px rgba(167,181,242,0.25);"></span><span class="elev-label">e-h hover glow</span></div>
+          </div>
+          <span class="spec-foot">hover = border-color shift + soft glow (rgba accent 0.12–0.35) · never scale</span>
+        </div>
+      </section>
+
+      <!-- ============ motion + breakpoints ============ -->
+      <section class="spec-block">
+        <div class="spec-head">
+          <h2>Motion<span class="dot">.</span></h2>
+          <span class="spec-note">// "flows into place" — each element glides once, then holds</span>
+        </div>
+        <div class="spec-rows">
+          <div class="spec-row"><span class="spec-key">--t-hover&nbsp;&nbsp;150ms</span><span class="spec-val">hover, focus, copy feedback</span></div>
+          <div class="spec-row"><span class="spec-key">--t-flow&nbsp;&nbsp;700ms</span><span class="spec-val">section flow-in, disclosures unfolding</span></div>
+          <div class="spec-row"><span class="spec-key">--t-hero&nbsp;&nbsp;900ms</span><span class="spec-val">hero sequence only</span></div>
+          <div class="spec-row"><span class="spec-key">--stagger&nbsp;&nbsp;90ms</span><span class="spec-val">between blocks, reading order</span></div>
+          <div class="spec-row"><span class="spec-key">--ease</span><span class="spec-val" style="font-family:var(--mono); font-size:10.5px;">cubic-bezier(0.16, 1, 0.3, 1)</span></div>
+          <div class="spec-row"><span class="spec-key">travel</span><span class="spec-val">media ±48px from sides · text 36px from below · glide, never drop</span></div>
+          <div class="spec-row"><span class="spec-key">hero 3d</span><span class="spec-val">code block on 2 offset planes; planes drift +10/+5px over first 360px of scroll</span></div>
+          <div class="spec-row"><span class="spec-key">reduced motion</span><span class="spec-val">all static &amp; visible; cursor blink off; planes fixed</span></div>
+        </div>
+
+        <div class="spec-head" style="margin-top:14px;">
+          <h2>Breakpoints<span class="dot">.</span></h2>
+          <span class="spec-note">// exactly three</span>
+        </div>
+        <div class="spec-rows">
+          <div class="spec-row"><span class="spec-key" style="color:var(--ink);">390</span><span class="spec-val">single column, stacked hero, wrapped nav</span></div>
+          <div class="spec-row"><span class="spec-key" style="color:var(--ink);">768</span><span class="spec-val">2-up grids, hero side-by-side</span></div>
+          <div class="spec-row"><span class="spec-key" style="color:var(--ink);">1440</span><span class="spec-val">3-up case grid, content well 1200</span></div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer style="padding-bottom:clamp(28px, 4vw, 48px);">
+      <div class="folio" style="border-top:1px solid var(--hairline); padding-top:14px;">
+        <span>© 2026 adejare adelugba</span>
+        <span>spec — terminal-editorial v5</span>
+        <a href="index.html">home →</a>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+</body>
+</html>

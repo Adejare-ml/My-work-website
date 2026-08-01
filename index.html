@@ -1,427 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Adejare Adelugba — ML Engineer and Data Scientist. 87.1% ROC-AUC cancer detection, 36-state data infrastructure. Based in Abuja, Nigeria.">
-<meta property="og:title" content="Adejare Adelugba | ML Engineer">
-<meta property="og:description" content="ML Engineer — multimodal cancer detection, large-scale data infrastructure, automation systems.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://my-work-website.pages.dev/">
-<meta property="og:image" content="https://my-work-website.pages.dev/Profile_pic.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Adejare Adelugba | ML Engineer">
-<meta name="twitter:image" content="https://my-work-website.pages.dev/Profile_pic.png">
-<title>Adejare Adelugba | ML Engineer &amp; Data Scientist</title>
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adejare Adelugba — ML Engineer &amp; Data Scientist</title>
+<meta name="description" content="ML Engineer building machine-learning systems for messy, real-world data — and documenting what didn't work. 87.1% ROC-AUC multimodal cancer detection, electoral data infrastructure across all 36 Nigerian states.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
-<canvas id="neural-bg"></canvas>
-<div class="scroll-progress"></div>
-
-<nav class="site-nav">
-  <a href="index.html" class="nav-logo">
-    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <rect width="100" height="100" rx="16" fill="#58a6ff"/>
-      <g fill="white">
-        <polygon points="10,85 17,85 50,14 43,14"/>
-        <polygon points="90,85 83,85 50,14 57,14"/>
-        <polygon points="46,11 54,11 50,2"/>
-        <polygon points="28,82 34,82 50,36 46,36"/>
-        <polygon points="72,82 66,82 50,36 54,36"/>
-        <rect x="34" y="57" width="32" height="6" rx="1"/>
-      </g>
-    </svg>
-    ADEJARE.ML
-  </a>
-  <div class="nav-links">
-    <a href="index.html" class="active">Home</a>
-    <a href="about.html">About</a>
-    <a href="projects.html">Projects</a>
-    <a href="contact.html">Contact</a>
-  </div>
-  <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
-</nav>
+<a class="skip" href="#main">skip to content</a>
 
 <div class="page">
+  <div class="well">
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-content">
-      <div class="hero-eyebrow">
-        <span class="hero-status-dot"></span>
-        Open to opportunities &middot; Abuja, Nigeria
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a class="wordmark" href="index.html">~/adejare.ml<span>_</span></a>
+        <nav class="nav" aria-label="Main">
+          <a href="index.html" aria-current="page">home</a>
+          <a href="about.html">about</a>
+          <a href="projects.html">projects</a>
+          <a href="contact.html">contact</a>
+        </nav>
       </div>
-      <h1>Adejare Adelugba</h1>
-      <p class="hero-role">ML Engineer &amp; Data Scientist</p>
-      <p class="hero-desc">
-        I build <strong>ML systems that work on real, messy data</strong> &mdash; not clean benchmarks.
-        Most recently: <strong>87.1% ROC-AUC</strong> on multimodal cancer detection, and
-        electoral data infrastructure spanning <strong>all 36 Nigerian states</strong>.
-      </p>
-      <div class="hero-actions">
-        <a href="projects.html" class="btn btn-primary"><i class="fas fa-code"></i> View My Work</a>
-        <a href="https://github.com/Adejare-ml" target="_blank" rel="noopener noreferrer" class="btn btn-outline"><i class="fab fa-github"></i> GitHub</a>
-        <a href="Adejare_Adelugba_Machine%20learning_engineer.pdf" download class="btn btn-muted"><i class="fas fa-download"></i> Download CV</a>
-      </div>
-    </div>
-    <div class="hero-photo-wrap">
-      <img src="Profile_pic.png" alt="Adejare Adelugba — ML Engineer" class="hero-photo">
-    </div>
-  </section>
+    </header>
 
-  <!-- TICKER -->
-  <div class="ticker">
-    <div class="ticker-track">
-      <span class="ticker-item"><i class="fab fa-python"></i> Python</span><span class="ticker-sep">/</span>
-      <span class="ticker-item"><i class="fas fa-brain"></i> Machine Learning</span><span class="ticker-sep">/</span>
-      <span class="ticker-item"><i class="fas fa-robot"></i> PyTorch</span><span class="ticker-sep">/</span>
-      <span class="ticker-item"><i class="fas fa-database"></i> PostgreSQL</span><span class="ticker-sep">/</span>
-      <span class="ticker-item"><i class="fas fa-spider"></i> Selenium</span><span class="ticker-sep">/</span>
-      <span class="ticker-item"><i class="fas fa-microscope"></i> MedCLIP</span><span class="ticker-sep">/</span>
-      <span class="ticker-item"><i class="fas fa-table"></i> TabNet</span><span class="ticker-sep">/</span>
-      <span class="ticker-item"><i class="fas fa-bolt"></i> FastAPI</span><span class="ticker-sep">/</span>
-      <span class="ticker-item"><i class="fas fa-code-branch"></i> Git / GitHub</span><span class="ticker-sep">/</span>
-      <span class="ticker-item"><i class="fas fa-chart-bar"></i> Scikit-Learn</span><span class="ticker-sep">/</span>
-      <span class="ticker-item"><i class="fab fa-python"></i> Python</span><span class="ticker-sep">/</span>
-      <span class="ticker-item"><i class="fas fa-brain"></i> Machine Learning</span><span class="ticker-sep">/</span>
-      <span class="ticker-item"><i class="fas fa-robot"></i> PyTorch</span><span class="ticker-sep">/</span>
-      <span class="ticker-item"><i class="fas fa-database"></i> PostgreSQL</span><span class="ticker-sep">/</span>
-      <span class="ticker-item"><i class="fas fa-spider"></i> Selenium</span><span class="ticker-sep">/</span>
-      <span class="ticker-item"><i class="fas fa-microscope"></i> MedCLIP</span><span class="ticker-sep">/</span>
-      <span class="ticker-item"><i class="fas fa-table"></i> TabNet</span><span class="ticker-sep">/</span>
-      <span class="ticker-item"><i class="fas fa-bolt"></i> FastAPI</span><span class="ticker-sep">/</span>
-      <span class="ticker-item"><i class="fas fa-code-branch"></i> Git / GitHub</span><span class="ticker-sep">/</span>
-      <span class="ticker-item"><i class="fas fa-chart-bar"></i> Scikit-Learn</span><span class="ticker-sep">/</span>
-    </div>
+    <main id="main">
+
+      <!-- ============ hero ============ -->
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="status-chip" data-flow="left" data-flow-dur="900" data-flow-i="0">open to opportunities · abuja, nigeria</span>
+
+          <h1 class="display" data-flow="left" data-flow-dur="900" data-flow-i="1">Adejare<br>Adelugba<span class="dot">.</span></h1>
+
+          <p class="role" data-flow="left" data-flow-dur="900" data-flow-i="2">ML Engineer <span class="amp">&amp;</span> Data Scientist</p>
+
+          <p class="hero-lede" data-flow="left" data-flow-dur="900" data-flow-i="3">I build machine-learning systems for messy, real-world data — and I document what didn't work.</p>
+
+          <div class="actions" data-flow="left" data-flow-dur="900" data-flow-i="4">
+            <a class="btn btn-primary" href="projects.html">View My Work →</a>
+            <a class="btn btn-ghost" href="https://github.com/Adejare-ml" target="_blank" rel="noopener">GitHub ↗</a>
+            <a class="btn btn-ghost" href="Adejare_Adelugba_Machine%20learning_engineer.pdf" download>Download CV ↓</a>
+          </div>
+        </div>
+
+        <figure class="code-figure" data-flow="right" data-flow-dur="900" data-flow-i="2">
+          <figcaption class="code-cap">// the thesis, in twelve lines</figcaption>
+          <div class="code-stack">
+            <div class="plane plane-back" data-plane="back" aria-hidden="true"></div>
+            <div class="plane plane-mid" data-plane="mid" aria-hidden="true"></div>
+            <div class="code-window">
+              <div class="code-chrome">
+                <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="code-file">cancer_fusion.py — pytorch</span>
+              </div>
+              <pre class="code-body"><code><span class="kw">class</span> CancerFusionModel(nn.Module):
+    <span class="cmt">"""Mammogram + clinical record → diagnosis."""</span>
+    <span class="kw">def</span> __init__(self):
+        <span class="kw">super</span>().__init__()
+        self.img  = MedCLIP(frozen=<span class="kw">True</span>)
+        self.tab  = TabNet(clinical_dim=<span class="kw">23</span>)
+        self.head = nn.Linear(<span class="kw">512</span> + <span class="kw">64</span>, <span class="kw">2</span>)
+
+    <span class="kw">def</span> forward(self, x_img, x_tab):
+        z = torch.cat([self.img(x_img),
+                       self.tab(x_tab)], dim=<span class="kw">1</span>)
+        <span class="kw">return</span> self.head(z)  <span class="cmt"># early fusion<span class="cursor" aria-hidden="true"></span></span></code></pre>
+            </div>
+          </div>
+        </figure>
+      </section>
+
+      <!-- ============ selected work ============ -->
+      <section class="section" id="work">
+        <div class="section-head" data-flow="up" data-flow-i="0">
+          <span class="eyebrow"><b>[</b> SELECTED WORK <b>]</b></span>
+          <div class="section-head-row">
+            <h2 class="section-title">Case studies<span class="dot">.</span></h2>
+            <span class="comment">// three builds, receipts included</span>
+          </div>
+        </div>
+
+        <div class="cards">
+
+          <article class="card" data-flow="up" data-flow-i="1">
+            <span class="comment">// medical-imaging</span>
+            <h3 class="card-title">Multimodal Breast Cancer Detection</h3>
+            <p class="card-desc">Early fusion of MedCLIP image embeddings with TabNet clinical features — outperforms both unimodal baselines.</p>
+            <div class="metric">
+              <span class="metric-num">87.1<sup>%</sup></span>
+              <span class="metric-meta">roc_auc<br><b>accuracy: 82.7%</b></span>
+            </div>
+            <div class="card-foot">
+              <span class="tech">pytorch · medclip · tabnet</span>
+              <a class="card-link" href="projects.html">read case →</a>
+            </div>
+          </article>
+
+          <article class="card" data-flow="up" data-flow-i="2">
+            <span class="comment">// data-infrastructure</span>
+            <h3 class="card-title">Nigeria Electoral Data Infrastructure</h3>
+            <p class="card-desc">A resilient scraping pipeline covering polling-unit results nationwide, validated against the official source.</p>
+            <pre class="ascii">portal ─▶ selenium ─▶ parse
+              │
+   <b>postgresql</b> ◀─ validate</pre>
+            <span class="note">500k+ records · all 36 states · <b>99.9%</b> vs official</span>
+            <div class="card-foot">
+              <span class="tech">python · selenium · postgresql</span>
+              <a class="card-link" href="projects.html">read case →</a>
+            </div>
+          </article>
+
+          <article class="card" data-flow="up" data-flow-i="3">
+            <span class="comment">// model-benchmark</span>
+            <h3 class="card-title">Brain Tumor Classification Benchmark</h3>
+            <p class="card-desc">ViT against DINOv2 with Grad-CAM inspection — DINOv2 wins on accuracy and boundary localization.</p>
+            <div class="bars">
+              <div class="bar is-win">
+                <span class="bar-name">dinov2</span>
+                <span class="bar-track"><span class="bar-fill" style="width:93.8%"></span></span>
+                <span class="bar-val">93.8%</span>
+              </div>
+              <div class="bar">
+                <span class="bar-name">vit</span>
+                <span class="bar-track"><span class="bar-fill" style="width:91.4%"></span></span>
+                <span class="bar-val">91.4%</span>
+              </div>
+            </div>
+            <span class="note">better boundary localization under grad-cam</span>
+            <div class="card-foot">
+              <span class="tech">vit · dinov2 · grad-cam</span>
+              <a class="card-link" href="projects.html">read case →</a>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ============ capabilities ============ -->
+      <section class="section">
+        <div class="section-head" data-flow="up" data-flow-i="0">
+          <span class="eyebrow"><b>[</b> WHAT I WORK WITH <b>]</b></span>
+          <div class="section-head-row">
+            <h2 class="section-title">Capabilities<span class="dot">.</span></h2>
+            <span class="comment">// no charts, just the list</span>
+          </div>
+        </div>
+
+        <div class="caps">
+          <div class="cap" data-flow="up" data-flow-i="1">
+            <span class="cap-label">// ml-ai</span>
+            <div class="chips">
+              <span class="chip">pytorch</span>
+              <span class="chip">scikit-learn</span>
+              <span class="chip">cnns &amp; vits</span>
+              <span class="chip">transfer learning</span>
+              <span class="chip">model evaluation</span>
+            </div>
+          </div>
+          <div class="cap" data-flow="up" data-flow-i="2">
+            <span class="cap-label">// data-engineering</span>
+            <div class="chips">
+              <span class="chip">postgresql</span>
+              <span class="chip">selenium</span>
+              <span class="chip">pandas</span>
+              <span class="chip">etl pipelines</span>
+              <span class="chip">data validation</span>
+            </div>
+          </div>
+          <div class="cap" data-flow="up" data-flow-i="3">
+            <span class="cap-label">// automation</span>
+            <div class="chips">
+              <span class="chip">python scripting</span>
+              <span class="chip">fastapi</span>
+              <span class="chip">docker</span>
+              <span class="chip">scheduled jobs</span>
+            </div>
+          </div>
+          <div class="cap" data-flow="up" data-flow-i="4">
+            <span class="cap-label">// tools</span>
+            <div class="chips">
+              <span class="chip">git &amp; github</span>
+              <span class="chip">linux</span>
+              <span class="chip">jupyter</span>
+              <span class="chip">mlflow</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="cta">
+        <div class="cta-copy" data-flow="left" data-flow-i="0">
+          <span class="eyebrow"><b>[</b> AVAILABILITY <b>]</b></span>
+          <h2 class="cta-title">Available for ML engineering and data science roles<span class="dot">.</span></h2>
+          <span class="comment">// replies within 24 hours</span>
+        </div>
+        <div class="cta-links" data-flow="right" data-flow-i="1">
+          <a class="cta-link" href="mailto:adelugbaadejare03@gmail.com"><span class="cta-link-key">email</span><span class="cta-link-val">adelugbaadejare03@gmail.com</span></a>
+          <a class="cta-link" href="https://github.com/Adejare-ml" target="_blank" rel="noopener"><span class="cta-link-key">github</span><span class="cta-link-val">github.com/Adejare-ml ↗</span></a>
+          <a class="cta-link" href="https://linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener"><span class="cta-link-key">linkedin</span><span class="cta-link-val">in/adejare-adelugba ↗</span></a>
+        </div>
+      </div>
+      <div class="folio">
+        <span>© 2026 adejare adelugba</span>
+        <span>p.01 / 04</span>
+        <a href="tokens.html">spec: token sheet →</a>
+      </div>
+    </footer>
+
   </div>
-
-  <!-- STATS -->
-  <section class="stats-section">
-    <p class="stats-section-label">By the Numbers</p>
-    <h2 class="stats-section-title reveal">Measured outcomes from real work</h2>
-    <div class="stats-section-grid">
-      <div class="stat-big reveal">
-        <span class="stat-big-val"><span class="counter" data-target="87" data-decimal=".1" data-suffix="%">87.1%</span></span>
-        <div class="stat-big-lbl">ROC-AUC</div>
-        <div class="stat-big-sub">Cancer Detection Thesis</div>
-      </div>
-      <div class="stat-big reveal">
-        <span class="stat-big-val"><span class="counter" data-target="36" data-suffix="">36</span></span>
-        <div class="stat-big-lbl">States Scraped</div>
-        <div class="stat-big-sub">All Nigerian States + FCT</div>
-      </div>
-      <div class="stat-big reveal">
-        <span class="stat-big-val"><span class="counter" data-target="99" data-decimal=".9" data-suffix="%">99.9%</span></span>
-        <div class="stat-big-lbl">Data Accuracy</div>
-        <div class="stat-big-sub">Cross-validated vs official sources</div>
-      </div>
-      <div class="stat-big reveal">
-        <span class="stat-big-val"><span class="counter" data-target="90" data-suffix="%">90%</span></span>
-        <div class="stat-big-lbl">Time Reduction</div>
-        <div class="stat-big-sub">Manual workflows automated</div>
-      </div>
-      <div class="stat-big reveal">
-        <span class="stat-big-val"><span class="counter" data-target="8" data-suffix="+">8+</span></span>
-        <div class="stat-big-lbl">Projects Built</div>
-        <div class="stat-big-sub">ML, data engineering &amp; automation</div>
-      </div>
-      <div class="stat-big reveal">
-        <span class="stat-big-val"><span class="counter" data-target="2" data-suffix="">2</span></span>
-        <div class="stat-big-lbl">Internships</div>
-        <div class="stat-big-sub">TETFund &amp; Kontemporary</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CASE STUDIES (replaces expand-card project section) -->
-  <section class="section">
-    <p class="section-label">Selected Work</p>
-    <h2 class="section-title reveal">Case Studies</h2>
-    <p class="section-sub reveal">The two projects that best represent what I build and how I think.</p>
-
-    <div class="case-study-list">
-
-      <!-- Case 1: Cancer Detection -->
-      <div class="case-study-card reveal">
-        <div class="case-study-left">
-          <div class="case-study-category">Research &bull; Medical AI</div>
-          <h3 class="case-study-title">Multimodal Breast Cancer Detection</h3>
-          <p class="case-study-stack">PyTorch &bull; MedCLIP &bull; TabNet &bull; Early Fusion</p>
-          <p class="case-study-desc">
-            Designed a fusion architecture combining ultrasound image embeddings (MedCLIP, 512-dim) with clinical tabular metadata (TabNet) to overcome the limitations of single-modality screening.
-            Early fusion outperformed late fusion and both unimodal baselines.
-          </p>
-          <div class="case-study-chips">
-            <span class="chip chip-accent">87.1% ROC-AUC</span>
-            <span class="chip chip-accent">82.7% Accuracy</span>
-            <span class="chip">Outperforms Unimodal</span>
-            <span class="chip">Final Year Thesis</span>
-          </div>
-          <div class="case-study-actions">
-            <a href="https://github.com/Adejare-ml/Breast_cancer_detection_using_multimodal_analysis" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size:.82rem;padding:8px 18px;"><i class="fab fa-github"></i> Repository</a>
-            <a href="projects.html#research" class="btn btn-outline" style="font-size:.82rem;padding:8px 18px;">Full Case <i class="fas fa-arrow-right"></i></a>
-          </div>
-        </div>
-        <div class="case-study-right">
-          <div class="case-study-metric-grid">
-            <div class="csm-block">
-              <div class="csm-val">87.1%</div>
-              <div class="csm-lbl">ROC-AUC</div>
-            </div>
-            <div class="csm-block">
-              <div class="csm-val">576</div>
-              <div class="csm-lbl">Fusion Dims</div>
-            </div>
-            <div class="csm-block">
-              <div class="csm-val">2</div>
-              <div class="csm-lbl">Modalities</div>
-            </div>
-            <div class="csm-block">
-              <div class="csm-val">+6pt</div>
-              <div class="csm-lbl">vs ResNet50</div>
-            </div>
-          </div>
-          <div class="case-study-code">
-<pre>class CancerFusionModel(nn.Module):
-  def forward(self, img, tab):
-      v = self.medclip(img)  # 512-dim
-      t = self.tabnet(tab)   # 64-dim
-      return self.head(
-          torch.cat([v, t], 1)
-      )</pre>
-          </div>
-        </div>
-      </div>
-
-      <!-- Case 2: Nigeria Scraper -->
-      <div class="case-study-card reveal">
-        <div class="case-study-left">
-          <div class="case-study-category">Data Engineering &bull; Internship</div>
-          <h3 class="case-study-title">Nigeria Electoral Data Infrastructure</h3>
-          <p class="case-study-stack">Python &bull; Selenium &bull; PostgreSQL &bull; Click CLI</p>
-          <p class="case-study-desc">
-            Built a multi-layer Selenium scraper navigating dynamically rendered state portals across all 36 Nigerian states.
-            Standard scrapers fail at depth 3+ due to session token handling &mdash; solved with explicit wait chains, exponential backoff, and a resumable CLI.
-          </p>
-          <div class="case-study-chips">
-            <span class="chip chip-accent">500k+ Records</span>
-            <span class="chip chip-accent">99.9% Accuracy</span>
-            <span class="chip chip-accent">85% Manual Entry Saved</span>
-            <span class="chip">36 States</span>
-          </div>
-          <div class="case-study-actions">
-            <a href="projects.html" class="btn btn-outline" style="font-size:.82rem;padding:8px 18px;">Full Architecture <i class="fas fa-arrow-right"></i></a>
-          </div>
-        </div>
-        <div class="case-study-right">
-          <div class="case-study-metric-grid">
-            <div class="csm-block">
-              <div class="csm-val">500k+</div>
-              <div class="csm-lbl">Records</div>
-            </div>
-            <div class="csm-block">
-              <div class="csm-val">99.9%</div>
-              <div class="csm-lbl">Accuracy</div>
-            </div>
-            <div class="csm-block">
-              <div class="csm-val">36</div>
-              <div class="csm-lbl">States</div>
-            </div>
-            <div class="csm-block">
-              <div class="csm-val">85%</div>
-              <div class="csm-lbl">Time Saved</div>
-            </div>
-          </div>
-          <div class="case-study-code">
-<pre>StateWorker(state_id)
-  ├── navigate_portal(depth=3)
-  ├── retry_handler(backoff=exp)
-  ├── extract_polling_units()
-  └── validate_and_clean()
-          │
-  bulk_insert → PostgreSQL</pre>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="case-study-more reveal">
-      <span>HAR Transformer &bull; Heart Disease Prediction &bull; Fraud Detection &bull; Salary Regression &bull; TETFund Pipeline</span>
-      <a href="projects.html" class="btn btn-outline" style="font-size:.82rem;padding:8px 20px;">View All Projects <i class="fas fa-arrow-right"></i></a>
-    </div>
-  </section>
-
-  <!-- SKILLS — radar + tags merged into one section -->
-  <section class="section skills-combined-section">
-    <p class="section-label">Skills &amp; Competencies</p>
-    <h2 class="section-title reveal">What I build with</h2>
-    <p class="section-sub reveal">Mapped by real-world depth &mdash; tools I've actually shipped projects with.</p>
-
-    <div class="skills-combined-body">
-
-      <div class="skills-viz-radar-only reveal">
-        <div class="radar-panel liquid-glass">
-          <div class="radar-label-top">Competency Radar</div>
-          <div class="radar-wrap">
-            <svg id="radarChart" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"></svg>
-          </div>
-        </div>
-      </div>
-
-      <div class="skills-tag-panel reveal">
-        <div class="skills-grid">
-          <div class="skill-group">
-            <div class="skill-group-title"><i class="fas fa-brain"></i> ML &amp; AI</div>
-            <div class="skill-tags">
-              <span class="skill-tag">PyTorch</span>
-              <span class="skill-tag">Scikit-Learn</span>
-              <span class="skill-tag">MedCLIP</span>
-              <span class="skill-tag">TabNet</span>
-              <span class="skill-tag">XGBoost</span>
-              <span class="skill-tag">Transformers</span>
-              <span class="skill-tag">DINOv2</span>
-            </div>
-          </div>
-          <div class="skill-group">
-            <div class="skill-group-title"><i class="fas fa-database"></i> Data Engineering</div>
-            <div class="skill-tags">
-              <span class="skill-tag">Pandas</span>
-              <span class="skill-tag">NumPy</span>
-              <span class="skill-tag">PostgreSQL</span>
-              <span class="skill-tag">FastAPI</span>
-              <span class="skill-tag">SQL</span>
-              <span class="skill-tag">Parquet</span>
-            </div>
-          </div>
-          <div class="skill-group">
-            <div class="skill-group-title"><i class="fas fa-spider"></i> Automation</div>
-            <div class="skill-tags">
-              <span class="skill-tag">Selenium</span>
-              <span class="skill-tag">openpyxl</span>
-              <span class="skill-tag">REST APIs</span>
-              <span class="skill-tag">Click CLI</span>
-            </div>
-          </div>
-          <div class="skill-group">
-            <div class="skill-group-title"><i class="fas fa-tools"></i> Languages &amp; Tools</div>
-            <div class="skill-tags">
-              <span class="skill-tag">Python</span>
-              <span class="skill-tag">SQL</span>
-              <span class="skill-tag">Git / GitHub</span>
-              <span class="skill-tag">Docker</span>
-              <span class="skill-tag">AWS Educate</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- CERTIFICATIONS -->
-  <section class="section certs-home-section" id="certifications">
-    <p class="section-label">Credentials</p>
-    <h2 class="section-title reveal">Certifications</h2>
-    <p class="section-sub reveal">Verified completions from Anthropic, AWS, and partner institutions.</p>
-    <div class="cert-home-grid">
-
-      <div class="cert-home-card reveal" style="--ch-accent:#c2a97d;">
-        <div class="cert-home-stripe"></div>
-        <div class="cert-home-body">
-          <div class="cert-home-top">
-            <span class="cert-home-badge">Anthropic</span>
-            <span class="cert-home-date">Apr 2026</span>
-          </div>
-          <div class="cert-home-title">Claude 101</div>
-          <div class="cert-home-desc">Foundations of working effectively with large language models.</div>
-        </div>
-      </div>
-
-      <div class="cert-home-card reveal" style="--ch-accent:#7a9e6e;">
-        <div class="cert-home-stripe"></div>
-        <div class="cert-home-body">
-          <div class="cert-home-top">
-            <span class="cert-home-badge">Anthropic</span>
-          </div>
-          <div class="cert-home-title">AI Fluency: Framework &amp; Foundations</div>
-          <div class="cert-home-desc">AI literacy, responsible use frameworks, and foundational concepts.</div>
-          <div class="cert-home-partners">UCC &middot; Ringling College &middot; HEA &middot; National Forum</div>
-        </div>
-      </div>
-
-      <div class="cert-home-card reveal" style="--ch-accent:#9494b8;">
-        <div class="cert-home-stripe"></div>
-        <div class="cert-home-body">
-          <div class="cert-home-top">
-            <span class="cert-home-badge">Anthropic</span>
-          </div>
-          <div class="cert-home-title">AI Fluency for Students</div>
-          <div class="cert-home-desc">Integrating AI tools thoughtfully into academic and professional workflows.</div>
-          <div class="cert-home-partners">UCC &middot; Ringling College &middot; HEA &middot; National Forum</div>
-        </div>
-      </div>
-
-      <div class="cert-home-card reveal" style="--ch-accent:#5b8ab4;">
-        <div class="cert-home-stripe"></div>
-        <div class="cert-home-body">
-          <div class="cert-home-top">
-            <span class="cert-home-badge">Anthropic</span>
-          </div>
-          <div class="cert-home-title">Introduction to Agent Skills</div>
-          <div class="cert-home-desc">Building agentic AI systems &mdash; planning, tool use, and multi-step reasoning.</div>
-        </div>
-      </div>
-
-      <div class="cert-home-card reveal" style="--ch-accent:#f0973a;">
-        <div class="cert-home-stripe"></div>
-        <div class="cert-home-body">
-          <div class="cert-home-top">
-            <span class="cert-home-badge" style="border-color:rgba(240,151,58,.4);color:#f0973a;">AWS</span>
-          </div>
-          <div class="cert-home-title">ML Foundations</div>
-          <div class="cert-home-desc">Machine learning fundamentals via Amazon Web Services Educate.</div>
-        </div>
-      </div>
-
-      <div class="cert-home-card reveal" style="--ch-accent:#58a6ff;">
-        <div class="cert-home-stripe"></div>
-        <div class="cert-home-body">
-          <div class="cert-home-top">
-            <span class="cert-home-badge" style="border-color:rgba(88,166,255,.4);color:#58a6ff;">AfriHUB</span>
-          </div>
-          <div class="cert-home-title">Data Science Certificate</div>
-          <div class="cert-home-desc">Data science fundamentals and applied analytics.</div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <div class="cta-strip">
-    <div>
-      <h3>Available for ML engineering and data science roles</h3>
-      <p>Remote &middot; Abuja, Nigeria &middot; Open to relocation</p>
-    </div>
-    <div class="cta-actions">
-      <a href="contact.html" class="btn btn-primary"><i class="fas fa-envelope"></i> Get In Touch</a>
-      <a href="Adejare_Adelugba_Machine%20learning_engineer.pdf" download class="btn btn-outline"><i class="fas fa-download"></i> Download CV</a>
-    </div>
-  </div>
-
-  <footer class="site-footer">
-    <span class="footer-text">adelugbaadejare03@gmail.com &nbsp;&middot;&nbsp; Abuja, Nigeria</span>
-    <div class="footer-links">
-      <a href="https://github.com/Adejare-ml" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
-      <a href="https://www.linkedin.com/in/danieljare/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-    </div>
-  </footer>
 </div>
 
-<script data-cfasync="false" src="script.js"></script>
+<script src="assets/site.js"></script>
 </body>
 </html>
