@@ -331,6 +331,7 @@ p { margin: 0; }
   position: absolute;
   inset: 0;
   border-radius: var(--r-3);
+  will-change: transform; /* JS drives these during hero scroll */
 }
 .plane-back {
   background: var(--surface);

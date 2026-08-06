@@ -74,15 +74,24 @@
       return;
     }
 
-    var onScroll = function () {
+    /* Latch scroll events to one rAF-aligned write per frame. */
+    var ticking = false;
+    var apply = function () {
+      ticking = false;
       var p = Math.min(window.scrollY, 360) / 360;
       if (back) back.style.transform =
         'translate(' + (18 + p * 10) + 'px, ' + (18 + p * 10) + 'px)';
       if (mid) mid.style.transform =
         'translate(' + (9 + p * 5) + 'px, ' + (9 + p * 5) + 'px)';
     };
+    var onScroll = function () {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(apply);
+      }
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    apply();
   }
 
   /* ---------- disclosures ----------------------------------
