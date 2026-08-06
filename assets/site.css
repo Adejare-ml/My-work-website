@@ -103,8 +103,18 @@ p { margin: 0; }
 /* ---------- shell ---------- */
 
 .page {
+  position: relative;
+  z-index: 1; /* keeps all content above the ambient canvas */
   min-height: 100vh;
   padding: 0 var(--gutter);
+}
+
+/* ambient 3d layer — canvas injected by assets/ambient-grid.js */
+.ambient-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .well {
