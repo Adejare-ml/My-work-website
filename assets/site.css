@@ -32,6 +32,7 @@
   --t-hover: 150ms;
   --t-flow:  700ms;
   --t-hero:  900ms;
+  --t-nav:   300ms;
   --stagger: 90ms;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -86,7 +87,7 @@ p { margin: 0; }
   position: absolute;
   left: -9999px;
   top: 0;
-  z-index: 10;
+  z-index: 60; /* above the sticky masthead (40) */
   background: var(--accent);
   color: var(--bg);
   font-family: var(--mono);
@@ -109,7 +110,16 @@ p { margin: 0; }
 
 /* ---------- masthead ---------- */
 
-.masthead { view-transition-name: masthead; }
+.masthead {
+  view-transition-name: masthead;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--bg);
+  /* bleed across the .page gutters so content never peeks past the well edge */
+  margin: 0 calc(-1 * var(--gutter));
+  padding: 0 var(--gutter);
+}
 
 .masthead-inner {
   display: flex;
@@ -119,14 +129,18 @@ p { margin: 0; }
   gap: 10px 24px;
   padding: 20px 0 16px;
   border-bottom: 1px solid var(--hairline);
+  transition: padding var(--t-nav) var(--ease);
 }
+.masthead.is-condensed .masthead-inner { padding: 10px 0 8px; }
 
 .wordmark {
   font-family: var(--mono);
   font-size: 14px;
   font-weight: 500;
   color: var(--ink);
+  transition: font-size var(--t-nav) var(--ease);
 }
+.masthead.is-condensed .wordmark { font-size: 12.5px; }
 .wordmark span { color: var(--accent); }
 
 .nav {

@@ -94,6 +94,28 @@
     apply();
   }
 
+  /* ---------- masthead condenses on scroll ------------------
+     A 72px sentinel at the top of the page drives an
+     IntersectionObserver: once it leaves the viewport the
+     sticky masthead gets .is-condensed (tighter padding,
+     smaller wordmark). No scroll math. The reduced-motion CSS
+     block makes the toggle instant, so no reduced() bail here —
+     condensing is a functional state, not decoration.
+     -------------------------------------------------------- */
+
+  function initMasthead() {
+    var head = document.querySelector('.masthead');
+    if (!head || !('IntersectionObserver' in window)) return;
+    var sentinel = document.createElement('div');
+    sentinel.setAttribute('aria-hidden', 'true');
+    sentinel.style.cssText =
+      'position:absolute;top:0;left:0;width:1px;height:72px;pointer-events:none;';
+    document.body.prepend(sentinel);
+    new IntersectionObserver(function (entries) {
+      head.classList.toggle('is-condensed', !entries[0].isIntersecting);
+    }).observe(sentinel);
+  }
+
   /* ---------- disclosures ----------------------------------
      One open at a time within a group; clicking the open one
      closes it. Matches the DCLogic `state.open` behaviour.
@@ -477,6 +499,7 @@
     initTopLoader();
     initFlow(document);
     initHeroPlanes();
+    initMasthead();
     initDisclosures();
     initContactForm();
     initCopy();
