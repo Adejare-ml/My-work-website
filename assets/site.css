@@ -36,6 +36,10 @@
   --stagger: 90ms;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 
+  /* hover depth */
+  --lift: -5px;
+  --shadow-lift: 0 14px 28px -18px rgba(0, 0, 0, 0.6);
+
   /* layout */
   --well: 1200px;
   --gutter: clamp(16px, 4vw, 56px);
@@ -433,7 +437,7 @@ p { margin: 0; }
 }
 .card:hover {
   border-color: var(--border-hi);
-  box-shadow: 0 0 24px rgba(167, 181, 242, 0.12);
+  box-shadow: var(--shadow-lift), 0 0 24px rgba(167, 181, 242, 0.12);
 }
 
 .card-title {
@@ -904,7 +908,7 @@ p { margin: 0; }
 .mini:hover {
   color: var(--ink);
   border-color: var(--border-hi);
-  box-shadow: 0 0 20px rgba(167, 181, 242, 0.12);
+  box-shadow: var(--shadow-lift), 0 0 20px rgba(167, 181, 242, 0.12);
 }
 .mini-cat {
   font-family: var(--mono);
@@ -945,7 +949,7 @@ p { margin: 0; }
 .gh-banner:hover {
   color: var(--ink);
   border-color: var(--accent);
-  box-shadow: 0 0 24px rgba(167, 181, 242, 0.18);
+  box-shadow: var(--shadow-lift), 0 0 24px rgba(167, 181, 242, 0.18);
 }
 .gh-banner-title {
   font-family: var(--serif);
@@ -1331,15 +1335,48 @@ a.channel:hover { color: var(--accent); }
 .btn:hover { transform: translateY(-2px); }
 .btn:active { transform: translateY(0) scale(0.98); }
 
-/* cards / panels / jobs / minis — subtle lift on hover */
-.card, .panel, .job, .mini {
+/* cards / panels / jobs / minis / banner — lift with depth shadow on hover */
+.card, .panel, .job, .mini, .gh-banner {
   transition: border-color var(--t-hover) var(--ease),
               color var(--t-hover) var(--ease),
               box-shadow var(--t-hover) var(--ease),
               transform var(--t-hover) var(--ease);
 }
-.card:hover, .panel:hover, .job:hover, .mini:hover { transform: translateY(-3px); }
+.card:hover, .panel:hover, .job:hover, .mini:hover, .gh-banner:hover {
+  transform: translateY(var(--lift));
+}
+.panel:hover, .job:hover {
+  border-color: var(--border-hi);
+  box-shadow: var(--shadow-lift);
+}
 .card:hover .card-link { color: var(--ink); }
+
+/* content links — underline draws in, same technique as the nav */
+.card-link, .folio a, .certs a { position: relative; }
+.card-link::after, .folio a::after, .certs a::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 100%; bottom: 1px;
+  height: 1px;
+  background: currentColor;
+  transition: right 0.25s var(--ease);
+}
+.card-link:hover::after,
+.card:hover .card-link::after,
+.folio a:hover::after,
+.certs a:hover::after { right: 0; }
+
+/* cta rows — underline the value span when the row is hovered */
+.cta-link-val { position: relative; }
+.cta-link-val::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 100%; bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transition: right 0.25s var(--ease);
+}
+.cta-link:hover .cta-link-val::after { right: 0; }
 
 /* nav — underline slides in on hover / current */
 .nav a { position: relative; }
