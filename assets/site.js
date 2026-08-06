@@ -7,32 +7,53 @@
 (function () {
   'use strict';
 
-  var EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
   var reduced = function () {
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   };
 
+  /* Motion timings live in site.css :root so the token sheet stays
+     the single source of truth. Read once at boot. */
+  var TOKENS = (function () {
+    var cs = getComputedStyle(document.documentElement);
+    var ms = function (name, fallback) {
+      var v = parseFloat(cs.getPropertyValue(name));
+      return isFinite(v) ? v : fallback;
+    };
+    return {
+      flow: ms('--t-flow', 1100),
+      stagger: ms('--stagger', 120),
+      flowRM: ms('--t-flow-rm', 520),
+      staggerRM: ms('--stagger-rm', 70)
+    };
+  })();
+
   /* ---------- "flows into place" ----------------------------
-     [data-flow="left|right|up"] elements glide 36–48px into
-     final position when scrolled to, staggered 90ms via
-     data-flow-i, 700ms (data-flow-dur overrides; hero uses 900).
-     Each animates exactly once.
+     [data-flow="left|right|up"] elements ease 44–56px into final
+     position when scrolled to, staggered in reading order via
+     data-flow-i (--stagger apart), over --t-flow (data-flow-dur
+     overrides; the hero runs longer). Each animates exactly once.
+
+     Under reduced motion they still fade in, in the same order —
+     just without the travel. See the reduced-motion block in
+     site.css for why that split is safe.
      -------------------------------------------------------- */
 
   var OFFSETS = {
-    left:  'translateX(-48px)',
-    right: 'translateX(48px)',
-    up:    'translateY(36px)'
+    left:  'translateX(-56px)',
+    right: 'translateX(56px)',
+    up:    'translateY(44px)'
   };
 
   function initFlow(root) {
     root = root || document;
-    if (reduced() || !('IntersectionObserver' in window)) return;
+    if (!('IntersectionObserver' in window)) return; /* bail before hiding */
 
+    var soft = reduced();
     var els = Array.prototype.slice.call(root.querySelectorAll('[data-flow]'));
+
     els.forEach(function (el) {
       el.style.opacity = '0';
-      el.style.transform = OFFSETS[el.dataset.flow] || OFFSETS.up;
+      if (!soft) el.style.transform = OFFSETS[el.dataset.flow] || OFFSETS.up;
     });
 
     var io = new IntersectionObserver(function (entries) {
@@ -40,18 +61,32 @@
         if (!en.isIntersecting) return;
         var el = en.target;
         io.unobserve(el);
-        var d = (parseInt(el.dataset.flowI, 10) || 0) * 90;
-        var t = el.dataset.flowDur || '700';
-        el.style.transition =
-          'opacity ' + t + 'ms ' + EASE + ' ' + d + 'ms, ' +
-          'transform ' + t + 'ms ' + EASE + ' ' + d + 'ms';
+
+        var i = parseInt(el.dataset.flowI, 10) || 0;
+        var delay = i * (soft ? TOKENS.staggerRM : TOKENS.stagger);
+        var dur = soft
+          ? TOKENS.flowRM
+          : (parseFloat(el.dataset.flowDur) || TOKENS.flow);
+
+        el.style.setProperty('--flow-dur', dur + 'ms');
+        el.style.setProperty('--flow-delay', delay + 'ms');
+        el.classList.add('flow-armed');
+
         requestAnimationFrame(function () {
           el.style.opacity = '1';
           el.style.transform = 'none';
         });
-        el.addEventListener('transitionend', function () {
-          el.style.transition = '';
-        }, { once: true });
+
+        /* transitionend bubbles: a child's hover or bar-fill
+           transition finishing mid-reveal would otherwise strip the
+           parent's transition and snap it to its end state. */
+        el.addEventListener('transitionend', function done(e) {
+          if (e.target !== el) return;
+          el.classList.remove('flow-armed');
+          el.style.removeProperty('--flow-dur');
+          el.style.removeProperty('--flow-delay');
+          el.removeEventListener('transitionend', done);
+        });
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
@@ -363,6 +398,7 @@
       clearTimeout(to);
       bar.classList.add('is-active');
       bar.style.width = '0%';
+      void bar.offsetWidth; /* commit 0% so the creep has a start state */
       requestAnimationFrame(function () { bar.style.width = '85%'; });
     };
     var finish = function () {
@@ -388,6 +424,78 @@
     }, true);
   }
 
+  /* ---------- page veil ------------------------------------
+     The veil markup is static in each page, so it covers from the
+     first paint and lifts on a CSS animation — it clears itself
+     even with JS off. This adds the other half: on internal
+     navigation the veil re-covers with the destination's label, so
+     the exit and the next page's intro read as one movement.
+     Hidden entirely under reduced motion (CSS).
+     -------------------------------------------------------- */
+
+  var ROUTES = {
+    'index.html':    '$ cd ~/',
+    '':              '$ cd ~/',
+    'about.html':    '$ cd ~/about',
+    'projects.html': '$ cd ~/projects',
+    'contact.html':  '$ cd ~/contact',
+    'tokens.html':   '$ cat tokens.spec',
+    '404.html':      '$ cd ~/404'
+  };
+
+  function initVeil() {
+    var veil = document.querySelector('.veil');
+    if (!veil) return;
+
+    var lift = function () { veil.classList.add('is-lifted'); };
+
+    var clear = function () {
+      veil.classList.remove('is-leaving');
+      veil.style.opacity = '';
+      veil.style.visibility = '';
+      veil.style.transition = '';
+      lift();
+    };
+
+    /* The CSS animation clears the veil on its own (so it works with
+       JS off), but a throttled or unsupported animation would leave
+       the page covered. Force it open either way. */
+    veil.addEventListener('animationend', function (e) {
+      if (e.target === veil) lift();
+    });
+    setTimeout(lift, 1600);
+
+    /* restoring from bfcache would otherwise show the covered state */
+    window.addEventListener('pageshow', function (e) { if (e.persisted) clear(); });
+
+    if (reduced()) return; /* veil is display:none — never intercept */
+
+    document.addEventListener('click', function (e) {
+      if (e.defaultPrevented || e.button !== 0) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a || a.target === '_blank' || a.hasAttribute('download')) return;
+
+      var url;
+      try { url = new URL(a.href, location.href); } catch (err) { return; }
+      if (url.origin !== location.origin) return;
+      if (url.pathname === location.pathname) return; /* same page / anchor */
+
+      e.preventDefault();
+      var file = url.pathname.split('/').pop();
+      var label = veil.querySelector('.veil-cmd');
+      if (label && ROUTES[file]) label.textContent = ROUTES[file];
+
+      veil.classList.remove('is-lifted');
+      veil.classList.add('is-leaving');
+      veil.style.visibility = 'visible';
+      veil.style.opacity = '0';
+      void veil.offsetWidth;
+      veil.style.opacity = '1';
+      setTimeout(function () { location.href = url.href; }, 300);
+    });
+  }
+
   /* ---------- animated benchmark bars ---------------------
      .bar-fill grows from 0 to its inline target width when
      scrolled into view. Static (at target) under reduced motion.
@@ -400,7 +508,9 @@
     if (reduced() || !('IntersectionObserver' in window)) return;
     fills.forEach(function (f) { if (f.dataset.w) f.style.width = '0%'; });
     var restore = function (f) { if (f.dataset.w) f.style.width = f.dataset.w; };
+    var ioAlive = false;
     var io = new IntersectionObserver(function (entries) {
+      ioAlive = true;
       entries.forEach(function (en) {
         if (!en.isIntersecting) return;
         io.unobserve(en.target);
@@ -409,8 +519,11 @@
       });
     }, { threshold: 0.3 });
     fills.forEach(function (f) { io.observe(f); });
-    /* safety net: never leave a bar at 0 if the observer never fires */
-    setTimeout(function () { fills.forEach(restore); }, 2500);
+    /* Safety net for an observer that never fires at all. It must not
+       run on a blind timer: below-fold bars would be filled in while
+       off-screen and the grow would never be seen. A live observer
+       always delivers an initial batch, so this proves it. */
+    setTimeout(function () { if (!ioAlive) fills.forEach(restore); }, 2500);
   }
 
   /* ---------- count-up numbers ----------------------------
@@ -464,7 +577,9 @@
       if (el.firstChild && el.firstChild.nodeType === 3) add(el, el.firstChild);
     });
     if (!items.length) return;
+    var ioAlive = false;
     var io = new IntersectionObserver(function (entries) {
+      ioAlive = true;
       entries.forEach(function (en) {
         if (!en.isIntersecting) return;
         io.unobserve(en.target);
@@ -472,8 +587,11 @@
       });
     }, { threshold: 0.4 });
     items.forEach(function (it) { io.observe(it.owner); });
-    /* safety net: force final values if the observer never fires */
-    setTimeout(function () { items.forEach(function (it) { it.ctl.done(); }); }, 2600);
+    /* same reasoning as initBars: only fire if the observer is dead,
+       otherwise below-fold counters finish before they're ever seen */
+    setTimeout(function () {
+      if (!ioAlive) items.forEach(function (it) { it.ctl.done(); });
+    }, 2600);
   }
 
   /* ---------- image fade-in on load ----------------------- */
@@ -484,7 +602,9 @@
     Array.prototype.forEach.call(imgs, function (img) {
       img.classList.add('reveal-img');
       var show = function () { img.classList.add('is-loaded'); };
-      if (img.complete && img.naturalWidth) show();
+      /* cached image: commit the hidden frame first, or both classes
+         land in one style flush and the fade never runs */
+      if (img.complete && img.naturalWidth) { void img.offsetWidth; show(); }
       else {
         img.addEventListener('load', show);
         img.addEventListener('error', show);
@@ -496,6 +616,7 @@
   /* ---------- boot ---------- */
 
   function boot() {
+    initVeil();
     initTopLoader();
     initFlow(document);
     initHeroPlanes();

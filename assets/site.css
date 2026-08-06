@@ -28,13 +28,18 @@
   --r-2: 2px;   /* chips, inputs, buttons */
   --r-3: 3px;   /* cards, panels */
 
-  /* motion */
+  /* motion — "flows into place": eased in, never flung */
   --t-hover: 150ms;
-  --t-flow:  700ms;
-  --t-hero:  900ms;
+  --t-flow:  1100ms;
+  --t-hero:  1500ms;
   --t-nav:   300ms;
-  --stagger: 90ms;
-  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --t-veil:  620ms;   /* page veil hold before it lifts */
+  --stagger: 120ms;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);            /* hover/nav — quick settle */
+  --ease-flow: cubic-bezier(0.4, 0, 0.2, 1);        /* reveals — gentle in, long out */
+  /* reduced motion still cross-fades: no travel, no parallax, no drift */
+  --t-flow-rm: 520ms;
+  --stagger-rm: 70ms;
 
   /* hover depth */
   --lift: -5px;
@@ -84,7 +89,9 @@ p { margin: 0; }
   outline-offset: 3px;
 }
 
-@view-transition { navigation: auto; }
+/* Cross-document view transitions are deliberately NOT opted into:
+   the page veil owns the between-pages moment, and running both
+   would cross-fade two already-veiled screens. */
 
 /* skip link */
 .skip {
@@ -109,10 +116,15 @@ p { margin: 0; }
   padding: 0 var(--gutter);
 }
 
-/* ambient 3d layer — canvas injected by assets/ambient-grid.js */
+/* ambient 3d layer — canvas injected by assets/ambient-grid.js.
+   width/height are required: a canvas is a replaced element, so
+   inset:0 alone leaves it at its intrinsic (backing-store) size and
+   it renders dpr-times oversized on scaled displays. */
 .ambient-grid {
   position: fixed;
   inset: 0;
+  width: 100%;
+  height: 100%;
   z-index: 0;
   pointer-events: none;
 }
@@ -688,9 +700,10 @@ p { margin: 0; }
 .disclosure-panel {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows var(--t-flow) var(--ease);
+  transition: grid-template-rows 520ms var(--ease-flow);
 }
-.disclosure.is-open > .disclosure-panel { grid-template-rows: 1fr; }
+/* .deadend items on projects.html share this panel markup */
+.is-open > .disclosure-panel { grid-template-rows: 1fr; }
 .disclosure-panel > div { overflow: hidden; }
 
 .bullets {
@@ -1306,14 +1319,30 @@ a.channel:hover { color: var(--accent); }
   .nav a { min-height: 44px; padding: 0 4px; display: inline-flex; align-items: center; }
 }
 
-/* ---------- reduced motion ---------- */
+/* ---------- reduced motion ----------
+   "Reduce", not "remove". Everything that travels, parallaxes,
+   loops or scales is killed outright; plain cross-fades stay,
+   because they carry no movement and are the one cue that tells a
+   visitor the page is assembling. Reveals therefore still sequence
+   in — they just don't slide.
+   ------------------------------------ */
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation: none !important;
     transition: none !important;
   }
-  /* flow-in never runs: JS bails, so nothing is left at opacity 0 */
+  /* opacity-only, no transform — duration/delay come from the
+     custom properties JS writes (untouched by `transition: none`) */
+  .flow-armed {
+    transition-property: opacity !important;
+    transition-duration: var(--flow-dur, 520ms) !important;
+    transition-delay: var(--flow-delay, 0ms) !important;
+    transition-timing-function: var(--ease-flow) !important;
+  }
+  /* the veil self-clears via animation; with animations killed it
+     would cover the page forever, so it simply never shows */
+  .veil { display: none !important; }
 }
 
 /* ============================================================
@@ -1409,5 +1438,96 @@ a.channel:hover { color: var(--accent); }
 .portrait-frame img.reveal-img.is-loaded {
   opacity: 1;
   transform: none;
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition: opacity 0.9s var(--ease-flow), transform 0.9s var(--ease-flow);
+}
+
+/* ------------------------------------------------------------
+   scroll reveals — the transition lives here rather than inline
+   so it can be re-declared under reduced motion. JS writes the
+   two custom properties and toggles .flow-armed for the duration
+   of the reveal only, leaving hover transitions untouched after.
+   Declared last so it wins over the .card/.panel hover rule.
+   ------------------------------------------------------------ */
+.flow-armed {
+  transition:
+    opacity   var(--flow-dur, 1100ms) var(--ease-flow) var(--flow-delay, 0ms),
+    transform var(--flow-dur, 1100ms) var(--ease-flow) var(--flow-delay, 0ms);
+}
+
+/* ------------------------------------------------------------
+   page veil — the between-pages moment. Static markup so it
+   covers from first paint (no flash), and it lifts on a pure CSS
+   animation so it self-clears even if JS never runs.
+   ------------------------------------------------------------ */
+.veil {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: var(--bg);
+  display: grid;
+  place-items: center;
+  padding: var(--gutter);
+  animation: veil-lift 1150ms var(--ease-flow) forwards;
+}
+.veil-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+.veil-cmd {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  opacity: 0;
+  animation: veil-line 520ms var(--ease-flow) 80ms forwards;
+}
+.veil-roles {
+  font-family: var(--serif);
+  font-size: clamp(20px, 3.4vw, 34px);
+  line-height: 1.25;
+  color: var(--ink);
+  max-width: 16ch;
+  opacity: 0;
+  animation: veil-line 640ms var(--ease-flow) 240ms forwards;
+}
+.veil-roles i { color: var(--accent); font-style: normal; }
+.veil-rule {
+  width: 0;
+  height: 1px;
+  background: var(--border);
+  animation: veil-rule 620ms var(--ease-flow) 400ms forwards;
+}
+
+@keyframes veil-line {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes veil-rule {
+  from { width: 0; }
+  to   { width: 190px; }
+}
+/* holds opaque through --t-veil, lifts, then stops intercepting */
+@keyframes veil-lift {
+  0%, 68%  { opacity: 1; visibility: visible; }
+  99%      { opacity: 0; visibility: visible; }
+  100%     { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+
+/* JS backstop: the page must never stay covered, even if the
+   animation is throttled, unsupported, or never runs */
+.veil.is-lifted {
+  animation: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* JS re-covers the page on internal navigation */
+.veil.is-leaving {
+  animation: none;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 300ms var(--ease-flow);
 }

@@ -11,12 +11,13 @@
   'use strict';
 
   var CONFIG = {
-    cols: 48,
-    rows: 28,
-    layers: 4,          /* points = cols × rows × layers (~5.4k) */
-    opacity: 0.08,      /* global ceiling — ambience, not content */
-    driftSpeed: 0.018,  /* z cycles per second (~55s per full pass) */
+    cols: 56,
+    rows: 32,
+    layers: 5,          /* points = cols × rows × layers (~9k) */
+    opacity: 0.17,      /* readable as texture, still well under the text */
+    driftSpeed: 0.032,  /* z cycles per second (~31s per full pass) */
     tiltMaxDeg: 5,      /* pointer parallax cap */
+    pointSize: 2.9,
     dprCap: 1.5,
     minViewport: 768
   };
@@ -28,14 +29,15 @@
     'uniform float u_phase;' +
     'uniform vec2  u_tilt;' +
     'uniform float u_dpr;' +
+    'uniform float u_size;' +
     'varying float v_fade;' +
     'void main() {' +
     '  float z = fract(a_pos.z + u_phase);' +
     '  float persp = 1.0 / (0.35 + z * 2.2);' +
     '  vec2 p = a_pos.xy * persp + u_tilt * (1.0 - z);' +
-    '  v_fade = smoothstep(0.0, 0.18, z) * smoothstep(1.0, 0.72, z);' +
+    '  v_fade = smoothstep(0.0, 0.18, z) * (1.0 - smoothstep(0.72, 1.0, z));' +
     '  gl_Position = vec4(p, 0.0, 1.0);' +
-    '  gl_PointSize = clamp(2.4 * persp * u_dpr, 1.0, 6.0 * u_dpr);' +
+    '  gl_PointSize = clamp(u_size * persp * u_dpr, 1.0, 7.0 * u_dpr);' +
     '}';
 
   /* #a7b5f2, premultiplied — the only color this layer knows */
@@ -44,7 +46,7 @@
     'uniform float u_opacity;' +
     'varying float v_fade;' +
     'void main() {' +
-    '  float a = smoothstep(0.5, 0.15, length(gl_PointCoord - 0.5));' +
+    '  float a = 1.0 - smoothstep(0.15, 0.5, length(gl_PointCoord - 0.5));' +
     '  a *= v_fade * u_opacity;' +
     '  gl_FragColor = vec4(vec3(0.6549, 0.7098, 0.9490) * a, a);' +
     '}';
@@ -52,8 +54,10 @@
   var rmQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   var state = null;
 
+  /* Reduced motion is NOT a gate: the layer still mounts and paints
+     a single static frame, so those visitors get the depth without
+     the drift. The rest are capability gates. */
   function gatesPass() {
-    if (rmQuery.matches) return false;
     if (window.matchMedia('(pointer: coarse)').matches) return false;
     if (window.innerWidth < CONFIG.minViewport) return false;
     return true;
@@ -84,13 +88,29 @@
     return arr;
   }
 
+  /* Measure the element, not the window: CSS sizes the canvas to the
+     initial containing block, which excludes the scrollbar. Using
+     innerWidth here would stretch the field by the scrollbar's width. */
   function resize() {
     if (!state) return;
     var dpr = Math.min(window.devicePixelRatio || 1, CONFIG.dprCap);
-    state.canvas.width = Math.round(window.innerWidth * dpr);
-    state.canvas.height = Math.round(window.innerHeight * dpr);
+    var w = state.canvas.clientWidth || window.innerWidth;
+    var h = state.canvas.clientHeight || window.innerHeight;
+    state.canvas.width = Math.round(w * dpr);
+    state.canvas.height = Math.round(h * dpr);
     state.gl.viewport(0, 0, state.canvas.width, state.canvas.height);
     state.gl.uniform1f(state.uDpr, dpr);
+  }
+
+  function draw() {
+    var s = state;
+    var gl = s.gl;
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.uniform1f(s.uPhase, s.phase);
+    gl.uniform2f(s.uTilt, s.tilt[0], s.tilt[1]);
+    gl.uniform1f(s.uOpacity, CONFIG.opacity);
+    gl.uniform1f(s.uSize, CONFIG.pointSize);
+    gl.drawArrays(gl.POINTS, 0, s.count);
   }
 
   function frame(ts) {
@@ -103,12 +123,7 @@
     var k = Math.tan(CONFIG.tiltMaxDeg * Math.PI / 180);
     s.tilt[0] += (s.target[0] * k - s.tilt[0]) * 0.08;
     s.tilt[1] += (s.target[1] * k - s.tilt[1]) * 0.08;
-    var gl = s.gl;
-    gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.uniform1f(s.uPhase, s.phase);
-    gl.uniform2f(s.uTilt, s.tilt[0], s.tilt[1]);
-    gl.uniform1f(s.uOpacity, CONFIG.opacity);
-    gl.drawArrays(gl.POINTS, 0, s.count);
+    draw();
   }
 
   function init() {
@@ -158,6 +173,7 @@
       uPhase: gl.getUniformLocation(prog, 'u_phase'),
       uTilt: gl.getUniformLocation(prog, 'u_tilt'),
       uDpr: gl.getUniformLocation(prog, 'u_dpr'),
+      uSize: gl.getUniformLocation(prog, 'u_size'),
       uOpacity: gl.getUniformLocation(prog, 'u_opacity'),
       phase: Math.random(), /* different entry point each visit */
       last: 0,
@@ -169,16 +185,23 @@
         state.target[0] = (e.clientX / window.innerWidth) * 2 - 1;
         state.target[1] = -((e.clientY / window.innerHeight) * 2 - 1);
       },
-      onLost: function (e) {
-        e.preventDefault();
+      /* no preventDefault: the context is gone, so let it drop and
+         rebuild from scratch once the GPU process has settled */
+      onLost: function () {
         destroy();
+        setTimeout(evaluate, 1000);
       }
     };
 
     canvas.addEventListener('webglcontextlost', state.onLost);
-    window.addEventListener('mousemove', state.onMove, { passive: true });
     document.body.prepend(canvas);
     resize();
+
+    if (rmQuery.matches) {
+      draw(); /* one still frame: depth without drift */
+      return;
+    }
+    window.addEventListener('mousemove', state.onMove, { passive: true });
     state.raf = requestAnimationFrame(frame);
   }
 
@@ -194,30 +217,37 @@
     if (s.canvas.parentNode) s.canvas.parentNode.removeChild(s.canvas);
   }
 
-  function evaluate() {
+  /* rebuild rather than patch when the motion preference flips, so
+     the static-frame and animated modes never half-apply */
+  function evaluate(rebuild) {
+    if (rebuild) destroy();
     if (gatesPass()) { if (!state) init(); }
     else destroy();
   }
 
-  /* opacity/driftSpeed/tiltMaxDeg apply next frame; geometry or
-     gate changes rebuild. Used by the motion-lab tuning panel. */
+  /* Uniform-driven values apply on the next draw; anything that
+     changes the geometry or the gates rebuilds. Used by motion-lab. */
+  var LIVE = { opacity: 1, driftSpeed: 1, tiltMaxDeg: 1, pointSize: 1 };
+
   function set(patch) {
     var rebuild = false;
     Object.keys(patch || {}).forEach(function (key) {
       if (!(key in CONFIG) || CONFIG[key] === patch[key]) return;
-      if (key !== 'opacity' && key !== 'driftSpeed' && key !== 'tiltMaxDeg') rebuild = true;
+      if (!LIVE[key]) rebuild = true;
       CONFIG[key] = patch[key];
     });
-    if (rebuild) { destroy(); evaluate(); }
+    if (rebuild) evaluate(true);
+    else if (state && !state.raf) draw(); /* static mode needs a repaint */
   }
 
   window.AmbientGrid = { init: init, destroy: destroy, set: set };
 
-  if (rmQuery.addEventListener) rmQuery.addEventListener('change', evaluate);
-  else if (rmQuery.addListener) rmQuery.addListener(evaluate);
+  var onPrefChange = function () { evaluate(true); };
+  if (rmQuery.addEventListener) rmQuery.addEventListener('change', onPrefChange);
+  else if (rmQuery.addListener) rmQuery.addListener(onPrefChange);
 
   document.addEventListener('visibilitychange', function () {
-    if (!state) return;
+    if (!state || rmQuery.matches) return; /* static mode has no loop */
     if (document.hidden) {
       cancelAnimationFrame(state.raf);
       state.raf = 0;
@@ -233,8 +263,10 @@
     resizePending = true;
     requestAnimationFrame(function () {
       resizePending = false;
-      evaluate();  /* viewport gate may have flipped */
-      resize();    /* no-op when unmounted */
+      evaluate();           /* viewport gate may have flipped */
+      if (!state) return;
+      resize();
+      if (!state.raf) draw(); /* resizing clears the static frame */
     });
   });
 
