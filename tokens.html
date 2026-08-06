@@ -12,6 +12,14 @@
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
+<div class="veil" aria-hidden="true">
+  <div class="veil-inner">
+    <span class="veil-cmd">$ cat tokens.spec</span>
+    <span class="veil-roles">developer <i>&#183;</i> data scientist <i>&#183;</i> machine learning engineer</span>
+    <span class="veil-rule"></span>
+  </div>
+</div>
+
 
 <div class="page">
   <div class="well">
@@ -100,7 +108,7 @@
             <div class="elev"><span class="elev-stack"><span style="background:#22242a; border:1px solid #2a2c33; transform:translate(6px, 6px);"></span><span style="background:#22242a; border:1px solid #3a3d47;"></span></span><span class="elev-label">e-2 stacked planes</span></div>
             <div class="elev"><span class="elev-box" style="background:#1e2025; border:1px solid #a7b5f2; border-radius:3px; box-shadow:0 0 20px rgba(167,181,242,0.25);"></span><span class="elev-label">e-h hover glow</span></div>
           </div>
-          <span class="spec-foot">hover = border-color shift + soft glow (rgba accent 0.12–0.35) · never scale</span>
+          <span class="spec-foot">hover = border-color shift + soft glow (rgba accent 0.12–0.35) + 5px lift on --shadow-lift · never scale</span>
         </div>
       </section>
 
@@ -112,13 +120,19 @@
         </div>
         <div class="spec-rows">
           <div class="spec-row"><span class="spec-key">--t-hover&nbsp;&nbsp;150ms</span><span class="spec-val">hover, focus, copy feedback</span></div>
-          <div class="spec-row"><span class="spec-key">--t-flow&nbsp;&nbsp;700ms</span><span class="spec-val">section flow-in, disclosures unfolding</span></div>
-          <div class="spec-row"><span class="spec-key">--t-hero&nbsp;&nbsp;900ms</span><span class="spec-val">hero sequence only</span></div>
-          <div class="spec-row"><span class="spec-key">--stagger&nbsp;&nbsp;90ms</span><span class="spec-val">between blocks, reading order</span></div>
-          <div class="spec-row"><span class="spec-key">--ease</span><span class="spec-val" style="font-family:var(--mono); font-size:10.5px;">cubic-bezier(0.16, 1, 0.3, 1)</span></div>
-          <div class="spec-row"><span class="spec-key">travel</span><span class="spec-val">media ±48px from sides · text 36px from below · glide, never drop</span></div>
+          <div class="spec-row"><span class="spec-key">--t-flow&nbsp;&nbsp;1100ms</span><span class="spec-val">section flow-in — eased in, never flung</span></div>
+          <div class="spec-row"><span class="spec-key">--t-hero&nbsp;&nbsp;1500ms</span><span class="spec-val">hero sequence only</span></div>
+          <div class="spec-row"><span class="spec-key">--t-nav&nbsp;&nbsp;300ms</span><span class="spec-val">masthead condense on scroll</span></div>
+          <div class="spec-row"><span class="spec-key">--t-veil&nbsp;&nbsp;620ms</span><span class="spec-val">page veil hold before it lifts</span></div>
+          <div class="spec-row"><span class="spec-key">--stagger&nbsp;&nbsp;120ms</span><span class="spec-val">between blocks, reading order</span></div>
+          <div class="spec-row"><span class="spec-key">--ease</span><span class="spec-val" style="font-family:var(--mono); font-size:10.5px;">cubic-bezier(0.16, 1, 0.3, 1) — hover, nav</span></div>
+          <div class="spec-row"><span class="spec-key">--ease-flow</span><span class="spec-val" style="font-family:var(--mono); font-size:10.5px;">cubic-bezier(0.4, 0, 0.2, 1) — reveals</span></div>
+          <div class="spec-row"><span class="spec-key">--lift&nbsp;&nbsp;-5px</span><span class="spec-val">card / panel hover raise + --shadow-lift depth</span></div>
+          <div class="spec-row"><span class="spec-key">travel</span><span class="spec-val">media ±56px from sides · text 44px from below · glide, never drop</span></div>
           <div class="spec-row"><span class="spec-key">hero 3d</span><span class="spec-val">code block on 2 offset planes; planes drift +10/+5px over first 360px of scroll</span></div>
-          <div class="spec-row"><span class="spec-key">reduced motion</span><span class="spec-val">all static &amp; visible; cursor blink off; planes fixed</span></div>
+          <div class="spec-row"><span class="spec-key">ambient 3d</span><span class="spec-val">depth particle grid — accent points on --bg, ≤17% alpha, ~31s drift, ≤5° pointer tilt · skipped on coarse pointer, &lt;768px, no webgl</span></div>
+          <div class="spec-row"><span class="spec-key">page veil</span><span class="spec-val">route label + role line on every navigation; static markup, CSS-cleared, JS backstop</span></div>
+          <div class="spec-row"><span class="spec-key">reduced motion</span><span class="spec-val">reduce, not remove: cross-fades stay (520ms / 70ms stagger); no travel, parallax, drift or veil; ambient layer paints one still frame; cursor blink off</span></div>
         </div>
 
         <div class="spec-head" style="margin-top:14px;">
@@ -145,5 +159,6 @@
   </div>
 </div>
 
+<script src="assets/site.js"></script>
 </body>
 </html>

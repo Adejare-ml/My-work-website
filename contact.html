@@ -12,6 +12,14 @@
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
+<div class="veil" aria-hidden="true">
+  <div class="veil-inner">
+    <span class="veil-cmd">$ cd ~/contact</span>
+    <span class="veil-roles">developer <i>&#183;</i> data scientist <i>&#183;</i> machine learning engineer</span>
+    <span class="veil-rule"></span>
+  </div>
+</div>
+
 <a class="skip" href="#main">skip to content</a>
 
 <div class="page">
@@ -40,8 +48,8 @@
       <section class="contact-grid">
 
         <!-- ---- form ---- -->
-        <div data-flow="left" data-flow-i="0">
-          <div class="pane-head">
+        <div>
+          <div class="pane-head" data-flow="left" data-flow-i="0">
             <h2 class="pane-title">Write a message<span class="dot">.</span></h2>
             <span class="comment">// form → inbox</span>
           </div>
@@ -49,7 +57,7 @@
           <form class="form" id="contact-form" novalidate>
             <div class="error-banner" id="error-banner" role="alert" hidden></div>
 
-            <div class="field-row">
+            <div class="field-row" data-flow="left" data-flow-i="1">
               <label class="field">
                 <span class="field-label">name <span class="field-flag"></span></span>
                 <input class="input" id="name" name="name" type="text" placeholder="your name" autocomplete="name" required>
@@ -60,12 +68,12 @@
               </label>
             </div>
 
-            <label class="field">
+            <label class="field" data-flow="left" data-flow-i="2">
               <span class="field-label">subject <span class="field-flag"></span></span>
               <input class="input" id="subject" name="subject" type="text" placeholder="role, project, or question" required>
             </label>
 
-            <label class="field">
+            <label class="field" data-flow="left" data-flow-i="3">
               <span class="field-label">message <span class="field-flag"></span></span>
               <textarea class="textarea" id="message" name="message" rows="6" maxlength="600" placeholder="what are you working on, and where might i fit?" required></textarea>
               <span class="counter-row">
@@ -74,7 +82,7 @@
               </span>
             </label>
 
-            <div class="form-foot">
+            <div class="form-foot" data-flow="left" data-flow-i="4">
               <button class="btn btn-primary" type="submit">Send Message →</button>
               <span class="comment">// replies within 24h</span>
             </div>
@@ -93,14 +101,14 @@
         </div>
 
         <!-- ---- direct channels ---- -->
-        <div data-flow="right" data-flow-i="1">
-          <div class="pane-head">
+        <div>
+          <div class="pane-head" data-flow="right" data-flow-i="1">
             <h2 class="pane-title">Direct channels<span class="dot">.</span></h2>
             <span class="comment">// no form required</span>
           </div>
 
           <div class="channels">
-            <div class="channel">
+            <div class="channel" data-flow="right" data-flow-i="2">
               <span class="channel-id">
                 <span class="channel-key">email</span>
                 <span class="channel-val">adelugbaadejare03@gmail.com</span>
@@ -108,7 +116,7 @@
               <button class="copy-btn" type="button" data-copy="adelugbaadejare03@gmail.com">copy</button>
             </div>
 
-            <a class="channel" href="https://github.com/Adejare-ml" target="_blank" rel="noopener">
+            <a class="channel" data-flow="right" data-flow-i="3" href="https://github.com/Adejare-ml" target="_blank" rel="noopener">
               <span class="channel-id">
                 <span class="channel-key">github</span>
                 <span class="channel-val">github.com/Adejare-ml</span>
@@ -116,7 +124,7 @@
               <span class="channel-arrow">↗</span>
             </a>
 
-            <a class="channel" href="https://linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener">
+            <a class="channel" data-flow="right" data-flow-i="4" href="https://linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener">
               <span class="channel-id">
                 <span class="channel-key">linkedin</span>
                 <span class="channel-val">in/adejare-adelugba</span>
@@ -124,7 +132,7 @@
               <span class="channel-arrow">↗</span>
             </a>
 
-            <a class="channel" href="Adejare_Adelugba_Machine%20learning_engineer.pdf" download>
+            <a class="channel" data-flow="right" data-flow-i="5" href="Adejare_Adelugba_Machine%20learning_engineer.pdf" download>
               <span class="channel-id">
                 <span class="channel-key">cv</span>
                 <span class="channel-val">pdf — two pages, current</span>
@@ -133,7 +141,7 @@
             </a>
           </div>
 
-          <p class="tz">// timezone — wat (utc+1) · best hours 09:00–18:00</p>
+          <p class="tz" data-flow="right" data-flow-i="6">// timezone — wat (utc+1) · best hours 09:00–18:00</p>
         </div>
 
       </section>
@@ -164,5 +172,6 @@
 </div>
 
 <script src="assets/site.js"></script>
+<script src="assets/ambient-grid.js" defer></script>
 </body>
 </html>
