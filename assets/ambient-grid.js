@@ -23,12 +23,12 @@
     tiltMaxDeg: 5,      /* pointer parallax cap */
     pointSize: 3.6,     /* compensates for the capped alpha */
     /* Scroll dolly. Negative so scrolling down walks the camera forward
-       into the field. ~9100px of scroll per full z-pass — about a tenth
-       of a pass per viewport, which sits right at the threshold of
-       conscious notice. This is what makes the layer register at all:
+       into the field. ~5600px of scroll per full z-pass — about an eighth
+       of a pass per viewport, which is comfortably noticed rather than
+       merely sensed. This is what makes the layer register at all:
        visitors notice relative movement, not alpha, and alpha is capped
        above for contrast. Too large and it reads as a screensaver. */
-    dollyPerPx: -0.00011,
+    dollyPerPx: -0.00018,
     dprCap: 1.5,
     minViewport: 768
   };
