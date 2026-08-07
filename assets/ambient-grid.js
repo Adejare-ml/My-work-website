@@ -14,10 +14,14 @@
     cols: 56,
     rows: 32,
     layers: 5,          /* points = cols × rows × layers (~9k) */
-    opacity: 0.17,      /* readable as texture, still well under the text */
+    /* 0.105 is the accessibility ceiling: above it a lit point core
+       composites the ink canvas light enough that --muted body labels
+       drop under 4.5:1 (WCAG AA). Presence that would have come from
+       more alpha comes from a larger, softer point instead. */
+    opacity: 0.10,
     driftSpeed: 0.032,  /* z cycles per second (~31s per full pass) */
     tiltMaxDeg: 5,      /* pointer parallax cap */
-    pointSize: 2.9,
+    pointSize: 3.6,     /* compensates for the capped alpha */
     dprCap: 1.5,
     minViewport: 768
   };
@@ -113,16 +117,31 @@
     gl.drawArrays(gl.POINTS, 0, s.count);
   }
 
+  /* Redraw budget. This is a full-viewport fixed layer, so every draw
+     makes the compositor re-blend the whole screen — that composite, not
+     the single POINTS call, is the cost. Skipping a draw leaves the layer
+     undamaged and the frame costs nothing. 24ms sits between a 60Hz single
+     (16.7ms) and double (33.3ms) frame, so 60Hz lands cleanly on 30fps and
+     high-refresh panels fall to ~36fps. At this drift speed the difference
+     is invisible. */
+  var MIN_MS = 24;
+
   function frame(ts) {
     var s = state;
     if (!s) return;
     s.raf = requestAnimationFrame(frame);
+    if (s.last && ts - s.last < MIN_MS) return;
     var dt = s.last ? Math.min((ts - s.last) / 1000, 0.1) : 0;
     s.last = ts;
     s.phase = (s.phase + dt * CONFIG.driftSpeed) % 1;
     var k = Math.tan(CONFIG.tiltMaxDeg * Math.PI / 180);
-    s.tilt[0] += (s.target[0] * k - s.tilt[0]) * 0.08;
-    s.tilt[1] += (s.target[1] * k - s.tilt[1]) * 0.08;
+    /* dt-correct smoothing: a 0.2s time constant reproduces the old
+       per-frame 0.08 exactly at 60Hz, but no longer tracks the refresh
+       rate — so the redraw cap above cannot stretch the parallax, and
+       1-exp() stays in [0,1) for any dt so it can never overshoot */
+    var a = 1 - Math.exp(-dt / 0.2);
+    s.tilt[0] += (s.target[0] * k - s.tilt[0]) * a;
+    s.tilt[1] += (s.target[1] * k - s.tilt[1]) * a;
     draw();
   }
 

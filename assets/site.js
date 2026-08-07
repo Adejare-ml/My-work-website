@@ -45,23 +45,23 @@
     up:    'translateY(44px)'
   };
 
-  /* How long until the arrival veil starts dissolving. veil-lift holds
-     opaque for most of its run, and an above-the-fold reveal fires ~2
-     frames after DOMContentLoaded — so without this the entire hero
-     assembly plays out behind an opaque screen and the visitor arrives
-     at an already-built page. Reveals are pushed to the moment the
-     cover begins to fade, so the two read as one cross-dissolve.
-     Returns 0 for scroll reveals, veil-less pages, and browsers
-     without getAnimations — all of which keep today's behaviour. */
-  var VEIL_HANDOFF = 0.68; /* matches veil-lift's opaque hold */
-
+  /* How long until the arrival veil starts dissolving. The veil holds
+     opaque for --t-veil, and an above-the-fold reveal fires ~2 frames
+     after DOMContentLoaded — so without this the entire hero assembly
+     plays out behind an opaque screen and the visitor arrives at an
+     already-built page. Reveals are pushed to the moment the cover
+     begins to fade, so the two read as one cross-dissolve. Returns 0
+     for scroll reveals, veil-less pages, and browsers without
+     getAnimations — all of which keep today's behaviour. */
   function veilRemaining() {
     var v = document.querySelector('.veil');
     if (!v || v.classList.contains('is-lifted') || !v.getAnimations) return 0;
     var a = v.getAnimations()[0];
     if (!a || !a.effect) return 0;
-    var total = a.effect.getComputedTiming().activeDuration || 0;
-    return Math.max(0, total * VEIL_HANDOFF - (a.currentTime || 0));
+    /* the opaque hold is the animation-delay (--t-veil), so this is
+       exact — no constant here to fall out of step with the CSS */
+    var hold = a.effect.getComputedTiming().delay || 0;
+    return Math.max(0, hold - (a.currentTime || 0));
   }
 
   function initFlow(root) {

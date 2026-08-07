@@ -3,3 +3,9 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), camera=(), microphone=()
+
+# Safe to cache forever because every reference carries a ?v= that is
+# bumped whenever these files change — the URL itself is the version.
+# Bump the ?v= in ALL html files in the same commit as any assets/ edit.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable

@@ -33,14 +33,15 @@
   --t-flow:  1100ms;
   --t-hero:  1500ms;
   --t-nav:   300ms;
-  --t-veil:  620ms;   /* page veil hold before it lifts */
+  --t-veil:      560ms;  /* veil holds opaque this long — read back by initFlow */
+  --t-veil-fade: 420ms;  /* then dissolves over this */
   --stagger: 120ms;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);            /* hover/nav — quick settle */
   --ease-flow: cubic-bezier(0.4, 0, 0.2, 1);        /* reveals — gentle in, long out */
   /* reduced motion still cross-fades: no travel, no parallax, no drift */
   --t-flow-rm: 520ms;
   --stagger-rm: 70ms;
-  --t-veil-rm: 820ms;
+  --t-veil-rm: 440ms;  /* shorter hold: no lines to read, just a fade */
 
   /* hover depth */
   --lift: -5px;
@@ -372,7 +373,12 @@ p { margin: 0; }
   position: absolute;
   inset: 0;
   border-radius: var(--r-3);
-  will-change: transform; /* JS drives these during hero scroll */
+}
+/* Promote only when initHeroPlanes will actually drive these. It bails
+   under reduced motion and never writes a transform, so an unconditional
+   will-change would hold two permanent compositor layers for nothing. */
+@media (prefers-reduced-motion: no-preference) {
+  .plane { will-change: transform; }
 }
 .plane-back {
   background: var(--surface);
@@ -705,7 +711,21 @@ p { margin: 0; }
 }
 /* .deadend items on projects.html share this panel markup */
 .is-open > .disclosure-panel { grid-template-rows: 1fr; }
-.disclosure-panel > div { overflow: hidden; }
+/* A 0fr grid row clips the panel visually but leaves it in the
+   accessibility tree, so a screen reader announces the button as
+   "collapsed" and then reads the hidden content anyway. visibility
+   takes it out of the tree — delayed on close so the 520ms collapse
+   still plays, immediate on open. Keep the delay in step with the
+   grid-template-rows duration above. */
+.disclosure-panel > div {
+  overflow: hidden;
+  visibility: hidden;
+  transition: visibility 0s linear 520ms;
+}
+.is-open > .disclosure-panel > div {
+  visibility: visible;
+  transition-delay: 0s;
+}
 
 .bullets {
   padding: 0 clamp(16px, 2vw, 26px) 22px;
@@ -1261,7 +1281,9 @@ a.channel:hover { color: var(--accent); }
   gap: 10px;
 }
 .swatch { display: flex; flex-direction: column; gap: 6px; }
-.swatch-chip { height: 52px; border-radius: var(--r-2); }
+/* the border keeps the light chips (--ink, --text-1) legible against a
+   white Canvas in forced-colors; the three chips that set it inline win */
+.swatch-chip { height: 52px; border-radius: var(--r-2); border: 1px solid var(--hairline); }
 .swatch-name { font-family: var(--mono); font-size: 10px; color: var(--muted); }
 .swatch-name.is-accent {
   color: var(--bg);
@@ -1324,6 +1346,19 @@ a.channel:hover { color: var(--accent); }
   .nav a { min-height: 44px; padding: 0 4px; display: inline-flex; align-items: center; }
 }
 
+/* ---------- forced colors (Windows High Contrast) ---------- */
+
+@media (forced-colors: active) {
+  /* on the spec sheet the swatches ARE the content, so they must keep
+     their real colours rather than collapse to the forced palette */
+  .swatch-chip,
+  .scale-bar,
+  .elev-box,
+  .elev-stack span { forced-color-adjust: none; }
+  /* a decorative depth layer has no business over a chosen palette */
+  .ambient-grid { display: none; }
+}
+
 /* ---------- print ----------
    Reveals commit opacity from an IntersectionObserver callback, which
    never fires for content the visitor has not scrolled past. Printing
@@ -1362,13 +1397,13 @@ a.channel:hover { color: var(--accent); }
     transition-timing-function: var(--ease-flow) !important;
   }
   /* The veil still runs for these visitors, as a pure cross-fade.
-     veil-lift only ever animates opacity/visibility, so it is safe to
+     veil-dissolve only ever animates opacity/visibility, so it is safe to
      re-enable verbatim; the inner lines swap their rising keyframe for
      a plain fade, and the drawn rule (a width animation) sits out.
      initVeil's animationend + 1600ms backstop still force it open, so
      a throttled animation can't leave the page covered. */
   .veil {
-    animation: veil-lift var(--t-veil-rm) linear forwards !important;
+    animation: veil-dissolve var(--t-veil-fade) linear var(--t-veil-rm) forwards !important;
   }
   .veil-cmd, .veil-roles {
     animation: veil-fade 260ms linear both !important;
@@ -1501,7 +1536,13 @@ a.channel:hover { color: var(--accent); }
   display: grid;
   place-items: center;
   padding: var(--gutter);
-  animation: veil-lift 1150ms var(--ease-flow) forwards;
+  /* Hold opaque for --t-veil, then dissolve over --t-veil-fade. The hold
+     is an animation-delay rather than a percentage buried in the
+     keyframes, so it is a real number initFlow can read back off the
+     running animation (see veilRemaining) — the reveal hand-off and the
+     cover can never drift apart. During the delay there is no fill, so
+     the element simply sits at its base opaque state. */
+  animation: veil-dissolve var(--t-veil-fade) var(--ease-flow) var(--t-veil) forwards;
 }
 .veil-inner {
   display: flex;
@@ -1515,7 +1556,9 @@ a.channel:hover { color: var(--accent); }
   font-size: 12px;
   color: var(--accent);
   opacity: 0;
-  animation: veil-line 520ms var(--ease-flow) 80ms forwards;
+  /* the three lines land inside --t-veil (560ms), so the splash has
+     finished reading before the cover starts dissolving */
+  animation: veil-line 320ms var(--ease-flow) 40ms forwards;
 }
 .veil-roles {
   font-family: var(--serif);
@@ -1524,14 +1567,14 @@ a.channel:hover { color: var(--accent); }
   color: var(--ink);
   max-width: 16ch;
   opacity: 0;
-  animation: veil-line 640ms var(--ease-flow) 240ms forwards;
+  animation: veil-line 360ms var(--ease-flow) 150ms forwards;
 }
 .veil-roles i { color: var(--accent); font-style: normal; }
 .veil-rule {
   width: 0;
   height: 1px;
   background: var(--border);
-  animation: veil-rule 620ms var(--ease-flow) 400ms forwards;
+  animation: veil-rule 300ms var(--ease-flow) 280ms forwards;
 }
 
 @keyframes veil-line {
@@ -1547,11 +1590,10 @@ a.channel:hover { color: var(--accent); }
   from { width: 0; }
   to   { width: 190px; }
 }
-/* holds opaque through --t-veil, lifts, then stops intercepting */
-@keyframes veil-lift {
-  0%, 68%  { opacity: 1; visibility: visible; }
-  99%      { opacity: 0; visibility: visible; }
-  100%     { opacity: 0; visibility: hidden; pointer-events: none; }
+/* the dissolve itself; the opaque hold is the animation-delay */
+@keyframes veil-dissolve {
+  from { opacity: 1; visibility: visible; }
+  to   { opacity: 0; visibility: hidden; }
 }
 
 /* JS backstop: the page must never stay covered, even if the
@@ -1560,7 +1602,7 @@ a.channel:hover { color: var(--accent); }
   /* !important throughout: this is the last line of defence against a
      sealed page, so it must outrank both the running animation (CSS
      animations sort above author-normal) and the reduced-motion block's
-     own !important veil-lift declaration. */
+     own !important veil-dissolve declaration. */
   animation: none !important;
   opacity: 0 !important;
   visibility: hidden !important;
