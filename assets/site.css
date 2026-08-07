@@ -1009,6 +1009,10 @@ p { margin: 0; }
   gap: 18px;
   padding-top: 22px;
 }
+/* `display: flex` above is author-origin, so it beats the UA stylesheet's
+   [hidden] rule: without this, form.hidden = true on a successful send
+   leaves the whole form on screen and tabbable under the confirmation. */
+.form[hidden] { display: none; }
 
 .error-banner {
   border: 1px solid var(--error);
@@ -1320,6 +1324,22 @@ a.channel:hover { color: var(--accent); }
   .nav a { min-height: 44px; padding: 0 4px; display: inline-flex; align-items: center; }
 }
 
+/* ---------- print ----------
+   Reveals commit opacity from an IntersectionObserver callback, which
+   never fires for content the visitor has not scrolled past. Printing
+   paginates the whole document, so anything still un-revealed would emit
+   a full-height blank band. An author !important declaration outranks the
+   normal-priority inline style initFlow writes. */
+
+@media print {
+  [data-flow] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .veil, .ambient-grid, .top-loader { display: none !important; }
+}
+
 /* ---------- reduced motion ----------
    "Reduce", not "remove". Everything that travels, parallaxes,
    loops or scales is killed outright; plain cross-fades stay,
@@ -1373,6 +1393,7 @@ a.channel:hover { color: var(--accent); }
   box-shadow: 0 0 10px rgba(167, 181, 242, 0.6);
   z-index: 9999;
   opacity: 0;
+  pointer-events: none; /* decorative and aria-hidden — never absorb clicks */
   transition: width 0.2s linear, opacity 0.3s ease;
 }
 .top-loader.is-active { opacity: 1; }
@@ -1536,10 +1557,14 @@ a.channel:hover { color: var(--accent); }
 /* JS backstop: the page must never stay covered, even if the
    animation is throttled, unsupported, or never runs */
 .veil.is-lifted {
-  animation: none;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
+  /* !important throughout: this is the last line of defence against a
+     sealed page, so it must outrank both the running animation (CSS
+     animations sort above author-normal) and the reduced-motion block's
+     own !important veil-lift declaration. */
+  animation: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
 /* JS re-covers the page on internal navigation */

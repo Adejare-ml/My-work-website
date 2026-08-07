@@ -45,6 +45,25 @@
     up:    'translateY(44px)'
   };
 
+  /* How long until the arrival veil starts dissolving. veil-lift holds
+     opaque for most of its run, and an above-the-fold reveal fires ~2
+     frames after DOMContentLoaded — so without this the entire hero
+     assembly plays out behind an opaque screen and the visitor arrives
+     at an already-built page. Reveals are pushed to the moment the
+     cover begins to fade, so the two read as one cross-dissolve.
+     Returns 0 for scroll reveals, veil-less pages, and browsers
+     without getAnimations — all of which keep today's behaviour. */
+  var VEIL_HANDOFF = 0.68; /* matches veil-lift's opaque hold */
+
+  function veilRemaining() {
+    var v = document.querySelector('.veil');
+    if (!v || v.classList.contains('is-lifted') || !v.getAnimations) return 0;
+    var a = v.getAnimations()[0];
+    if (!a || !a.effect) return 0;
+    var total = a.effect.getComputedTiming().activeDuration || 0;
+    return Math.max(0, total * VEIL_HANDOFF - (a.currentTime || 0));
+  }
+
   function initFlow(root) {
     root = root || document;
     if (!('IntersectionObserver' in window)) return; /* bail before hiding */
@@ -52,19 +71,44 @@
     var soft = reduced();
     var els = Array.prototype.slice.call(root.querySelectorAll('[data-flow]'));
 
+    /* Below the 2-up breakpoint every paired grid (.hero, .about-hero,
+       .contact-grid, .cta) collapses to one column, so side travel stops
+       encoding column position — and +56px of right travel would hold the
+       document wider than the viewport while armed. Stacked flows up. */
+    var stacked = window.matchMedia('(max-width: 767px)').matches;
+
     els.forEach(function (el) {
       el.style.opacity = '0';
-      if (!soft) el.style.transform = OFFSETS[el.dataset.flow] || OFFSETS.up;
+      if (!soft) el.style.transform =
+        (stacked ? OFFSETS.up : OFFSETS[el.dataset.flow]) || OFFSETS.up;
     });
 
     var io = new IntersectionObserver(function (entries) {
+      var step = soft ? TOKENS.staggerRM : TOKENS.stagger;
+      var hold = veilRemaining();
+
+      /* The stagger describes elements that ARRIVE TOGETHER, so the offset
+         is this element's rank among the data-flow-i values in the current
+         batch, not its raw authored index. A whole grid landing at once
+         still cascades 0,1,2…; a lone late arrival starts immediately
+         instead of sitting blank for most of a second. Distinct indices
+         are ranked rather than entries, so authored ties (the code figure
+         shares i=2 with the role line) keep firing on the same beat. */
+      var rank = [];
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var n = parseInt(en.target.dataset.flowI, 10) || 0;
+        if (rank.indexOf(n) === -1) rank.push(n);
+      });
+      rank.sort(function (a, b) { return a - b; });
+
       entries.forEach(function (en) {
         if (!en.isIntersecting) return;
         var el = en.target;
         io.unobserve(el);
 
         var i = parseInt(el.dataset.flowI, 10) || 0;
-        var delay = i * (soft ? TOKENS.staggerRM : TOKENS.stagger);
+        var delay = hold + rank.indexOf(i) * step;
         /* data-flow-dur="hero" defers to --t-hero rather than
            restating it in markup; a number still wins if given */
         var dur = soft
@@ -77,9 +121,13 @@
         el.style.setProperty('--flow-delay', delay + 'ms');
         el.classList.add('flow-armed');
 
+        /* Remove the inline start values rather than overwriting them
+           with their defaults. An inline `transform: none` outranks any
+           author rule, so leaving one behind would permanently disable
+           the :hover lift on every card, panel, job, mini and banner. */
         requestAnimationFrame(function () {
-          el.style.opacity = '1';
-          el.style.transform = 'none';
+          el.style.removeProperty('opacity');
+          el.style.removeProperty('transform');
         });
 
         /* transitionend bubbles: a child's hover or bar-fill
@@ -152,7 +200,12 @@
       'position:absolute;top:0;left:0;width:1px;height:72px;pointer-events:none;';
     document.body.prepend(sentinel);
     new IntersectionObserver(function (entries) {
-      head.classList.toggle('is-condensed', !entries[0].isIntersecting);
+      /* a batch can hold several snapshots of the same sentinel when
+         frames coalesce; the last one is the current state */
+      head.classList.toggle(
+        'is-condensed',
+        !entries[entries.length - 1].isIntersecting
+      );
     }).observe(sentinel);
   }
 
@@ -398,7 +451,7 @@
     bar.className = 'top-loader';
     bar.setAttribute('aria-hidden', 'true');
     document.body.appendChild(bar);
-    var to;
+    var to, guard;
     var start = function () {
       clearTimeout(to);
       bar.classList.add('is-active');
@@ -419,6 +472,10 @@
     setTimeout(finish, 240);
     /* internal navigation starting */
     document.addEventListener('click', function (e) {
+      /* a modified click opens a tab and leaves this document in place —
+         creeping the bar for a navigation that isn't happening here */
+      if (e.defaultPrevented || e.button !== 0) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
       if (!a || a.target === '_blank' || a.hasAttribute('download')) return;
       var url;
@@ -426,6 +483,10 @@
       if (url.origin !== location.origin) return;
       if (url.pathname === location.pathname) return; /* same page / anchor */
       start();
+      /* same reasoning as the veil's watchdog: never leave the bar
+         pinned at 85% if the navigation never commits */
+      clearTimeout(guard);
+      guard = setTimeout(finish, 3000);
     }, true);
   }
 
@@ -501,7 +562,16 @@
       veil.style.opacity = '0';
       void veil.offsetWidth;
       veil.style.opacity = '1';
-      setTimeout(function () { location.href = url.href; }, 300);
+      setTimeout(function () {
+        location.href = url.href;
+        /* The navigation may never commit — the load is stopped, the
+           request stalls, or the response downloads instead of replacing
+           the document. This page would then sit sealed under an opaque,
+           click-blocking cover with no way out but a reload. On a normal
+           navigation the document is torn down and this timer dies with
+           it, so it is unobservable in the healthy case. */
+        setTimeout(clear, 6000);
+      }, 300);
     });
   }
 
