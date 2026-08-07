@@ -21,6 +21,7 @@
     };
     return {
       flow: ms('--t-flow', 1100),
+      hero: ms('--t-hero', 1500),
       stagger: ms('--stagger', 120),
       flowRM: ms('--t-flow-rm', 520),
       staggerRM: ms('--stagger-rm', 70)
@@ -64,9 +65,13 @@
 
         var i = parseInt(el.dataset.flowI, 10) || 0;
         var delay = i * (soft ? TOKENS.staggerRM : TOKENS.stagger);
+        /* data-flow-dur="hero" defers to --t-hero rather than
+           restating it in markup; a number still wins if given */
         var dur = soft
           ? TOKENS.flowRM
-          : (parseFloat(el.dataset.flowDur) || TOKENS.flow);
+          : (el.dataset.flowDur === 'hero'
+              ? TOKENS.hero
+              : (parseFloat(el.dataset.flowDur) || TOKENS.flow));
 
         el.style.setProperty('--flow-dur', dur + 'ms');
         el.style.setProperty('--flow-delay', delay + 'ms');
@@ -430,7 +435,9 @@
      even with JS off. This adds the other half: on internal
      navigation the veil re-covers with the destination's label, so
      the exit and the next page's intro read as one movement.
-     Hidden entirely under reduced motion (CSS).
+     Under reduced motion the veil still greets on arrival (as a
+     cross-fade, see site.css) but navigation is left alone — no
+     interception, so those visitors never wait on an exit animation.
      -------------------------------------------------------- */
 
   var ROUTES = {
@@ -468,7 +475,9 @@
     /* restoring from bfcache would otherwise show the covered state */
     window.addEventListener('pageshow', function (e) { if (e.persisted) clear(); });
 
-    if (reduced()) return; /* veil is display:none — never intercept */
+    /* arrival veil only: intercepting would add an exit delay these
+       visitors did not ask for */
+    if (reduced()) return;
 
     document.addEventListener('click', function (e) {
       if (e.defaultPrevented || e.button !== 0) return;

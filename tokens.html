@@ -121,9 +121,10 @@
         <div class="spec-rows">
           <div class="spec-row"><span class="spec-key">--t-hover&nbsp;&nbsp;150ms</span><span class="spec-val">hover, focus, copy feedback</span></div>
           <div class="spec-row"><span class="spec-key">--t-flow&nbsp;&nbsp;1100ms</span><span class="spec-val">section flow-in — eased in, never flung</span></div>
-          <div class="spec-row"><span class="spec-key">--t-hero&nbsp;&nbsp;1500ms</span><span class="spec-val">hero sequence only</span></div>
+          <div class="spec-row"><span class="spec-key">--t-hero&nbsp;&nbsp;1500ms</span><span class="spec-val">hero sequence only — opt in with <b>data-flow-dur="hero"</b></span></div>
           <div class="spec-row"><span class="spec-key">--t-nav&nbsp;&nbsp;300ms</span><span class="spec-val">masthead condense on scroll</span></div>
           <div class="spec-row"><span class="spec-key">--t-veil&nbsp;&nbsp;620ms</span><span class="spec-val">page veil hold before it lifts</span></div>
+          <div class="spec-row"><span class="spec-key">--t-veil-rm&nbsp;&nbsp;820ms</span><span class="spec-val">veil, reduced motion — full cross-fade cycle</span></div>
           <div class="spec-row"><span class="spec-key">--stagger&nbsp;&nbsp;120ms</span><span class="spec-val">between blocks, reading order</span></div>
           <div class="spec-row"><span class="spec-key">--ease</span><span class="spec-val" style="font-family:var(--mono); font-size:10.5px;">cubic-bezier(0.16, 1, 0.3, 1) — hover, nav</span></div>
           <div class="spec-row"><span class="spec-key">--ease-flow</span><span class="spec-val" style="font-family:var(--mono); font-size:10.5px;">cubic-bezier(0.4, 0, 0.2, 1) — reveals</span></div>
@@ -132,7 +133,7 @@
           <div class="spec-row"><span class="spec-key">hero 3d</span><span class="spec-val">code block on 2 offset planes; planes drift +10/+5px over first 360px of scroll</span></div>
           <div class="spec-row"><span class="spec-key">ambient 3d</span><span class="spec-val">depth particle grid — accent points on --bg, ≤17% alpha, ~31s drift, ≤5° pointer tilt · skipped on coarse pointer, &lt;768px, no webgl</span></div>
           <div class="spec-row"><span class="spec-key">page veil</span><span class="spec-val">route label + role line on every navigation; static markup, CSS-cleared, JS backstop</span></div>
-          <div class="spec-row"><span class="spec-key">reduced motion</span><span class="spec-val">reduce, not remove: cross-fades stay (520ms / 70ms stagger); no travel, parallax, drift or veil; ambient layer paints one still frame; cursor blink off</span></div>
+          <div class="spec-row"><span class="spec-key">reduced motion</span><span class="spec-val">reduce, not remove: cross-fades stay (520ms / 70ms stagger); the veil still greets on arrival as a pure fade, but never delays an exit; no travel, parallax or drift; ambient layer paints one still frame; cursor blink off</span></div>
         </div>
 
         <div class="spec-head" style="margin-top:14px;">
