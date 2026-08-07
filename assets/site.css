@@ -28,6 +28,17 @@
   --r-2: 2px;   /* chips, inputs, buttons */
   --r-3: 3px;   /* cards, panels */
 
+  /* hero plane stack — must stay monotonic in BOTH fill and border, or
+     the offset sheets read as a flat drop-copy instead of receding.
+     The deepest plane is the most transparent so the ambient field
+     shows faintly through it. */
+  --plane-1: var(--surface);          /* front — the code window */
+  --plane-2: #1f2127;                 /* middle */
+  --plane-3: rgba(29, 30, 36, 0.72);  /* deepest */
+  --plane-edge-2: #31343d;
+  --shadow-plane: 0 18px 34px -22px rgba(0, 0, 0, 0.78),
+                  0 2px 6px -3px rgba(0, 0, 0, 0.5);
+
   /* motion — "flows into place": eased in, never flung */
   --t-hover: 150ms;
   --t-flow:  1100ms;
@@ -42,6 +53,7 @@
   --t-flow-rm: 520ms;
   --stagger-rm: 70ms;
   --t-veil-rm: 440ms;  /* shorter hold: no lines to read, just a fade */
+  --t-veil-return: 200ms;  /* back/forward — nothing here is new to read */
 
   /* hover depth */
   --lift: -5px;
@@ -381,22 +393,23 @@ p { margin: 0; }
   .plane { will-change: transform; }
 }
 .plane-back {
-  background: var(--surface);
+  background: var(--plane-3);
   border: 1px solid var(--hairline);
   transform: translate(18px, 18px);
 }
 .plane-mid {
-  background: #26282f;
-  border: 1px solid var(--border);
+  background: var(--plane-2);
+  border: 1px solid var(--plane-edge-2);
   transform: translate(9px, 9px);
 }
 
 .code-window {
   position: relative;
-  background: var(--surface);
+  background: var(--plane-1);
   border: 1px solid var(--border);
   border-radius: var(--r-3);
   overflow: hidden;
+  box-shadow: var(--shadow-plane); /* the front sheet casts onto the two behind it */
 }
 
 .code-chrome {
@@ -1544,6 +1557,11 @@ a.channel:hover { color: var(--accent); }
      the element simply sits at its base opaque state. */
   animation: veil-dissolve var(--t-veil-fade) var(--ease-flow) var(--t-veil) forwards;
 }
+/* a return skips the composed splash — just a brief cover and away */
+.veil[data-nav="return"] { animation-delay: var(--t-veil-return); }
+.veil[data-nav="return"] .veil-roles,
+.veil[data-nav="return"] .veil-rule { display: none; }
+
 .veil-inner {
   display: flex;
   flex-direction: column;

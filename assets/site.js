@@ -11,6 +11,18 @@
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   };
 
+  /* Going back is the most common move on a four-page site, and it
+     should not replay a first arrival: the visitor has read this page.
+     Used by initVeil (shorter hold, "cd -" label) and initFlow (content
+     already on screen is resolved rather than re-animated). */
+  var isReturn = (function () {
+    try {
+      var nav = performance.getEntriesByType('navigation')[0];
+      if (nav) return nav.type === 'back_forward';
+      return !!(performance.navigation && performance.navigation.type === 2);
+    } catch (e) { return false; }
+  })();
+
   /* Motion timings live in site.css :root so the token sheet stays
      the single source of truth. Read once at boot. */
   var TOKENS = (function () {
@@ -69,13 +81,26 @@
     if (!('IntersectionObserver' in window)) return; /* bail before hiding */
 
     var soft = reduced();
-    var els = Array.prototype.slice.call(root.querySelectorAll('[data-flow]'));
+    var all = Array.prototype.slice.call(root.querySelectorAll('[data-flow]'));
 
     /* Below the 2-up breakpoint every paired grid (.hero, .about-hero,
        .contact-grid, .cta) collapses to one column, so side travel stops
        encoding column position — and +56px of right travel would hold the
        document wider than the viewport while armed. Stacked flows up. */
     var stacked = window.matchMedia('(max-width: 767px)').matches;
+
+    /* On a back/forward, anything at or above the restored viewport has
+       already been read — leave it alone entirely: never hidden, never
+       observed, never re-animated. This also fixes a real bug, since
+       elements ABOVE the restored scroll position never intersect and
+       would otherwise sit hidden forever, then assemble themselves again
+       when the visitor scrolled back up. Content genuinely below the fold
+       still reveals normally, so reading onward keeps its choreography. */
+    var els = isReturn
+      ? all.filter(function (el) {
+          return el.getBoundingClientRect().top >= window.innerHeight;
+        })
+      : all;
 
     els.forEach(function (el) {
       el.style.opacity = '0';
@@ -514,6 +539,15 @@
   function initVeil() {
     var veil = document.querySelector('.veil');
     if (!veil) return;
+
+    /* A return is the fastest transition on the site: shorter hold, and
+       the shell's own idiom for "the directory I came from". Stamped
+       before initFlow runs, so veilRemaining() reads the shortened hold. */
+    if (isReturn) {
+      veil.dataset.nav = 'return';
+      var cmd = veil.querySelector('.veil-cmd');
+      if (cmd) cmd.textContent = '$ cd -';
+    }
 
     var lift = function () { veil.classList.add('is-lifted'); };
 

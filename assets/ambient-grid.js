@@ -22,6 +22,13 @@
     driftSpeed: 0.032,  /* z cycles per second (~31s per full pass) */
     tiltMaxDeg: 5,      /* pointer parallax cap */
     pointSize: 3.6,     /* compensates for the capped alpha */
+    /* Scroll dolly. Negative so scrolling down walks the camera forward
+       into the field. ~9100px of scroll per full z-pass — about a tenth
+       of a pass per viewport, which sits right at the threshold of
+       conscious notice. This is what makes the layer register at all:
+       visitors notice relative movement, not alpha, and alpha is capped
+       above for contrast. Too large and it reads as a screensaver. */
+    dollyPerPx: -0.00011,
     dprCap: 1.5,
     minViewport: 768
   };
@@ -133,7 +140,13 @@
     if (s.last && ts - s.last < MIN_MS) return;
     var dt = s.last ? Math.min((ts - s.last) / 1000, 0.1) : 0;
     s.last = ts;
-    s.phase = (s.phase + dt * CONFIG.driftSpeed) % 1;
+    s.drift = (s.drift + dt * CONFIG.driftSpeed) % 1;
+    /* same dt-correct filter as the tilt, so an anchor jump eases in
+       over ~a fifth of a second instead of whipping */
+    s.dolly += (s.dollyTo - s.dolly) * (1 - Math.exp(-dt / 0.2));
+    /* wrapped JS-side so u_phase never grows large enough to cost
+       float precision on a long page */
+    s.phase = ((s.drift + s.dolly) % 1 + 1) % 1;
     var k = Math.tan(CONFIG.tiltMaxDeg * Math.PI / 180);
     /* dt-correct smoothing: a 0.2s time constant reproduces the old
        per-frame 0.08 exactly at 60Hz, but no longer tracks the refresh
@@ -194,7 +207,13 @@
       uDpr: gl.getUniformLocation(prog, 'u_dpr'),
       uSize: gl.getUniformLocation(prog, 'u_size'),
       uOpacity: gl.getUniformLocation(prog, 'u_opacity'),
-      phase: Math.random(), /* different entry point each visit */
+      /* phase = drift + dolly, tracked apart. Scroll maps ABSOLUTELY to
+         dollyTo rather than accumulating deltas, so scrolling back up
+         retraces the camera exactly instead of drifting. */
+      phase: 0,
+      drift: Math.random(), /* different entry point each visit */
+      dolly: 0,
+      dollyTo: 0,
       last: 0,
       tilt: [0, 0],
       target: [0, 0],
@@ -203,6 +222,9 @@
         if (!state) return;
         state.target[0] = (e.clientX / window.innerWidth) * 2 - 1;
         state.target[1] = -((e.clientY / window.innerHeight) * 2 - 1);
+      },
+      onScroll: function () {
+        if (state) state.dollyTo = window.scrollY * CONFIG.dollyPerPx;
       },
       /* no preventDefault: the context is gone, so let it drop and
          rebuild from scratch once the GPU process has settled */
@@ -221,6 +243,9 @@
       return;
     }
     window.addEventListener('mousemove', state.onMove, { passive: true });
+    window.addEventListener('scroll', state.onScroll, { passive: true });
+    state.onScroll(); /* adopt the restored scroll position, don't ease from 0 */
+    state.dolly = state.dollyTo;
     state.raf = requestAnimationFrame(frame);
   }
 
@@ -230,6 +255,7 @@
     state = null;
     cancelAnimationFrame(s.raf);
     window.removeEventListener('mousemove', s.onMove);
+    window.removeEventListener('scroll', s.onScroll);
     s.canvas.removeEventListener('webglcontextlost', s.onLost);
     var lose = s.gl.getExtension('WEBGL_lose_context');
     if (lose) lose.loseContext();
@@ -246,7 +272,7 @@
 
   /* Uniform-driven values apply on the next draw; anything that
      changes the geometry or the gates rebuilds. Used by motion-lab. */
-  var LIVE = { opacity: 1, driftSpeed: 1, tiltMaxDeg: 1, pointSize: 1 };
+  var LIVE = { opacity: 1, driftSpeed: 1, tiltMaxDeg: 1, pointSize: 1, dollyPerPx: 1 };
 
   function set(patch) {
     var rebuild = false;
