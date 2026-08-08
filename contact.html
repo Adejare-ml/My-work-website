@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1c1d21">
 <title>Contact — Adejare Adelugba</title>
 <meta name="description" content="Replies within 24 hours — usually sooner. Abuja (WAT), remote-friendly.">
 <link rel="canonical" href="https://adelugba-adejare.pages.dev/contact.html">
@@ -10,11 +11,11 @@
 <meta property="og:description" content="Get in touch with Adejare Adelugba — ML Engineer & Data Scientist based in Abuja (WAT), remote-friendly.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://adelugba-adejare.pages.dev/contact.html">
-<meta property="og:image" content="https://adelugba-adejare.pages.dev/og-preview.png">
+<meta property="og:image" content="https://adelugba-adejare.pages.dev/og-preview.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Contact — Adejare Adelugba">
 <meta name="twitter:description" content="Replies within 24 hours — ML engineering, data science, and automation collaboration.">
-<meta name="twitter:image" content="https://adelugba-adejare.pages.dev/og-preview.png">
+<meta name="twitter:image" content="https://adelugba-adejare.pages.dev/og-preview.jpg">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -66,6 +67,17 @@
 
           <form class="form" id="contact-form" novalidate>
             <div class="error-banner" id="error-banner" role="alert" hidden></div>
+
+            <!-- Honeypot. The endpoint URL is public in site.js, so anything
+                 can POST to it directly. Bots fill every field they find;
+                 people never see this one. Hidden from the a11y tree and
+                 skipped by tab order, not display:none — some bots skip
+                 those. -->
+            <div class="hp-field" aria-hidden="true">
+              <label for="company-url">Leave this field empty</label>
+              <input id="company-url" name="company_url" type="text"
+                     tabindex="-1" autocomplete="off">
+            </div>
 
             <div class="field-row" data-flow="left" data-flow-i="1">
               <label class="field">

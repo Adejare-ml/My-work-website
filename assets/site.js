@@ -411,6 +411,12 @@
         }
       };
 
+      /* Honeypot: a real visitor can neither see nor tab to #company-url,
+         so anything in it came from a bot. Drop the submission but show
+         the normal confirmation — a bot told it failed simply retries. */
+      var trap = form.querySelector('#company-url');
+      if (trap && trap.value !== '') { showSent(); return; }
+
       if (!window.fetch) { showSent(); return; }
       fetch(SCRIPT_URL, {
         method: 'POST',

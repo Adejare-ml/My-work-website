@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Prototype and reference trees — not part of the portfolio.
+Disallow: /motion-lab.html
+Disallow: /redesign/
+
+Sitemap: https://adelugba-adejare.pages.dev/sitemap.xml
