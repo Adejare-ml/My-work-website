@@ -5,6 +5,42 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Adejare Adelugba — ML Engineer &amp; Data Scientist</title>
 <meta name="description" content="ML Engineer building machine-learning systems for messy, real-world data — and documenting what didn't work. 87.1% ROC-AUC multimodal cancer detection, electoral data infrastructure across all 36 Nigerian states.">
+<link rel="canonical" href="https://adelugba-adejare.pages.dev/">
+<meta property="og:title" content="Adejare Adelugba — ML Engineer &amp; Data Scientist">
+<meta property="og:description" content="ML Engineer building machine-learning systems for messy, real-world data — multimodal cancer detection, electoral data pipelines, model benchmarking.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adelugba-adejare.pages.dev/">
+<meta property="og:image" content="https://adelugba-adejare.pages.dev/og-preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Adejare Adelugba — ML Engineer &amp; Data Scientist">
+<meta name="twitter:description" content="Building ML systems for messy real-world data — multimodal cancer detection, electoral data pipelines, model benchmarking.">
+<meta name="twitter:image" content="https://adelugba-adejare.pages.dev/og-preview.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Adejare Adelugba",
+  "jobTitle": "ML Engineer & Data Scientist",
+  "url": "https://adelugba-adejare.pages.dev/",
+  "sameAs": [
+    "https://github.com/Adejare-ml",
+    "https://linkedin.com/in/adejare-adelugba"
+  ],
+  "alumniOf": {
+    "@type": "EducationalOrganization",
+    "name": "Landmark University"
+  },
+  "knowsAbout": [
+    "Machine Learning",
+    "Computer Vision",
+    "Multimodal Fusion",
+    "Data Engineering",
+    "PyTorch",
+    "PostgreSQL",
+    "Selenium"
+  ]
+}
+</script>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,7 +78,10 @@
       <!-- ============ hero ============ -->
       <section class="hero">
         <div class="hero-copy">
-          <span class="status-chip" data-flow="left" data-flow-dur="hero" data-flow-i="0">open to opportunities · abuja, nigeria</span>
+          <span class="status-chip" data-flow="left" data-flow-dur="hero" data-flow-i="0">
+            <span class="status-pulse" aria-hidden="true"></span>
+            open to opportunities · abuja, nigeria
+          </span>
 
           <h1 class="display" data-flow="left" data-flow-dur="hero" data-flow-i="1">Adejare<br>Adelugba<span class="dot">.</span></h1>
 
@@ -51,9 +90,38 @@
           <p class="hero-lede" data-flow="left" data-flow-dur="hero" data-flow-i="3">I build machine-learning systems for messy, real-world data — and I document what didn't work.</p>
 
           <div class="actions" data-flow="left" data-flow-dur="hero" data-flow-i="4">
-            <a class="btn btn-primary" href="projects.html">View My Work →</a>
-            <a class="btn btn-ghost" href="https://github.com/Adejare-ml" target="_blank" rel="noopener">GitHub ↗</a>
-            <a class="btn btn-ghost" href="Adejare_Adelugba_Machine%20learning_engineer.pdf" download>Download CV ↓</a>
+            <a class="btn btn-primary" href="projects.html" data-magnetic>View My Work →</a>
+            <a class="btn btn-ghost" href="https://github.com/Adejare-ml" target="_blank" rel="noopener" data-magnetic>GitHub ↗</a>
+            <a class="btn btn-ghost" href="Adejare_Adelugba_Machine%20learning_engineer.pdf" download data-magnetic>Download CV ↓</a>
+          </div>
+
+          <!-- Subtle Interactive Data Flow Visual -->
+          <div class="hero-viz-container" data-flow="left" data-flow-dur="hero" data-flow-i="5">
+            <div class="hero-viz-title">
+              <span>// SYSTEM FLOW ARCHITECTURE</span>
+              <span>interactive nodes</span>
+            </div>
+            <div class="hero-viz-pipeline">
+              <div class="viz-node" data-cursor-badge="INPUT">
+                <span class="dot"></span>
+                <span>DATA</span>
+              </div>
+              <span class="viz-arrow">→</span>
+              <div class="viz-node" data-cursor-badge="TRAIN">
+                <span class="dot"></span>
+                <span>MODELS</span>
+              </div>
+              <span class="viz-arrow">→</span>
+              <div class="viz-node" data-cursor-badge="DEPLOY">
+                <span class="dot"></span>
+                <span>SYSTEMS</span>
+              </div>
+              <span class="viz-arrow">→</span>
+              <div class="viz-node" data-cursor-badge="VERIFY">
+                <span class="dot"></span>
+                <span>RESULTS</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -90,59 +158,137 @@
           <span class="eyebrow"><b>[</b> SELECTED WORK <b>]</b></span>
           <div class="section-head-row">
             <h2 class="section-title">Case studies<span class="dot">.</span></h2>
-            <span class="comment">// three builds, receipts included</span>
+            <span class="comment">// three builds with architecture pipelines & receipts</span>
           </div>
         </div>
 
         <div class="cards">
 
-          <article class="card" data-flow="up" data-flow-i="1">
-            <span class="comment">// medical-imaging</span>
+          <!-- CASE 1 -->
+          <article class="card" data-flow="up" data-flow-i="1" data-cursor-badge="EXPLORE">
+            <span class="comment">// medical-imaging · multimodal fusion</span>
             <h3 class="card-title">Multimodal Breast Cancer Detection</h3>
-            <p class="card-desc">Early fusion of MedCLIP image embeddings with TabNet clinical features — outperforms both unimodal baselines.</p>
-            <div class="metric">
+            <p class="card-desc">Early fusion of MedCLIP mammogram embeddings with TabNet clinical record features — beating single-modality baselines on real, imbalanced clinical data.</p>
+            
+            <!-- Interactive Visual Architecture Pipeline -->
+            <div class="pipeline-flow">
+              <div class="pipeline-header">
+                <span>MODEL PIPELINE ARCHITECTURE</span>
+                <span>hover nodes for technical specs</span>
+              </div>
+              <div class="pipeline-nodes-grid">
+                <div class="pipeline-card">
+                  <span class="pipeline-card-type">Input A</span>
+                  <span class="pipeline-card-title">Ultrasound</span>
+                  <div class="pipeline-card-tooltip">Medical imaging scan input preprocessed & normalized for encoder.</div>
+                </div>
+                <div class="pipeline-card">
+                  <span class="pipeline-card-type">Encoder</span>
+                  <span class="pipeline-card-title">MedCLIP</span>
+                  <div class="pipeline-card-tooltip">Frozen domain-specific vision encoder extracting 512-dim visual embeddings.</div>
+                </div>
+                <div class="pipeline-card">
+                  <span class="pipeline-card-type">Encoder</span>
+                  <span class="pipeline-card-title">TabNet</span>
+                  <div class="pipeline-card-tooltip">Learns sparse 64-dim tabular feature representations from patient records.</div>
+                </div>
+                <div class="pipeline-card">
+                  <span class="pipeline-card-type">Fusion</span>
+                  <span class="pipeline-card-title">Concat Head</span>
+                  <div class="pipeline-card-tooltip">Concatenates [512d + 64d] representation into single joint classifier head.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="metric" style="margin-top: 1rem;">
               <span class="metric-num">87.1<sup>%</sup></span>
               <span class="metric-meta">roc_auc<br><b>accuracy: 82.7%</b></span>
             </div>
             <div class="card-foot">
-              <span class="tech">pytorch · medclip · tabnet</span>
-              <a class="card-link" href="projects.html">read case →</a>
+              <span class="tech">pytorch · medclip · tabnet · early fusion</span>
+              <a class="card-link" href="projects.html">read case &amp; honest section →</a>
             </div>
           </article>
 
-          <article class="card" data-flow="up" data-flow-i="2">
-            <span class="comment">// data-infrastructure</span>
+          <!-- CASE 2 -->
+          <article class="card" data-flow="up" data-flow-i="2" data-cursor-badge="EXPLORE">
+            <span class="comment">// data-infrastructure · automation</span>
             <h3 class="card-title">Nigeria Electoral Data Infrastructure</h3>
-            <p class="card-desc">A resilient scraping pipeline covering polling-unit results nationwide, validated against the official source.</p>
-            <pre class="ascii">portal ─▶ selenium ─▶ parse
-              │
-   <b>postgresql</b> ◀─ validate</pre>
-            <span class="note">500k+ records · all 36 states · <b>99.9%</b> vs official</span>
+            <p class="card-desc">Resilient nationwide polling unit extraction pipeline spanning all 36 states, validated with 99.9% consistency against official records.</p>
+            
+            <div class="pipeline-flow">
+              <div class="pipeline-header">
+                <span>ETL DATA PIPELINE</span>
+                <span>resilient collection &amp; validation</span>
+              </div>
+              <div class="pipeline-nodes-grid">
+                <div class="pipeline-card">
+                  <span class="pipeline-card-type">Sources</span>
+                  <span class="pipeline-card-title">36 States</span>
+                  <div class="pipeline-card-tooltip">Portals across all 36 states containing raw polling unit PDF forms & HTML tables.</div>
+                </div>
+                <div class="pipeline-card">
+                  <span class="pipeline-card-type">Scraper</span>
+                  <span class="pipeline-card-title">Selenium</span>
+                  <div class="pipeline-card-tooltip">Headless browser pool with automatic retries, proxy rotation, and session recovery.</div>
+                </div>
+                <div class="pipeline-card">
+                  <span class="pipeline-card-type">Clean</span>
+                  <span class="pipeline-card-title">Validation</span>
+                  <div class="pipeline-card-tooltip">Deduplication scripts, vote tally integrity checks, and schema enforcement.</div>
+                </div>
+                <div class="pipeline-card">
+                  <span class="pipeline-card-type">Store</span>
+                  <span class="pipeline-card-title">PostgreSQL</span>
+                  <div class="pipeline-card-tooltip">Indexed relational database holding over 500,000 clean, structured records.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="metric" style="margin-top: 1rem;">
+              <span class="metric-num">500K<sup>+</sup></span>
+              <span class="metric-meta">records collected<br><b>99.9% accuracy vs official</b></span>
+            </div>
             <div class="card-foot">
-              <span class="tech">python · selenium · postgresql</span>
+              <span class="tech">python · selenium · postgresql · pandas</span>
               <a class="card-link" href="projects.html">read case →</a>
             </div>
           </article>
 
-          <article class="card" data-flow="up" data-flow-i="3">
-            <span class="comment">// model-benchmark</span>
+          <!-- CASE 3 -->
+          <article class="card" data-flow="up" data-flow-i="3" data-cursor-badge="BENCHMARK">
+            <span class="comment">// computer-vision · model-benchmark</span>
             <h3 class="card-title">Brain Tumor Classification Benchmark</h3>
-            <p class="card-desc">ViT against DINOv2 with Grad-CAM inspection — DINOv2 wins on accuracy and boundary localization.</p>
-            <div class="bars">
-              <div class="bar is-win">
-                <span class="bar-name">dinov2</span>
-                <span class="bar-track"><span class="bar-fill" style="width:93.8%"></span></span>
-                <span class="bar-val">93.8%</span>
+            <p class="card-desc">Comparative research evaluating Vision Transformer (ViT) against DINOv2 self-supervised foundation representations with Grad-CAM interpretability inspection.</p>
+            
+            <div class="benchmark-grid">
+              <div class="benchmark-row">
+                <div class="benchmark-info">
+                  <span class="benchmark-model-name">DINOv2 (Self-Supervised ViT) ★</span>
+                  <span class="benchmark-score">93.8%</span>
+                </div>
+                <div class="benchmark-track">
+                  <div class="benchmark-fill is-winner" style="width: 93.8%"></div>
+                </div>
               </div>
-              <div class="bar">
-                <span class="bar-name">vit</span>
-                <span class="bar-track"><span class="bar-fill" style="width:91.4%"></span></span>
-                <span class="bar-val">91.4%</span>
+              <div class="benchmark-row">
+                <div class="benchmark-info">
+                  <span class="benchmark-model-name">Standard Vision Transformer (ViT)</span>
+                  <span class="benchmark-score">91.4%</span>
+                </div>
+                <div class="benchmark-track">
+                  <div class="benchmark-fill" style="width: 91.4%"></div>
+                </div>
               </div>
             </div>
-            <span class="note">better boundary localization under grad-cam</span>
-            <div class="card-foot">
-              <span class="tech">vit · dinov2 · grad-cam</span>
+
+            <div class="gradcam-box">
+              <span class="gradcam-badge">GRAD-CAM INSPECTION</span>
+              <span class="gradcam-desc">DINOv2 demonstrated superior tumor boundary localization without focusing on background scan artifacts.</span>
+            </div>
+
+            <div class="card-foot" style="margin-top: 1rem;">
+              <span class="tech">vit · dinov2 · pytorch · grad-cam</span>
               <a class="card-link" href="projects.html">read case →</a>
             </div>
           </article>
@@ -150,13 +296,51 @@
         </div>
       </section>
 
+      <!-- ============ experiment lab / honest section ============ -->
+      <section class="section" id="lab">
+        <div class="section-head" data-flow="up" data-flow-i="0">
+          <span class="eyebrow"><b>[</b> RESEARCH NOTEBOOK <b>]</b></span>
+          <div class="section-head-row">
+            <h2 class="section-title">Experiment Lab<span class="dot">.</span></h2>
+            <span class="comment">// documenting what didn't work — engineering dead ends</span>
+          </div>
+        </div>
+
+        <div class="lab-log-card" data-flow="up" data-flow-i="1">
+          <div class="lab-log-meta">
+            <span>EXP_LOG_01 // MULTIMODAL FUSION</span>
+            <span class="lab-log-status failed">FAILED: LATE FUSION</span>
+          </div>
+          <h3 style="font-size:16px; color:var(--ink); margin-bottom:6px;">Late Fusion (Logit Averaging) capped early</h3>
+          <p style="font-size:13.5px; color:var(--text-2);">Averaging per-modality logit probabilities underperformed early fusion by ~4 AUC points because image and clinical modalities could not interact during representation learning.</p>
+        </div>
+
+        <div class="lab-log-card" data-flow="up" data-flow-i="2">
+          <div class="lab-log-meta">
+            <span>EXP_LOG_02 // FOUNDATION MODELS</span>
+            <span class="lab-log-status failed">FAILED: FULL UNFREEZE OVERFIT</span>
+          </div>
+          <h3 style="font-size:16px; color:var(--ink); margin-bottom:6px;">Unfreezing all MedCLIP weights diverged validation loss</h3>
+          <p style="font-size:13.5px; color:var(--text-2);">A small medical dataset quickly ruined pretrained representation spaces when fine-tuned end-to-end. Freezing the MedCLIP encoder produced stable, superior generalization.</p>
+        </div>
+
+        <div class="lab-log-card" data-flow="up" data-flow-i="3">
+          <div class="lab-log-meta">
+            <span>EXP_LOG_03 // METRICS & LOSS</span>
+            <span class="lab-log-status shipped">SHIPPED: CLASS-WEIGHTED ROC-AUC</span>
+          </div>
+          <h3 style="font-size:16px; color:var(--ink); margin-bottom:6px;">Accuracy lied under heavy class imbalance</h3>
+          <p style="font-size:13.5px; color:var(--text-2);">Initial models predicted the majority class ('benign') for almost all cases, showing high accuracy but zero clinical utility. Shifted model selection strictly to ROC-AUC and weighted loss.</p>
+        </div>
+      </section>
+
       <!-- ============ capabilities ============ -->
-      <section class="section">
+      <section class="section" id="capabilities">
         <div class="section-head" data-flow="up" data-flow-i="0">
           <span class="eyebrow"><b>[</b> WHAT I WORK WITH <b>]</b></span>
           <div class="section-head-row">
             <h2 class="section-title">Capabilities<span class="dot">.</span></h2>
-            <span class="comment">// no charts, just the list</span>
+            <span class="comment">// verified tools & technologies</span>
           </div>
         </div>
 
@@ -167,8 +351,10 @@
               <span class="chip">pytorch</span>
               <span class="chip">scikit-learn</span>
               <span class="chip">cnns &amp; vits</span>
-              <span class="chip">transfer learning</span>
-              <span class="chip">model evaluation</span>
+              <span class="chip">dinov2</span>
+              <span class="chip">medclip</span>
+              <span class="chip">tabnet</span>
+              <span class="chip">grad-cam</span>
             </div>
           </div>
           <div class="cap" data-flow="up" data-flow-i="2">
@@ -199,6 +385,15 @@
               <span class="chip">mlflow</span>
             </div>
           </div>
+        </div>
+
+        <!-- Tech Stack Tree Visualizer -->
+        <div class="tech-tree" data-flow="up" data-flow-i="5">
+          <div><span class="root">SYSTEM_STACK</span></div>
+          <div><span class="branch">├── </span><span class="leaf">PyTorch</span> <span class="comment">// Deep learning, Vision Transformers, Early Fusion</span></div>
+          <div><span class="branch">├── </span><span class="leaf">PostgreSQL &amp; Selenium</span> <span class="comment">// Scraping engine, relational storage, 500k+ records</span></div>
+          <div><span class="branch">├── </span><span class="leaf">FastAPI &amp; Docker</span> <span class="comment">// Service deployment &amp; containerized execution</span></div>
+          <div><span class="branch">└── </span><span class="leaf">Linux &amp; Python</span> <span class="comment">// Automation scripts &amp; scheduled background processing</span></div>
         </div>
       </section>
 

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>motion lab — NOT FOR DEPLOY</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=2">
+<style>
+  /* lab-only chrome — none of this ships */
+  .lab-panel {
+    position: fixed;
+    right: 14px;
+    bottom: 14px;
+    z-index: 50;
+    width: 240px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-3);
+    padding: 14px 16px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--text-2);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .lab-panel h2 { font-family: var(--mono); font-size: 10.5px; font-weight: 700; color: var(--accent); margin: 0; }
+  .lab-row { display: flex; flex-direction: column; gap: 3px; }
+  .lab-row label { display: flex; justify-content: space-between; }
+  .lab-row output { color: var(--ink); }
+  .lab-row input[type="range"] { width: 100%; accent-color: var(--accent); }
+  .lab-note { font-size: 9.5px; line-height: 1.5; color: var(--muted); }
+  .lab-spacer { height: 60vh; display: grid; place-items: center; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">skip to content</a>
+
+<div class="page">
+  <div class="well">
+
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a class="wordmark" href="motion-lab.html">~/motion-lab<span>_</span></a>
+        <nav class="nav" aria-label="Main">
+          <a href="motion-lab.html" aria-current="page">lab</a>
+          <a href="index.html">real home</a>
+          <a href="tokens.html">tokens</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="status-chip" data-flow="left" data-flow-dur="hero" data-flow-i="0">motion lab · not for deploy</span>
+          <h1 class="display" data-flow="left" data-flow-dur="hero" data-flow-i="1">Ambient<br>depth grid<span class="dot">.</span></h1>
+          <p class="role" data-flow="left" data-flow-dur="hero" data-flow-i="2">Prototype <span class="amp">&amp;</span> tuning bench</p>
+          <p class="hero-lede" data-flow="left" data-flow-dur="hero" data-flow-i="3">Periwinkle points receding into the ink canvas. Move the mouse for the tilt; scroll for the masthead condense and reveals; hover everything below.</p>
+          <div class="actions" data-flow="left" data-flow-dur="hero" data-flow-i="4">
+            <a class="btn btn-primary" href="#cards">Check the hovers →</a>
+            <a class="btn btn-ghost" href="index.html">Real home ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="lab-spacer"><span class="comment">// open canvas — watch the grid breathe</span></div>
+
+      <section class="section" id="cards">
+        <div class="section-head" data-flow="up" data-flow-i="0">
+          <span class="eyebrow"><b>[</b> HOVER BENCH <b>]</b></span>
+          <div class="section-head-row">
+            <h2 class="section-title">Cards, buttons, links<span class="dot">.</span></h2>
+            <span class="comment">// lift + shadow, edge glow, drawn underlines</span>
+          </div>
+        </div>
+
+        <div class="cards">
+          <article class="card" data-flow="up" data-flow-i="1">
+            <span class="comment">// hover-me</span>
+            <h3 class="card-title">Card lift with depth shadow</h3>
+            <p class="card-desc">Raises 5px on hover with a soft shadow underneath and a faint periwinkle wash — depth, not bounce.</p>
+            <div class="card-foot">
+              <span class="tech">css · transform · box-shadow</span>
+              <a class="card-link" href="#cards">drawn underline →</a>
+            </div>
+          </article>
+          <article class="card" data-flow="up" data-flow-i="2">
+            <span class="comment">// hover-me-too</span>
+            <h3 class="card-title">Underline draws in</h3>
+            <p class="card-desc">The footer link's underline slides left-to-right — also when you hover anywhere on this card.</p>
+            <div class="card-foot">
+              <span class="tech">css · pseudo-element</span>
+              <a class="card-link" href="#cards">like the nav →</a>
+            </div>
+          </article>
+          <article class="card" data-flow="up" data-flow-i="3">
+            <span class="comment">// buttons</span>
+            <h3 class="card-title">Edge glow, periwinkle only</h3>
+            <p class="card-desc">Primary gets a 1px accent ring plus soft outer glow; ghost stays quieter. No neon, no gradients.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="#cards">Primary →</a>
+              <a class="btn btn-ghost" href="#cards">Ghost ↗</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <div class="lab-spacer"><span class="comment">// more open canvas</span></div>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="cta">
+        <div class="cta-copy" data-flow="left" data-flow-i="0">
+          <span class="eyebrow"><b>[</b> CTA ROWS <b>]</b></span>
+          <h2 class="cta-title">Row hover draws the value's underline<span class="dot">.</span></h2>
+          <span class="comment">// hover each row</span>
+        </div>
+        <div class="cta-links" data-flow="right" data-flow-i="1">
+          <a class="cta-link" href="#cards"><span class="cta-link-key">email</span><span class="cta-link-val">adelugbaadejare03@gmail.com</span></a>
+          <a class="cta-link" href="#cards"><span class="cta-link-key">github</span><span class="cta-link-val">github.com/Adejare-ml ↗</span></a>
+        </div>
+      </div>
+      <div class="folio">
+        <span>motion lab — untracked, never deployed</span>
+        <a href="tokens.html">spec: token sheet →</a>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<aside class="lab-panel" aria-label="Ambient grid tuning">
+  <h2>// ambient-grid tuning</h2>
+  <div class="lab-row">
+    <label>opacity <output id="v-opacity">0.100</output></label>
+    <input type="range" id="r-opacity" min="0.02" max="0.105" step="0.005" value="0.10">
+  </div>
+  <div class="lab-row">
+    <label>drift speed <output id="v-drift">0.032</output></label>
+    <input type="range" id="r-drift" min="0" max="0.08" step="0.002" value="0.032">
+  </div>
+  <div class="lab-row">
+    <label>point size <output id="v-size">3.6</output></label>
+    <input type="range" id="r-size" min="1.5" max="7" step="0.1" value="3.6">
+  </div>
+  <div class="lab-row">
+    <label>tilt max ° <output id="v-tilt">5.0</output></label>
+    <input type="range" id="r-tilt" min="0" max="8" step="0.5" value="5">
+  </div>
+  <div class="lab-row">
+    <label>scroll dolly <output id="v-dolly">-0.00018</output></label>
+    <input type="range" id="r-dolly" min="-0.0004" max="0" step="0.00001" value="-0.00018">
+  </div>
+  <p class="lab-note">settle on values, then they get hard-coded into ambient-grid.js. layer skips: reduced-motion, coarse pointer, &lt;768px, no webgl.</p>
+</aside>
+
+<script src="assets/site.js?v=2"></script>
+<script src="assets/ambient-grid.js?v=2" defer></script>
+<script>
+  (function () {
+    'use strict';
+    function wire(rangeId, outId, key, digits) {
+      var r = document.getElementById(rangeId);
+      var o = document.getElementById(outId);
+      r.addEventListener('input', function () {
+        var v = parseFloat(r.value);
+        o.textContent = v.toFixed(digits);
+        var patch = {};
+        patch[key] = v;
+        if (window.AmbientGrid) window.AmbientGrid.set(patch);
+      });
+    }
+    wire('r-opacity', 'v-opacity', 'opacity', 3);
+    wire('r-drift', 'v-drift', 'driftSpeed', 3);
+    wire('r-size', 'v-size', 'pointSize', 1);
+    wire('r-tilt', 'v-tilt', 'tiltMaxDeg', 1);
+    wire('r-dolly', 'v-dolly', 'dollyPerPx', 5);
+  })();
+</script>
+</body>
+</html>

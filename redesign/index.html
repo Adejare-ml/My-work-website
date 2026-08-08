@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adejare Adelugba — ML Engineer &amp; Data Scientist</title>
+<meta name="description" content="ML Engineer building machine-learning systems for messy, real-world data — and documenting what didn't work. 87.1% ROC-AUC multimodal cancer detection, electoral data infrastructure across all 36 Nigerian states.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">skip to content</a>
+
+<div class="page">
+  <div class="well">
+
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a class="wordmark" href="index.html">~/adejare.ml<span>_</span></a>
+        <nav class="nav" aria-label="Main">
+          <a href="index.html" aria-current="page">home</a>
+          <a href="about.html">about</a>
+          <a href="projects.html">projects</a>
+          <a href="contact.html">contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+
+      <!-- ============ hero ============ -->
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="status-chip" data-flow="left" data-flow-dur="900" data-flow-i="0">open to opportunities · abuja, nigeria</span>
+
+          <h1 class="display" data-flow="left" data-flow-dur="900" data-flow-i="1">Adejare<br>Adelugba<span class="dot">.</span></h1>
+
+          <p class="role" data-flow="left" data-flow-dur="900" data-flow-i="2">ML Engineer <span class="amp">&amp;</span> Data Scientist</p>
+
+          <p class="hero-lede" data-flow="left" data-flow-dur="900" data-flow-i="3">I build machine-learning systems for messy, real-world data — and I document what didn't work.</p>
+
+          <div class="actions" data-flow="left" data-flow-dur="900" data-flow-i="4">
+            <a class="btn btn-primary" href="projects.html">View My Work →</a>
+            <a class="btn btn-ghost" href="https://github.com/Adejare-ml" target="_blank" rel="noopener">GitHub ↗</a>
+            <a class="btn btn-ghost" href="../Adejare_Adelugba_Machine%20learning_engineer.pdf" download>Download CV ↓</a>
+          </div>
+        </div>
+
+        <figure class="code-figure" data-flow="right" data-flow-dur="900" data-flow-i="2">
+          <figcaption class="code-cap">// the thesis, in twelve lines</figcaption>
+          <div class="code-stack">
+            <div class="plane plane-back" data-plane="back" aria-hidden="true"></div>
+            <div class="plane plane-mid" data-plane="mid" aria-hidden="true"></div>
+            <div class="code-window">
+              <div class="code-chrome">
+                <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="code-file">cancer_fusion.py — pytorch</span>
+              </div>
+              <pre class="code-body"><code><span class="kw">class</span> CancerFusionModel(nn.Module):
+    <span class="cmt">"""Mammogram + clinical record → diagnosis."""</span>
+    <span class="kw">def</span> __init__(self):
+        <span class="kw">super</span>().__init__()
+        self.img  = MedCLIP(frozen=<span class="kw">True</span>)
+        self.tab  = TabNet(clinical_dim=<span class="kw">23</span>)
+        self.head = nn.Linear(<span class="kw">512</span> + <span class="kw">64</span>, <span class="kw">2</span>)
+
+    <span class="kw">def</span> forward(self, x_img, x_tab):
+        z = torch.cat([self.img(x_img),
+                       self.tab(x_tab)], dim=<span class="kw">1</span>)
+        <span class="kw">return</span> self.head(z)  <span class="cmt"># early fusion<span class="cursor" aria-hidden="true"></span></span></code></pre>
+            </div>
+          </div>
+        </figure>
+      </section>
+
+      <!-- ============ selected work ============ -->
+      <section class="section" id="work">
+        <div class="section-head" data-flow="up" data-flow-i="0">
+          <span class="eyebrow"><b>[</b> SELECTED WORK <b>]</b></span>
+          <div class="section-head-row">
+            <h2 class="section-title">Case studies<span class="dot">.</span></h2>
+            <span class="comment">// three builds, receipts included</span>
+          </div>
+        </div>
+
+        <div class="cards">
+
+          <article class="card" data-flow="up" data-flow-i="1">
+            <span class="comment">// medical-imaging</span>
+            <h3 class="card-title">Multimodal Breast Cancer Detection</h3>
+            <p class="card-desc">Early fusion of MedCLIP image embeddings with TabNet clinical features — outperforms both unimodal baselines.</p>
+            <div class="metric">
+              <span class="metric-num">87.1<sup>%</sup></span>
+              <span class="metric-meta">roc_auc<br><b>accuracy: 82.7%</b></span>
+            </div>
+            <div class="card-foot">
+              <span class="tech">pytorch · medclip · tabnet</span>
+              <a class="card-link" href="projects.html">read case →</a>
+            </div>
+          </article>
+
+          <article class="card" data-flow="up" data-flow-i="2">
+            <span class="comment">// data-infrastructure</span>
+            <h3 class="card-title">Nigeria Electoral Data Infrastructure</h3>
+            <p class="card-desc">A resilient scraping pipeline covering polling-unit results nationwide, validated against the official source.</p>
+            <pre class="ascii">portal ─▶ selenium ─▶ parse
+              │
+   <b>postgresql</b> ◀─ validate</pre>
+            <span class="note">500k+ records · all 36 states · <b>99.9%</b> vs official</span>
+            <div class="card-foot">
+              <span class="tech">python · selenium · postgresql</span>
+              <a class="card-link" href="projects.html">read case →</a>
+            </div>
+          </article>
+
+          <article class="card" data-flow="up" data-flow-i="3">
+            <span class="comment">// model-benchmark</span>
+            <h3 class="card-title">Brain Tumor Classification Benchmark</h3>
+            <p class="card-desc">ViT against DINOv2 with Grad-CAM inspection — DINOv2 wins on accuracy and boundary localization.</p>
+            <div class="bars">
+              <div class="bar is-win">
+                <span class="bar-name">dinov2</span>
+                <span class="bar-track"><span class="bar-fill" style="width:93.8%"></span></span>
+                <span class="bar-val">93.8%</span>
+              </div>
+              <div class="bar">
+                <span class="bar-name">vit</span>
+                <span class="bar-track"><span class="bar-fill" style="width:91.4%"></span></span>
+                <span class="bar-val">91.4%</span>
+              </div>
+            </div>
+            <span class="note">better boundary localization under grad-cam</span>
+            <div class="card-foot">
+              <span class="tech">vit · dinov2 · grad-cam</span>
+              <a class="card-link" href="projects.html">read case →</a>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ============ capabilities ============ -->
+      <section class="section">
+        <div class="section-head" data-flow="up" data-flow-i="0">
+          <span class="eyebrow"><b>[</b> WHAT I WORK WITH <b>]</b></span>
+          <div class="section-head-row">
+            <h2 class="section-title">Capabilities<span class="dot">.</span></h2>
+            <span class="comment">// no charts, just the list</span>
+          </div>
+        </div>
+
+        <div class="caps">
+          <div class="cap" data-flow="up" data-flow-i="1">
+            <span class="cap-label">// ml-ai</span>
+            <div class="chips">
+              <span class="chip">pytorch</span>
+              <span class="chip">scikit-learn</span>
+              <span class="chip">cnns &amp; vits</span>
+              <span class="chip">transfer learning</span>
+              <span class="chip">model evaluation</span>
+            </div>
+          </div>
+          <div class="cap" data-flow="up" data-flow-i="2">
+            <span class="cap-label">// data-engineering</span>
+            <div class="chips">
+              <span class="chip">postgresql</span>
+              <span class="chip">selenium</span>
+              <span class="chip">pandas</span>
+              <span class="chip">etl pipelines</span>
+              <span class="chip">data validation</span>
+            </div>
+          </div>
+          <div class="cap" data-flow="up" data-flow-i="3">
+            <span class="cap-label">// automation</span>
+            <div class="chips">
+              <span class="chip">python scripting</span>
+              <span class="chip">fastapi</span>
+              <span class="chip">docker</span>
+              <span class="chip">scheduled jobs</span>
+            </div>
+          </div>
+          <div class="cap" data-flow="up" data-flow-i="4">
+            <span class="cap-label">// tools</span>
+            <div class="chips">
+              <span class="chip">git &amp; github</span>
+              <span class="chip">linux</span>
+              <span class="chip">jupyter</span>
+              <span class="chip">mlflow</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="cta">
+        <div class="cta-copy" data-flow="left" data-flow-i="0">
+          <span class="eyebrow"><b>[</b> AVAILABILITY <b>]</b></span>
+          <h2 class="cta-title">Available for ML engineering and data science roles<span class="dot">.</span></h2>
+          <span class="comment">// replies within 24 hours</span>
+        </div>
+        <div class="cta-links" data-flow="right" data-flow-i="1">
+          <a class="cta-link" href="mailto:adelugbaadejare03@gmail.com"><span class="cta-link-key">email</span><span class="cta-link-val">adelugbaadejare03@gmail.com</span></a>
+          <a class="cta-link" href="https://github.com/Adejare-ml" target="_blank" rel="noopener"><span class="cta-link-key">github</span><span class="cta-link-val">github.com/Adejare-ml ↗</span></a>
+          <a class="cta-link" href="https://linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener"><span class="cta-link-key">linkedin</span><span class="cta-link-val">in/adejare-adelugba ↗</span></a>
+        </div>
+      </div>
+      <div class="folio">
+        <span>© 2026 adejare adelugba</span>
+        <span>p.01 / 04</span>
+        <a href="tokens.html">spec: token sheet →</a>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

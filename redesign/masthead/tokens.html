@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spec Sheet — Masthead V5</title>
+<meta name="description" content="Design token specification: colour, type scale, spacing, radii, elevation, motion, and breakpoints.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<div class="page">
+  <div class="well">
+
+    <header class="masthead">
+      <div class="masthead-rule">
+        <a class="wordmark" href="index.html">ADEJARE&nbsp;ADELUGBA</a>
+      </div>
+      <div class="dateline" style="border-top:1px solid var(--hairline);">
+        <span>SPEC SHEET — MASTHEAD V5</span>
+        <span class="is-open">FOR THE BUILD PHASE — PORT EXACTLY</span>
+        <a href="index.html">← BACK TO SITE</a>
+      </div>
+    </header>
+
+    <main class="spec-grid">
+
+      <!-- ============ colour ============ -->
+      <section class="spec-block is-full">
+        <div class="spec-head">
+          <h2>Color</h2>
+          <span class="spec-note">ONE ACCENT · NO GRADIENTS · NO GITHUB PRIMER HEXES</span>
+        </div>
+        <div class="swatches">
+          <div class="swatch"><span class="swatch-chip" style="background:#1c1d21; border:1px solid #2a2c33;"></span><span class="swatch-name">--bg&nbsp;&nbsp;#1C1D21</span><span class="swatch-use">page background</span></div>
+          <div class="swatch"><span class="swatch-chip" style="background:#22242a; border:1px solid #2a2c33;"></span><span class="swatch-name">--surface&nbsp;&nbsp;#22242A</span><span class="swatch-use">panels, inputs, hover fill</span></div>
+          <div class="swatch"><span class="swatch-chip" style="background:#2a2c33;"></span><span class="swatch-name">--hairline&nbsp;&nbsp;#2A2C33</span><span class="swatch-use">rules, grid gaps</span></div>
+          <div class="swatch"><span class="swatch-chip" style="background:#3a3d47;"></span><span class="swatch-name">--border&nbsp;&nbsp;#3A3D47</span><span class="swatch-use">interactive borders</span></div>
+          <div class="swatch"><span class="swatch-chip" style="background:#8f93a3;"></span><span class="swatch-name">--muted&nbsp;&nbsp;#8F93A3</span><span class="swatch-use">labels, folios</span></div>
+          <div class="swatch"><span class="swatch-chip" style="background:#a0a4b2;"></span><span class="swatch-name">--text-2&nbsp;&nbsp;#A0A4B2</span><span class="swatch-use">body secondary</span></div>
+          <div class="swatch"><span class="swatch-chip" style="background:#c7cad6;"></span><span class="swatch-name">--text-1&nbsp;&nbsp;#C7CAD6</span><span class="swatch-use">body, links at rest</span></div>
+          <div class="swatch"><span class="swatch-chip" style="background:#f4f4f0;"></span><span class="swatch-name">--ink&nbsp;&nbsp;#F4F4F0</span><span class="swatch-use">headlines, masthead rules (#F0F0EC at 2px)</span></div>
+          <div class="swatch"><span class="swatch-chip" style="background:#a7b5f2;"></span><span class="swatch-name is-accent">--accent&nbsp;&nbsp;#A7B5F2</span><span class="swatch-use">periwinkle — spots only, never floods</span></div>
+          <div class="swatch"><span class="swatch-chip is-split"><span style="background:#6273b3;"></span><span style="background:#3a3f55;"></span></span><span class="swatch-name">--accent-mid / -deep&nbsp;&nbsp;#6273B3 / #3A3F55</span><span class="swatch-use">3D extrusion slices only</span></div>
+          <div class="swatch"><span class="swatch-chip" style="background:#d98c85;"></span><span class="swatch-name">--error&nbsp;&nbsp;#D98C85</span><span class="swatch-use">form validation (functional, not accent)</span></div>
+        </div>
+      </section>
+
+      <!-- ============ type scale ============ -->
+      <section class="spec-block">
+        <div class="spec-head">
+          <h2>Type Scale</h2>
+          <span class="spec-note">BODONI MODA · HANKEN GROTESK · JETBRAINS MONO</span>
+        </div>
+        <div class="spec-rows">
+          <div class="spec-row"><span style="font-family:var(--display); font-size:52px; line-height:1;">Display</span><span class="spec-spec">BODONI 400 · clamp(46, 7.6vw, 104) / 1.02</span></div>
+          <div class="spec-row"><span style="font-family:var(--display); font-size:38px; line-height:1;">Title</span><span class="spec-spec">BODONI 400 · clamp(36, 4.6vw, 60) / 1.08</span></div>
+          <div class="spec-row"><span style="font-family:var(--display); font-size:29px; line-height:1;">Section</span><span class="spec-spec">BODONI 400 · clamp(26, 3vw, 36) / 1.15</span></div>
+          <div class="spec-row"><span style="font-family:var(--display); font-size:23px; line-height:1;">Card head</span><span class="spec-spec">BODONI 400 · clamp(20, 2.2vw, 29) / 1.2</span></div>
+          <div class="spec-row"><span style="font-size:18px; color:var(--text-2);">Lede paragraph</span><span class="spec-spec">HANKEN 400 · clamp(16, 1.5vw, 19) / 1.65</span></div>
+          <div class="spec-row"><span style="font-size:15px; color:var(--text-1);">Body copy</span><span class="spec-spec">HANKEN 400 · 15 / 1.65</span></div>
+          <div class="spec-row"><span style="font-size:14px; color:var(--text-2);">Caption / card body</span><span class="spec-spec">HANKEN 400 · 14 / 1.6</span></div>
+          <div class="spec-row"><span style="font-family:var(--mono); font-size:11px; color:var(--text-2);">DATA / CODE — 11/1.75</span><span class="spec-spec">MONO 400</span></div>
+          <div class="spec-row"><span class="kicker">KICKER LABEL — 10 / LS 0.14EM</span><span class="spec-spec">MONO 500 · UPPERCASE</span></div>
+          <div class="spec-row"><span style="font-family:var(--mono); font-size:9px; letter-spacing:0.12em; color:var(--muted);">FOLIO — 9 / LS 0.12EM</span><span class="spec-spec">MONO 400 · UPPERCASE</span></div>
+        </div>
+      </section>
+
+      <!-- ============ spacing + elevation ============ -->
+      <section class="spec-block" style="gap:28px;">
+        <div class="spec-block">
+          <div class="spec-head">
+            <h2>Spacing</h2>
+            <span class="spec-note">ONE SCALE — NO AD-HOC VALUES</span>
+          </div>
+          <div class="scale">
+            <div class="scale-row"><span class="scale-num">4</span><span class="scale-bar" style="width:4px"></span></div>
+            <div class="scale-row"><span class="scale-num">8</span><span class="scale-bar" style="width:8px"></span></div>
+            <div class="scale-row"><span class="scale-num">12</span><span class="scale-bar" style="width:12px"></span></div>
+            <div class="scale-row"><span class="scale-num">16</span><span class="scale-bar" style="width:16px"></span></div>
+            <div class="scale-row"><span class="scale-num">24</span><span class="scale-bar" style="width:24px"></span></div>
+            <div class="scale-row"><span class="scale-num">32</span><span class="scale-bar" style="width:32px"></span></div>
+            <div class="scale-row"><span class="scale-num">48</span><span class="scale-bar" style="width:48px"></span></div>
+            <div class="scale-row"><span class="scale-num">64</span><span class="scale-bar" style="width:64px"></span></div>
+            <div class="scale-row"><span class="scale-num">96</span><span class="scale-bar" style="width:96px"></span></div>
+            <div class="scale-row"><span class="scale-num">128</span><span class="scale-bar" style="width:128px"></span></div>
+          </div>
+          <span class="spec-foot">SECTION GAPS FLUID: clamp(56, 7vw, 88) · PAGE GUTTER clamp(16, 4vw, 56)</span>
+        </div>
+
+        <div class="spec-block">
+          <div class="spec-head">
+            <h2>Radii &amp; Elevation</h2>
+            <span class="spec-note">SHARP EDITORIAL — DEPTH FROM LAYERS</span>
+          </div>
+          <div class="elevations">
+            <div class="elev"><span class="elev-box" style="background:#1c1d21; border:1px solid #2a2c33;"></span><span class="elev-label">R-0 · E-0 HAIRLINE</span></div>
+            <div class="elev"><span class="elev-box" style="background:#22242a; border:1px solid #3a3d47; border-radius:2px;"></span><span class="elev-label">R-2 · E-1 RAISED</span></div>
+            <div class="elev"><span class="elev-box" style="background:#22242a; border:1px solid #3a3d47; box-shadow:0 12px 40px rgba(0,0,0,0.35);"></span><span class="elev-label">E-2 LIFTED</span></div>
+            <div class="elev"><span class="elev-box" style="background:#22242a; border:1px solid #a7b5f2; box-shadow:0 0 22px rgba(167,181,242,0.35);"></span><span class="elev-label">E-H HOVER GLOW</span></div>
+          </div>
+          <span class="spec-foot">RADIUS 0 EVERYWHERE EXCEPT INPUTS/BUTTONS (2PX) · NO SCALE TRANSFORMS ON HOVER</span>
+        </div>
+      </section>
+
+      <!-- ============ motion + breakpoints ============ -->
+      <section class="spec-block">
+        <div class="spec-head">
+          <h2>Motion</h2>
+          <span class="spec-note">"FALLS INTO PLACE" — EACH ELEMENT ANIMATES ONCE</span>
+        </div>
+        <div class="spec-rows">
+          <div class="spec-row"><span class="spec-key">--t-hover&nbsp;&nbsp;150MS</span><span class="spec-val">hover, focus, copy feedback</span></div>
+          <div class="spec-row"><span class="spec-key">--t-section&nbsp;&nbsp;450MS</span><span class="spec-val">section assembly, disclosures unfolding</span></div>
+          <div class="spec-row"><span class="spec-key">--t-hero&nbsp;&nbsp;700MS</span><span class="spec-val">hero sequence only</span></div>
+          <div class="spec-row"><span class="spec-key">--stagger&nbsp;&nbsp;85MS</span><span class="spec-val">between blocks, reading order: label → heading → content</span></div>
+          <div class="spec-row"><span class="spec-key">--ease</span><span class="spec-val" style="font-family:var(--mono); font-size:10px;">cubic-bezier(0.22, 1, 0.36, 1)</span></div>
+          <div class="spec-row"><span class="spec-key">ENTRANCE OFFSET</span><span class="spec-val">translateY(16px) → 0, opacity 0 → 1</span></div>
+          <div class="spec-row"><span class="spec-key">REDUCED MOTION</span><span class="spec-val">everything static &amp; visible; scroll-shift and reveals skipped</span></div>
+        </div>
+
+        <div class="spec-head" style="margin-top:16px;">
+          <h2>Breakpoints</h2>
+          <span class="spec-note">EXACTLY THREE</span>
+        </div>
+        <div class="spec-rows">
+          <div class="spec-row"><span class="spec-key" style="color:var(--ink);">390</span><span class="spec-val">single column, wrapped masthead, stacked cases</span></div>
+          <div class="spec-row"><span class="spec-key" style="color:var(--ink);">768</span><span class="spec-val">2-up grids, side-by-side hero</span></div>
+          <div class="spec-row"><span class="spec-key" style="color:var(--ink);">1440</span><span class="spec-val">3-up cover stories, max-width 1240 content well</span></div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer" style="margin-top:0;">
+      <div class="footer-rule"></div>
+      <div class="folio" style="border-top:1px solid var(--hairline); margin-top:3px;">
+        <span>© 2026 ADEJARE ADELUGBA</span>
+        <span>SPEC V5 — MASTHEAD</span>
+        <a href="index.html">HOME →</a>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+</body>
+</html>

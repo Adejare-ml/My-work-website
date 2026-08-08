@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects — Adejare Adelugba</title>
+<meta name="description" content="Case studies with the decisions, trade-offs, and dead ends left in — the parts most portfolios delete.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">SKIP TO CONTENT</a>
+
+<div class="page">
+  <div class="well">
+
+    <header class="masthead">
+      <div class="masthead-rule">
+        <a class="wordmark" href="index.html">ADEJARE&nbsp;ADELUGBA</a>
+      </div>
+      <nav class="nav" aria-label="Main">
+        <a href="index.html">HOME</a>
+        <a href="about.html">ABOUT</a>
+        <a href="projects.html" aria-current="page">PROJECTS</a>
+        <a href="contact.html">CONTACT</a>
+      </nav>
+      <div class="dateline">
+        <span>VOL. 05 — PORTFOLIO</span>
+        <span class="is-open">● OPEN TO OPPORTUNITIES</span>
+        <span>ABUJA, NIGERIA</span>
+      </div>
+    </header>
+
+    <main id="main">
+
+      <section class="intro">
+        <span class="kicker" data-reveal="0">PROJECTS — P. 03</span>
+        <h1 class="page-title" data-reveal="1">The work, with receipts.</h1>
+        <p class="lede" data-reveal="2">Case studies with the decisions, trade-offs, and dead ends left in — the parts most portfolios delete.</p>
+      </section>
+
+      <!-- ============ featured case ============ -->
+      <section>
+        <div class="section-head" data-reveal="0">
+          <h2>Featured — Multimodal Breast Cancer Detection</h2>
+          <span class="slug">B.SC. THESIS · 2025</span>
+        </div>
+
+        <div class="ruled-grid">
+          <div class="feature-cell is-left" data-reveal="1">
+            <span class="slug">THE PROBLEM</span>
+            <p>Mammography alone misses context a clinician has on paper. The thesis asks: does fusing the image with tabular clinical features beat either signal alone — on a small, imbalanced, real dataset?</p>
+            <span class="cell-tech">PYTORCH · MEDCLIP · TABNET · EARLY FUSION</span>
+          </div>
+          <div class="feature-cell is-right" data-reveal="2">
+            <span class="slug">THE RESULT</span>
+            <pre class="code-plate">img (MedCLIP) ──┐
+                ├─▶ concat ─▶ head ─▶ dx
+tab (TabNet) ───┘</pre>
+            <p class="result-line">87.1% ROC-AUC, 82.7% accuracy — <i>above both unimodal baselines.</i></p>
+          </div>
+        </div>
+
+        <!-- ---- the honest section ---- -->
+        <div class="honest" data-reveal="3">
+          <div class="honest-head">
+            <span class="kicker">THE HONEST SECTION</span>
+            <h3 class="honest-title">Engineering Decisions <i>&amp;</i> What Didn't Work</h3>
+            <p class="honest-note">Four dead ends, kept deliberately public. Click any entry for the full story.</p>
+          </div>
+
+          <div class="honest-list" data-disclosure-group data-label-open="− CLOSE" data-label-shut="+ THE FULL STORY">
+
+            <div class="deadend is-open" data-disclosure>
+              <button class="deadend-btn" data-disclosure-btn type="button" aria-expanded="true" aria-controls="de-0">
+                <span class="deadend-num">01</span>
+                <span class="deadend-id">
+                  <span class="deadend-title">Late fusion came first — and lost.</span>
+                  <span class="deadend-sub">Averaging per-modality logits underperformed early fusion by ~4 AUC points.</span>
+                </span>
+                <span class="deadend-toggle">− CLOSE</span>
+              </button>
+              <div class="disclosure-panel" id="de-0">
+                <div>
+                  <div class="deadend-body">
+                    <p>The obvious architecture — train each modality separately, average the outputs — capped out early. The modalities never got to interact, so cases where the image and the chart disagree were exactly the ones it failed.</p>
+                    <span class="shipped">SHIPPED → single fusion head over concatenated embeddings.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="deadend" data-disclosure>
+              <button class="deadend-btn" data-disclosure-btn type="button" aria-expanded="false" aria-controls="de-1">
+                <span class="deadend-num">02</span>
+                <span class="deadend-id">
+                  <span class="deadend-title">Fine-tuning all of MedCLIP overfit in epochs.</span>
+                  <span class="deadend-sub">Validation loss diverged almost immediately on a dataset this small.</span>
+                </span>
+                <span class="deadend-toggle">+ THE FULL STORY</span>
+              </button>
+              <div class="disclosure-panel" id="de-1">
+                <div>
+                  <div class="deadend-body">
+                    <p>A few hundred patients cannot re-teach a foundation model. Unfreezing the full encoder memorized the training set while validation collapsed — the fix was accepting the pretrained features as-is.</p>
+                    <span class="shipped">SHIPPED → frozen encoder; only the fusion head and TabNet train.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="deadend" data-disclosure>
+              <button class="deadend-btn" data-disclosure-btn type="button" aria-expanded="false" aria-controls="de-2">
+                <span class="deadend-num">03</span>
+                <span class="deadend-id">
+                  <span class="deadend-title">Class imbalance made accuracy a liar.</span>
+                  <span class="deadend-sub">A model predicting "benign" for everyone scored deceptively well.</span>
+                </span>
+                <span class="deadend-toggle">+ THE FULL STORY</span>
+              </button>
+              <div class="disclosure-panel" id="de-2">
+                <div>
+                  <div class="deadend-body">
+                    <p>Early runs looked great until the confusion matrix told the truth. Model selection moved to ROC-AUC, training got a class-weighted loss, and every later comparison reports both.</p>
+                    <span class="shipped">SHIPPED → weighted loss + AUC-based model selection.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="deadend" data-disclosure>
+              <button class="deadend-btn" data-disclosure-btn type="button" aria-expanded="false" aria-controls="de-3">
+                <span class="deadend-num">04</span>
+                <span class="deadend-id">
+                  <span class="deadend-title">XGBoost beat TabNet — alone.</span>
+                  <span class="deadend-sub">On tabular data by itself, gradient boosting won. Fused, it didn't.</span>
+                </span>
+                <span class="deadend-toggle">+ THE FULL STORY</span>
+              </button>
+              <div class="disclosure-panel" id="de-3">
+                <div>
+                  <div class="deadend-body">
+                    <p>Trees don't emit embeddings, so XGBoost couldn't participate in fusion. TabNet's learned representations concatenated cleanly with the image features — the fused model outperformed any tree pipeline.</p>
+                    <span class="shipped">SHIPPED → TabNet embeddings as the tabular arm of the fusion.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ work history ============ -->
+      <section class="section">
+        <div class="section-head" data-reveal="0">
+          <h2>Work History</h2>
+          <span class="slug">TWO INTERNSHIPS, OUTCOMES ONLY</span>
+        </div>
+        <div class="ruled-grid">
+          <div class="feature-cell is-left job" data-reveal="1">
+            <span class="job-date">AUG–SEP 2025</span>
+            <h3>ML Engineering Intern — Kontemporary Konsulting</h3>
+            <ul>
+              <li>Weekly consulting reports automated end-to-end, from data collection to formatted memo.</li>
+              <li>Corporate website designed, built, and shipped.</li>
+            </ul>
+          </div>
+          <div class="feature-cell is-right job" data-reveal="2">
+            <span class="job-date">MAR–SEP 2024</span>
+            <h3>Data &amp; Automation Intern — TETFund</h3>
+            <ul>
+              <li>Document-processing workflows automated across departments.</li>
+              <li>Validation scripts caught entry errors before they reached official records.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ more projects ============ -->
+      <section class="section">
+        <div class="section-head" data-reveal="0">
+          <h2>More Projects</h2>
+          <span class="slug">EACH LINKS TO ITS REPO</span>
+        </div>
+
+        <div class="ruled-grid is-tight">
+          <a class="ruled-cell is-cap" data-reveal="1" href="https://github.com/Adejare-ml/Real-Time-Human-Activity-Recognition-Using-Time-Series-Transformers-Wearable-Sensors-HAR-70-Dataset-" target="_blank" rel="noopener">
+            <span class="mini-cat">DEEP LEARNING</span>
+            <span class="mini-title">HAR Transformer</span>
+            <span class="mini-desc">Human-activity recognition across 12 classes from wearable sensor streams.</span>
+            <span class="mini-foot"><span>92.3% ACC</span><b>REPO ↗</b></span>
+          </a>
+
+          <a class="ruled-cell is-cap" data-reveal="2" href="https://github.com/Adejare-ml/Heart_disease_risk_prediction_system" target="_blank" rel="noopener">
+            <span class="mini-cat">CLINICAL ML</span>
+            <span class="mini-title">Heart Disease Prediction</span>
+            <span class="mini-desc">Screening-first model — threshold tuned to catch positives, not to flatter accuracy.</span>
+            <span class="mini-foot"><span>0.91 RECALL</span><b>REPO ↗</b></span>
+          </a>
+
+          <a class="ruled-cell is-cap" data-reveal="3" href="https://github.com/Adejare-ml" target="_blank" rel="noopener">
+            <span class="mini-cat">AUTOMATION</span>
+            <span class="mini-title">TETFund Automation</span>
+            <span class="mini-desc">Document workflows scripted end-to-end during the internship.</span>
+            <span class="mini-foot"><span>~90% TIME SAVED</span><b>CASE ↗</b></span>
+          </a>
+
+          <a class="ruled-cell is-cap" data-reveal="4" href="https://github.com/Adejare-ml" target="_blank" rel="noopener">
+            <span class="mini-cat">DATA</span>
+            <span class="mini-title">Polling Unit Scraper</span>
+            <span class="mini-desc">The resilient collector behind the electoral data infrastructure.</span>
+            <span class="mini-foot"><span>SELENIUM · RETRY-SAFE</span><b>REPO ↗</b></span>
+          </a>
+
+          <a class="ruled-cell is-cap" data-reveal="5" href="https://github.com/Adejare-ml" target="_blank" rel="noopener">
+            <span class="mini-cat">WEB</span>
+            <span class="mini-title">Corporate Website</span>
+            <span class="mini-desc">Kontemporary Konsulting's site — design through deployment.</span>
+            <span class="mini-foot"><span>SHIPPED 2025</span><b>LIVE ↗</b></span>
+          </a>
+        </div>
+
+        <a class="gh-banner" data-reveal="6" href="https://github.com/Adejare-ml" target="_blank" rel="noopener">
+          <span class="gh-banner-title">Everything else lives on GitHub <i>— commits, notebooks, dead ends included.</i></span>
+          <span class="gh-banner-url">GITHUB.COM/ADEJARE-ML ↗</span>
+        </a>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-rule"></div>
+      <div class="back-page">
+        <div class="back-copy" data-reveal="0">
+          <span class="kicker">THE BACK PAGE</span>
+          <h2 class="back-title">Available for ML engineering and data science roles.</h2>
+        </div>
+        <div class="back-links" data-reveal="1">
+          <a class="back-link" href="mailto:adelugbaadejare03@gmail.com"><span class="back-link-key">EMAIL</span><span class="back-link-val">adelugbaadejare03@gmail.com</span></a>
+          <a class="back-link" href="https://github.com/Adejare-ml" target="_blank" rel="noopener"><span class="back-link-key">GITHUB</span><span class="back-link-val">github.com/Adejare-ml ↗</span></a>
+          <a class="back-link" href="https://linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener"><span class="back-link-key">LINKEDIN</span><span class="back-link-val">in/adejare-adelugba ↗</span></a>
+        </div>
+      </div>
+      <div class="folio">
+        <span>© 2026 ADEJARE ADELUGBA</span>
+        <span>P. 03 — 04</span>
+        <a href="tokens.html">SPEC V5 · TOKEN SHEET</a>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

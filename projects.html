@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Projects — Adejare Adelugba</title>
 <meta name="description" content="Case studies with the decisions, trade-offs, and dead ends left in — the parts most portfolios delete.">
+<link rel="canonical" href="https://adelugba-adejare.pages.dev/projects.html">
+<meta property="og:title" content="Projects — Adejare Adelugba">
+<meta property="og:description" content="Case studies, model architectures, and dead ends — multimodal cancer detection, electoral data infrastructure, vision benchmarks.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adelugba-adejare.pages.dev/projects.html">
+<meta property="og:image" content="https://adelugba-adejare.pages.dev/og-preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Projects — Adejare Adelugba">
+<meta name="twitter:description" content="Detailed case studies, architecture diagrams, and documented failed experiments.">
+<meta name="twitter:image" content="https://adelugba-adejare.pages.dev/og-preview.png">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,6 +53,15 @@
         <span class="eyebrow" data-flow="up" data-flow-i="0"><b>[</b> THE WORK <b>]</b></span>
         <h1 class="page-title" data-flow="up" data-flow-i="1">Projects<span class="dot">.</span></h1>
         <p class="lede" data-flow="up" data-flow-i="2">Case studies with the decisions, trade-offs, and dead ends left in — the parts most portfolios delete.</p>
+
+        <!-- Category Filter Buttons -->
+        <div class="project-filters" data-flow="up" data-flow-i="3" style="margin-top: 1.5rem;">
+          <button class="filter-btn is-active" type="button" data-filter="all">[ ALL PROJECTS ]</button>
+          <button class="filter-btn" type="button" data-filter="ml">// MACHINE LEARNING</button>
+          <button class="filter-btn" type="button" data-filter="cv">// COMPUTER VISION</button>
+          <button class="filter-btn" type="button" data-filter="data">// DATA ENGINEERING</button>
+          <button class="filter-btn" type="button" data-filter="automation">// AUTOMATION</button>
+        </div>
       </section>
 
       <!-- ============ featured case ============ -->
@@ -205,35 +224,35 @@ tab (tabnet)  ──┘</pre>
         </div>
 
         <div class="minis">
-          <a class="mini" data-flow="up" data-flow-i="1" href="https://github.com/Adejare-ml/Real-Time-Human-Activity-Recognition-Using-Time-Series-Transformers-Wearable-Sensors-HAR-70-Dataset-" target="_blank" rel="noopener">
+          <a class="mini" data-category="ml cv" data-flow="up" data-flow-i="1" href="https://github.com/Adejare-ml/Real-Time-Human-Activity-Recognition-Using-Time-Series-Transformers-Wearable-Sensors-HAR-70-Dataset-" target="_blank" rel="noopener">
             <span class="mini-cat">// deep-learning</span>
             <span class="mini-title">HAR Transformer</span>
             <span class="mini-desc">Human-activity recognition across 12 classes from wearable sensor streams.</span>
             <span class="mini-foot"><span>92.3% acc</span><b>repo ↗</b></span>
           </a>
 
-          <a class="mini" data-flow="up" data-flow-i="2" href="https://github.com/Adejare-ml/Heart_disease_risk_prediction_system" target="_blank" rel="noopener">
+          <a class="mini" data-category="ml" data-flow="up" data-flow-i="2" href="https://github.com/Adejare-ml/Heart_disease_risk_prediction_system" target="_blank" rel="noopener">
             <span class="mini-cat">// clinical-ml</span>
             <span class="mini-title">Heart Disease Prediction</span>
             <span class="mini-desc">Screening-first model — threshold tuned to catch positives, not to flatter accuracy.</span>
             <span class="mini-foot"><span>0.91 recall</span><b>repo ↗</b></span>
           </a>
 
-          <a class="mini" data-flow="up" data-flow-i="3" href="https://github.com/Adejare-ml" target="_blank" rel="noopener">
+          <a class="mini" data-category="automation data" data-flow="up" data-flow-i="3" href="https://github.com/Adejare-ml" target="_blank" rel="noopener">
             <span class="mini-cat">// automation</span>
             <span class="mini-title">TETFund Automation</span>
             <span class="mini-desc">Document workflows scripted end-to-end during the internship.</span>
             <span class="mini-foot"><span>~90% time saved</span><b>case ↗</b></span>
           </a>
 
-          <a class="mini" data-flow="up" data-flow-i="4" href="https://github.com/Adejare-ml" target="_blank" rel="noopener">
+          <a class="mini" data-category="data automation" data-flow="up" data-flow-i="4" href="https://github.com/Adejare-ml" target="_blank" rel="noopener">
             <span class="mini-cat">// data</span>
             <span class="mini-title">Polling Unit Scraper</span>
             <span class="mini-desc">The resilient collector behind the electoral data infrastructure.</span>
             <span class="mini-foot"><span>selenium · retry-safe</span><b>repo ↗</b></span>
           </a>
 
-          <a class="mini" data-flow="up" data-flow-i="5" href="https://github.com/Adejare-ml" target="_blank" rel="noopener">
+          <a class="mini" data-category="automation" data-flow="up" data-flow-i="5" href="https://github.com/Adejare-ml" target="_blank" rel="noopener">
             <span class="mini-cat">// web</span>
             <span class="mini-title">Corporate Website</span>
             <span class="mini-desc">Kontemporary Konsulting's site — design through deployment.</span>

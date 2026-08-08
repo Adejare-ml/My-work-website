@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adejare Adelugba — ML Engineer &amp; Data Scientist</title>
+<meta name="description" content="ML Engineer building machine-learning systems for messy, real-world data — and documenting what didn't work.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">SKIP TO CONTENT</a>
+
+<div class="page">
+  <div class="well">
+
+    <header class="masthead">
+      <div class="masthead-rule">
+        <a class="wordmark" href="index.html">ADEJARE&nbsp;ADELUGBA</a>
+      </div>
+      <nav class="nav" aria-label="Main">
+        <a href="index.html" aria-current="page">HOME</a>
+        <a href="about.html">ABOUT</a>
+        <a href="projects.html">PROJECTS</a>
+        <a href="contact.html">CONTACT</a>
+      </nav>
+      <div class="dateline">
+        <span>VOL. 05 — PORTFOLIO</span>
+        <span class="is-open">● OPEN TO OPPORTUNITIES</span>
+        <span>ABUJA, NIGERIA</span>
+      </div>
+    </header>
+
+    <main id="main">
+
+      <!-- ============ hero ============ -->
+      <section class="hero">
+        <h1 data-reveal="0" data-reveal-dur="700">ML Engineer<br><span class="amp-stack" aria-hidden="true"><span class="amp-back">&amp;</span><span class="amp-mid">&amp;</span><span class="amp-top">&amp;</span></span><span class="sr-only">&amp;</span> Data Scientist</h1>
+        <p class="hero-lede" data-reveal="1" data-reveal-dur="700">I build machine-learning systems for messy, real-world data — and I document what didn't work.</p>
+        <div class="hero-actions" data-reveal="2" data-reveal-dur="700">
+          <a class="btn-primary" href="projects.html">VIEW MY WORK</a>
+          <a class="btn-underline" href="https://github.com/Adejare-ml" target="_blank" rel="noopener">GitHub ↗</a>
+          <a class="btn-underline" href="../../Adejare_Adelugba_Machine%20learning_engineer.pdf" download>Download CV ↓</a>
+        </div>
+      </section>
+
+      <!-- ============ cover stories ============ -->
+      <section id="work">
+        <div class="section-head" data-reveal="0">
+          <h2>Cover Stories</h2>
+          <span class="slug">SELECTED WORK — 3 CASE STUDIES</span>
+        </div>
+
+        <div class="ruled-grid">
+
+          <article class="ruled-cell is-interactive" data-reveal="1">
+            <span class="kicker">CASE 01 — B.SC. THESIS</span>
+            <h3 class="case-title">Multimodal Breast Cancer Detection</h3>
+            <p class="case-desc">Early fusion of MedCLIP image embeddings with TabNet clinical features — outperforms both unimodal baselines.</p>
+            <pre class="code-plate"><i>z</i> = torch.cat([f_img, f_tab], dim=1)
+logits = self.fusion_head(z)
+<b># beats image-only and tabular-only</b></pre>
+            <div class="figure-line">
+              <span class="figure-num">87.1<sup>%</sup></span>
+              <span class="figure-meta">ROC-AUC · 82.7% ACCURACY</span>
+            </div>
+            <div class="cell-foot">
+              <span class="cell-tech">PYTORCH · MEDCLIP · TABNET</span>
+              <a class="cell-link" href="projects.html">READ CASE →</a>
+            </div>
+          </article>
+
+          <article class="ruled-cell is-interactive" data-reveal="2">
+            <span class="kicker">CASE 02 — DATA INFRASTRUCTURE</span>
+            <h3 class="case-title">Nigeria Electoral Data Infrastructure</h3>
+            <p class="case-desc">A scraping pipeline covering polling-unit results across every state, validated against the official source.</p>
+            <pre class="code-plate">portal ─▶ selenium ─▶ parse ─▶ validate
+                       │
+            <b>postgresql</b> ◀──────┘</pre>
+            <div class="figure-line">
+              <span class="figure-num">500k<sup>+</sup></span>
+              <span class="figure-meta">RECORDS · ALL 36 STATES · 99.9% VS OFFICIAL</span>
+            </div>
+            <div class="cell-foot">
+              <span class="cell-tech">PYTHON · SELENIUM · POSTGRESQL</span>
+              <a class="cell-link" href="projects.html">READ CASE →</a>
+            </div>
+          </article>
+
+          <article class="ruled-cell is-interactive" data-reveal="3">
+            <span class="kicker">CASE 03 — BENCHMARK</span>
+            <h3 class="case-title">Brain Tumor Classification Benchmark</h3>
+            <p class="case-desc">ViT against DINOv2 with Grad-CAM inspection — DINOv2 wins on accuracy and boundary localization.</p>
+            <div class="bars">
+              <div class="bar is-win">
+                <span class="bar-name">DINOV2</span>
+                <span class="bar-track"><span class="bar-fill" style="width:93.8%"></span></span>
+                <span class="bar-val">93.8%</span>
+              </div>
+              <div class="bar">
+                <span class="bar-name">VIT</span>
+                <span class="bar-track"><span class="bar-fill" style="width:91.4%"></span></span>
+                <span class="bar-val">91.4%</span>
+              </div>
+            </div>
+            <div class="figure-line">
+              <span class="figure-num is-italic">+2.4<sup>pts</sup></span>
+              <span class="figure-meta">BETTER BOUNDARY LOCALIZATION</span>
+            </div>
+            <div class="cell-foot">
+              <span class="cell-tech">VIT · DINOV2 · GRAD-CAM</span>
+              <a class="cell-link" href="projects.html">READ CASE →</a>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ============ capabilities ============ -->
+      <section class="section">
+        <div class="section-head" data-reveal="0">
+          <h2>Capabilities</h2>
+          <span class="slug">NO CHARTS — JUST THE LIST</span>
+        </div>
+        <div class="ruled-grid is-wide">
+          <div class="ruled-cell is-cap" data-reveal="1">
+            <span class="cap-label">ML &amp; AI</span>
+            <span class="cap-list">PyTorch · scikit-learn · CNNs &amp; ViTs · transfer learning · model evaluation</span>
+          </div>
+          <div class="ruled-cell is-cap" data-reveal="2">
+            <span class="cap-label">DATA ENGINEERING</span>
+            <span class="cap-list">PostgreSQL · Selenium · pandas · ETL pipelines · data validation</span>
+          </div>
+          <div class="ruled-cell is-cap" data-reveal="3">
+            <span class="cap-label">AUTOMATION</span>
+            <span class="cap-list">Python scripting · FastAPI · Docker · MLflow · scheduled jobs</span>
+          </div>
+          <div class="ruled-cell is-cap" data-reveal="4">
+            <span class="cap-label">TOOLS</span>
+            <span class="cap-list">Git &amp; GitHub · Linux · Jupyter · MLflow tracking · VS Code</span>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-rule"></div>
+      <div class="back-page">
+        <div class="back-copy" data-reveal="0">
+          <span class="kicker">THE BACK PAGE</span>
+          <h2 class="back-title">Available for ML engineering and data science roles.</h2>
+        </div>
+        <div class="back-links" data-reveal="1">
+          <a class="back-link" href="mailto:adelugbaadejare03@gmail.com"><span class="back-link-key">EMAIL</span><span class="back-link-val">adelugbaadejare03@gmail.com</span></a>
+          <a class="back-link" href="https://github.com/Adejare-ml" target="_blank" rel="noopener"><span class="back-link-key">GITHUB</span><span class="back-link-val">github.com/Adejare-ml ↗</span></a>
+          <a class="back-link" href="https://linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener"><span class="back-link-key">LINKEDIN</span><span class="back-link-val">in/adejare-adelugba ↗</span></a>
+        </div>
+      </div>
+      <div class="folio">
+        <span>© 2026 ADEJARE ADELUGBA</span>
+        <span>P. 01 — 04</span>
+        <a href="tokens.html">SPEC V5 · TOKEN SHEET</a>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

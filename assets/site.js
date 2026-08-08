@@ -726,11 +726,268 @@
     });
   }
 
+  /* ---------- scroll progress ----------------------------- */
+
+  function initScrollProgress() {
+    var bar = document.createElement('div');
+    bar.className = 'scroll-progress-bar';
+    bar.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(bar);
+
+    var update = function () {
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      var p = h > 0 ? (window.scrollY / h) * 100 : 0;
+      bar.style.width = Math.min(100, Math.max(0, p)) + '%';
+    };
+
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  }
+
+  /* ---------- command palette (`ctrl + k`) ---------------- */
+
+  function initCommandPalette() {
+    var itemsData = [
+      { title: 'Home', tag: 'page', url: 'index.html' },
+      { title: 'Case Studies / Selected Work', tag: 'section', url: 'index.html#work' },
+      { title: 'Projects Showcase', tag: 'page', url: 'projects.html' },
+      { title: 'About & Background', tag: 'page', url: 'about.html' },
+      { title: 'Experience & Timeline', tag: 'section', url: 'about.html#experience' },
+      { title: 'Capabilities & Tech Stack', tag: 'section', url: 'index.html#capabilities' },
+      { title: 'Contact / Reach Out', tag: 'page', url: 'contact.html' },
+      { title: 'GitHub Profile (Adejare-ml)', tag: 'external', url: 'https://github.com/Adejare-ml', external: true },
+      { title: 'Download CV (PDF)', tag: 'download', url: 'Adejare_Adelugba_Machine%20learning_engineer.pdf', download: true }
+    ];
+
+    var backdrop = document.createElement('div');
+    backdrop.className = 'cmd-palette-backdrop';
+    backdrop.id = 'cmd-palette';
+    backdrop.setAttribute('aria-hidden', 'true');
+
+    backdrop.innerHTML =
+      '<div class="cmd-palette-dialog" role="dialog" aria-modal="true" aria-label="Command Palette">' +
+        '<div class="cmd-palette-header">' +
+          '<span class="cmd-palette-search-icon">⌘/ctrl+k</span>' +
+          '<input type="text" class="cmd-palette-input" placeholder="Search pages, projects, actions..." aria-label="Search portfolio">' +
+          '<span class="cmd-palette-esc">ESC</span>' +
+        '</div>' +
+        '<div class="cmd-palette-list" role="listbox"></div>' +
+      '</div>';
+
+    document.body.appendChild(backdrop);
+
+    var input = backdrop.querySelector('.cmd-palette-input');
+    var list = backdrop.querySelector('.cmd-palette-list');
+    var selectedIndex = 0;
+    var currentItems = itemsData.slice();
+
+    var renderList = function () {
+      list.innerHTML = '';
+      if (!currentItems.length) {
+        list.innerHTML = '<div style="padding:14px 18px; color:var(--muted); font-family:var(--mono); font-size:12px;">No matching results</div>';
+        return;
+      }
+      currentItems.forEach(function (it, idx) {
+        var el = document.createElement('div');
+        el.className = 'cmd-palette-item' + (idx === selectedIndex ? ' is-selected' : '');
+        el.setAttribute('role', 'option');
+        el.setAttribute('aria-selected', idx === selectedIndex ? 'true' : 'false');
+        el.innerHTML =
+          '<span>' + it.title + '</span>' +
+          '<span class="cmd-palette-item-tag">// ' + it.tag + '</span>';
+
+        el.addEventListener('click', function () {
+          execItem(it);
+        });
+        list.appendChild(el);
+      });
+    };
+
+    var execItem = function (it) {
+      closePalette();
+      if (it.external) {
+        window.open(it.url, '_blank', 'noopener');
+      } else if (it.download) {
+        var a = document.createElement('a');
+        a.href = it.url;
+        a.download = '';
+        a.click();
+      } else {
+        location.href = it.url;
+      }
+    };
+
+    var openPalette = function () {
+      backdrop.classList.add('is-open');
+      backdrop.setAttribute('aria-hidden', 'false');
+      input.value = '';
+      currentItems = itemsData.slice();
+      selectedIndex = 0;
+      renderList();
+      setTimeout(function () { input.focus(); }, 50);
+    };
+
+    var closePalette = function () {
+      backdrop.classList.remove('is-open');
+      backdrop.setAttribute('aria-hidden', 'true');
+      input.blur();
+    };
+
+    input.addEventListener('input', function () {
+      var q = input.value.trim().toLowerCase();
+      if (!q) {
+        currentItems = itemsData.slice();
+      } else {
+        currentItems = itemsData.filter(function (it) {
+          return it.title.toLowerCase().indexOf(q) !== -1 || it.tag.toLowerCase().indexOf(q) !== -1;
+        });
+      }
+      selectedIndex = 0;
+      renderList();
+    });
+
+    backdrop.addEventListener('click', function (e) {
+      if (e.target === backdrop) closePalette();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        if (backdrop.classList.contains('is-open')) closePalette(); else openPalette();
+        return;
+      }
+      if (!backdrop.classList.contains('is-open')) return;
+
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closePalette();
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (currentItems.length) {
+          selectedIndex = (selectedIndex + 1) % currentItems.length;
+          renderList();
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (currentItems.length) {
+          selectedIndex = (selectedIndex - 1 + currentItems.length) % currentItems.length;
+          renderList();
+        }
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (currentItems[selectedIndex]) {
+          execItem(currentItems[selectedIndex]);
+        }
+      }
+    });
+  }
+
+  /* ---------- custom cursor ------------------------------- */
+
+  function initCustomCursor() {
+    if (reduced() || window.matchMedia('(pointer: coarse)').matches) return;
+
+    var cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+    cursor.innerHTML = '<span class="custom-cursor-badge"></span>';
+    document.body.appendChild(cursor);
+    document.body.classList.add('cursor-active');
+
+    var badge = cursor.querySelector('.custom-cursor-badge');
+    var mouseX = -100, mouseY = -100;
+    var posX = -100, posY = -100;
+
+    window.addEventListener('mousemove', function (e) {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    }, { passive: true });
+
+    var render = function () {
+      posX += (mouseX - posX) * 0.25;
+      posY += (mouseY - posY) * 0.25;
+      cursor.style.transform = 'translate(' + posX + 'px, ' + posY + 'px) translate(-50%, -50%)';
+      requestAnimationFrame(render);
+    };
+    requestAnimationFrame(render);
+
+    document.addEventListener('pointerover', function (e) {
+      var target = e.target && e.target.closest ? e.target.closest('a, button, .card, .viz-node, .pipeline-card, [data-cursor-badge]') : null;
+      if (target) {
+        cursor.classList.add('is-hovering');
+        var customText = target.dataset.cursorBadge;
+        if (customText) {
+          badge.textContent = customText;
+        } else if (target.closest('.card') || target.closest('.pipeline-card')) {
+          badge.textContent = 'VIEW';
+        } else {
+          badge.textContent = '→';
+        }
+      }
+    });
+
+    document.addEventListener('pointerout', function (e) {
+      var target = e.target && e.target.closest ? e.target.closest('a, button, .card, .viz-node, .pipeline-card, [data-cursor-badge]') : null;
+      if (target) {
+        cursor.classList.remove('is-hovering');
+        badge.textContent = '';
+      }
+    });
+  }
+
+  /* ---------- magnetic buttons ---------------------------- */
+
+  function initMagneticButtons() {
+    if (reduced() || window.matchMedia('(pointer: coarse)').matches) return;
+
+    var btns = document.querySelectorAll('.btn-primary, .btn-ghost, [data-magnetic]');
+    Array.prototype.forEach.call(btns, function (btn) {
+      btn.addEventListener('mousemove', function (e) {
+        var rect = btn.getBoundingClientRect();
+        var cx = rect.left + rect.width / 2;
+        var cy = rect.top + rect.height / 2;
+        var dx = (e.clientX - cx) * 0.2;
+        var dy = (e.clientY - cy) * 0.2;
+        btn.style.transform = 'translate(' + Math.max(-6, Math.min(6, dx)) + 'px, ' + Math.max(-6, Math.min(6, dy)) + 'px)';
+      });
+      btn.addEventListener('mouseleave', function () {
+        btn.style.transform = 'none';
+      });
+    });
+  }
+
+  /* ---------- project filters ----------------------------- */
+
+  function initProjectFilters() {
+    var filters = document.querySelectorAll('.filter-btn');
+    if (!filters.length) return;
+
+    Array.prototype.forEach.call(filters, function (btn) {
+      btn.addEventListener('click', function () {
+        var cat = btn.dataset.filter;
+        Array.prototype.forEach.call(filters, function (f) { f.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+
+        var items = document.querySelectorAll('[data-category]');
+        Array.prototype.forEach.call(items, function (item) {
+          var itemCats = (item.dataset.category || '').split(/\s+/);
+          if (cat === 'all' || itemCats.indexOf(cat) !== -1) {
+            item.style.display = '';
+            item.style.opacity = '1';
+          } else {
+            item.style.opacity = '0';
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  }
+
   /* ---------- boot ---------- */
 
   function boot() {
     initVeil();
     initTopLoader();
+    initScrollProgress();
     initFlow(document);
     initHeroPlanes();
     initMasthead();
@@ -740,6 +997,10 @@
     initBars();
     initCounters();
     initImgReveal();
+    initCommandPalette();
+    initCustomCursor();
+    initMagneticButtons();
+    initProjectFilters();
   }
 
   if (document.readyState === 'loading') {
@@ -748,3 +1009,4 @@
     boot();
   }
 })();
+
