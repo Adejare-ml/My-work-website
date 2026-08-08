@@ -68,17 +68,6 @@
           <form class="form" id="contact-form" novalidate>
             <div class="error-banner" id="error-banner" role="alert" hidden></div>
 
-            <!-- Honeypot. The endpoint URL is public in site.js, so anything
-                 can POST to it directly. Bots fill every field they find;
-                 people never see this one. Hidden from the a11y tree and
-                 skipped by tab order, not display:none — some bots skip
-                 those. -->
-            <div class="hp-field" aria-hidden="true">
-              <label for="company-url">Leave this field empty</label>
-              <input id="company-url" name="company_url" type="text"
-                     tabindex="-1" autocomplete="off">
-            </div>
-
             <div class="field-row" data-flow="left" data-flow-i="1">
               <label class="field">
                 <span class="field-label">name <span class="field-flag"></span></span>
@@ -103,6 +92,11 @@
                 <span id="counter">0 / 600</span>
               </span>
             </label>
+
+            <!-- honeypot: off screen, out of the tab order, ignored by humans -->
+            <input class="hp-field" name="company_website" type="text"
+                   tabindex="-1" autocomplete="off" aria-hidden="true">
+            <input type="hidden" name="source" value="contact-page">
 
             <div class="form-foot" data-flow="left" data-flow-i="4">
               <button class="btn btn-primary" type="submit">Send Message →</button>

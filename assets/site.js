@@ -275,9 +275,9 @@
   }
 
   /* ---------- contact form ---------------------------------
-     Client-side validation only — this is a static build, so
-     submitting shows the confirmation panel without sending
-     anything. Wire `onValid` to a real endpoint to send mail.
+     Client-side validation, then POST to the Google Apps Script
+     endpoint. The script validates again, writes a row to the
+     sheet, mails me, and auto-replies to the sender.
      -------------------------------------------------------- */
 
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -338,8 +338,9 @@
     };
 
     if (message && counter) {
+      var limit = message.getAttribute('maxlength') || 600;
       var updateCount = function () {
-        counter.textContent = message.value.length + ' / 600';
+        counter.textContent = message.value.length + ' / ' + limit;
       };
       message.addEventListener('input', updateCount);
       updateCount();
@@ -348,6 +349,62 @@
     fields.forEach(function (f) {
       f.input.addEventListener('input', function () { if (tried) paint(); });
     });
+
+    var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwBiGV9ihPpi-xZfgoWJGsZeHtCg9OP7rI-AnzbNQULdqwsHmZosEoCbt3kUk2IYMQXog/exec';
+    var SEND_TIMEOUT_MS = 15000;
+
+    /* FormData picks up every named input, so the honeypot and the hidden
+       source field travel automatically. No id lookups to keep in sync. */
+    function encodeForm() {
+      var parts = [];
+      new FormData(form).forEach(function (value, key) {
+        parts.push(encodeURIComponent(key) + '=' + encodeURIComponent(String(value).trim()));
+      });
+      return parts.join('&');
+    }
+
+    function post(body, opaque) {
+      var controller = window.AbortController ? new AbortController() : null;
+      var timer = controller
+        ? setTimeout(function () { controller.abort(); }, SEND_TIMEOUT_MS)
+        : null;
+      var clear = function () { if (timer) clearTimeout(timer); };
+
+      var options = {
+        method: 'POST',
+        body: body,
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      };
+      if (opaque) options.mode = 'no-cors';
+      if (controller) options.signal = controller.signal;
+
+      return fetch(SCRIPT_URL, options).then(
+        function (response) { clear(); return response; },
+        function (error) { clear(); throw error; }
+      );
+    }
+
+    /* Last resort for browsers without fetch, and for the case where the
+       browser blocks the CORS read. The server throttles repeat submissions
+       from the same address, so a retry cannot duplicate the row. */
+    function postLegacy(body, onDone, onFail) {
+      try {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', SCRIPT_URL, true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.timeout = SEND_TIMEOUT_MS;
+        xhr.onload = function () {
+          var ok = xhr.status >= 200 && xhr.status < 400;
+          try { ok = JSON.parse(xhr.responseText).result === 'success'; } catch (err) {}
+          if (ok) { onDone(); } else { onFail(); }
+        };
+        xhr.onerror = onFail;
+        xhr.ontimeout = onFail;
+        xhr.send(body);
+      } catch (err) {
+        onFail();
+      }
+    }
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -361,7 +418,6 @@
         return;
       }
 
-      /* Loading state — disable submit and reflect progress. */
       var submitBtn = form.querySelector('button[type="submit"]');
       var btnLabel = submitBtn ? submitBtn.textContent : '';
       if (submitBtn) {
@@ -371,20 +427,19 @@
       }
       if (banner) banner.hidden = true;
 
-      /* Deliver to the Google Apps Script endpoint. no-cors gives an opaque
-         response, so fetch resolves on any server reply and rejects only on a
-         real network failure (offline) — enough to drive success vs. error. */
-      var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwBiGV9ihPpi-xZfgoWJGsZeHtCg9OP7rI-AnzbNQULdqwsHmZosEoCbt3kUk2IYMQXog/exec';
-      var payload = new URLSearchParams();
-      ['name', 'email', 'subject', 'message'].forEach(function (k) {
-        var el = form.querySelector('#' + k);
-        payload.append(k, el ? el.value.trim() : '');
-      });
-
       var showSent = function () {
         var nameInput = form.querySelector('#name');
         var firstName = nameInput ? nameInput.value.trim().split(/\s+/)[0] : '';
-        var stamp = new Date().toTimeString().slice(0, 5) + ' wat';
+        /* Stamp in Lagos time regardless of where the visitor sits, since the
+           label says wat. */
+        var stamp;
+        try {
+          stamp = new Date().toLocaleTimeString('en-GB', {
+            timeZone: 'Africa/Lagos', hour: '2-digit', minute: '2-digit'
+          }) + ' wat';
+        } catch (tzError) {
+          stamp = new Date().toTimeString().slice(0, 5);
+        }
         var nameSlot = document.getElementById('sent-name');
         var stampSlot = document.getElementById('sent-stamp');
         if (nameSlot) nameSlot.textContent = firstName;
@@ -397,7 +452,7 @@
         }
       };
 
-      var showSendError = function () {
+      var showSendError = function (serverMessage) {
         if (submitBtn) {
           submitBtn.disabled = false;
           submitBtn.removeAttribute('aria-busy');
@@ -405,25 +460,41 @@
         }
         if (banner) {
           banner.hidden = false;
-          banner.textContent = "couldn't send — email adelugbaadejare03@gmail.com directly ↗";
-          banner.focus && banner.setAttribute('tabindex', '-1');
+          banner.textContent = serverMessage
+            ? 'error: ' + serverMessage
+            : "couldn't send — email adelugbaadejare03@gmail.com directly ↗";
+          banner.setAttribute('tabindex', '-1');
           if (banner.focus) banner.focus();
         }
       };
 
-      /* Honeypot: a real visitor can neither see nor tab to #company-url,
-         so anything in it came from a bot. Drop the submission but show
-         the normal confirmation — a bot told it failed simply retries. */
-      var trap = form.querySelector('#company-url');
-      if (trap && trap.value !== '') { showSent(); return; }
+      var body = encodeForm();
 
-      if (!window.fetch) { showSent(); return; }
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: payload.toString()
-      }).then(showSent, showSendError);
+      var fallback = function () {
+        if (!window.fetch) {
+          postLegacy(body, showSent, function () { showSendError(); });
+          return;
+        }
+        post(body, true).then(showSent, function () { showSendError(); });
+      };
+
+      if (!window.fetch) { fallback(); return; }
+
+      post(body, false)
+        .then(function (response) { return response.json(); })
+        .then(
+          function (data) {
+            if (data && data.result === 'success') {
+              showSent();
+            } else {
+              showSendError(data && data.message);
+            }
+          },
+          /* Rejection here means the network died, the request timed out, or
+             the browser refused the cross-origin read. Retry opaquely rather
+             than telling someone their message failed when it may have landed. */
+          fallback
+        );
     });
 
     var reset = document.getElementById('write-another');
@@ -432,7 +503,9 @@
         form.reset();
         tried = false;
         paint();
-        if (counter) counter.textContent = '0 / 600';
+        if (counter && message) {
+          counter.textContent = '0 / ' + (message.getAttribute('maxlength') || 600);
+        }
         if (sentPanel) sentPanel.hidden = true;
         form.hidden = false;
         var nameField = form.querySelector('#name');
