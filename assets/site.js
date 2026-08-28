@@ -1043,8 +1043,9 @@
     Array.prototype.forEach.call(filters, function (btn) {
       btn.addEventListener('click', function () {
         var cat = btn.dataset.filter;
-        Array.prototype.forEach.call(filters, function (f) { f.classList.remove('is-active'); });
+        Array.prototype.forEach.call(filters, function (f) { f.classList.remove('is-active'); f.setAttribute('aria-pressed', 'false'); });
         btn.classList.add('is-active');
+        btn.setAttribute('aria-pressed', 'true');
 
         var items = document.querySelectorAll('[data-category]');
         Array.prototype.forEach.call(items, function (item) {
