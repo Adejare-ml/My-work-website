@@ -1,0 +1,3 @@
+## 2026-08-30 - Add explicit ARIA states for visual-only toggle classes
+**Learning:** Using CSS classes (like `.is-active`) to indicate the state of a custom toggle or filter control relies solely on visual styling. Screen readers and non-visual tools cannot infer state changes from CSS class updates alone, causing a major accessibility gap for custom UI components.
+**Action:** When implementing custom toggle buttons or filters that rely on classes for visual feedback, always pair them with dynamic ARIA attributes (e.g., `aria-pressed="true"`/`"false"`) updated via JavaScript to ensure state changes are accurately announced to assistive technologies.
