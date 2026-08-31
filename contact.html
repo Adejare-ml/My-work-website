@@ -69,22 +69,22 @@
             <div class="error-banner" id="error-banner" role="alert" hidden></div>
 
             <div class="field-row" data-flow="left" data-flow-i="1">
-              <label class="field">
+              <label class="field" for="name">
                 <span class="field-label">name <span class="field-flag"></span></span>
                 <input class="input" id="name" name="name" type="text" placeholder="your name" autocomplete="name" required>
               </label>
-              <label class="field">
+              <label class="field" for="email">
                 <span class="field-label">email <span class="field-flag"></span></span>
                 <input class="input" id="email" name="email" type="email" placeholder="you@company.com" autocomplete="email" required>
               </label>
             </div>
 
-            <label class="field" data-flow="left" data-flow-i="2">
+            <label class="field" for="subject" data-flow="left" data-flow-i="2">
               <span class="field-label">subject <span class="field-flag"></span></span>
               <input class="input" id="subject" name="subject" type="text" placeholder="role, project, or question" required>
             </label>
 
-            <label class="field" data-flow="left" data-flow-i="3">
+            <label class="field" for="message" data-flow="left" data-flow-i="3">
               <span class="field-label">message <span class="field-flag"></span></span>
               <textarea class="textarea" id="message" name="message" rows="6" maxlength="600" placeholder="what are you working on, and where might i fit?" required></textarea>
               <span class="counter-row">
@@ -129,7 +129,7 @@
                 <span class="channel-key">email</span>
                 <span class="channel-val">adelugbaadejare03@gmail.com</span>
               </span>
-              <button class="copy-btn" type="button" data-copy="adelugbaadejare03@gmail.com">copy</button>
+              <button class="copy-btn" type="button" aria-label="copy email address" data-copy="adelugbaadejare03@gmail.com">copy</button>
             </div>
 
             <a class="channel" data-flow="right" data-flow-i="3" href="https://github.com/Adejare-ml" target="_blank" rel="noopener">
