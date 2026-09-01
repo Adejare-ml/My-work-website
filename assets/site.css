@@ -1917,7 +1917,8 @@ body.cursor-active .custom-cursor {
   transition: all var(--t-hover) var(--ease);
   cursor: pointer;
 }
-.pipeline-card:hover {
+.pipeline-card:hover,
+.pipeline-card:focus-visible {
   border-color: var(--accent);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
@@ -1954,7 +1955,8 @@ body.cursor-active .custom-cursor {
   z-index: 30;
   box-shadow: 0 8px 16px rgba(0,0,0,0.5);
 }
-.pipeline-card:hover .pipeline-card-tooltip {
+.pipeline-card:hover .pipeline-card-tooltip,
+.pipeline-card:focus-visible .pipeline-card-tooltip {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
