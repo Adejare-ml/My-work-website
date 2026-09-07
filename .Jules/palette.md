@@ -1,0 +1,3 @@
+## 2026-10-27 - Tooltips on Non-Interactive Diagram Nodes
+**Learning:** We had complex interactive diagram nodes (`.pipeline-card`) that revealed tooltips strictly on `:hover`. These nodes were `div` elements without `tabindex`, meaning keyboard users could never access the tooltips. This is a common accessibility issue where rich diagram visual elements are built without keyboard focus in mind.
+**Action:** Always ensure that custom interactive components (like diagram nodes that reveal tooltips on hover) are keyboard focusable using `tabindex="0"` and that the tooltip reveal CSS uses `:focus-visible` in addition to `:hover`.
