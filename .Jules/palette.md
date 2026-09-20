@@ -1,0 +1,3 @@
+## 2026-03-05 - Missing ARIA Attributes on Custom Filter Buttons
+**Learning:** When using custom `<button>` elements to act as toggleable filters (like tabs or filter tags), visual state changes (like adding an `is-active` class) are completely invisible to screen readers unless paired with an `aria-pressed="true/false"` attribute. Screen reader users would hear them all as standard unpressed buttons, causing confusion about which filter is currently active.
+**Action:** Always ensure that custom toggle buttons or filters use `aria-pressed` to map their internal or visual active state into the accessibility tree.
