@@ -1,0 +1,3 @@
+## 2025-05-16 - [Add aria-pressed to filter buttons]
+**Learning:** For interactive filter buttons that function as stateful toggles (acting similar to checkboxes or radio buttons), relying solely on visual cues like an `.is-active` class is insufficient for screen readers. Using `aria-pressed="true"` or `aria-pressed="false"` provides explicit semantic meaning about the toggle state, improving accessibility.
+**Action:** When creating or modifying button groups used for filtering, ensure they implement the `aria-pressed` attribute and that this attribute updates programmatically alongside the visual state.
