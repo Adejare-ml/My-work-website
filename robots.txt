@@ -1,8 +1,8 @@
 User-agent: *
 Allow: /
 
-# Prototype and reference trees — not part of the portfolio.
-Disallow: /motion-lab.html
-Disallow: /redesign/
+# Prototype and reference pages are kept out of search with an
+# X-Robots-Tag: noindex header (see _headers) rather than Disallow:
+# a Disallow would stop crawlers from ever seeing the noindex.
 
 Sitemap: https://adelugba-adejare.pages.dev/sitemap.xml
