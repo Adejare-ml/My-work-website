@@ -1,0 +1,3 @@
+## 2026-09-22 - Keyboard accessibility for pipeline cards
+**Learning:** The pipeline cards (`.pipeline-card`) contain important technical context within tooltips (`.pipeline-card-tooltip`) that only appear on mouse hover. This excludes keyboard-only and screen reader users from accessing critical architectural details since the elements cannot receive focus (`tabindex="0"`) and the tooltips aren't associated with the trigger element (`aria-describedby`).
+**Action:** Always ensure interactive or information-revealing hover elements have a keyboard-accessible equivalent state (`focus-visible`) and use appropriate ARIA relationships (`aria-describedby` or `aria-labelledby`) so assistive technologies announce the revealed information when focused.
