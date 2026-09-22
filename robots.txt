@@ -1,8 +1,11 @@
 User-agent: *
 Allow: /
 
-# Prototype and reference pages are kept out of search with an
-# X-Robots-Tag: noindex header (see _headers) rather than Disallow:
-# a Disallow would stop crawlers from ever seeing the noindex.
+# Prototype and reference pages carry their own <meta name="robots">
+# noindex, so they are left crawlable — a Disallow would stop crawlers
+# from ever seeing that tag. Repo housekeeping files are not content,
+# nothing links to them, so a plain Disallow is enough.
+Disallow: /*.md$
+Disallow: /LICENSE
 
 Sitemap: https://adelugba-adejare.pages.dev/sitemap.xml
