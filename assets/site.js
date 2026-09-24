@@ -929,10 +929,22 @@
       if (e.target === backdrop) closePalette();
     });
 
+    var togglePalette = function () {
+      if (backdrop.classList.contains('is-open')) closePalette(); else openPalette();
+    };
+
+    var triggers = document.querySelectorAll('.cmd-trigger');
+    Array.prototype.forEach.call(triggers, function(trigger) {
+      trigger.addEventListener('click', function(e) {
+        e.preventDefault();
+        togglePalette();
+      });
+    });
+
     document.addEventListener('keydown', function (e) {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
-        if (backdrop.classList.contains('is-open')) closePalette(); else openPalette();
+        togglePalette();
         return;
       }
       if (!backdrop.classList.contains('is-open')) return;
