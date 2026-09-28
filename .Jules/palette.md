@@ -1,0 +1,1 @@
+## 2026-09-28 - Added aria-pressed state to filter buttons\n**Learning:** Filter buttons using a custom class (like `is-active`) for visual toggling must also communicate this toggle state to screen readers.\n**Action:** Use `aria-pressed` to denote the toggle state of custom button elements and ensure JavaScript updates it synchronously with visual class changes.
