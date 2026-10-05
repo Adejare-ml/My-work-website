@@ -847,10 +847,10 @@
       '<div class="cmd-palette-dialog" role="dialog" aria-modal="true" aria-label="Command Palette">' +
         '<div class="cmd-palette-header">' +
           '<span class="cmd-palette-search-icon">⌘/ctrl+k</span>' +
-          '<input type="text" class="cmd-palette-input" placeholder="Search pages, projects, actions..." aria-label="Search portfolio">' +
+          '<input type="text" class="cmd-palette-input" placeholder="Search pages, projects, actions..." aria-label="Search portfolio" role="combobox" aria-expanded="false" aria-controls="cmd-palette-list-id" aria-autocomplete="list">' +
           '<span class="cmd-palette-esc">ESC</span>' +
         '</div>' +
-        '<div class="cmd-palette-list" role="listbox"></div>' +
+        '<div class="cmd-palette-list" id="cmd-palette-list-id" role="listbox"></div>' +
       '</div>';
 
     document.body.appendChild(backdrop);
@@ -864,10 +864,13 @@
       list.innerHTML = '';
       if (!currentItems.length) {
         list.innerHTML = '<div style="padding:14px 18px; color:var(--muted); font-family:var(--mono); font-size:12px;">No matching results</div>';
+        input.removeAttribute('aria-activedescendant');
         return;
       }
       currentItems.forEach(function (it, idx) {
         var el = document.createElement('div');
+        var elId = 'cmd-item-' + idx;
+        el.id = elId;
         el.className = 'cmd-palette-item' + (idx === selectedIndex ? ' is-selected' : '');
         el.setAttribute('role', 'option');
         el.setAttribute('aria-selected', idx === selectedIndex ? 'true' : 'false');
@@ -875,11 +878,21 @@
           '<span>' + it.title + '</span>' +
           '<span class="cmd-palette-item-tag">// ' + it.tag + '</span>';
 
+        if (idx === selectedIndex) {
+          input.setAttribute('aria-activedescendant', elId);
+          // Only scroll after it's attached to the DOM (done after appendChild, so wait a tick, or do it after the loop)
+        }
+
         el.addEventListener('click', function () {
           execItem(it);
         });
         list.appendChild(el);
       });
+
+      var selectedEl = list.querySelector('.is-selected');
+      if (selectedEl && selectedEl.scrollIntoView) {
+        selectedEl.scrollIntoView({ block: 'nearest' });
+      }
     };
 
     var execItem = function (it) {
@@ -899,6 +912,7 @@
     var openPalette = function () {
       backdrop.classList.add('is-open');
       backdrop.setAttribute('aria-hidden', 'false');
+      input.setAttribute('aria-expanded', 'true');
       input.value = '';
       currentItems = itemsData.slice();
       selectedIndex = 0;
@@ -909,6 +923,7 @@
     var closePalette = function () {
       backdrop.classList.remove('is-open');
       backdrop.setAttribute('aria-hidden', 'true');
+      input.setAttribute('aria-expanded', 'false');
       input.blur();
     };
 
