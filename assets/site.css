@@ -1470,6 +1470,14 @@ a.channel:hover { color: var(--accent); }
 .btn:hover { transform: translateY(-2px); }
 .btn:active { transform: translateY(0) scale(0.98); }
 
+.btn:disabled,
+.btn[aria-busy="true"] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
 /* cards / panels / jobs / minis / banner — lift with depth shadow on hover */
 .card, .panel, .job, .mini, .gh-banner {
   transition: border-color var(--t-hover) var(--ease),
