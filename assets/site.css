@@ -356,6 +356,14 @@ p { margin: 0; }
   box-shadow: 0 0 0 1px var(--accent), 0 0 24px rgba(167, 181, 242, 0.35);
 }
 
+.btn:disabled,
+.btn[aria-busy="true"] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
 .btn-ghost {
   color: var(--text-1);
   background: none;
