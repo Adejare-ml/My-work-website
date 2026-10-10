@@ -1,0 +1,3 @@
+## 2026-03-05 - Disabled State UX Pattern
+**Learning:** Found that the app uses `disabled` and `[aria-busy="true"]` on buttons during form submission via JS, but there were no corresponding CSS styles to indicate this state visually. When adding disabled styles, using `pointer-events: none;` prevents the `cursor: not-allowed;` from working.
+**Action:** Always include `:disabled` and `[aria-busy="true"]` styles for interactive elements. To prevent hover effects on disabled elements while keeping the custom cursor, use `:not(:disabled):not([aria-busy="true"])` on hover states instead of `pointer-events: none`.
