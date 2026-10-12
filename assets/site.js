@@ -998,58 +998,6 @@
     });
   }
 
-  /* ---------- custom cursor ------------------------------- */
-
-  function initCustomCursor() {
-    if (reduced() || window.matchMedia('(pointer: coarse)').matches) return;
-
-    var cursor = document.createElement('div');
-    cursor.className = 'custom-cursor';
-    cursor.innerHTML = '<span class="custom-cursor-badge"></span>';
-    document.body.appendChild(cursor);
-    document.body.classList.add('cursor-active');
-
-    var badge = cursor.querySelector('.custom-cursor-badge');
-    var mouseX = -100, mouseY = -100;
-    var posX = -100, posY = -100;
-
-    window.addEventListener('mousemove', function (e) {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    }, { passive: true });
-
-    var render = function () {
-      posX += (mouseX - posX) * 0.25;
-      posY += (mouseY - posY) * 0.25;
-      cursor.style.transform = 'translate(' + posX + 'px, ' + posY + 'px) translate(-50%, -50%)';
-      requestAnimationFrame(render);
-    };
-    requestAnimationFrame(render);
-
-    document.addEventListener('pointerover', function (e) {
-      var target = e.target && e.target.closest ? e.target.closest('a, button, .card, .viz-node, .pipeline-card, [data-cursor-badge]') : null;
-      if (target) {
-        cursor.classList.add('is-hovering');
-        var customText = target.dataset.cursorBadge;
-        if (customText) {
-          badge.textContent = customText;
-        } else if (target.closest('.card') || target.closest('.pipeline-card')) {
-          badge.textContent = 'VIEW';
-        } else {
-          badge.textContent = '→';
-        }
-      }
-    });
-
-    document.addEventListener('pointerout', function (e) {
-      var target = e.target && e.target.closest ? e.target.closest('a, button, .card, .viz-node, .pipeline-card, [data-cursor-badge]') : null;
-      if (target) {
-        cursor.classList.remove('is-hovering');
-        badge.textContent = '';
-      }
-    });
-  }
-
   /* ---------- magnetic buttons ---------------------------- */
 
   function initMagneticButtons() {
@@ -1123,7 +1071,6 @@
     initCounters();
     initImgReveal();
     initCommandPalette();
-    initCustomCursor();
     initMagneticButtons();
     initProjectFilters();
   }

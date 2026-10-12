@@ -60,7 +60,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=5">
+<link rel="stylesheet" href="/assets/site.css?v=6">
 </head>
 <body>
 <div class="veil" aria-hidden="true">
@@ -120,22 +120,22 @@
               <span>interactive nodes</span>
             </div>
             <div class="hero-viz-pipeline">
-              <div class="viz-node" data-cursor-badge="INPUT">
+              <div class="viz-node">
                 <span class="dot"></span>
                 <span>DATA</span>
               </div>
               <span class="viz-arrow">→</span>
-              <div class="viz-node" data-cursor-badge="TRAIN">
+              <div class="viz-node">
                 <span class="dot"></span>
                 <span>MODELS</span>
               </div>
               <span class="viz-arrow">→</span>
-              <div class="viz-node" data-cursor-badge="DEPLOY">
+              <div class="viz-node">
                 <span class="dot"></span>
                 <span>SYSTEMS</span>
               </div>
               <span class="viz-arrow">→</span>
-              <div class="viz-node" data-cursor-badge="VERIFY">
+              <div class="viz-node">
                 <span class="dot"></span>
                 <span>RESULTS</span>
               </div>
@@ -183,7 +183,7 @@
         <div class="cards">
 
           <!-- CASE 1 -->
-          <article class="card" data-flow="up" data-flow-i="1" data-cursor-badge="EXPLORE">
+          <article class="card" data-flow="up" data-flow-i="1">
             <span class="comment">// medical-imaging · multimodal fusion</span>
             <h3 class="card-title">Multimodal Breast Cancer Detection</h3>
             <p class="card-desc">Early fusion of MedCLIP mammogram embeddings with TabNet clinical record features — beating single-modality baselines on real, imbalanced clinical data.</p>
@@ -229,7 +229,7 @@
           </article>
 
           <!-- CASE 2 -->
-          <article class="card" data-flow="up" data-flow-i="2" data-cursor-badge="EXPLORE">
+          <article class="card" data-flow="up" data-flow-i="2">
             <span class="comment">// data-infrastructure · automation</span>
             <h3 class="card-title">Nigeria Electoral Data Infrastructure</h3>
             <p class="card-desc">Resilient nationwide polling unit extraction pipeline spanning all 36 states, validated with 99.9% consistency against official records.</p>
@@ -274,7 +274,7 @@
           </article>
 
           <!-- CASE 3 -->
-          <article class="card" data-flow="up" data-flow-i="3" data-cursor-badge="BENCHMARK">
+          <article class="card" data-flow="up" data-flow-i="3">
             <span class="comment">// computer-vision · model-benchmark</span>
             <h3 class="card-title">Brain Tumor Classification Benchmark</h3>
             <p class="card-desc">Comparative research evaluating Vision Transformer (ViT) against DINOv2 self-supervised foundation representations with Grad-CAM interpretability inspection.</p>
@@ -440,7 +440,7 @@
   </div>
 </div>
 
-<script src="/assets/site.js?v=4"></script>
+<script src="/assets/site.js?v=5"></script>
 <script src="/assets/ambient-grid.js?v=3" defer></script>
 </body>
 </html>
