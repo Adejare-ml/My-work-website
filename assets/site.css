@@ -351,7 +351,7 @@ p { margin: 0; }
   border: none;
   padding: 14px 24px;
 }
-.btn-primary:hover {
+.btn-primary:not(:disabled):not([aria-busy="true"]):hover {
   color: var(--bg);
   box-shadow: 0 0 0 1px var(--accent), 0 0 24px rgba(167, 181, 242, 0.35);
 }
@@ -362,10 +362,16 @@ p { margin: 0; }
   border: 1px solid var(--border);
   padding: 13px 20px;
 }
-.btn-ghost:hover {
+.btn-ghost:not(:disabled):not([aria-busy="true"]):hover {
   color: var(--ink);
   border-color: var(--accent);
   box-shadow: 0 0 16px rgba(167, 181, 242, 0.2);
+}
+
+.btn:disabled,
+.btn[aria-busy="true"] {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* ---------- hero code block on offset planes ---------- */
@@ -1467,8 +1473,8 @@ a.channel:hover { color: var(--accent); }
               box-shadow var(--t-hover) var(--ease),
               transform var(--t-hover) var(--ease);
 }
-.btn:hover { transform: translateY(-2px); }
-.btn:active { transform: translateY(0) scale(0.98); }
+.btn:not(:disabled):not([aria-busy="true"]):hover { transform: translateY(-2px); }
+.btn:not(:disabled):not([aria-busy="true"]):active { transform: translateY(0) scale(0.98); }
 
 /* cards / panels / jobs / minis / banner — lift with depth shadow on hover */
 .card, .panel, .job, .mini, .gh-banner {
