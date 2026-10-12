@@ -195,6 +195,25 @@ p { margin: 0; }
 .nav a:hover { color: var(--ink); }
 .nav a[aria-current="page"] { color: var(--accent); }
 
+/* Ctrl/Cmd+K is invisible to anyone who does not already know it, so the
+   nav carries a chip that opens the same palette. */
+.cmd-trigger {
+  font: inherit;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-2);
+  padding: 2px 7px;
+  cursor: pointer;
+  line-height: 1.5;
+  transition: color var(--t-hover) var(--ease),
+              border-color var(--t-hover) var(--ease);
+}
+.cmd-trigger:hover {
+  color: var(--ink);
+  border-color: var(--accent);
+}
+
 /* ---------- shared type atoms ---------- */
 
 .eyebrow {
@@ -351,7 +370,7 @@ p { margin: 0; }
   border: none;
   padding: 14px 24px;
 }
-.btn-primary:hover {
+.btn-primary:not(:disabled):not([aria-busy="true"]):hover {
   color: var(--bg);
   box-shadow: 0 0 0 1px var(--accent), 0 0 24px rgba(167, 181, 242, 0.35);
 }
@@ -362,7 +381,7 @@ p { margin: 0; }
   border: 1px solid var(--border);
   padding: 13px 20px;
 }
-.btn-ghost:hover {
+.btn-ghost:not(:disabled):not([aria-busy="true"]):hover {
   color: var(--ink);
   border-color: var(--accent);
   box-shadow: 0 0 16px rgba(167, 181, 242, 0.2);
@@ -1070,6 +1089,9 @@ p { margin: 0; }
   color: var(--muted);
 }
 .field-flag { color: var(--error); }
+/* required marker; the input's own `required` is what a screen reader
+   announces, so the glyph is decorative and stays out of the a11y tree */
+.field-req { color: var(--error); }
 
 /* honeypot — off-screen rather than display:none, which some bots skip */
 .hp-field {
@@ -1371,6 +1393,7 @@ a.channel:hover { color: var(--accent); }
   /* Nav: full-width row with 44px tap targets (base links are ~13px tall) */
   .nav { width: 100%; justify-content: space-between; gap: 2px 10px; }
   .nav a { min-height: 44px; padding: 0 4px; display: inline-flex; align-items: center; }
+  .cmd-trigger { min-height: 44px; display: inline-flex; align-items: center; }
 }
 
 /* ---------- forced colors (Windows High Contrast) ---------- */
@@ -1467,8 +1490,17 @@ a.channel:hover { color: var(--accent); }
               box-shadow var(--t-hover) var(--ease),
               transform var(--t-hover) var(--ease);
 }
-.btn:hover { transform: translateY(-2px); }
-.btn:active { transform: translateY(0) scale(0.98); }
+.btn:not(:disabled):not([aria-busy="true"]):hover { transform: translateY(-2px); }
+.btn:not(:disabled):not([aria-busy="true"]):active { transform: translateY(0) scale(0.98); }
+
+/* The contact form sets .disabled and aria-busy while a message is sending
+   (see initContactForm in site.js); without this the button kept its full
+   hover lift and read as still clickable. */
+.btn:disabled,
+.btn[aria-busy="true"] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
 /* cards / panels / jobs / minis / banner — lift with depth shadow on hover */
 .card, .panel, .job, .mini, .gh-banner {
@@ -1920,10 +1952,15 @@ body.cursor-active .custom-cursor {
   transition: all var(--t-hover) var(--ease);
   cursor: pointer;
 }
-.pipeline-card:hover {
+.pipeline-card:hover,
+.pipeline-card:focus-visible {
   border-color: var(--accent);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.pipeline-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 .pipeline-card-type {
   font-size: 9.5px;
@@ -1957,7 +1994,8 @@ body.cursor-active .custom-cursor {
   z-index: 30;
   box-shadow: 0 8px 16px rgba(0,0,0,0.5);
 }
-.pipeline-card:hover .pipeline-card-tooltip {
+.pipeline-card:hover .pipeline-card-tooltip,
+.pipeline-card:focus-visible .pipeline-card-tooltip {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }

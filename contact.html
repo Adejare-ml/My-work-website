@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=3">
+<link rel="stylesheet" href="/assets/site.css?v=4">
 </head>
 <body>
 <div class="veil" aria-hidden="true">
@@ -44,6 +44,9 @@
           <a href="/about">about</a>
           <a href="/projects">projects</a>
           <a href="/contact" aria-current="page">contact</a>
+          <button class="cmd-trigger" type="button" aria-haspopup="dialog"
+                  aria-controls="cmd-palette" aria-keyshortcuts="Control+K Meta+K"
+                  aria-label="Search this site (Ctrl K)" title="Search (Ctrl K)">⌘K</button>
         </nav>
       </div>
     </header>
@@ -69,23 +72,23 @@
             <div class="error-banner" id="error-banner" role="alert" hidden></div>
 
             <div class="field-row" data-flow="left" data-flow-i="1">
-              <label class="field">
-                <span class="field-label">name <span class="field-flag"></span></span>
+              <label class="field" for="name">
+                <span class="field-label">name <span class="field-req" aria-hidden="true">*</span> <span class="field-flag"></span></span>
                 <input class="input" id="name" name="name" type="text" placeholder="your name" autocomplete="name" maxlength="100" required>
               </label>
-              <label class="field">
-                <span class="field-label">email <span class="field-flag"></span></span>
+              <label class="field" for="email">
+                <span class="field-label">email <span class="field-req" aria-hidden="true">*</span> <span class="field-flag"></span></span>
                 <input class="input" id="email" name="email" type="email" placeholder="you@company.com" autocomplete="email" maxlength="254" required>
               </label>
             </div>
 
-            <label class="field" data-flow="left" data-flow-i="2">
-              <span class="field-label">subject <span class="field-flag"></span></span>
+            <label class="field" for="subject" data-flow="left" data-flow-i="2">
+              <span class="field-label">subject <span class="field-req" aria-hidden="true">*</span> <span class="field-flag"></span></span>
               <input class="input" id="subject" name="subject" type="text" placeholder="role, project, or question" maxlength="150" required>
             </label>
 
-            <label class="field" data-flow="left" data-flow-i="3">
-              <span class="field-label">message <span class="field-flag"></span></span>
+            <label class="field" for="message" data-flow="left" data-flow-i="3">
+              <span class="field-label">message <span class="field-req" aria-hidden="true">*</span> <span class="field-flag"></span></span>
               <textarea class="textarea" id="message" name="message" rows="6" maxlength="600" placeholder="what are you working on, and where might i fit?" required></textarea>
               <span class="counter-row">
                 <i>// plain text, no attachments</i>
@@ -105,7 +108,7 @@
           </form>
 
           <!-- ---- sent confirmation ---- -->
-          <div class="sent" id="sent-panel" hidden>
+          <div class="sent" id="sent-panel" role="status" aria-live="polite" hidden>
             <div class="sent-rule"></div>
             <div class="sent-body">
               <span class="sent-status">status: <b>delivered</b> · <span id="sent-stamp"></span></span>
@@ -129,7 +132,7 @@
                 <span class="channel-key">email</span>
                 <span class="channel-val">adelugbaadejare03@gmail.com</span>
               </span>
-              <button class="copy-btn" type="button" data-copy="adelugbaadejare03@gmail.com">copy</button>
+              <button class="copy-btn" type="button" aria-label="copy email address" data-copy="adelugbaadejare03@gmail.com">copy</button>
             </div>
 
             <a class="channel" data-flow="right" data-flow-i="3" href="https://github.com/Adejare-ml" target="_blank" rel="noopener">
@@ -187,7 +190,7 @@
   </div>
 </div>
 
-<script src="/assets/site.js?v=3"></script>
+<script src="/assets/site.js?v=4"></script>
 <script src="/assets/ambient-grid.js?v=3" defer></script>
 </body>
 </html>

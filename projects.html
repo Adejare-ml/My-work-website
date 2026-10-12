@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=3">
+<link rel="stylesheet" href="/assets/site.css?v=4">
 </head>
 <body>
 <div class="veil" aria-hidden="true">
@@ -44,6 +44,9 @@
           <a href="/about">about</a>
           <a href="/projects" aria-current="page">projects</a>
           <a href="/contact">contact</a>
+          <button class="cmd-trigger" type="button" aria-haspopup="dialog"
+                  aria-controls="cmd-palette" aria-keyshortcuts="Control+K Meta+K"
+                  aria-label="Search this site (Ctrl K)" title="Search (Ctrl K)">⌘K</button>
         </nav>
       </div>
     </header>
@@ -56,12 +59,12 @@
         <p class="lede" data-flow="up" data-flow-i="2">Case studies with the decisions, trade-offs, and dead ends left in — the parts most portfolios delete.</p>
 
         <!-- Category Filter Buttons -->
-        <div class="project-filters" data-flow="up" data-flow-i="3" style="margin-top: 1.5rem;">
-          <button class="filter-btn is-active" type="button" data-filter="all">[ ALL PROJECTS ]</button>
-          <button class="filter-btn" type="button" data-filter="ml">// MACHINE LEARNING</button>
-          <button class="filter-btn" type="button" data-filter="cv">// COMPUTER VISION</button>
-          <button class="filter-btn" type="button" data-filter="data">// DATA ENGINEERING</button>
-          <button class="filter-btn" type="button" data-filter="automation">// AUTOMATION</button>
+        <div class="project-filters" data-flow="up" data-flow-i="3" style="margin-top: 1.5rem;" role="group" aria-label="Filter projects">
+          <button class="filter-btn is-active" type="button" data-filter="all" aria-pressed="true">[ ALL PROJECTS ]</button>
+          <button class="filter-btn" type="button" data-filter="ml" aria-pressed="false">// MACHINE LEARNING</button>
+          <button class="filter-btn" type="button" data-filter="cv" aria-pressed="false">// COMPUTER VISION</button>
+          <button class="filter-btn" type="button" data-filter="data" aria-pressed="false">// DATA ENGINEERING</button>
+          <button class="filter-btn" type="button" data-filter="automation" aria-pressed="false">// AUTOMATION</button>
         </div>
       </section>
 
@@ -292,7 +295,7 @@ tab (tabnet)  ──┘</pre>
   </div>
 </div>
 
-<script src="/assets/site.js?v=3"></script>
+<script src="/assets/site.js?v=4"></script>
 <script src="/assets/ambient-grid.js?v=3" defer></script>
 </body>
 </html>

@@ -2,8 +2,8 @@
 
 Built from the Claude Design project
 [`80092eaa`](https://claude.ai/design/p/80092eaa-06e1-42f5-92ab-3d7d47f12b36).
-Nothing in the existing site (`../index.html`, `../style.css`, `../script.js`, …)
-was touched.
+Nothing in the existing site (`../index.html`, `../assets/site.css`,
+`../assets/site.js`, …) was touched.
 
 The design project holds **two mutually exclusive visual systems**. Both are
 built here so you can compare them side by side.
@@ -47,7 +47,7 @@ page. None of that runs outside the Design Canvas, so:
 - **Scroll parallax kept.** A: the two planes behind the code block drift
   +10/+5px over the first 360px of scroll. B: the ampersand's extrusion slices
   separate over the first 320px.
-- **`<image-slot>` → a real `<img>`** pointing at `../Profile_pic.png`.
+- **`<image-slot>` → a real `<img>`** pointing at `../profile-840.webp`.
 - **`support.js` and `image-slot.js` were not ported** — they are Design Canvas
   runtime scaffolding (a React renderer and a drag-and-drop image placeholder),
   not site code.

@@ -855,7 +855,7 @@
       '<div class="cmd-palette-dialog" role="dialog" aria-modal="true" aria-label="Command Palette">' +
         '<div class="cmd-palette-header">' +
           '<span class="cmd-palette-search-icon">⌘/ctrl+k</span>' +
-          '<input type="text" class="cmd-palette-input" placeholder="Search pages, projects, actions..." aria-label="Search portfolio" role="combobox" aria-expanded="true" aria-controls="cmd-palette-list" aria-autocomplete="list">' +
+          '<input type="text" class="cmd-palette-input" placeholder="Search pages, projects, actions..." aria-label="Search portfolio" role="combobox" aria-expanded="false" aria-controls="cmd-palette-list" aria-autocomplete="list">' +
           '<span class="cmd-palette-esc">ESC</span>' +
         '</div>' +
         '<div class="cmd-palette-list" id="cmd-palette-list" role="listbox"></div>' +
@@ -896,6 +896,10 @@
         });
         list.appendChild(el);
       });
+
+      /* keyboard selection can run past the visible rows - follow it */
+      var selected = list.querySelector('.is-selected');
+      if (selected && selected.scrollIntoView) selected.scrollIntoView({ block: 'nearest' });
     };
 
     var execItem = function (it) {
@@ -917,6 +921,7 @@
       backdrop.inert = false;
       backdrop.classList.add('is-open');
       backdrop.setAttribute('aria-hidden', 'false');
+      input.setAttribute('aria-expanded', 'true');
       input.value = '';
       currentItems = itemsData.slice();
       selectedIndex = 0;
@@ -927,6 +932,7 @@
     var closePalette = function () {
       backdrop.classList.remove('is-open');
       backdrop.setAttribute('aria-hidden', 'true');
+      input.setAttribute('aria-expanded', 'false');
       backdrop.inert = true;
       if (lastFocus && lastFocus.focus && document.contains(lastFocus)) lastFocus.focus();
       else input.blur();
@@ -950,10 +956,20 @@
       if (e.target === backdrop) closePalette();
     });
 
+    var togglePalette = function () {
+      if (backdrop.classList.contains('is-open')) closePalette(); else openPalette();
+    };
+
+    /* the shortcut is undiscoverable on its own, so the nav carries a button */
+    var triggers = document.querySelectorAll('.cmd-trigger');
+    Array.prototype.forEach.call(triggers, function (trigger) {
+      trigger.addEventListener('click', function () { togglePalette(); });
+    });
+
     document.addEventListener('keydown', function (e) {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
-        if (backdrop.classList.contains('is-open')) closePalette(); else openPalette();
+        togglePalette();
         return;
       }
       if (!backdrop.classList.contains('is-open')) return;
@@ -1042,6 +1058,11 @@
     var btns = document.querySelectorAll('.btn-primary, .btn-ghost, [data-magnetic]');
     Array.prototype.forEach.call(btns, function (btn) {
       btn.addEventListener('mousemove', function (e) {
+        /* a disabled or sending button must read as inert, so no magnet pull */
+        if (btn.disabled || btn.getAttribute('aria-busy') === 'true') {
+          btn.style.transform = 'none';
+          return;
+        }
         var rect = btn.getBoundingClientRect();
         var cx = rect.left + rect.width / 2;
         var cy = rect.top + rect.height / 2;
@@ -1064,8 +1085,12 @@
     Array.prototype.forEach.call(filters, function (btn) {
       btn.addEventListener('click', function () {
         var cat = btn.dataset.filter;
-        Array.prototype.forEach.call(filters, function (f) { f.classList.remove('is-active'); });
+        Array.prototype.forEach.call(filters, function (f) {
+          f.classList.remove('is-active');
+          f.setAttribute('aria-pressed', 'false');
+        });
         btn.classList.add('is-active');
+        btn.setAttribute('aria-pressed', 'true');
 
         var items = document.querySelectorAll('[data-category]');
         Array.prototype.forEach.call(items, function (item) {
