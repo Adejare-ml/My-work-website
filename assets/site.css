@@ -198,7 +198,8 @@ p { margin: 0; }
 /* Ctrl/Cmd+K is invisible to anyone who does not already know it, so the
    nav carries a chip that opens the same palette. */
 .cmd-trigger {
-  font: inherit;
+  font-family: var(--mono);
+  font-size: 12.5px;
   color: var(--muted);
   background: none;
   border: 1px solid var(--hairline);
