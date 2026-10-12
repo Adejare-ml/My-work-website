@@ -18,9 +18,9 @@ Personal portfolio site for **Adejare Adelugba** — ML Engineer & Data Scientis
 | Page | Route | Description |
 |---|---|---|
 | Home | `/` | Hero, case studies, skills radar, certifications |
-| About | `/about.html` | Bio, timeline, stats |
-| Projects | `/projects.html` | Full project cards with engineering details |
-| Contact | `/contact.html` | Contact form (Google Apps Script backend) |
+| About | `/about` | Bio, timeline, stats |
+| Projects | `/projects` | Full project cards with engineering details |
+| Contact | `/contact` | Contact form (Google Apps Script backend) |
 
 ---
 
@@ -33,22 +33,26 @@ my-work-website/
 ├── about.html              ← About / timeline
 ├── projects.html           ← Full project showcase
 ├── contact.html            ← Contact form
-├── 404.html                ← Custom 404
+├── 404.html                ← Custom 404 (noindex)
+├── tokens.html             ← Design-token reference (noindex)
+├── motion-lab.html         ← Motion prototypes (noindex)
 │
-├── style.css               ← All styles (shared across pages)
-├── script.js               ← All JS (neural canvas, radar chart,
-│                              scroll reveal, counters, GitHub API,
-│                              contact form, copy buttons, nav)
+├── assets/
+│   ├── site.css            ← All styles (shared across pages)
+│   ├── site.js             ← All JS (veil, reveals, counters,
+│   │                          contact form, command palette, nav)
+│   └── ambient-grid.js     ← Background grid animation
 │
-├── favicon.svg             ← Site favicon (inline SVG, "A" logo)
-├── Profile_pic.png         ← Hero + About photo
+├── favicon.svg             ← Site favicon
+├── profile-560/840.{webp,jpg}  ← About photo (responsive)
+├── og-preview.jpg          ← Social share image
 │
 ├── Adejare_Adelugba_Machine learning_engineer.pdf  ← Downloadable CV
 │
-├── _headers                ← Cloudflare Pages security headers
+├── _headers                ← Cloudflare Pages headers (security, cache, noindex)
+├── robots.txt / sitemap.xml
 │
-└── backend/
-    └── projects.json       ← Static project data (future use)
+└── redesign/               ← Design prototypes (noindex, not linked)
 ```
 
 ---

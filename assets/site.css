@@ -1530,11 +1530,10 @@ a.channel:hover { color: var(--accent); }
 .bar-fill { transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
 
 /* portrait fades in once the image decodes (class added by JS) */
-.portrait-frame img.reveal-img { opacity: 0; transform: scale(1.02); }
+.portrait-frame img.reveal-img { transform: scale(1.02); }
 .portrait-frame img.reveal-img.is-loaded {
-  opacity: 1;
   transform: none;
-  transition: opacity 0.9s var(--ease-flow), transform 0.9s var(--ease-flow);
+  transition: transform 0.9s var(--ease-flow);
 }
 
 /* ------------------------------------------------------------
@@ -1800,12 +1799,16 @@ body.cursor-active .custom-cursor {
   justify-content: center;
   padding-top: clamp(40px, 12vh, 120px);
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity 200ms var(--ease);
+  /* visibility flips after the fade, so closing still animates */
+  transition: opacity 200ms var(--ease), visibility 0s linear 200ms;
 }
 .cmd-palette-backdrop.is-open {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
+  transition: opacity 200ms var(--ease), visibility 0s;
 }
 .cmd-palette-dialog {
   width: calc(100% - 32px);

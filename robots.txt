@@ -1,8 +1,11 @@
 User-agent: *
 Allow: /
 
-# Prototype and reference trees — not part of the portfolio.
-Disallow: /motion-lab.html
-Disallow: /redesign/
+# Prototype and reference pages carry their own <meta name="robots">
+# noindex, so they are left crawlable — a Disallow would stop crawlers
+# from ever seeing that tag. Repo housekeeping files are not content,
+# nothing links to them, so a plain Disallow is enough.
+Disallow: /*.md$
+Disallow: /LICENSE
 
 Sitemap: https://adelugba-adejare.pages.dev/sitemap.xml

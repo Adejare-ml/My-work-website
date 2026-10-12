@@ -9,3 +9,9 @@
 # Bump the ?v= in ALL html files in the same commit as any assets/ edit.
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+
+# Design prototypes: served (they are part of the repo) but never indexed.
+# Page-level noindex lives in each page's <meta name="robots">, which does
+# not depend on how Pages matches header rules.
+/redesign/*
+  X-Robots-Tag: noindex, nofollow

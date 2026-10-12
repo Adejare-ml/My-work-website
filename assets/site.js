@@ -612,7 +612,11 @@
     'projects.html': '$ cd ~/projects',
     'contact.html':  '$ cd ~/contact',
     'tokens.html':   '$ cat tokens.spec',
-    '404.html':      '$ cd ~/404'
+    '404.html':      '$ cd ~/404',
+    'about':         '$ cd ~/about',
+    'projects':      '$ cd ~/projects',
+    'contact':       '$ cd ~/contact',
+    'tokens':        '$ cat tokens.spec'
   };
 
   function initVeil() {
@@ -788,6 +792,8 @@
 
   /* ---------- image fade-in on load ----------------------- */
 
+  /* The portrait is the about page's LCP image, so it is never hidden:
+     .reveal-img only adds a settle-in scale (see site.css). */
   function initImgReveal() {
     if (reduced()) return;
     var imgs = document.querySelectorAll('.portrait-frame img');
@@ -827,30 +833,32 @@
 
   function initCommandPalette() {
     var itemsData = [
-      { title: 'Home', tag: 'page', url: 'index.html' },
-      { title: 'Case Studies / Selected Work', tag: 'section', url: 'index.html#work' },
-      { title: 'Projects Showcase', tag: 'page', url: 'projects.html' },
-      { title: 'About & Background', tag: 'page', url: 'about.html' },
-      { title: 'Experience & Timeline', tag: 'section', url: 'about.html#experience' },
-      { title: 'Capabilities & Tech Stack', tag: 'section', url: 'index.html#capabilities' },
-      { title: 'Contact / Reach Out', tag: 'page', url: 'contact.html' },
+      { title: 'Home', tag: 'page', url: '/' },
+      { title: 'Case Studies / Selected Work', tag: 'section', url: '/#work' },
+      { title: 'Projects Showcase', tag: 'page', url: '/projects' },
+      { title: 'About & Background', tag: 'page', url: '/about' },
+      { title: 'Experience & Timeline', tag: 'section', url: '/about#experience' },
+      { title: 'Capabilities & Tech Stack', tag: 'section', url: '/#capabilities' },
+      { title: 'Contact / Reach Out', tag: 'page', url: '/contact' },
       { title: 'GitHub Profile (Adejare-ml)', tag: 'external', url: 'https://github.com/Adejare-ml', external: true },
-      { title: 'Download CV (PDF)', tag: 'download', url: 'Adejare_Adelugba_Machine%20learning_engineer.pdf', download: true }
+      { title: 'Download CV (PDF)', tag: 'download', url: '/Adejare_Adelugba_Machine%20learning_engineer.pdf', download: true }
     ];
 
     var backdrop = document.createElement('div');
     backdrop.className = 'cmd-palette-backdrop';
     backdrop.id = 'cmd-palette';
     backdrop.setAttribute('aria-hidden', 'true');
+    /* closed = out of the tab order and the a11y tree, not just invisible */
+    backdrop.inert = true;
 
     backdrop.innerHTML =
       '<div class="cmd-palette-dialog" role="dialog" aria-modal="true" aria-label="Command Palette">' +
         '<div class="cmd-palette-header">' +
           '<span class="cmd-palette-search-icon">⌘/ctrl+k</span>' +
-          '<input type="text" class="cmd-palette-input" placeholder="Search pages, projects, actions..." aria-label="Search portfolio">' +
+          '<input type="text" class="cmd-palette-input" placeholder="Search pages, projects, actions..." aria-label="Search portfolio" role="combobox" aria-expanded="true" aria-controls="cmd-palette-list" aria-autocomplete="list">' +
           '<span class="cmd-palette-esc">ESC</span>' +
         '</div>' +
-        '<div class="cmd-palette-list" role="listbox"></div>' +
+        '<div class="cmd-palette-list" id="cmd-palette-list" role="listbox"></div>' +
       '</div>';
 
     document.body.appendChild(backdrop);
@@ -859,9 +867,11 @@
     var list = backdrop.querySelector('.cmd-palette-list');
     var selectedIndex = 0;
     var currentItems = itemsData.slice();
+    var lastFocus = null;
 
     var renderList = function () {
       list.innerHTML = '';
+      input.removeAttribute('aria-activedescendant');
       if (!currentItems.length) {
         list.innerHTML = '<div style="padding:14px 18px; color:var(--muted); font-family:var(--mono); font-size:12px;">No matching results</div>';
         return;
@@ -871,9 +881,15 @@
         el.className = 'cmd-palette-item' + (idx === selectedIndex ? ' is-selected' : '');
         el.setAttribute('role', 'option');
         el.setAttribute('aria-selected', idx === selectedIndex ? 'true' : 'false');
-        el.innerHTML =
-          '<span>' + it.title + '</span>' +
-          '<span class="cmd-palette-item-tag">// ' + it.tag + '</span>';
+        el.id = 'cmd-opt-' + idx;
+        if (idx === selectedIndex) input.setAttribute('aria-activedescendant', el.id);
+        var title = document.createElement('span');
+        title.textContent = it.title;
+        var tag = document.createElement('span');
+        tag.className = 'cmd-palette-item-tag';
+        tag.textContent = '// ' + it.tag;
+        el.appendChild(title);
+        el.appendChild(tag);
 
         el.addEventListener('click', function () {
           execItem(it);
@@ -897,6 +913,8 @@
     };
 
     var openPalette = function () {
+      lastFocus = document.activeElement;
+      backdrop.inert = false;
       backdrop.classList.add('is-open');
       backdrop.setAttribute('aria-hidden', 'false');
       input.value = '';
@@ -909,7 +927,10 @@
     var closePalette = function () {
       backdrop.classList.remove('is-open');
       backdrop.setAttribute('aria-hidden', 'true');
-      input.blur();
+      backdrop.inert = true;
+      if (lastFocus && lastFocus.focus && document.contains(lastFocus)) lastFocus.focus();
+      else input.blur();
+      lastFocus = null;
     };
 
     input.addEventListener('input', function () {
