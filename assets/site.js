@@ -856,7 +856,7 @@
         '<div class="cmd-palette-header">' +
           '<span class="cmd-palette-search-icon">⌘/ctrl+k</span>' +
           '<input type="text" class="cmd-palette-input" placeholder="Search pages, projects, actions..." aria-label="Search portfolio" role="combobox" aria-expanded="false" aria-controls="cmd-palette-list" aria-autocomplete="list">' +
-          '<span class="cmd-palette-esc">ESC</span>' +
+          '<button class="cmd-palette-esc" type="button" aria-label="Close command palette" title="Close (ESC)">ESC</button>' +
         '</div>' +
         '<div class="cmd-palette-list" id="cmd-palette-list" role="listbox"></div>' +
       '</div>';
@@ -959,6 +959,14 @@
     var togglePalette = function () {
       if (backdrop.classList.contains('is-open')) closePalette(); else openPalette();
     };
+
+    var escBtn = backdrop.querySelector('.cmd-palette-esc');
+    if (escBtn) {
+      escBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        closePalette();
+      });
+    }
 
     /* the shortcut is undiscoverable on its own, so the nav carries a button */
     var triggers = document.querySelectorAll('.cmd-trigger');

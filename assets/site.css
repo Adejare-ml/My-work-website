@@ -1847,6 +1847,13 @@ a.channel:hover { color: var(--accent); }
   border: 1px solid var(--hairline);
   padding: 2px 6px;
   border-radius: var(--r-2);
+  cursor: pointer;
+  transition: border-color var(--t-hover) var(--ease),
+              color var(--t-hover) var(--ease);
+}
+.cmd-palette-esc:hover {
+  color: var(--ink);
+  border-color: var(--accent);
 }
 .cmd-palette-list {
   max-height: 320px;
