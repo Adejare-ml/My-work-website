@@ -355,11 +355,13 @@ p { margin: 0; }
 
 .btn {
   display: inline-block;
+  position: relative;
   font-family: var(--mono);
   font-size: 12.5px;
   border-radius: var(--r-2);
   cursor: pointer;
-  transition: border-color var(--t-hover) var(--ease),
+  transition: padding var(--t-hover) var(--ease),
+              border-color var(--t-hover) var(--ease),
               box-shadow var(--t-hover) var(--ease),
               color var(--t-hover) var(--ease);
 }
@@ -1486,7 +1488,8 @@ a.channel:hover { color: var(--accent); }
 
 /* buttons — lift on hover, press on active */
 .btn {
-  transition: border-color var(--t-hover) var(--ease),
+  transition: padding var(--t-hover) var(--ease),
+              border-color var(--t-hover) var(--ease),
               color var(--t-hover) var(--ease),
               box-shadow var(--t-hover) var(--ease),
               transform var(--t-hover) var(--ease);
@@ -1497,10 +1500,33 @@ a.channel:hover { color: var(--accent); }
 /* The contact form sets .disabled and aria-busy while a message is sending
    (see initContactForm in site.js); without this the button kept its full
    hover lift and read as still clickable. */
-.btn:disabled,
-.btn[aria-busy="true"] {
+.btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.btn[aria-busy="true"] {
+  opacity: 0.8;
+  cursor: wait;
+  padding-right: 44px;
+}
+
+.btn[aria-busy="true"]::after {
+  content: "";
+  position: absolute;
+  right: 16px;
+  top: calc(50% - 8px);
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: btn-spin 0.75s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
 }
 
 /* cards / panels / jobs / minis / banner — lift with depth shadow on hover */

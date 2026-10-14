@@ -1,0 +1,3 @@
+## 2026-10-14 - Interactive Loading Feedback via Pseudo-Elements
+**Learning:** For asynchronous form submissions, merely changing button text (e.g., to "sending...") is often visually insufficient, especially without layout transitions, making it feel static rather than busy. Pseudo-elements tied to ARIA states can render scalable UI feedback without JavaScript DOM mutations.
+**Action:** Always map the CSS `[aria-busy="true"]` state to an explicit animated visual indicator (like an `::after` loading ring using `currentColor`), leveraging padding transitions to smoothly reveal the newly injected space while preserving the base button markup structure.
