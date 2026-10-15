@@ -1503,6 +1503,34 @@ a.channel:hover { color: var(--accent); }
   cursor: not-allowed;
 }
 
+.btn[aria-busy="true"] {
+  color: transparent !important;
+  position: relative;
+}
+
+.btn[aria-busy="true"]::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  margin-top: -7px;
+  margin-left: -7px;
+  border: 2px solid var(--border-hi);
+  border-right-color: transparent !important;
+  border-radius: 50%;
+  animation: btn-spin 0.75s linear infinite;
+}
+
+.btn-primary[aria-busy="true"]::after {
+  border-color: var(--bg);
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
+}
+
 /* cards / panels / jobs / minis / banner — lift with depth shadow on hover */
 .card, .panel, .job, .mini, .gh-banner {
   transition: border-color var(--t-hover) var(--ease),
