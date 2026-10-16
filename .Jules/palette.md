@@ -1,0 +1,3 @@
+## 2025-10-16 - Add loading spinner to async submit button
+**Learning:** Using `color: transparent !important;` on `.btn[aria-busy="true"]` paired with a CSS `::after` pseudo-element for the loading ring seamlessly provides visual loading feedback without causing layout shifts, since the transparent text preserves the button's original computed width. Changing textContent with JS causes the button width to resize suddenly.
+**Action:** Always prefer utilizing CSS pseudo-elements (like `::after` rings) tied to `[aria-busy="true"]` state and transparent text, rather than manipulating the DOM structure directly with JavaScript for form element loading states.
