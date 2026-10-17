@@ -419,11 +419,9 @@
       }
 
       var submitBtn = form.querySelector('button[type="submit"]');
-      var btnLabel = submitBtn ? submitBtn.textContent : '';
       if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.setAttribute('aria-busy', 'true');
-        submitBtn.textContent = 'sending…';
       }
       if (banner) banner.hidden = true;
 
@@ -456,7 +454,6 @@
         if (submitBtn) {
           submitBtn.disabled = false;
           submitBtn.removeAttribute('aria-busy');
-          submitBtn.textContent = btnLabel;
         }
         if (banner) {
           banner.hidden = false;
