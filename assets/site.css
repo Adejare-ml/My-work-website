@@ -1497,10 +1497,38 @@ a.channel:hover { color: var(--accent); }
 /* The contact form sets .disabled and aria-busy while a message is sending
    (see initContactForm in site.js); without this the button kept its full
    hover lift and read as still clickable. */
-.btn:disabled,
-.btn[aria-busy="true"] {
+.btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.btn[aria-busy="true"] {
+  position: relative;
+  color: transparent !important;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+.btn[aria-busy="true"]::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin-top: -8px;
+  margin-left: -8px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: btn-spin 0.8s linear infinite;
+  /* Use the computed color of the parent (before transparent applies) for the spinner.
+     Since color is transparent !important, we need to hardcode the color based on btn-primary.
+     Using white for btn-primary */
+  border-top-color: #fff;
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
 }
 
 /* cards / panels / jobs / minis / banner — lift with depth shadow on hover */
