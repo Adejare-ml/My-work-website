@@ -1,0 +1,3 @@
+## 2024-10-24 - Transparent Text and `currentColor` Pitfall
+**Learning:** Using `color: transparent` to visually hide button text during an `aria-busy` loading state also cascades the transparent value to the `currentColor` CSS variable. Consequently, pseudo-element CSS spinners relying on `currentColor` for border styles will be invisible unless explicitly overridden.
+**Action:** When implementing CSS spinners on elements with `color: transparent`, avoid using `currentColor` for their structural styling and explicitly assign appropriate color variables (e.g., `border: 2px solid var(--text-1)`).
