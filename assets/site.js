@@ -121,7 +121,7 @@
         });
         layers.forEach(function (l, j) {
           var s = 2.0 + j * 0.3;
-          var lit = tt < BUILD ? (tt >= s && tt <= s + 1.0) : (Math.floor(TT * 2.2) % 9 === j);
+          var lit = tt < BUILD ? (tt >= s && tt <= s + 1.0) : (Math.floor(TT * 2.2) % layers.length === j);
           l.classList.toggle('s-layer-on', lit);
         });
         var b = easeOut((tt - 4.8) / 1.3);
