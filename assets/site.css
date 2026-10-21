@@ -747,3 +747,56 @@ html:not(.js) .stage-btn, html:not(.js) .stage-tabs { display: none; }
 .terminal { margin-top: 24px; padding: 16px 18px; font-family: var(--mono); font-size: 13px; color: var(--text-1); }
 
 @media (forced-colors: active) { .ambient-grid { display: none; } }
+
+/* ---------- v4: brief home, explainers on Projects ---------- */
+
+/* results strip items link to their project */
+a.proof-item { display: block; color: inherit; transition: background-color var(--t-hover) ease; }
+a.proof-item:hover { color: inherit; background: var(--surface); }
+.proof-go { display: block; margin-top: 10px; font-family: var(--mono); font-size: 11.5px; color: var(--accent); }
+
+/* home: brief project cards */
+.home-cards { display: grid; gap: 14px; }
+@media (min-width: 760px) { .home-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.home-cards .pcard { padding: 22px 22px 18px; }
+.home-cards .pcard h3 { font-size: clamp(22px, 2.2vw, 26px); }
+.home-cards .pcard p { font-size: 15px; color: var(--text-1); }
+
+/* home: compact lab rows */
+.lab-rows { display: grid; border: 1px solid var(--hairline); border-radius: var(--r-3); background: var(--card); }
+.lab-row { display: grid; gap: 6px; padding: 18px 20px; border-bottom: 1px solid var(--hairline); }
+.lab-row:last-child { border-bottom: 0; }
+@media (min-width: 860px) { .lab-row { grid-template-columns: 220px minmax(0, 1fr) auto; align-items: baseline; gap: 20px; } }
+.lab-row .lab-id { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: var(--muted); }
+.lab-row p { font-size: 15px; color: var(--text-1); }
+.lab-row p b { color: var(--ink); font-weight: 600; }
+
+/* home: compact skills */
+.caps-compact { margin-top: 32px; }
+
+/* projects: flagship explainers */
+.explainers { display: grid; gap: clamp(56px, 7vw, 96px); }
+.explainer { display: grid; gap: clamp(24px, 4vw, 48px); scroll-margin-top: calc(var(--header-h) + 24px); }
+@media (min-width: 980px) {
+  .explainer { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; }
+  .explainer.is-flipped > :first-child { order: 2; }
+}
+.explainer-num { font-family: var(--mono); font-size: 12px; color: var(--accent); }
+.explainer h2 { margin-top: 10px; font-size: clamp(30px, 3.6vw, 44px); line-height: 1.08; letter-spacing: -0.015em; }
+.explainer .card-outcome { margin-top: 14px; }
+.explainer .card-detail { margin-top: 10px; }
+.explainer .bars, .explainer .badge { margin-top: 18px; }
+.explainer .card-note { margin-top: 14px; }
+.explainer .card-links { margin-top: 8px; }
+.explainer .sheet .pipe { border: 0; border-radius: 0; }
+.flagship-tag { display: inline-flex; margin-left: 10px; padding: 2px 7px; border: 1px solid var(--accent); border-radius: var(--r-2); font-family: var(--mono); font-size: 10.5px; color: var(--accent); vertical-align: middle; }
+.jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+.jump a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1px solid var(--border); border-radius: var(--r-2); font-family: var(--mono); font-size: 12.5px; color: var(--text-1); }
+.jump a:hover { border-color: var(--accent); color: var(--ink); box-shadow: 0 0 16px rgba(167, 181, 242, 0.2); }
+.grid-cards .pcard { scroll-margin-top: calc(var(--header-h) + 24px); }
+/* phones: keep Home inside its ~5,000px budget; skills live on About */
+@media (max-width: 759px) {
+  .caps-compact { display: none; }
+  .proof-go { display: none; }
+  .home-cards .pcard-foot span { display: none; }
+}

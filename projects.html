@@ -5,16 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1c1d21">
 <title>Projects — Adejare Adelugba</title>
-<meta name="description" content="Machine-learning, LLM and data-engineering projects — each with a plain-English outcome, how it works and a link to the code.">
+<meta name="description" content="Machine-learning, LLM and data-engineering projects — four flagship explainers with animated diagrams, plus every other project and experiment with links to the code.">
 <link rel="canonical" href="https://adelugba-adejare.pages.dev/projects">
 <meta property="og:title" content="Projects — Adejare Adelugba">
-<meta property="og:description" content="Machine-learning, LLM and data-engineering projects — each with a plain-English outcome, how it works and a link to the code.">
+<meta property="og:description" content="Machine-learning, LLM and data-engineering projects — four flagship explainers with animated diagrams, plus every other project and experiment with links to the code.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://adelugba-adejare.pages.dev/projects">
 <meta property="og:image" content="https://adelugba-adejare.pages.dev/og-preview.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Projects — Adejare Adelugba">
-<meta name="twitter:description" content="Machine-learning, LLM and data-engineering projects — each with a plain-English outcome, how it works and a link to the code.">
+<meta name="twitter:description" content="Machine-learning, LLM and data-engineering projects — four flagship explainers with animated diagrams, plus every other project and experiment with links to the code.">
 <meta name="twitter:image" content="https://adelugba-adejare.pages.dev/og-preview.jpg">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,26 +44,35 @@
   <section class="intro" aria-labelledby="proj-title">
     <span class="eyebrow"><b>[</b> THE WORK <b>]</b></span>
     <h1 class="page-title" id="proj-title">Projects<span class="dot">.</span></h1>
-    <p class="lede">Medical imaging, LLM systems, data pipelines and client websites. Every card links to the code.</p>
+    <p class="lede">Four flagship projects explained step by step, then everything else I’ve built.</p>
+    <nav class="jump" aria-label="Flagship projects"><a href="#multimodal">01 multimodal cancer</a><a href="#ultrasound">02 breast ultrasound</a><a href="#aura">03 aura news</a><a href="#polling">04 polling units</a></nav>
   </section>
 
-  <section class="section" aria-labelledby="feat-title">
-    <div class="featured">
+  <section class="section" aria-labelledby="flag-title">
+    <div class="section-head">
+      <span class="eyebrow"><b>[</b> FLAGSHIP <b>]</b></span>
+      <div class="section-head-row">
+        <h2 class="section-title drift" id="flag-title">How they work<span class="dot">.</span></h2>
+        <span class="comment">// each diagram shows how the data moves</span>
+      </div>
+      
+    </div>
+    <div class="explainers">
+    <article class="explainer" id="multimodal" aria-labelledby="multimodal-title">
       <div>
-        <span class="eyebrow"><b>[</b> FEATURED · FINAL-YEAR PROJECT <b>]</b></span>
-        <h2 class="section-title drift" id="feat-title" style="margin-top:14px">Multimodal breast cancer detection<span class="dot">.</span></h2>
-        <p class="card-outcome" style="margin-top:16px">Looks at a breast scan and the patient’s clinical record together, and suggests one of three diagnoses.</p>
-        <p class="card-detail" style="margin-top:10px">MedCLIP turns the image into features and TabNet learns from the clinical record. Each gives its own prediction, and a late-fusion step combines them. The model is served through a FastAPI backend in Docker, covered by API contract tests.</p>
-        <p class="card-note" style="margin-top:12px">// research project, not a clinical tool</p>
-        <p><a class="link-arrow" href="https://github.com/Adejare-ml/med-cancer-multimodal-diagnostics" target="_blank" rel="noopener">code <span aria-hidden="true">↗</span></a></p>
+        <span class="explainer-num">01 / 04 · medical imaging · final-year project</span>
+        <h2 id="multimodal-title" class="drift">Multimodal breast cancer detection<span class="dot">.</span></h2>
+        <p class="card-outcome">Looks at a breast scan and the patient’s clinical record together, and suggests one of three diagnoses.</p>
+        <p class="card-detail">Image features from MedCLIP and clinical features from TabNet are combined in a late-fusion model, then served through a FastAPI backend in Docker with API contract tests.</p>
+
+        
+        <p class="card-note">// research project, not a clinical tool.</p>
+        <div class="card-links"><a class="link-arrow" href="https://github.com/Adejare-ml/med-cancer-multimodal-diagnostics" target="_blank" rel="noopener">code <span aria-hidden="true">↗</span></a></div>
       </div>
       <figure>
         <figcaption class="comment stack-cap">// two opinions, one diagnosis</figcaption>
-        <div class="stack">
-          <div class="plane plane-back" aria-hidden="true"></div>
-          <div class="plane plane-mid" aria-hidden="true"></div>
-          <div class="sheet">
-            <div class="chrome"><span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="chrome-file">late_fusion — live</span></div>
+        <div class="stack"><div class="plane plane-back" aria-hidden="true"></div><div class="plane plane-mid" aria-hidden="true"></div>
+          <div class="sheet"><div class="chrome"><span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="chrome-file">late_fusion — live</span></div>
             <svg class="fusion-svg" viewBox="0 0 520 300" role="img" aria-labelledby="fusion-title" data-fusion>
   <title id="fusion-title">Diagram: a breast scan goes through MedCLIP and a clinical record goes through TabNet; their predictions are combined by late fusion into a three-class diagnosis served by an API.</title>
   <path class="s-track" d="M118 80 C 200 80, 210 150, 290 150"/>
@@ -77,17 +86,113 @@
   <circle class="s-packet" data-fp="1" r="4" cx="118" cy="220" opacity="0"/>
   <circle class="s-packet" data-fp="2" r="4" cx="380" cy="150" opacity="0"/>
 </svg>
-          </div>
-        </div>
+          </div></div>
       </figure>
+    </article>
+    <article class="explainer is-flipped" id="ultrasound" aria-labelledby="ultrasound-title">
+      <div>
+        <span class="explainer-num">02 / 04 · medical imaging · benchmark</span>
+        <h2 id="ultrasound-title" class="drift">Breast ultrasound classification<span class="dot">.</span></h2>
+        <p class="card-outcome">Sorts breast-ultrasound images into diagnostic classes. The deep model beat a classic baseline by more than 37 percentage points.</p>
+        <p class="card-detail">EfficientNet-B0 transfer learning against Random Forest + PCA on the public BUSI dataset, with classes balanced by augmenting to 4,000 images each.</p>
+          <div class="bars" data-bars role="group" aria-label="Test accuracy">
+            <div class="bar-row">
+    <div class="bar-head"><span>EfficientNet-B0 (deep model)</span><b>95.75%</b></div>
+    <div class="bar-track"><div class="bar-fill" style="--v:0.9575"></div></div>
+  </div>
+            <div class="bar-row">
+    <div class="bar-head"><span>Random Forest + PCA (baseline)</span><b>58.2%</b></div>
+    <div class="bar-track"><div class="bar-fill is-muted" style="--v:0.582"></div></div>
+  </div>
+          </div>
+        <div class="badge"><b>0.99 AUC-ROC</b>Classes balanced to 4,000 images each before training.</div>
+        <p class="card-note">// research project, not a clinical tool.</p>
+        <div class="card-links"><a class="link-arrow" href="https://github.com/Adejare-ml/breast-ultrasound-classification" target="_blank" rel="noopener">code <span aria-hidden="true">↗</span></a></div>
+      </div>
+      <figure>
+        <figcaption class="comment stack-cap">// how the data moves</figcaption>
+        <div class="stack"><div class="plane plane-back" aria-hidden="true"></div><div class="plane plane-mid" aria-hidden="true"></div>
+          <div class="sheet"><div class="chrome"><span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="chrome-file">ultrasound_pipeline — live</span></div>
+          <div class="pipe" data-pipe style="--run:4.8s">
+            <div class="pipe-head"><span>How it works</span><span aria-hidden="true">data flows ↓</span></div>
+            <ol class="pipe-steps">
+              <li class="pipe-rail" aria-hidden="true"></li>
+              <li class="pipe-packet" aria-hidden="true"></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">01</span><div><b>BUSI images</b><span>public breast-ultrasound set</span></div></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">02</span><div><b>Balance classes</b><span>augmented to 4,000 per class</span></div></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">03</span><div><b>EfficientNet-B0</b><span>pretrained, then fine-tuned</span></div></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">04</span><div><b>Evaluate</b><span>accuracy and AUC-ROC on held-out scans</span></div></li>
+            </ol>
+          </div>
+          </div></div>
+      </figure>
+    </article>
+    <article class="explainer" id="aura" aria-labelledby="aura-title">
+      <div>
+        <span class="explainer-num">03 / 04 · llm systems · automation</span>
+        <h2 id="aura-title" class="drift">AURA news intelligence system<span class="dot">.</span></h2>
+        <p class="card-outcome">Reads the news, writes short summaries and scores the sentiment of each story, on its own, four times a day.</p>
+        <p class="card-detail">An LLM cascade runs on GitHub Actions, stores results in Google Sheets and publishes a live dashboard on GitHub Pages, at zero hosting cost.</p>
+
+        
+        
+        <div class="card-links"><a class="link-arrow" href="https://adejare-ml.github.io/News-Intelligence-System/" target="_blank" rel="noopener">live dashboard <span aria-hidden="true">↗</span></a><a class="link-arrow" href="https://github.com/Adejare-ml/News-Intelligence-System" target="_blank" rel="noopener">code <span aria-hidden="true">↗</span></a></div>
+      </div>
+      <figure>
+        <figcaption class="comment stack-cap">// how the data moves</figcaption>
+        <div class="stack"><div class="plane plane-back" aria-hidden="true"></div><div class="plane plane-mid" aria-hidden="true"></div>
+          <div class="sheet"><div class="chrome"><span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="chrome-file">aura_pipeline — live</span></div>
+          <div class="pipe" data-pipe style="--run:4.8s">
+            <div class="pipe-head"><span>How it works</span><span aria-hidden="true">data flows ↓</span></div>
+            <ol class="pipe-steps">
+              <li class="pipe-rail" aria-hidden="true"></li>
+              <li class="pipe-packet" aria-hidden="true"></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">01</span><div><b>News sources</b><span>articles collected every run</span></div></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">02</span><div><b>LLM cascade</b><span>summarise, then score sentiment</span></div></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">03</span><div><b>Google Sheets</b><span>every result stored</span></div></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">04</span><div><b>Live dashboard</b><span>GitHub Pages, $0 hosting</span></div></li>
+            </ol>
+          </div>
+          </div></div>
+      </figure>
+    </article>
+    <article class="explainer is-flipped" id="polling" aria-labelledby="polling-title">
+      <div>
+        <span class="explainer-num">04 / 04 · data engineering · internship</span>
+        <h2 id="polling-title" class="drift">Nigeria polling unit data pipeline<span class="dot">.</span></h2>
+        <p class="card-outcome">Replaced manual copying of polling-unit records with a scraper that produces one clean, structured workbook.</p>
+        <p class="card-detail">Selenium walks Nigeria’s State → LGA → Ward → Polling Unit hierarchy, a mapping layer fixes mislabelled columns, and tests run on GitHub Actions.</p>
+
+        
+        
+        <div class="card-links"><a class="link-arrow" href="https://github.com/Adejare-ml/Nigeria-Polling-Unit-Scraper" target="_blank" rel="noopener">code <span aria-hidden="true">↗</span></a></div>
+      </div>
+      <figure>
+        <figcaption class="comment stack-cap">// how the data moves</figcaption>
+        <div class="stack"><div class="plane plane-back" aria-hidden="true"></div><div class="plane plane-mid" aria-hidden="true"></div>
+          <div class="sheet"><div class="chrome"><span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="chrome-file">polling_pipeline — live</span></div>
+          <div class="pipe" data-pipe style="--run:4.8s">
+            <div class="pipe-head"><span>How it works</span><span aria-hidden="true">data flows ↓</span></div>
+            <ol class="pipe-steps">
+              <li class="pipe-rail" aria-hidden="true"></li>
+              <li class="pipe-packet" aria-hidden="true"></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">01</span><div><b>State portals</b><span>records spread across many pages</span></div></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">02</span><div><b>Selenium scraper</b><span>visits every level</span></div></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">03</span><div><b>Label mapping</b><span>fixes mislabelled columns</span></div></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">04</span><div><b>Excel workbook</b><span>one sheet per level</span></div></li>
+            </ol>
+          </div>
+          </div></div>
+      </figure>
+    </article>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="all-title">
+  <section class="section" id="all" aria-labelledby="all-title">
     <div class="section-head">
       <span class="eyebrow"><b>[</b> ALSO BUILT <b>]</b></span>
       <div class="section-head-row">
-        <h2 class="section-title drift" id="all-title">Everything I’ve built<span class="dot">.</span></h2>
+        <h2 class="section-title drift" id="all-title">More projects<span class="dot">.</span></h2>
         <span class="comment">// each card links to its repo</span>
       </div>
       
@@ -95,22 +200,19 @@
     <div class="filters" role="group" aria-label="Filter projects"><button class="filter-btn" type="button" data-filter="all" aria-pressed="true">all</button><button class="filter-btn" type="button" data-filter="ml" aria-pressed="false">machine learning</button><button class="filter-btn" type="button" data-filter="cv" aria-pressed="false">computer vision</button><button class="filter-btn" type="button" data-filter="llm" aria-pressed="false">llm & rag</button><button class="filter-btn" type="button" data-filter="data" aria-pressed="false">data engineering</button><button class="filter-btn" type="button" data-filter="automation" aria-pressed="false">automation</button><button class="filter-btn" type="button" data-filter="web" aria-pressed="false">web</button></div>
     <p class="sr-only" aria-live="polite" data-filter-status></p>
     <div class="grid-cards" style="margin-top:20px">
-      <a class="pcard" data-category="ml cv" href="https://github.com/Adejare-ml/breast-ultrasound-classification" target="_blank" rel="noopener"><span class="pcard-cat">// medical imaging</span><h3>Breast ultrasound classification</h3><p>EfficientNet-B0 vs Random Forest + PCA on BUSI, classes balanced to 4,000 images each.</p><span class="pcard-foot"><span>95.75% · 0.99 AUC</span><b>code ↗</b></span></a>
-      <a class="pcard" data-category="ml cv" href="https://github.com/Adejare-ml/med-brain-tumor-classification" target="_blank" rel="noopener"><span class="pcard-cat">// medical imaging</span><h3>Brain tumour MRI benchmark</h3><p>A supervised Vision Transformer against self-supervised DINOv2, with Grad-CAM to show where each model looks.</p><span class="pcard-foot"><span>ViT · DINOv2</span><b>code ↗</b></span></a>
-      <a class="pcard" data-category="ml" href="https://github.com/Adejare-ml/med-har-transformer-analysis" target="_blank" rel="noopener"><span class="pcard-cat">// deep learning</span><h3>Activity recognition with Transformers</h3><p>Recognises human activity from wearable-sensor data (HAR-70) with a Transformer encoder.</p><span class="pcard-foot"><span>PyTorch</span><b>code ↗</b></span></a>
-      <a class="pcard" data-category="llm automation" href="https://github.com/Adejare-ml/News-Intelligence-System" target="_blank" rel="noopener"><span class="pcard-cat">// llm systems</span><h3>AURA news intelligence</h3><p>News extraction, summaries and sentiment on an LLM cascade, with a live dashboard.</p><span class="pcard-foot"><span>4× a day · $0</span><b>code ↗</b></span></a>
-      <a class="pcard" data-category="llm" href="https://github.com/Adejare-ml/ai-engineering-internship-projects" target="_blank" rel="noopener"><span class="pcard-cat">// llm & rag</span><h3>AI engineering projects (15 tasks)</h3><p>Semantic search, RAG over ChromaDB, LLM evaluation and tool-calling agents, ending in a full-stack capstone.</p><span class="pcard-foot"><span>LangChain · FastAPI</span><b>code ↗</b></span></a>
-      <a class="pcard" data-category="data automation" href="https://github.com/Adejare-ml/Nigeria-Polling-Unit-Scraper" target="_blank" rel="noopener"><span class="pcard-cat">// data engineering</span><h3>Nigeria polling unit pipeline</h3><p>Selenium scraper that turns State → LGA → Ward → Polling Unit data into one workbook.</p><span class="pcard-foot"><span>Selenium · CI tests</span><b>code ↗</b></span></a>
-      <a class="pcard" data-category="web llm automation" href="https://github.com/Adejare-ml/JARE-MAINFRAME" target="_blank" rel="noopener"><span class="pcard-cat">// full-stack</span><h3>Jare Mainframe</h3><p>Personal finance dashboard; an LLM workflow logs spending from bank-alert emails. Works offline as an app.</p><span class="pcard-foot"><span>React · Supabase</span><b>code ↗</b></span></a>
-      <a class="pcard" data-category="ml" href="https://github.com/Adejare-ml/heart-disease-prediction" target="_blank" rel="noopener"><span class="pcard-cat">// clinical ml</span><h3>Heart disease risk prediction</h3><p>Risk classifier evaluated on ROC-AUC and recall, so risky patients are not missed.</p><span class="pcard-foot"><span>scikit-learn</span><b>code ↗</b></span></a>
-      <a class="pcard" data-category="ml web" href="https://github.com/Adejare-ml/sentry-awareness-platform" target="_blank" rel="noopener"><span class="pcard-cat">// security + ml</span><h3>SENTRY awareness platform</h3><p>Gamified training against scams with 1,600+ Nigeria-focused scenarios, plus a spam-detection model.</p><span class="pcard-foot"><span>1,600+ scenarios</span><b>code ↗</b></span></a>
-      <a class="pcard" data-category="web" href="https://github.com/Adejare-ml/kontemporary-website" target="_blank" rel="noopener"><span class="pcard-cat">// web</span><h3>Kontemporary website redesign</h3><p>Multi-page responsive redesign built during the Kontemporary Konsulting internship.</p><span class="pcard-foot"><span>HTML · CSS · JS</span><b>code ↗</b></span></a>
-      <a class="pcard" data-category="web" href="https://github.com/Adejare-ml/Bunmi_Adelugba-CO_webpage" target="_blank" rel="noopener"><span class="pcard-cat">// web</span><h3>Finance firm website</h3><p>Multi-page client website for a finance firm, with a FastAPI contact backend.</p><span class="pcard-foot"><span>FastAPI</span><b>code ↗</b></span></a>
-      <a class="pcard" data-category="web" href="https://github.com/Adejare-ml/gbenga_idowu_website" target="_blank" rel="noopener"><span class="pcard-cat">// web</span><h3>Cybersecurity portfolio site</h3><p>Portfolio website built for a cybersecurity professional.</p><span class="pcard-foot"><span>HTML · CSS · JS</span><b>code ↗</b></span></a>
+      <a class="pcard" id="med-brain-tumor-classification" data-category="ml cv" href="https://github.com/Adejare-ml/med-brain-tumor-classification" target="_blank" rel="noopener"><span class="pcard-cat">// medical imaging</span><h3>Brain tumour MRI benchmark</h3><p>A supervised Vision Transformer against self-supervised DINOv2, with Grad-CAM to show where each model looks.</p><span class="pcard-foot"><span>ViT · DINOv2</span><b>code ↗</b></span></a>
+      <a class="pcard" id="med-har-transformer-analysis" data-category="ml" href="https://github.com/Adejare-ml/med-har-transformer-analysis" target="_blank" rel="noopener"><span class="pcard-cat">// deep learning</span><h3>Activity recognition with Transformers</h3><p>Recognises human activity from wearable-sensor data (HAR-70) with a Transformer encoder.</p><span class="pcard-foot"><span>PyTorch</span><b>code ↗</b></span></a>
+      <a class="pcard" id="ai-engineering-internship-projects" data-category="llm" href="https://github.com/Adejare-ml/ai-engineering-internship-projects" target="_blank" rel="noopener"><span class="pcard-cat">// llm & rag</span><h3>AI engineering projects (15 tasks)</h3><p>Semantic search, RAG over ChromaDB, LLM evaluation and tool-calling agents, ending in a full-stack capstone.</p><span class="pcard-foot"><span>LangChain · FastAPI</span><b>code ↗</b></span></a>
+      <a class="pcard" id="jare-mainframe" data-category="web llm automation" href="https://github.com/Adejare-ml/JARE-MAINFRAME" target="_blank" rel="noopener"><span class="pcard-cat">// full-stack</span><h3>Jare Mainframe</h3><p>Personal finance dashboard; an LLM workflow logs spending from bank-alert emails. Works offline as an app.</p><span class="pcard-foot"><span>React · Supabase</span><b>code ↗</b></span></a>
+      <a class="pcard" id="heart-disease-prediction" data-category="ml" href="https://github.com/Adejare-ml/heart-disease-prediction" target="_blank" rel="noopener"><span class="pcard-cat">// clinical ml</span><h3>Heart disease risk prediction</h3><p>Risk classifier evaluated on ROC-AUC and recall, so risky patients are not missed.</p><span class="pcard-foot"><span>scikit-learn</span><b>code ↗</b></span></a>
+      <a class="pcard" id="sentry-awareness-platform" data-category="ml web" href="https://github.com/Adejare-ml/sentry-awareness-platform" target="_blank" rel="noopener"><span class="pcard-cat">// security + ml</span><h3>SENTRY awareness platform</h3><p>Gamified training against scams with 1,600+ Nigeria-focused scenarios, plus a spam-detection model.</p><span class="pcard-foot"><span>1,600+ scenarios</span><b>code ↗</b></span></a>
+      <a class="pcard" id="kontemporary-website" data-category="web" href="https://github.com/Adejare-ml/kontemporary-website" target="_blank" rel="noopener"><span class="pcard-cat">// web</span><h3>Kontemporary website redesign</h3><p>Multi-page responsive redesign built during the Kontemporary Konsulting internship.</p><span class="pcard-foot"><span>HTML · CSS · JS</span><b>code ↗</b></span></a>
+      <a class="pcard" id="bunmi_adelugba-co_webpage" data-category="web" href="https://github.com/Adejare-ml/Bunmi_Adelugba-CO_webpage" target="_blank" rel="noopener"><span class="pcard-cat">// web</span><h3>Finance firm website</h3><p>Multi-page client website for a finance firm, with a FastAPI contact backend.</p><span class="pcard-foot"><span>FastAPI</span><b>code ↗</b></span></a>
+      <a class="pcard" id="gbenga_idowu_website" data-category="web" href="https://github.com/Adejare-ml/gbenga_idowu_website" target="_blank" rel="noopener"><span class="pcard-cat">// web</span><h3>Cybersecurity portfolio site</h3><p>Portfolio website built for a cybersecurity professional.</p><span class="pcard-foot"><span>HTML · CSS · JS</span><b>code ↗</b></span></a>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="exp2-title">
+  <section class="section" id="experiments" aria-labelledby="exp2-title">
     <div class="section-head">
       <span class="eyebrow"><b>[</b> EXPERIMENTS <b>]</b></span>
       <div class="section-head-row">
@@ -120,14 +222,14 @@
       
     </div>
     <div class="grid-cards">
-      <a class="pcard" data-category="ml cv" href="https://github.com/Adejare-ml/medical-imaging-leukemia-busi-brainMRI-models" target="_blank" rel="noopener"><span class="pcard-cat">// medical imaging</span><h3>Leukemia · BUSI · Brain MRI</h3><p>Three PyTorch studies; ViT and DINOv2 reach 0.96–0.99 test accuracy on 4-class brain MRI.</p><span class="pcard-foot"><span>0.96–0.99</span><b>code ↗</b></span></a>
-      <a class="pcard" data-category="ml cv" href="https://github.com/Adejare-ml/breast-ultrasound-efficientnet-benchmark" target="_blank" rel="noopener"><span class="pcard-cat">// medical imaging</span><h3>Breast ultrasound benchmark</h3><p>EfficientNet-B0, ResNet50, SVM, XGBoost, Random Forest and Decision Tree compared on BUSI.</p><span class="pcard-foot"><span>6 models</span><b>code ↗</b></span></a>
-      <a class="pcard" data-category="ml cv" href="https://github.com/Adejare-ml/colorectal-endoscopy-kvasir-classification" target="_blank" rel="noopener"><span class="pcard-cat">// medical imaging</span><h3>GI endoscopy (Kvasir)</h3><p>EfficientNet-B0 and ResNet50 on 8-class endoscopy images, with Grad-CAM.</p><span class="pcard-foot"><span>0.91 accuracy</span><b>code ↗</b></span></a>
-      <a class="pcard" data-category="ml cv" href="https://github.com/Adejare-ml/sign-language-letter-recognition-resnet18" target="_blank" rel="noopener"><span class="pcard-cat">// computer vision</span><h3>Sign-language letters</h3><p>ResNet-18 transfer learning on 11,000 images.</p><span class="pcard-foot"><span>~95% val. accuracy</span><b>code ↗</b></span></a>
-      <a class="pcard" data-category="ml cv" href="https://github.com/Adejare-ml/ecg-image-classification-densenet121" target="_blank" rel="noopener"><span class="pcard-cat">// medical imaging</span><h3>ECG image classification</h3><p>DenseNet121 transfer learning on 2,000 ECG images.</p><span class="pcard-foot"><span>DenseNet121</span><b>code ↗</b></span></a>
-      <a class="pcard" data-category="ml" href="https://github.com/Adejare-ml/har70plus-activity-recognition-transformer" target="_blank" rel="noopener"><span class="pcard-cat">// time series</span><h3>HAR70+ activity recognition</h3><p>Transformer encoder on windowed accelerometer data.</p><span class="pcard-foot"><span>Transformer</span><b>code ↗</b></span></a>
-      <a class="pcard" data-category="ml" href="https://github.com/Adejare-ml/fraud-detection-mobile-money-paysim" target="_blank" rel="noopener"><span class="pcard-cat">// fraud</span><h3>Mobile-money fraud detection</h3><p>Random Forest with SMOTE on highly imbalanced transactions.</p><span class="pcard-foot"><span>SMOTE</span><b>code ↗</b></span></a>
-      <a class="pcard" data-category="ml" href="https://github.com/Adejare-ml/nigeria-inflation-sarima-lstm-forecast" target="_blank" rel="noopener"><span class="pcard-cat">// forecasting</span><h3>Nigeria inflation forecasting</h3><p>Hybrid SARIMA + LSTM time-series forecasting.</p><span class="pcard-foot"><span>SARIMA + LSTM</span><b>code ↗</b></span></a>
+      <a class="pcard" id="medical-imaging-leukemia-busi-brainmri-models" data-category="ml cv" href="https://github.com/Adejare-ml/medical-imaging-leukemia-busi-brainMRI-models" target="_blank" rel="noopener"><span class="pcard-cat">// medical imaging</span><h3>Leukemia · BUSI · Brain MRI</h3><p>Three PyTorch studies; ViT and DINOv2 reach 0.96–0.99 test accuracy on 4-class brain MRI.</p><span class="pcard-foot"><span>0.96–0.99</span><b>code ↗</b></span></a>
+      <a class="pcard" id="breast-ultrasound-efficientnet-benchmark" data-category="ml cv" href="https://github.com/Adejare-ml/breast-ultrasound-efficientnet-benchmark" target="_blank" rel="noopener"><span class="pcard-cat">// medical imaging</span><h3>Breast ultrasound benchmark</h3><p>EfficientNet-B0, ResNet50, SVM, XGBoost, Random Forest and Decision Tree compared on BUSI.</p><span class="pcard-foot"><span>6 models</span><b>code ↗</b></span></a>
+      <a class="pcard" id="colorectal-endoscopy-kvasir-classification" data-category="ml cv" href="https://github.com/Adejare-ml/colorectal-endoscopy-kvasir-classification" target="_blank" rel="noopener"><span class="pcard-cat">// medical imaging</span><h3>GI endoscopy (Kvasir)</h3><p>EfficientNet-B0 and ResNet50 on 8-class endoscopy images, with Grad-CAM.</p><span class="pcard-foot"><span>0.91 accuracy</span><b>code ↗</b></span></a>
+      <a class="pcard" id="sign-language-letter-recognition-resnet18" data-category="ml cv" href="https://github.com/Adejare-ml/sign-language-letter-recognition-resnet18" target="_blank" rel="noopener"><span class="pcard-cat">// computer vision</span><h3>Sign-language letters</h3><p>ResNet-18 transfer learning on 11,000 images.</p><span class="pcard-foot"><span>~95% val. accuracy</span><b>code ↗</b></span></a>
+      <a class="pcard" id="ecg-image-classification-densenet121" data-category="ml cv" href="https://github.com/Adejare-ml/ecg-image-classification-densenet121" target="_blank" rel="noopener"><span class="pcard-cat">// medical imaging</span><h3>ECG image classification</h3><p>DenseNet121 transfer learning on 2,000 ECG images.</p><span class="pcard-foot"><span>DenseNet121</span><b>code ↗</b></span></a>
+      <a class="pcard" id="har70plus-activity-recognition-transformer" data-category="ml" href="https://github.com/Adejare-ml/har70plus-activity-recognition-transformer" target="_blank" rel="noopener"><span class="pcard-cat">// time series</span><h3>HAR70+ activity recognition</h3><p>Transformer encoder on windowed accelerometer data.</p><span class="pcard-foot"><span>Transformer</span><b>code ↗</b></span></a>
+      <a class="pcard" id="fraud-detection-mobile-money-paysim" data-category="ml" href="https://github.com/Adejare-ml/fraud-detection-mobile-money-paysim" target="_blank" rel="noopener"><span class="pcard-cat">// fraud</span><h3>Mobile-money fraud detection</h3><p>Random Forest with SMOTE on highly imbalanced transactions.</p><span class="pcard-foot"><span>SMOTE</span><b>code ↗</b></span></a>
+      <a class="pcard" id="nigeria-inflation-sarima-lstm-forecast" data-category="ml" href="https://github.com/Adejare-ml/nigeria-inflation-sarima-lstm-forecast" target="_blank" rel="noopener"><span class="pcard-cat">// forecasting</span><h3>Nigeria inflation forecasting</h3><p>Hybrid SARIMA + LSTM time-series forecasting.</p><span class="pcard-foot"><span>SARIMA + LSTM</span><b>code ↗</b></span></a>
     </div>
     <a class="gh-banner" href="https://github.com/Adejare-ml" target="_blank" rel="noopener"><span>Everything else is on GitHub, including the notebooks and dead ends.</span><span>github.com/Adejare-ml ↗</span></a>
   </section>
