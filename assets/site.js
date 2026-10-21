@@ -44,7 +44,7 @@
     var packets = $$('#packets circle', svg);
 
     var BUILD = 6.4;      /* seconds for one scene to assemble */
-    var HOLD = 3.4;       /* then it idles before the next scene */
+    var HOLD = 6;         /* then it idles before the next scene */
     var cur = 0, t = BUILD, T = 0, last = 0, raf = 0;
     var auto = !reduce, userPaused = false, visible = true;
 
@@ -199,7 +199,11 @@
       var dt = last ? Math.min((now - last) / 1000, 0.1) : 0;
       last = now;
       t += dt; T += dt;
-      if (auto && t > BUILD + HOLD) show(cur + 1, false);
+      /* one pass through the scenes, then it stays on the last one */
+      if (auto && t > BUILD + HOLD) {
+        if (cur === scenes.length - 1) { auto = false; draw(); }
+        else show(cur + 1, false);
+      }
       else draw();
       schedule();
     }
@@ -302,35 +306,35 @@
     });
   }
 
-  /* ---------- numbers count up to the value already shown ---- */
+  /* ---------- result meters grow; the numbers never change ---- */
 
-  function initCounters() {
-    if (reduce) return;
-    $$('[data-count]').forEach(function (el) {
-      var raw = el.getAttribute('data-count');
-      if (!/^[\d,.]+$/.test(raw)) return;
-      var node = el.firstChild;
-      if (!node || node.nodeType !== 3) return;
-      var target = parseFloat(raw.replace(/,/g, ''));
-      var decimals = (raw.split('.')[1] || '').length;
-      var commas = raw.indexOf(',') !== -1;
-      var fmt = function (v) {
-        var s = v.toFixed(decimals);
-        return commas ? Number(s).toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) : s;
-      };
-      var io = watch(el, function (inView) {
-        if (!inView) return;
-        if (io) io.disconnect();
-        var start = 0;
-        var step = function (now) {
-          if (!start) start = now;
-          var p = easeOut((now - start) / 1300);
-          node.nodeValue = fmt(target * p);
-          if (p < 1) requestAnimationFrame(step); else node.nodeValue = raw;
-        };
-        requestAnimationFrame(step);
-      }, { threshold: 0.6 });
-    });
+  function initMeters() {
+    var strip = document.querySelector('.proof');
+    if (!strip) return;
+    if (reduce) { strip.classList.add('is-shown'); return; }
+    var io = watch(strip, function (inView) {
+      if (!inView) return;
+      strip.classList.add('is-shown');
+      if (io) io.disconnect();
+    }, { threshold: 0.4 });
+  }
+
+  /* ---------- project cards: a line draws, a packet runs it ---- */
+
+  function initCards() {
+    var cards = $$('.pcard');
+    if (!cards.length) return;
+    if (reduce || !hasIO()) { cards.forEach(function (c) { c.classList.add('is-live'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      var k = 0;
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.style.setProperty('--k', String(k++));
+        e.target.classList.add('is-live');
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.35 });
+    cards.forEach(function (c) { io.observe(c); });
   }
 
   /* ---------- featured diagram: two inputs merge ------------- */
@@ -574,8 +578,9 @@
       if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.setAttribute('aria-busy', 'true');
-        submitBtn.textContent = 'sending…';
+        submitBtn.textContent = 'Sending…';
       }
+      form.classList.add('is-sending');
       if (banner) banner.hidden = true;
 
       var showSent = function () {
@@ -604,6 +609,7 @@
       };
 
       var showSendError = function (serverMessage) {
+        form.classList.remove('is-sending');
         if (submitBtn) {
           submitBtn.disabled = false;
           submitBtn.removeAttribute('aria-busy');
@@ -673,7 +679,8 @@
     initStage();
     initPipes();
     initBars();
-    initCounters();
+    initMeters();
+    initCards();
     initFusion();
     initPortrait();
     initMobileBar();

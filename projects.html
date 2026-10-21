@@ -75,39 +75,6 @@
     </div>
   </section>
 
-  <section class="section" aria-labelledby="lessons-title">
-    <div class="section-head">
-      <span class="kicker">Decisions</span>
-      <h2 class="section-title drift" id="lessons-title">What didn’t work, and what I changed<span class="dot">.</span></h2>
-    </div>
-      <div class="lessons">
-        <article class="lesson">
-          <h3>Classic ML on raw pixels stalled</h3>
-          <dl>
-            <div class="lesson-step"><dt>Tried</dt><dd>Random Forest on PCA-reduced breast-ultrasound images.</dd></div>
-            <div class="lesson-step"><dt>Result</dt><dd>58.2% accuracy — it could not pick up texture and shape.</dd></div>
-            <div class="lesson-step is-change"><dt>Changed to</dt><dd>EfficientNet-B0 transfer learning on the same balanced data: 95.75%.</dd></div>
-          </dl>
-        </article>
-        <article class="lesson">
-          <h3>Fine-tuning everything overfit</h3>
-          <dl>
-            <div class="lesson-step"><dt>Tried</dt><dd>Unfreezing the whole MedCLIP encoder on a small medical dataset.</dd></div>
-            <div class="lesson-step"><dt>Result</dt><dd>Validation loss climbed almost immediately.</dd></div>
-            <div class="lesson-step is-change"><dt>Changed to</dt><dd>Kept the pretrained encoder frozen and trained only the heads.</dd></div>
-          </dl>
-        </article>
-        <article class="lesson">
-          <h3>Accuracy hid a useless model</h3>
-          <dl>
-            <div class="lesson-step"><dt>Tried</dt><dd>Judging early imbalanced models by accuracy.</dd></div>
-            <div class="lesson-step"><dt>Result</dt><dd>A model that predicted “benign” for everyone looked good.</dd></div>
-            <div class="lesson-step is-change"><dt>Changed to</dt><dd>Weighted the loss and chose models by ROC-AUC instead.</dd></div>
-          </dl>
-        </article>
-      </div>
-  </section>
-
   <section class="section" aria-labelledby="all-title">
     <div class="section-head">
       <span class="kicker">All projects</span>

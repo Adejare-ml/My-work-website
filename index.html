@@ -54,11 +54,10 @@
       </div>
       <h1 id="hero-title">Adejare Adelugba<span class="dot">.</span></h1>
       <p class="hero-lede">I turn messy, real-world data — medical scans, scattered public records, the daily news — into models and tools people can actually use.</p>
-      <p class="hero-proof">Best result so far: a breast-ultrasound classifier at <b>95.75% accuracy</b>, against <b>58.2%</b> for a classic baseline.</p>
       <div class="actions">
         <a class="btn btn-primary" href="#work">See the work <span aria-hidden="true">→</span></a>
         <a class="btn" href="/Adejare_Adelugba_AI_ML_Engineer_CV.pdf" download>Download CV ↓</a>
-        <a class="btn" href="mailto:adelugbaadejare03@gmail.com">Email me</a>
+        <a class="btn btn-hide-sm" href="mailto:adelugbaadejare03@gmail.com">Email me</a>
       </div>
     </div>
 
@@ -70,7 +69,7 @@
           <svg class="i-play" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9.5-5.5z" fill="currentColor"/></svg>
         </button>
       </div>
-      <div class="stage-tabs" role="tablist" aria-label="Kinds of work"><button class="stage-tab" type="button" role="tab" id="stage-tab-0" aria-controls="stage-cap-0" aria-selected="true" tabindex="0" data-scene-tab="0">Medical imaging<span class="tab-timer" aria-hidden="true"></span></button><button class="stage-tab" type="button" role="tab" id="stage-tab-1" aria-controls="stage-cap-1" aria-selected="false" tabindex="-1" data-scene-tab="1">Data pipelines<span class="tab-timer" aria-hidden="true"></span></button><button class="stage-tab" type="button" role="tab" id="stage-tab-2" aria-controls="stage-cap-2" aria-selected="false" tabindex="-1" data-scene-tab="2">LLM systems<span class="tab-timer" aria-hidden="true"></span></button></div>
+      <div class="stage-tabs" role="tablist" aria-label="Kinds of work"><button class="stage-tab" type="button" role="tab" id="stage-tab-0" aria-controls="stage-cap-0" aria-selected="true" tabindex="0" data-scene-tab="0"><span class="t-full">Medical imaging</span><span class="t-short" aria-hidden="true">Imaging</span><span class="tab-timer" aria-hidden="true"></span></button><button class="stage-tab" type="button" role="tab" id="stage-tab-1" aria-controls="stage-cap-1" aria-selected="false" tabindex="-1" data-scene-tab="1"><span class="t-full">Data pipelines</span><span class="t-short" aria-hidden="true">Pipelines</span><span class="tab-timer" aria-hidden="true"></span></button><button class="stage-tab" type="button" role="tab" id="stage-tab-2" aria-controls="stage-cap-2" aria-selected="false" tabindex="-1" data-scene-tab="2"><span class="t-full">LLM systems</span><span class="t-short" aria-hidden="true">LLMs</span><span class="tab-timer" aria-hidden="true"></span></button></div>
 <svg class="stage-svg" viewBox="0 0 600 340" role="img" aria-labelledby="stage-svg-title">
 <title id="stage-svg-title">Animated diagram: messy input flows through a model and comes out as a result</title>
 <defs><clipPath id="clip-in"><rect x="18" y="64" width="124" height="224" rx="3"/></clipPath></defs>
@@ -220,7 +219,7 @@
 <circle cx="275" cy="160" r="40" fill="none" stroke="#3a3d47" stroke-width="1"/>
 <circle id="s2-ring" cx="275" cy="160" r="40" fill="none" stroke="#a7b5f2" stroke-width="2" stroke-dasharray="40 211" stroke-linecap="round" transform="rotate(0 275 160)"/>
 <text class="s-label-ink" x="275" y="165" text-anchor="middle">Selenium</text>
-<text class="s-label" x="217" y="236">visits pages</text><text class="s-label" x="217" y="256">fixes labels</text><text class="s-label" x="217" y="276">exports Excel</text>
+<text class="s-label" x="217" y="236">visits pages</text><text class="s-label" x="217" y="256">fixes labels</text><text class="s-label" x="217" y="276">to Excel</text>
 <text class="s-label" x="412" y="90">State</text>
 <text class="s-label" x="412" y="140">LGA</text>
 <text class="s-label" x="412" y="190">Ward</text>
@@ -293,7 +292,7 @@
 <circle class="s-node" data-llm="0" cx="243" cy="100" r="17"/><text class="s-num" x="243" y="105" text-anchor="middle">1</text>
 <text class="s-label" x="268" y="104">extract</text>
 <circle class="s-node" data-llm="1" cx="243" cy="162" r="17"/><text class="s-num" x="243" y="167" text-anchor="middle">2</text>
-<text class="s-label" x="268" y="166">summarise</text>
+<text class="s-label" x="268" y="166">summary</text>
 <circle class="s-node" data-llm="2" cx="243" cy="224" r="17"/><text class="s-num" x="243" y="229" text-anchor="middle">3</text>
 <text class="s-label" x="268" y="228">score</text>
 <rect class="s-line-ink s3-sum" x="412" y="76" width="156" height="6" rx="3"/>
@@ -512,19 +511,10 @@
       </div>
   </section>
 
-  <section class="section" id="toolkit" aria-labelledby="toolkit-title">
-    <div class="section-head">
-      <span class="kicker">Toolkit</span>
-      <h2 class="section-title drift" id="toolkit-title">What I build with<span class="dot">.</span></h2>
-    </div>
-      <div class="toolkit">
-        <div class="tool-group"><h3>Machine learning</h3><p>PyTorch, TensorFlow / Keras, scikit-learn, Vision Transformers (ViT, DINOv2, MedCLIP), TabNet, CNN transfer learning, Grad-CAM, model evaluation</p></div>
-        <div class="tool-group"><h3>LLMs & RAG</h3><p>LangChain, DSPy, FAISS, ChromaDB, pgvector, Anthropic / OpenAI / Gemini APIs, LLM evaluation, tool-calling agents, MCP</p></div>
-        <div class="tool-group"><h3>Backend & deployment</h3><p>FastAPI, PostgreSQL, SQLAlchemy, Alembic, Redis, Docker, GitHub Actions, Supabase, pytest</p></div>
-        <div class="tool-group"><h3>Data engineering</h3><p>Pandas, NumPy, Selenium, BeautifulSoup, OCR / PDF parsing, Excel reporting (openpyxl), data cleaning, EDA, automation</p></div>
-        <div class="tool-group"><h3>Languages</h3><p>Python, SQL, JavaScript, C#, C++</p></div>
-      </div>
-  </section>
+  <p class="section" style="display:flex;flex-wrap:wrap;gap:4px 24px">
+    <a class="link-arrow" href="/projects">All projects <span aria-hidden="true">→</span></a>
+    <a class="link-arrow" href="/about#skills">Skills and certifications <span aria-hidden="true">→</span></a>
+  </p>
 
 </main>
 
