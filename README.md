@@ -28,7 +28,7 @@ Personal portfolio site for **Adejare Adelugba** — AI / Machine Learning Engin
 
 ```
 my-work-website/
-├── index.html      ← Home: animated "mess → meaning" hero, results, case studies
+├── index.html      ← Home: name, a plane-flight story of the path so far, three projects, contact line
 ├── about.html      ← The story: degree, IT placement, internships, current role; skills, certifications
 ├── projects.html   ← Four flagship projects, decision log, all projects (filterable)
 ├── project-*.html  ← One page per flagship project: figures, why, how, decisions, results
