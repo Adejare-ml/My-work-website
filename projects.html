@@ -8,7 +8,7 @@
 <meta name="description" content="Case studies with the decisions, trade-offs, and dead ends left in — the parts most portfolios delete.">
 <link rel="canonical" href="https://adelugba-adejare.pages.dev/projects">
 <meta property="og:title" content="Projects — Adejare Adelugba">
-<meta property="og:description" content="Case studies, model architectures, and dead ends — multimodal cancer detection, electoral data infrastructure, vision benchmarks.">
+<meta property="og:description" content="Case studies, model architectures, and dead ends — multimodal cancer detection, medical-imaging benchmarks, LLM pipelines and data engineering.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://adelugba-adejare.pages.dev/projects">
 <meta property="og:image" content="https://adelugba-adejare.pages.dev/og-preview.jpg">
@@ -26,7 +26,7 @@
 <div class="veil" aria-hidden="true">
   <div class="veil-inner">
     <span class="veil-cmd">$ cd ~/projects</span>
-    <span class="veil-roles">developer <i>&#183;</i> data scientist <i>&#183;</i> machine learning engineer</span>
+    <span class="veil-roles">developer <i>&#183;</i> data engineer <i>&#183;</i> ai / ml engineer</span>
     <span class="veil-rule"></span>
   </div>
 </div>
@@ -63,8 +63,10 @@
           <button class="filter-btn is-active" type="button" data-filter="all" aria-pressed="true">[ ALL PROJECTS ]</button>
           <button class="filter-btn" type="button" data-filter="ml" aria-pressed="false">// MACHINE LEARNING</button>
           <button class="filter-btn" type="button" data-filter="cv" aria-pressed="false">// COMPUTER VISION</button>
+          <button class="filter-btn" type="button" data-filter="llm" aria-pressed="false">// LLM &amp; RAG</button>
           <button class="filter-btn" type="button" data-filter="data" aria-pressed="false">// DATA ENGINEERING</button>
           <button class="filter-btn" type="button" data-filter="automation" aria-pressed="false">// AUTOMATION</button>
+          <button class="filter-btn" type="button" data-filter="web" aria-pressed="false">// WEB</button>
         </div>
       </section>
 
@@ -74,27 +76,27 @@
           <span class="eyebrow"><b>[</b> FEATURED CASE <b>]</b></span>
           <div class="section-head-row">
             <h2 class="section-title" style="font-size:clamp(26px, 3.2vw, 40px); line-height:1.12;">Multimodal Breast Cancer Detection<span class="dot">.</span></h2>
-            <span class="comment">// b.sc. thesis · 2025</span>
+            <span class="comment">// final-year project · 2025</span>
           </div>
         </div>
 
         <div class="panels">
           <div class="panel" data-flow="left" data-flow-i="1">
             <span class="comment">// the problem</span>
-            <p>Mammography alone misses context a clinician has on paper. The thesis asks: does fusing the image with tabular clinical features beat either signal alone — on a small, imbalanced, real dataset?</p>
-            <span class="tech">pytorch · medclip · tabnet · early fusion</span>
+            <p>An image alone misses context a clinician has on paper. The project combines MedCLIP image embeddings with TabNet clinical features to give a three-class diagnosis — on a small, imbalanced, real dataset.</p>
+            <span class="tech">pytorch · medclip · tabnet · fastapi · docker</span>
           </div>
           <div class="panel" data-flow="right" data-flow-i="2">
             <span class="comment">// the result</span>
-            <pre class="ascii">img (medclip) ──┐
-                ├─▶ concat ─▶ head ─▶ dx
-tab (tabnet)  ──┘</pre>
-            <p class="result-line">87.1% ROC-AUC, 82.7% accuracy — <i>above both unimodal baselines.</i></p>
+            <pre class="ascii">img (medclip) ─▶ p_img ──┐
+                         ├─▶ late fusion ─▶ dx (3 classes)
+tab (tabnet)  ─▶ p_tab ──┘</pre>
+            <p class="result-line">Served through a FastAPI backend, Dockerised, <i>with API contract tests.</i></p>
           </div>
         </div>
 
         <p data-flow="up" data-flow-i="3" style="margin-top:1.5rem;">
-          <a class="linkish" style="display:inline-block;" href="https://github.com/Adejare-ml/Breast_cancer_detention_using_muilt_modal_analysis" target="_blank" rel="noopener">view the repository ↗</a>
+          <a class="linkish" style="display:inline-block;" href="https://github.com/Adejare-ml/med-cancer-multimodal-diagnostics" target="_blank" rel="noopener">view the repository ↗</a>
         </p>
 
         <!-- ---- the honest section ---- -->
@@ -103,44 +105,25 @@ tab (tabnet)  ──┘</pre>
           <div class="honest-head">
             <span class="eyebrow"><b>[</b> THE HONEST SECTION <b>]</b></span>
             <h3 class="honest-title">Engineering Decisions <i class="amp">&amp;</i> What Didn't Work<span class="dot">.</span></h3>
-            <p class="honest-note">// four dead ends, kept deliberately public — expand any entry</p>
+            <p class="honest-note">// two dead ends, kept deliberately public — expand any entry</p>
           </div>
 
           <div class="honest-list" data-disclosure-group data-label-open="[-] close" data-label-shut="[+] full story">
 
             <div class="deadend is-open" data-disclosure>
-              <button class="deadend-btn" data-disclosure-btn type="button" aria-expanded="true" aria-controls="de-0">
+              <button class="deadend-btn" data-disclosure-btn type="button" aria-expanded="true" aria-controls="de-1">
                 <span class="deadend-num">01</span>
-                <span class="deadend-id">
-                  <span class="deadend-title">Late fusion came first — and lost.</span>
-                  <span class="deadend-sub">Averaging per-modality logits underperformed early fusion by ~4 AUC points.</span>
-                </span>
-                <span class="deadend-toggle">[-] close</span>
-              </button>
-              <div class="disclosure-panel" id="de-0">
-                <div>
-                  <div class="deadend-body">
-                    <p>The obvious architecture — train each modality separately, average the outputs — capped out early. The modalities never got to interact, so cases where the image and the chart disagree were exactly the ones it failed.</p>
-                    <span class="shipped">→ shipped: single fusion head over concatenated embeddings</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="deadend" data-disclosure>
-              <button class="deadend-btn" data-disclosure-btn type="button" aria-expanded="false" aria-controls="de-1">
-                <span class="deadend-num">02</span>
                 <span class="deadend-id">
                   <span class="deadend-title">Fine-tuning all of MedCLIP overfit in epochs.</span>
                   <span class="deadend-sub">Validation loss diverged almost immediately on a dataset this small.</span>
                 </span>
-                <span class="deadend-toggle">[+] full story</span>
+                <span class="deadend-toggle">[-] close</span>
               </button>
               <div class="disclosure-panel" id="de-1">
                 <div>
                   <div class="deadend-body">
                     <p>A few hundred patients cannot re-teach a foundation model. Unfreezing the full encoder memorized the training set while validation collapsed — the fix was accepting the pretrained features as-is.</p>
-                    <span class="shipped">→ shipped: frozen encoder; only the fusion head and tabnet train</span>
+                    <span class="shipped">→ shipped: frozen encoder; only the image classifier head and tabnet train</span>
                   </div>
                 </div>
               </div>
@@ -148,7 +131,7 @@ tab (tabnet)  ──┘</pre>
 
             <div class="deadend" data-disclosure>
               <button class="deadend-btn" data-disclosure-btn type="button" aria-expanded="false" aria-controls="de-2">
-                <span class="deadend-num">03</span>
+                <span class="deadend-num">02</span>
                 <span class="deadend-id">
                   <span class="deadend-title">Class imbalance made accuracy a liar.</span>
                   <span class="deadend-sub">A model predicting "benign" for everyone scored deceptively well.</span>
@@ -165,25 +148,6 @@ tab (tabnet)  ──┘</pre>
               </div>
             </div>
 
-            <div class="deadend" data-disclosure>
-              <button class="deadend-btn" data-disclosure-btn type="button" aria-expanded="false" aria-controls="de-3">
-                <span class="deadend-num">04</span>
-                <span class="deadend-id">
-                  <span class="deadend-title">XGBoost beat TabNet — alone.</span>
-                  <span class="deadend-sub">On tabular data by itself, gradient boosting won. Fused, it didn't.</span>
-                </span>
-                <span class="deadend-toggle">[+] full story</span>
-              </button>
-              <div class="disclosure-panel" id="de-3">
-                <div>
-                  <div class="deadend-body">
-                    <p>Trees don't emit embeddings, so XGBoost couldn't participate in fusion. TabNet's learned representations concatenated cleanly with the image features — the fused model outperformed any tree pipeline.</p>
-                    <span class="shipped">→ shipped: tabnet embeddings as the tabular arm of the fusion</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
       </section>
@@ -194,24 +158,35 @@ tab (tabnet)  ──┘</pre>
           <span class="eyebrow"><b>[</b> CAREER <b>]</b></span>
           <div class="section-head-row">
             <h2 class="section-title">Work history<span class="dot">.</span></h2>
-            <span class="comment">// two internships, outcomes only</span>
+            <span class="comment">// one role, two internships — outcomes only</span>
           </div>
         </div>
         <div class="history">
           <div class="job" data-flow="left" data-flow-i="1">
-            <span class="job-date">aug–sep 2025</span>
-            <h3>ML Engineering Intern — Kontemporary Konsulting</h3>
+            <span class="job-date">jul 2026 — now</span>
+            <h3>AI/ML Engineer — Integrity Organization Ltd</h3>
             <ul>
-              <li>weekly consulting reports automated end-to-end, data collection to formatted memo</li>
-              <li>corporate website designed, built, and shipped</li>
+              <li>RAG and LLM-evaluation components with pgvector and DSPy</li>
+              <li>FastAPI · PostgreSQL · Docker backend modules for internal platforms</li>
+              <li>PDF-parsing and OCR extraction pipelines with automated tests</li>
+              <li>the organisation's website and online store</li>
             </ul>
           </div>
           <div class="job" data-flow="right" data-flow-i="2">
-            <span class="job-date">mar–sep 2024</span>
-            <h3>Data &amp; Automation Intern — TETFund</h3>
+            <span class="job-date">sep–oct 2025</span>
+            <h3>Data Engineering Intern — Kontemporary Konsulting</h3>
             <ul>
-              <li>document-processing workflows automated across departments</li>
-              <li>validation scripts caught entry errors before they reached official records</li>
+              <li>Selenium scraper replaced manual polling-unit data collection</li>
+              <li>reusable Python workflow for multi-sheet Excel reports</li>
+              <li>responsive multi-page website redesign</li>
+            </ul>
+          </div>
+          <div class="job" data-flow="left" data-flow-i="3">
+            <span class="job-date">may–oct 2024</span>
+            <h3>Data Engineering Intern — TETFund</h3>
+            <ul>
+              <li>classification and reporting scripts plus an automation pipeline that cut manual reporting</li>
+              <li>more consistent datasets for institutional reporting</li>
             </ul>
           </div>
         </div>
@@ -228,39 +203,142 @@ tab (tabnet)  ──┘</pre>
         </div>
 
         <div class="minis">
-          <a class="mini" data-category="ml cv" data-flow="up" data-flow-i="1" href="https://github.com/Adejare-ml/Real-Time-Human-Activity-Recognition-Using-Time-Series-Transformers-Wearable-Sensors-HAR-70-Dataset-" target="_blank" rel="noopener">
+          <a class="mini" data-category="ml cv" data-flow="up" data-flow-i="1" href="https://github.com/Adejare-ml/breast-ultrasound-classification" target="_blank" rel="noopener">
+            <span class="mini-cat">// computer-vision</span>
+            <span class="mini-title">Breast Ultrasound Classification</span>
+            <span class="mini-desc">EfficientNet-B0 transfer learning vs Random Forest + PCA on BUSI, classes balanced to 4,000 images each.</span>
+            <span class="mini-foot"><span>95.75% acc · 0.99 auc</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="ml cv" data-flow="up" data-flow-i="2" href="https://github.com/Adejare-ml/med-brain-tumor-classification" target="_blank" rel="noopener">
+            <span class="mini-cat">// computer-vision</span>
+            <span class="mini-title">Brain Tumor MRI Benchmark</span>
+            <span class="mini-desc">Supervised Vision Transformer vs self-supervised DINOv2 for MRI tumour classification, with Grad-CAM explainability.</span>
+            <span class="mini-foot"><span>vit · dinov2 · grad-cam</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="ml" data-flow="up" data-flow-i="3" href="https://github.com/Adejare-ml/med-har-transformer-analysis" target="_blank" rel="noopener">
             <span class="mini-cat">// deep-learning</span>
             <span class="mini-title">HAR Transformer</span>
-            <span class="mini-desc">Human-activity recognition across 12 classes from wearable sensor streams.</span>
-            <span class="mini-foot"><span>92.3% acc</span><b>repo ↗</b></span>
+            <span class="mini-desc">Transformer-encoder classifier on wearable sensor data (HAR-70) with sliding windows, normalisation and positional encoding.</span>
+            <span class="mini-foot"><span>pytorch · time-series</span><b>repo ↗</b></span>
           </a>
-
-          <a class="mini" data-category="ml" data-flow="up" data-flow-i="2" href="https://github.com/Adejare-ml/Heart_disease_risk_prediction_system" target="_blank" rel="noopener">
-            <span class="mini-cat">// clinical-ml</span>
-            <span class="mini-title">Heart Disease Prediction</span>
-            <span class="mini-desc">Screening-first model — threshold tuned to catch positives, not to flatter accuracy.</span>
-            <span class="mini-foot"><span>0.91 recall</span><b>repo ↗</b></span>
+          <a class="mini" data-category="llm automation" data-flow="up" data-flow-i="4" href="https://github.com/Adejare-ml/News-Intelligence-System" target="_blank" rel="noopener">
+            <span class="mini-cat">// llm-automation</span>
+            <span class="mini-title">AURA News Intelligence</span>
+            <span class="mini-desc">News extraction, summarisation and sentiment pipeline on an LLM cascade, with a live GitHub Pages dashboard.</span>
+            <span class="mini-foot"><span>4×/day · $0 hosting</span><b>repo ↗</b></span>
           </a>
-
-          <a class="mini" data-category="automation data" data-flow="up" data-flow-i="3" href="https://github.com/Adejare-ml" target="_blank" rel="noopener">
-            <span class="mini-cat">// automation</span>
-            <span class="mini-title">TETFund Automation</span>
-            <span class="mini-desc">Document workflows scripted end-to-end during the internship.</span>
-            <span class="mini-foot"><span>~90% time saved</span><b>case ↗</b></span>
+          <a class="mini" data-category="llm" data-flow="up" data-flow-i="5" href="https://github.com/Adejare-ml/ai-engineering-internship-projects" target="_blank" rel="noopener">
+            <span class="mini-cat">// llm-rag</span>
+            <span class="mini-title">AI Engineering Internship Projects</span>
+            <span class="mini-desc">15 tasks: NLP cleaning, semantic search, RAG over ChromaDB, LLM evaluation and tool-calling agents, ending in a full-stack capstone.</span>
+            <span class="mini-foot"><span>langchain · faiss · fastapi · redis</span><b>repo ↗</b></span>
           </a>
-
-          <a class="mini" data-category="data automation" data-flow="up" data-flow-i="4" href="https://github.com/Adejare-ml" target="_blank" rel="noopener">
+          <a class="mini" data-category="data automation" data-flow="up" data-flow-i="6" href="https://github.com/Adejare-ml/Nigeria-Polling-Unit-Scraper" target="_blank" rel="noopener">
             <span class="mini-cat">// data</span>
-            <span class="mini-title">Polling Unit Scraper</span>
-            <span class="mini-desc">The resilient collector behind the electoral data infrastructure.</span>
-            <span class="mini-foot"><span>selenium · retry-safe</span><b>repo ↗</b></span>
+            <span class="mini-title">Nigeria Polling Unit Pipeline</span>
+            <span class="mini-desc">Selenium scraper structuring State → LGA → Ward → Polling Unit data into multi-sheet Excel workbooks.</span>
+            <span class="mini-foot"><span>selenium · ci tests</span><b>repo ↗</b></span>
           </a>
-
-          <a class="mini" data-category="automation" data-flow="up" data-flow-i="5" href="https://github.com/Adejare-ml" target="_blank" rel="noopener">
+          <a class="mini" data-category="web llm automation" data-flow="up" data-flow-i="7" href="https://github.com/Adejare-ml/JARE-MAINFRAME" target="_blank" rel="noopener">
+            <span class="mini-cat">// full-stack</span>
+            <span class="mini-title">Jare Mainframe</span>
+            <span class="mini-desc">Personal finance and goals dashboard; an LLM-assisted workflow logs transactions from bank alert emails. Installable, offline-capable PWA.</span>
+            <span class="mini-foot"><span>react · supabase · pwa</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="ml" data-flow="up" data-flow-i="8" href="https://github.com/Adejare-ml/heart-disease-prediction" target="_blank" rel="noopener">
+            <span class="mini-cat">// clinical-ml</span>
+            <span class="mini-title">Heart Disease Risk Prediction</span>
+            <span class="mini-desc">Risk classifier with preprocessing, scaling and ROC-AUC / recall-focused evaluation.</span>
+            <span class="mini-foot"><span>scikit-learn</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="ml web" data-flow="up" data-flow-i="9" href="https://github.com/Adejare-ml/sentry-awareness-platform" target="_blank" rel="noopener">
+            <span class="mini-cat">// security-ml</span>
+            <span class="mini-title">SENTRY Awareness Platform</span>
+            <span class="mini-desc">Gamified social-engineering training with 1,600+ Nigeria-focused scenarios, plus a TF-IDF Random Forest spam detector.</span>
+            <span class="mini-foot"><span>1,600+ scenarios</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="web" data-flow="up" data-flow-i="10" href="https://github.com/Adejare-ml/kontemporary-website" target="_blank" rel="noopener">
             <span class="mini-cat">// web</span>
-            <span class="mini-title">Corporate Website</span>
-            <span class="mini-desc">Kontemporary Konsulting's site — design through deployment.</span>
-            <span class="mini-foot"><span>shipped 2025</span><b>live ↗</b></span>
+            <span class="mini-title">Kontemporary Website Redesign</span>
+            <span class="mini-desc">Multi-page responsive redesign built during the Kontemporary Konsulting internship.</span>
+            <span class="mini-foot"><span>html · css · js</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="web" data-flow="up" data-flow-i="11" href="https://github.com/Adejare-ml/Bunmi_Adelugba-CO_webpage" target="_blank" rel="noopener">
+            <span class="mini-cat">// web</span>
+            <span class="mini-title">Finance Firm Website</span>
+            <span class="mini-desc">Multi-page client website for a finance firm, with a FastAPI contact backend.</span>
+            <span class="mini-foot"><span>html · css · js · fastapi</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="web" data-flow="up" data-flow-i="12" href="https://github.com/Adejare-ml/gbenga_idowu_website" target="_blank" rel="noopener">
+            <span class="mini-cat">// web</span>
+            <span class="mini-title">Cybersecurity Portfolio Site</span>
+            <span class="mini-desc">Portfolio website built for a cybersecurity professional.</span>
+            <span class="mini-foot"><span>html · css · js</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="web" data-flow="up" data-flow-i="13" href="https://github.com/Adejare-ml/My-work-website" target="_blank" rel="noopener">
+            <span class="mini-cat">// web</span>
+            <span class="mini-title">This Portfolio</span>
+            <span class="mini-desc">Project pages, a contact form and automatic deployment on every push.</span>
+            <span class="mini-foot"><span>cloudflare pages</span><b>repo ↗</b></span>
+          </a>
+        </div>
+
+        <div class="section-head" data-flow="up" data-flow-i="0" style="margin-top:3rem;">
+          <span class="eyebrow"><b>[</b> ML EXPERIMENTS <b>]</b></span>
+          <div class="section-head-row">
+            <h3 class="section-title" style="font-size:clamp(22px, 2.6vw, 32px);">Additional experiments<span class="dot">.</span></h3>
+            <span class="comment">// smaller studies, each with its own repo</span>
+          </div>
+        </div>
+
+        <div class="minis">
+          <a class="mini" data-category="ml cv" data-flow="up" data-flow-i="1" href="https://github.com/Adejare-ml/medical-imaging-leukemia-busi-brainMRI-models" target="_blank" rel="noopener">
+            <span class="mini-cat">// medical-imaging</span>
+            <span class="mini-title">Leukemia · BUSI · Brain MRI</span>
+            <span class="mini-desc">Three PyTorch studies; ViT and DINOv2 reach 0.96–0.99 test accuracy on 4-class brain MRI.</span>
+            <span class="mini-foot"><span>0.96–0.99 acc</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="ml cv" data-flow="up" data-flow-i="2" href="https://github.com/Adejare-ml/breast-ultrasound-efficientnet-benchmark" target="_blank" rel="noopener">
+            <span class="mini-cat">// medical-imaging</span>
+            <span class="mini-title">Breast Ultrasound Benchmark</span>
+            <span class="mini-desc">EfficientNet-B0, ResNet50, SVM, XGBoost, Random Forest and Decision Tree compared on BUSI.</span>
+            <span class="mini-foot"><span>6 models</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="ml cv" data-flow="up" data-flow-i="3" href="https://github.com/Adejare-ml/colorectal-endoscopy-kvasir-classification" target="_blank" rel="noopener">
+            <span class="mini-cat">// medical-imaging</span>
+            <span class="mini-title">GI Endoscopy (Kvasir)</span>
+            <span class="mini-desc">EfficientNet-B0 and ResNet50 on 8-class Kvasir endoscopy images, with Grad-CAM.</span>
+            <span class="mini-foot"><span>0.91 acc</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="ml cv" data-flow="up" data-flow-i="4" href="https://github.com/Adejare-ml/sign-language-letter-recognition-resnet18" target="_blank" rel="noopener">
+            <span class="mini-cat">// computer-vision</span>
+            <span class="mini-title">Sign-Language Letters</span>
+            <span class="mini-desc">ResNet-18 transfer learning on 11k images.</span>
+            <span class="mini-foot"><span>~95% val acc</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="ml cv" data-flow="up" data-flow-i="5" href="https://github.com/Adejare-ml/ecg-image-classification-densenet121" target="_blank" rel="noopener">
+            <span class="mini-cat">// medical-imaging</span>
+            <span class="mini-title">ECG Image Classification</span>
+            <span class="mini-desc">DenseNet121 transfer learning on 2,000 ECG images.</span>
+            <span class="mini-foot"><span>densenet121</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="ml" data-flow="up" data-flow-i="6" href="https://github.com/Adejare-ml/har70plus-activity-recognition-transformer" target="_blank" rel="noopener">
+            <span class="mini-cat">// time-series</span>
+            <span class="mini-title">HAR70+ Activity Recognition</span>
+            <span class="mini-desc">Transformer encoder on windowed accelerometer data.</span>
+            <span class="mini-foot"><span>transformer</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="ml" data-flow="up" data-flow-i="7" href="https://github.com/Adejare-ml/fraud-detection-mobile-money-paysim" target="_blank" rel="noopener">
+            <span class="mini-cat">// fraud</span>
+            <span class="mini-title">Mobile-Money Fraud Detection</span>
+            <span class="mini-desc">Random Forest with SMOTE on highly imbalanced transactions.</span>
+            <span class="mini-foot"><span>smote · random forest</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="ml" data-flow="up" data-flow-i="8" href="https://github.com/Adejare-ml/nigeria-inflation-sarima-lstm-forecast" target="_blank" rel="noopener">
+            <span class="mini-cat">// forecasting</span>
+            <span class="mini-title">Nigeria Inflation Forecasting</span>
+            <span class="mini-desc">Hybrid SARIMA + LSTM time-series forecasting.</span>
+            <span class="mini-foot"><span>sarima + lstm</span><b>repo ↗</b></span>
           </a>
         </div>
 
@@ -276,7 +354,7 @@ tab (tabnet)  ──┘</pre>
       <div class="cta">
         <div class="cta-copy" data-flow="left" data-flow-i="0">
           <span class="eyebrow"><b>[</b> AVAILABILITY <b>]</b></span>
-          <h2 class="cta-title">Available for ML engineering and data science roles<span class="dot">.</span></h2>
+          <h2 class="cta-title">Open to AI/ML engineering conversations and collaborations<span class="dot">.</span></h2>
           <span class="comment">// replies within 24 hours</span>
         </div>
         <div class="cta-links" data-flow="right" data-flow-i="1">

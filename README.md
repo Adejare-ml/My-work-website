@@ -3,7 +3,7 @@
 
 [![Cloudflare Pages](https://img.shields.io/badge/Deployed-Cloudflare%20Pages-orange?style=flat-square)](https://pages.cloudflare.com)
 
-Personal portfolio site for **Adejare Adelugba** — ML Engineer & Data Scientist based in Abuja, Nigeria.
+Personal portfolio site for **Adejare Adelugba** — AI / Machine Learning Engineer based in Abuja, Nigeria.
 
 ---
 
@@ -47,7 +47,7 @@ my-work-website/
 ├── profile-560/840.{webp,jpg}  ← About photo (responsive)
 ├── og-preview.jpg          ← Social share image
 │
-├── Adejare_Adelugba_Machine learning_engineer.pdf  ← Downloadable CV
+├── Adejare_Adelugba_AI_ML_Engineer_CV.pdf  ← Downloadable CV
 │
 ├── _headers                ← Cloudflare Pages headers (security, cache, noindex)
 ├── robots.txt / sitemap.xml
@@ -90,10 +90,10 @@ my-work-website/
 
 | Metric | Project |
 |---|---|
-| **87.1% ROC-AUC** | Multimodal Breast Cancer Detection (thesis) |
-| **99.9% Accuracy** | 36-state Nigerian Electoral Data Pipeline |
-| **90% Time Reduction** | TETFund Report Automation |
-| **500k+ Records** | Electoral data scraped and validated |
+| **3-class late fusion** | Multimodal Breast Cancer Detection (final-year project) |
+| **95.75% Accuracy · 0.99 AUC** | Breast Ultrasound Classification (EfficientNet-B0) |
+| **4×/day, $0 hosting** | AURA News Intelligence System |
+| **State → LGA → Ward → Unit** | Nigeria Polling Unit Data Pipeline |
 
 ---
 

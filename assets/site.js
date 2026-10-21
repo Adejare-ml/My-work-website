@@ -841,7 +841,7 @@
       { title: 'Capabilities & Tech Stack', tag: 'section', url: '/#capabilities' },
       { title: 'Contact / Reach Out', tag: 'page', url: '/contact' },
       { title: 'GitHub Profile (Adejare-ml)', tag: 'external', url: 'https://github.com/Adejare-ml', external: true },
-      { title: 'Download CV (PDF)', tag: 'download', url: '/Adejare_Adelugba_Machine%20learning_engineer.pdf', download: true }
+      { title: 'Download CV (PDF)', tag: 'download', url: '/Adejare_Adelugba_AI_ML_Engineer_CV.pdf', download: true }
     ];
 
     var backdrop = document.createElement('div');
