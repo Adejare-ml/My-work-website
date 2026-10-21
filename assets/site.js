@@ -1,276 +1,427 @@
 /* ============================================================
-   terminal-editorial v5 — behaviour
-   Ports reveal.js (initFlow) plus the DCLogic components from
-   Home / About / Projects / Contact into plain browser JS.
-   Classic script, so it also works over file://.
+   Adejare Adelugba — site script
+   Motion rule: animate graphics around text that is already on
+   the page. Nothing here hides or dims text. With reduced motion
+   every graphic is drawn in its finished state and left still.
    ============================================================ */
 (function () {
   'use strict';
 
-  var reduced = function () {
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  };
+  var reduceMQ = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  var reduce = !!(reduceMQ && reduceMQ.matches);
 
-  /* Going back is the most common move on a four-page site, and it
-     should not replay a first arrival: the visitor has read this page.
-     Used by initVeil (shorter hold, "cd -" label) and initFlow (content
-     already on screen is resolved rather than re-animated). */
-  var isReturn = (function () {
-    try {
-      var nav = performance.getEntriesByType('navigation')[0];
-      if (nav) return nav.type === 'back_forward';
-      return !!(performance.navigation && performance.navigation.type === 2);
-    } catch (e) { return false; }
-  })();
+  function $$(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+  function clamp(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function easeOut(x) { x = clamp(x); return 1 - Math.pow(1 - x, 3); }
+  function easeInOut(x) { x = clamp(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
+  function hasIO() { return 'IntersectionObserver' in window; }
 
-  /* Motion timings live in site.css :root so the token sheet stays
-     the single source of truth. Read once at boot. */
-  var TOKENS = (function () {
-    var cs = getComputedStyle(document.documentElement);
-    var ms = function (name, fallback) {
-      var v = parseFloat(cs.getPropertyValue(name));
-      return isFinite(v) ? v : fallback;
-    };
-    return {
-      flow: ms('--t-flow', 1100),
-      hero: ms('--t-hero', 1500),
-      stagger: ms('--stagger', 120),
-      flowRM: ms('--t-flow-rm', 520),
-      staggerRM: ms('--stagger-rm', 70)
-    };
-  })();
-
-  /* ---------- "flows into place" ----------------------------
-     [data-flow="left|right|up"] elements ease 44–56px into final
-     position when scrolled to, staggered in reading order via
-     data-flow-i (--stagger apart), over --t-flow (data-flow-dur
-     overrides; the hero runs longer). Each animates exactly once.
-
-     Under reduced motion they still fade in, in the same order —
-     just without the travel. See the reduced-motion block in
-     site.css for why that split is safe.
-     -------------------------------------------------------- */
-
-  var OFFSETS = {
-    left:  'translateX(-56px)',
-    right: 'translateX(56px)',
-    up:    'translateY(44px)'
-  };
-
-  /* How long until the arrival veil starts dissolving. The veil holds
-     opaque for --t-veil, and an above-the-fold reveal fires ~2 frames
-     after DOMContentLoaded — so without this the entire hero assembly
-     plays out behind an opaque screen and the visitor arrives at an
-     already-built page. Reveals are pushed to the moment the cover
-     begins to fade, so the two read as one cross-dissolve. Returns 0
-     for scroll reveals, veil-less pages, and browsers without
-     getAnimations — all of which keep today's behaviour. */
-  function veilRemaining() {
-    var v = document.querySelector('.veil');
-    if (!v || v.classList.contains('is-lifted') || !v.getAnimations) return 0;
-    var a = v.getAnimations()[0];
-    if (!a || !a.effect) return 0;
-    /* the opaque hold is the animation-delay (--t-veil), so this is
-       exact — no constant here to fall out of step with the CSS */
-    var hold = a.effect.getComputedTiming().delay || 0;
-    return Math.max(0, hold - (a.currentTime || 0));
+  function watch(el, onChange, options) {
+    if (!hasIO()) { onChange(true, el); return null; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { onChange(e.isIntersecting, e.target, e); });
+    }, options || { threshold: 0.15 });
+    io.observe(el);
+    return io;
   }
 
-  function initFlow(root) {
-    root = root || document;
-    if (!('IntersectionObserver' in window)) return; /* bail before hiding */
+  /* ---------- hero stage: "mess → meaning" ------------------
+     One clock drives three scenes. render(t) is a pure function of
+     time, so the finished frame is simply render(END). The markup
+     already holds that finished frame, which is what visitors see
+     without JavaScript or with reduced motion.
+     -------------------------------------------------------- */
 
-    var soft = reduced();
-    var all = Array.prototype.slice.call(root.querySelectorAll('[data-flow]'));
+  function initStage() {
+    var stage = document.getElementById('stage');
+    if (!stage) return;
+    var svg = stage.querySelector('.stage-svg');
+    var scenes = $$('[data-scene]', svg);
+    var tabs = $$('[data-scene-tab]', stage);
+    var caps = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
+    var timers = tabs.map(function (t) { return t.querySelector('.tab-timer'); });
+    var pauseBtn = stage.querySelector('[data-stage-pause]');
+    var packets = $$('#packets circle', svg);
 
-    /* Below the 2-up breakpoint every paired grid (.hero, .about-hero,
-       .contact-grid, .cta) collapses to one column, so side travel stops
-       encoding column position — and +56px of right travel would hold the
-       document wider than the viewport while armed. Stacked flows up. */
-    var stacked = window.matchMedia('(max-width: 767px)').matches;
+    var BUILD = 6.4;      /* seconds for one scene to assemble */
+    var HOLD = 3.4;       /* then it idles before the next scene */
+    var cur = 0, t = BUILD, T = 0, last = 0, raf = 0;
+    var auto = !reduce, userPaused = false, visible = true;
 
-    /* On a back/forward, anything at or above the restored viewport has
-       already been read — leave it alone entirely: never hidden, never
-       observed, never re-animated. This also fixes a real bug, since
-       elements ABOVE the restored scroll position never intersect and
-       would otherwise sit hidden forever, then assemble themselves again
-       when the visitor scrolled back up. Content genuinely below the fold
-       still reveals normally, so reading onward keeps its choreography. */
-    var els = isReturn
-      ? all.filter(function (el) {
-          return el.getBoundingClientRect().top >= window.innerHeight;
-        })
-      : all;
+    /* scene 0 parts */
+    var cells = $$('[data-scene="0"] .s-cell', svg).map(function (c) {
+      return { el: c, base: +c.getAttribute('data-o'), ph: +c.getAttribute('data-p'), y: +c.getAttribute('y') + 7 };
+    });
+    var scan = svg.querySelector('#s1-scan');
+    var layers = $$('[data-scene="0"] [data-layer]', svg);
+    var barA = svg.querySelector('#s1-bar-a'), barB = svg.querySelector('#s1-bar-b');
+    var barAW = barA ? +barA.getAttribute('width') : 0, barBW = barB ? +barB.getAttribute('width') : 0;
 
-    els.forEach(function (el) {
-      el.style.opacity = '0';
-      if (!soft) el.style.transform =
-        (stacked ? OFFSETS.up : OFFSETS[el.dataset.flow]) || OFFSETS.up;
+    /* scene 1 parts */
+    var docs = $$('.s2-doc', svg).map(function (d) {
+      return { el: d, x: +d.getAttribute('data-x'), y: +d.getAttribute('data-y'), r: +d.getAttribute('data-r') };
+    });
+    var ring = svg.querySelector('#s2-ring');
+    var edges = $$('[data-scene="1"] [data-edge]', svg).map(function (e) {
+      return { el: e, level: +e.getAttribute('data-edge'), len: +e.getAttribute('data-len') };
+    });
+    var nodes = $$('[data-scene="1"] [data-level]', svg).map(function (n) {
+      return { el: n, level: +n.getAttribute('data-level'), cx: +n.getAttribute('cx'), cy: +n.getAttribute('cy') };
     });
 
-    var io = new IntersectionObserver(function (entries) {
-      var step = soft ? TOKENS.staggerRM : TOKENS.stagger;
-      var hold = veilRemaining();
+    /* scene 2 parts */
+    var feed = svg.querySelector('#s3-feed');
+    var llm = $$('[data-scene="2"] [data-llm]', svg);
+    var llmEdges = $$('[data-scene="2"] [data-llm-edge]', svg);
+    var sums = $$('[data-scene="2"] .s3-sum', svg).map(function (s) {
+      return { el: s, x: +s.getAttribute('x'), y: +s.getAttribute('y') };
+    });
+    var marks = $$('[data-scene="2"] .s3-mark', svg).map(function (m) {
+      return { el: m, x: +m.getAttribute('data-x'), y: +m.getAttribute('data-y') };
+    });
 
-      /* The stagger describes elements that ARRIVE TOGETHER, so the offset
-         is this element's rank among the data-flow-i values in the current
-         batch, not its raw authored index. A whole grid landing at once
-         still cascades 0,1,2…; a lone late arrival starts immediately
-         instead of sitting blank for most of a second. Distinct indices
-         are ranked rather than entries, so authored ties (the code figure
-         shares i=2 with the role line) keep firing on the same beat. */
-      var rank = [];
-      entries.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        var n = parseInt(en.target.dataset.flowI, 10) || 0;
-        if (rank.indexOf(n) === -1) rank.push(n);
-      });
-      rank.sort(function (a, b) { return a - b; });
-
-      entries.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        var el = en.target;
-        io.unobserve(el);
-
-        var i = parseInt(el.dataset.flowI, 10) || 0;
-        var delay = hold + rank.indexOf(i) * step;
-        /* data-flow-dur="hero" defers to --t-hero rather than
-           restating it in markup; a number still wins if given */
-        var dur = soft
-          ? TOKENS.flowRM
-          : (el.dataset.flowDur === 'hero'
-              ? TOKENS.hero
-              : (parseFloat(el.dataset.flowDur) || TOKENS.flow));
-
-        el.style.setProperty('--flow-dur', dur + 'ms');
-        el.style.setProperty('--flow-delay', delay + 'ms');
-        el.classList.add('flow-armed');
-
-        /* Remove the inline start values rather than overwriting them
-           with their defaults. An inline `transform: none` outranks any
-           author rule, so leaving one behind would permanently disable
-           the :hover lift on every card, panel, job, mini and banner. */
-        requestAnimationFrame(function () {
-          el.style.removeProperty('opacity');
-          el.style.removeProperty('transform');
-        });
-
-        /* transitionend bubbles: a child's hover or bar-fill
-           transition finishing mid-reveal would otherwise strip the
-           parent's transition and snap it to its end state. */
-        el.addEventListener('transitionend', function done(e) {
-          if (e.target !== el) return;
-          el.classList.remove('flow-armed');
-          el.style.removeProperty('--flow-dur');
-          el.style.removeProperty('--flow-delay');
-          el.removeEventListener('transitionend', done);
-        });
-      });
-    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-
-    els.forEach(function (el) { io.observe(el); });
-  }
-
-  /* ---------- hero: offset planes drift on scroll ----------
-     Planes drift +10/+5px over the first 360px of scroll.
-     Static under reduced motion; cursor blink switched off.
-     -------------------------------------------------------- */
-
-  function initHeroPlanes() {
-    var back = document.querySelector('[data-plane="back"]');
-    var mid = document.querySelector('[data-plane="mid"]');
-    var cursor = document.querySelector('.cursor');
-    if (!back && !mid) return;
-
-    if (reduced()) {
-      if (cursor) cursor.style.animation = 'none';
-      return;
+    function scaleAbout(el, cx, cy, sx, sy) {
+      el.setAttribute('transform', 'translate(' + cx + ' ' + cy + ') scale(' + sx + ' ' + sy + ') translate(' + (-cx) + ' ' + (-cy) + ')');
     }
 
-    /* Latch scroll events to one rAF-aligned write per frame. */
-    var ticking = false;
-    var apply = function () {
-      ticking = false;
-      var p = Math.min(window.scrollY, 360) / 360;
-      if (back) back.style.transform =
-        'translate(' + (18 + p * 10) + 'px, ' + (18 + p * 10) + 'px)';
-      if (mid) mid.style.transform =
-        'translate(' + (9 + p * 5) + 'px, ' + (9 + p * 5) + 'px)';
-    };
-    var onScroll = function () {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(apply);
-      }
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    apply();
-  }
-
-  /* ---------- masthead condenses on scroll ------------------
-     A 72px sentinel at the top of the page drives an
-     IntersectionObserver: once it leaves the viewport the
-     sticky masthead gets .is-condensed (tighter padding,
-     smaller wordmark). No scroll math. The reduced-motion CSS
-     block makes the toggle instant, so no reduced() bail here —
-     condensing is a functional state, not decoration.
-     -------------------------------------------------------- */
-
-  function initMasthead() {
-    var head = document.querySelector('.masthead');
-    if (!head || !('IntersectionObserver' in window)) return;
-    var sentinel = document.createElement('div');
-    sentinel.setAttribute('aria-hidden', 'true');
-    sentinel.style.cssText =
-      'position:absolute;top:0;left:0;width:1px;height:72px;pointer-events:none;';
-    document.body.prepend(sentinel);
-    new IntersectionObserver(function (entries) {
-      /* a batch can hold several snapshots of the same sentinel when
-         frames coalesce; the last one is the current state */
-      head.classList.toggle(
-        'is-condensed',
-        !entries[entries.length - 1].isIntersecting
-      );
-    }).observe(sentinel);
-  }
-
-  /* ---------- disclosures ----------------------------------
-     One open at a time within a group; clicking the open one
-     closes it. Matches the DCLogic `state.open` behaviour.
-     -------------------------------------------------------- */
-
-  function initDisclosures() {
-    var groups = document.querySelectorAll('[data-disclosure-group]');
-
-    Array.prototype.forEach.call(groups, function (group) {
-      var items = group.querySelectorAll('[data-disclosure]');
-      var openLabel = group.dataset.labelOpen || '[-] close';
-      var shutLabel = group.dataset.labelShut || '[+] details';
-
-      var paint = function () {
-        Array.prototype.forEach.call(items, function (item) {
-          var btn = item.querySelector('[data-disclosure-btn]');
-          var toggle = item.querySelector('.disclosure-toggle, .deadend-toggle');
-          var open = item.classList.contains('is-open');
-          if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-          if (toggle) toggle.textContent = open ? openLabel : shutLabel;
-        });
-      };
-
-      Array.prototype.forEach.call(items, function (item) {
-        var btn = item.querySelector('[data-disclosure-btn]');
-        if (!btn) return;
-        btn.addEventListener('click', function () {
-          var wasOpen = item.classList.contains('is-open');
-          Array.prototype.forEach.call(items, function (other) {
-            other.classList.remove('is-open');
-          });
-          if (!wasOpen) item.classList.add('is-open');
-          paint();
-        });
+    /* packets stream through the two gaps between the panels */
+    var SEG = [[150, 205], [345, 400]];
+    function streams(tt, TT) {
+      var building = tt < BUILD;
+      packets.forEach(function (c, i) {
+        var seg = i < 3 ? 0 : 1, k = i % 3;
+        var on, p;
+        if (building) {
+          var w0 = seg === 0 ? 0.9 : 3.3, w1 = seg === 0 ? 3.1 : 5.3;
+          on = tt >= w0 && tt <= w1;
+          p = ((tt - w0) / 0.8 + k / 3) % 1;
+        } else {
+          on = true;
+          p = ((TT / 1.8) + k / 3 + seg * 0.17) % 1;
+        }
+        var x = SEG[seg][0] + (SEG[seg][1] - SEG[seg][0]) * p;
+        c.setAttribute('cx', x.toFixed(1));
+        c.setAttribute('cy', '170');
+        c.setAttribute('opacity', on ? (Math.sin(Math.PI * p) * (building ? 1 : 0.7)).toFixed(2) : '0');
       });
+    }
 
-      paint();
+    var render = [
+      function (tt, TT) { /* ultrasound → classifier → accuracy */
+        var scanP = tt / 1.7;
+        var scanY = 64 + 222 * easeInOut(scanP);
+        if (scan) {
+          scan.setAttribute('y', scanY.toFixed(1));
+          scan.setAttribute('opacity', scanP > 0 && scanP < 1 ? '1' : '0');
+        }
+        cells.forEach(function (c) {
+          var o = c.base * (0.72 + 0.28 * Math.sin(TT * 1.7 + c.ph));
+          if (scanP > 0 && scanP < 1 && Math.abs(c.y - scanY) < 12) o += 0.35;
+          c.el.setAttribute('opacity', o.toFixed(2));
+        });
+        layers.forEach(function (l, j) {
+          var s = 2.0 + j * 0.3;
+          var lit = tt < BUILD ? (tt >= s && tt <= s + 1.0) : (Math.floor(TT * 2.2) % 9 === j);
+          l.classList.toggle('s-layer-on', lit);
+        });
+        var b = easeOut((tt - 4.8) / 1.3);
+        if (barA) barA.setAttribute('width', (barAW * b).toFixed(1));
+        if (barB) barB.setAttribute('width', (barBW * easeOut((tt - 5.0) / 1.2)).toFixed(1));
+      },
+      function (tt, TT) { /* scattered records → scraper → hierarchy */
+        docs.forEach(function (d, i) {
+          var settle = easeOut((tt - 1.0 - i * 0.2) / 1.6);
+          var r = d.r * (1 - 0.65 * settle) + 1.6 * Math.sin(TT * 1.3 + i);
+          d.el.setAttribute('transform', 'translate(' + d.x + ' ' + d.y + ') rotate(' + r.toFixed(2) + ')');
+        });
+        if (ring) ring.setAttribute('transform', 'rotate(' + ((TT * 140) % 360).toFixed(1) + ' 275 160)');
+        edges.forEach(function (e) {
+          var p = easeOut((tt - (3.9 + (e.level - 1) * 0.65)) / 0.75);
+          e.el.setAttribute('stroke-dashoffset', (e.len * (1 - p)).toFixed(1));
+          e.el.classList.toggle('s-edge-on', p > 0.98 && tt < BUILD + 0.6);
+        });
+        nodes.forEach(function (n) {
+          var at = n.level === 0 ? 3.7 : 3.9 + (n.level - 1) * 0.65 + 0.6;
+          var p = easeOut((tt - at) / 0.45);
+          n.el.classList.toggle('s-node-on', p > 0.5);
+          scaleAbout(n.el, n.cx, n.cy, (0.4 + 0.6 * p).toFixed(3), (0.4 + 0.6 * p).toFixed(3));
+        });
+      },
+      function (tt, TT) { /* headlines → LLM cascade → brief */
+        if (feed) feed.setAttribute('transform', 'translate(0 ' + (-((TT * 20) % 224)).toFixed(1) + ')');
+        llm.forEach(function (n, i) {
+          var s = 2.0 + i * 0.55;
+          var lit = tt < BUILD ? (tt >= s) : (Math.floor(TT * 1.6) % 4 === i);
+          n.classList.toggle('s-node-on', lit);
+        });
+        llmEdges.forEach(function (e, i) {
+          e.classList.toggle('s-edge-on', tt >= 2.3 + i * 0.55);
+        });
+        sums.forEach(function (s, i) {
+          var p = easeOut((tt - 4.3 - i * 0.18) / 0.8);
+          scaleAbout(s.el, s.x, s.y, Math.max(p, 0.001).toFixed(3), 1);
+        });
+        marks.forEach(function (m, i) {
+          var p = easeOut((tt - 5.0 - i * 0.18) / 0.5);
+          m.el.setAttribute('transform', 'translate(' + m.x + ' ' + m.y + ') scale(' + (0.4 + 0.6 * p).toFixed(3) + ')');
+          m.el.setAttribute('opacity', (0.15 + 0.85 * p).toFixed(2));
+        });
+      }
+    ];
+
+    function draw() {
+      render[cur](t, T);
+      if (!reduce) streams(t, T); else packets.forEach(function (c) { c.setAttribute('opacity', '0'); });
+      timers.forEach(function (el, i) {
+        if (!el) return;
+        var p = (auto && i === cur) ? clamp(t / (BUILD + HOLD)) : 0;
+        el.style.transform = 'scaleX(' + p.toFixed(3) + ')';
+      });
+    }
+
+    function show(i, byUser) {
+      cur = (i + scenes.length) % scenes.length;
+      scenes.forEach(function (g, k) {
+        if (k === cur) g.removeAttribute('display'); else g.setAttribute('display', 'none');
+      });
+      tabs.forEach(function (tab, k) {
+        tab.setAttribute('aria-selected', k === cur ? 'true' : 'false');
+        tab.tabIndex = k === cur ? 0 : -1;
+        if (caps[k]) caps[k].hidden = k !== cur;
+      });
+      if (byUser) auto = false;
+      t = reduce ? BUILD : 0;
+      draw();
+    }
+
+    function frame(now) {
+      raf = 0;
+      var dt = last ? Math.min((now - last) / 1000, 0.1) : 0;
+      last = now;
+      t += dt; T += dt;
+      if (auto && t > BUILD + HOLD) show(cur + 1, false);
+      else draw();
+      schedule();
+    }
+
+    function running() { return !reduce && !userPaused && visible && !document.hidden; }
+    function schedule() {
+      if (running() && !raf) raf = requestAnimationFrame(frame);
+    }
+    function halt() {
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0; last = 0;
+    }
+
+    tabs.forEach(function (tab, k) {
+      tab.addEventListener('click', function () { show(k, true); halt(); schedule(); });
+      tab.addEventListener('keydown', function (e) {
+        var dir = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (e.key === 'Home') dir = -k; else if (e.key === 'End') dir = tabs.length - 1 - k;
+        if (!dir) return;
+        e.preventDefault();
+        var next = (k + dir + tabs.length) % tabs.length;
+        tabs[next].focus();
+        show(next, true); halt(); schedule();
+      });
+    });
+
+    if (pauseBtn) {
+      pauseBtn.addEventListener('click', function () {
+        userPaused = !userPaused;
+        pauseBtn.setAttribute('aria-pressed', userPaused ? 'true' : 'false');
+        pauseBtn.setAttribute('aria-label', userPaused ? 'Play animation' : 'Pause animation');
+        if (userPaused) halt(); else schedule();
+      });
+    }
+
+    watch(stage, function (inView) { visible = inView; if (inView) schedule(); else halt(); }, { threshold: 0.1 });
+    document.addEventListener('visibilitychange', function () { if (document.hidden) halt(); else schedule(); });
+
+    if (reduce) {
+      stage.classList.add('is-static');
+      show(0, false);
+    } else {
+      show(0, false);
+      schedule();
+    }
+  }
+
+  /* ---------- case-study pipelines --------------------------
+     A packet runs down each pipeline and each step lights as it
+     passes. Labels never move. Runs only while on screen.
+     -------------------------------------------------------- */
+
+  function initPipes() {
+    $$('[data-pipe]').forEach(function (pipe) {
+      var steps = pipe.querySelector('.pipe-steps');
+      var dots = $$('.pipe-dot', pipe);
+      var packet = pipe.querySelector('.pipe-packet');
+      var rail = pipe.querySelector('.pipe-rail');
+      if (!steps || dots.length < 2 || !packet) return;
+      var run = parseFloat(getComputedStyle(pipe).getPropertyValue('--run')) || 4.8;
+
+      function measure() {
+        var base = steps.getBoundingClientRect();
+        var first = dots[0].getBoundingClientRect();
+        var lastDot = dots[dots.length - 1].getBoundingClientRect();
+        var y0 = first.top - base.top + first.height / 2;
+        var y1 = lastDot.top - base.top + lastDot.height / 2;
+        var len = Math.max(y1 - y0, 1);
+        packet.style.top = (y0 - 5) + 'px';
+        packet.style.left = (first.left - base.left + first.width / 2 - 5) + 'px';
+        packet.style.setProperty('--len', len + 'px');
+        if (rail) {
+          rail.style.top = y0 + 'px';
+          rail.style.height = len + 'px';
+          rail.style.bottom = 'auto';
+          rail.style.left = (first.left - base.left + first.width / 2 - 1) + 'px';
+        }
+        dots.forEach(function (d) {
+          var r = d.getBoundingClientRect();
+          var off = (r.top - base.top + r.height / 2 - y0) / len;
+          d.style.animationDelay = (off * 0.82 * run).toFixed(3) + 's';
+        });
+      }
+      measure();
+      if ('ResizeObserver' in window) new ResizeObserver(measure).observe(steps);
+      if (!reduce) watch(pipe, function (inView) { pipe.classList.toggle('is-live', inView); }, { threshold: 0.3 });
+    });
+  }
+
+  /* ---------- comparison bars grow when first seen ---------- */
+
+  function initBars() {
+    $$('[data-bars]').forEach(function (b) {
+      if (reduce) { b.classList.add('is-shown'); return; }
+      var io = watch(b, function (inView) {
+        if (!inView) return;
+        b.classList.add('is-shown');
+        if (io) io.disconnect();
+      }, { threshold: 0.4 });
+    });
+  }
+
+  /* ---------- numbers count up to the value already shown ---- */
+
+  function initCounters() {
+    if (reduce) return;
+    $$('[data-count]').forEach(function (el) {
+      var raw = el.getAttribute('data-count');
+      if (!/^[\d,.]+$/.test(raw)) return;
+      var node = el.firstChild;
+      if (!node || node.nodeType !== 3) return;
+      var target = parseFloat(raw.replace(/,/g, ''));
+      var decimals = (raw.split('.')[1] || '').length;
+      var commas = raw.indexOf(',') !== -1;
+      var fmt = function (v) {
+        var s = v.toFixed(decimals);
+        return commas ? Number(s).toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) : s;
+      };
+      var io = watch(el, function (inView) {
+        if (!inView) return;
+        if (io) io.disconnect();
+        var start = 0;
+        var step = function (now) {
+          if (!start) start = now;
+          var p = easeOut((now - start) / 1300);
+          node.nodeValue = fmt(target * p);
+          if (p < 1) requestAnimationFrame(step); else node.nodeValue = raw;
+        };
+        requestAnimationFrame(step);
+      }, { threshold: 0.6 });
+    });
+  }
+
+  /* ---------- featured diagram: two inputs merge ------------- */
+
+  function initFusion() {
+    var svg = document.querySelector('[data-fusion]');
+    if (!svg || reduce) return;
+    var paths = $$('.s-track', svg);
+    var dots = $$('[data-fp]', svg);
+    var hub = svg.querySelector('.s-node-on');
+    if (paths.length < 3 || dots.length < 3 || !paths[0].getTotalLength) return;
+    var lens = paths.map(function (p) { return p.getTotalLength(); });
+    var raf = 0, t0 = 0;
+    function place(i, p) {
+      var pt = paths[i].getPointAtLength(lens[i] * p);
+      dots[i].setAttribute('cx', pt.x.toFixed(1));
+      dots[i].setAttribute('cy', pt.y.toFixed(1));
+      dots[i].setAttribute('opacity', p > 0 && p < 1 ? '1' : '0');
+    }
+    function frame(now) {
+      if (!t0) t0 = now;
+      var s = ((now - t0) / 1000) % 3.4;
+      place(0, easeInOut(s / 1.5));
+      place(1, easeInOut((s - 0.15) / 1.5));
+      place(2, easeInOut((s - 1.75) / 0.8));
+      if (hub) hub.style.opacity = (s > 1.5 && s < 1.9) ? '0.6' : '1';
+      raf = requestAnimationFrame(frame);
+    }
+    watch(svg, function (inView) {
+      if (inView && !raf) { t0 = 0; raf = requestAnimationFrame(frame); }
+      if (!inView && raf) { cancelAnimationFrame(raf); raf = 0; }
+    }, { threshold: 0.3 });
+  }
+
+  /* ---------- portrait scan line ---------------------------- */
+
+  function initPortrait() {
+    var fig = document.querySelector('.portrait');
+    var scanLine = fig && fig.querySelector('.portrait-scan');
+    var img = fig && fig.querySelector('img');
+    if (!scanLine || !img) return;
+    var set = function () { scanLine.style.setProperty('--h', img.getBoundingClientRect().height + 'px'); };
+    set();
+    if ('ResizeObserver' in window) new ResizeObserver(set).observe(img);
+  }
+
+  /* ---------- phone action bar ------------------------------
+     Appears once the first screen has scrolled away; steps aside
+     when the closing contact block is on screen.
+     -------------------------------------------------------- */
+
+  function initMobileBar() {
+    var bar = document.querySelector('.mobile-bar');
+    if (!bar) return;
+    var first = document.querySelector('.hero, .intro, .about-top');
+    var closingBlock = document.getElementById('contact-links');
+    var pastTop = false, nearEnd = false;
+    var update = function () { bar.classList.toggle('is-shown', pastTop && !nearEnd); };
+    if (first) watch(first, function (inView, el, e) {
+      pastTop = !inView && (!e || e.boundingClientRect.top < 0);
+      update();
+    }, { threshold: 0 });
+    if (closingBlock) watch(closingBlock, function (inView) { nearEnd = inView; update(); }, { threshold: 0 });
+  }
+
+  /* ---------- project filters ------------------------------- */
+
+  function initFilters() {
+    var buttons = $$('.filter-btn');
+    if (!buttons.length) return;
+    var cards = $$('.pcard[data-category]');
+    var status = document.querySelector('[data-filter-status]');
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var cat = btn.getAttribute('data-filter');
+        buttons.forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+        var k = 0, shown = 0;
+        cards.forEach(function (card) {
+          var cats = (card.getAttribute('data-category') || '').split(/\s+/);
+          var match = cat === 'all' || cats.indexOf(cat) !== -1;
+          card.hidden = !match;
+          card.classList.remove('is-entering');
+          if (match) {
+            shown++;
+            card.style.setProperty('--k', String(Math.min(k++, 10)));
+            void card.offsetWidth;
+            card.classList.add('is-entering');
+          }
+        });
+        if (status) status.textContent = 'Showing ' + shown + ' project' + (shown === 1 ? '' : 's') + '.';
+      });
     });
   }
 
@@ -516,569 +667,20 @@
     paint();
   }
 
-  /* ---------- copy-to-clipboard ---------------------------- */
-
-  function initCopy() {
-    var btns = document.querySelectorAll('[data-copy]');
-    Array.prototype.forEach.call(btns, function (btn) {
-      var idle = btn.textContent;
-      var timer;
-      btn.addEventListener('click', function () {
-        var value = btn.dataset.copy;
-        var done = function () {
-          btn.textContent = 'copied ✓';
-          btn.classList.add('is-copied');
-          clearTimeout(timer);
-          timer = setTimeout(function () {
-            btn.textContent = idle;
-            btn.classList.remove('is-copied');
-          }, 1800);
-        };
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(value).then(done, done);
-        } else {
-          done();
-        }
-      });
-    });
-  }
-
-  /* ---------- top progress loader -------------------------
-     A thin accent bar at the top. Fills briefly on page load,
-     and creeps while an internal navigation is in flight so
-     multi-page moves get feedback. Skipped under reduced motion.
-     -------------------------------------------------------- */
-
-  function initTopLoader() {
-    if (reduced()) return;
-    var bar = document.createElement('div');
-    bar.className = 'top-loader';
-    bar.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(bar);
-    var to, guard;
-    var start = function () {
-      clearTimeout(to);
-      bar.classList.add('is-active');
-      bar.style.width = '0%';
-      void bar.offsetWidth; /* commit 0% so the creep has a start state */
-      requestAnimationFrame(function () { bar.style.width = '85%'; });
-    };
-    var finish = function () {
-      bar.style.width = '100%';
-      clearTimeout(to);
-      to = setTimeout(function () {
-        bar.classList.remove('is-active');
-        bar.style.width = '0%';
-      }, 350);
-    };
-    /* page just rendered */
-    start();
-    setTimeout(finish, 240);
-    /* internal navigation starting */
-    document.addEventListener('click', function (e) {
-      /* a modified click opens a tab and leaves this document in place —
-         creeping the bar for a navigation that isn't happening here */
-      if (e.defaultPrevented || e.button !== 0) return;
-      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-      var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
-      if (!a || a.target === '_blank' || a.hasAttribute('download')) return;
-      var url;
-      try { url = new URL(a.href, location.href); } catch (err) { return; }
-      if (url.origin !== location.origin) return;
-      if (url.pathname === location.pathname) return; /* same page / anchor */
-      start();
-      /* same reasoning as the veil's watchdog: never leave the bar
-         pinned at 85% if the navigation never commits */
-      clearTimeout(guard);
-      guard = setTimeout(finish, 3000);
-    }, true);
-  }
-
-  /* ---------- page veil ------------------------------------
-     The veil markup is static in each page, so it covers from the
-     first paint and lifts on a CSS animation — it clears itself
-     even with JS off. This adds the other half: on internal
-     navigation the veil re-covers with the destination's label, so
-     the exit and the next page's intro read as one movement.
-     Under reduced motion the veil still greets on arrival (as a
-     cross-fade, see site.css) but navigation is left alone — no
-     interception, so those visitors never wait on an exit animation.
-     -------------------------------------------------------- */
-
-  var ROUTES = {
-    'index.html':    '$ cd ~/',
-    '':              '$ cd ~/',
-    'about.html':    '$ cd ~/about',
-    'projects.html': '$ cd ~/projects',
-    'contact.html':  '$ cd ~/contact',
-    'tokens.html':   '$ cat tokens.spec',
-    '404.html':      '$ cd ~/404',
-    'about':         '$ cd ~/about',
-    'projects':      '$ cd ~/projects',
-    'contact':       '$ cd ~/contact',
-    'tokens':        '$ cat tokens.spec'
-  };
-
-  function initVeil() {
-    var veil = document.querySelector('.veil');
-    if (!veil) return;
-
-    /* A return is the fastest transition on the site: shorter hold, and
-       the shell's own idiom for "the directory I came from". Stamped
-       before initFlow runs, so veilRemaining() reads the shortened hold. */
-    if (isReturn) {
-      veil.dataset.nav = 'return';
-      var cmd = veil.querySelector('.veil-cmd');
-      if (cmd) cmd.textContent = '$ cd -';
-    }
-
-    var lift = function () { veil.classList.add('is-lifted'); };
-
-    var clear = function () {
-      veil.classList.remove('is-leaving');
-      veil.style.opacity = '';
-      veil.style.visibility = '';
-      veil.style.transition = '';
-      lift();
-    };
-
-    /* The CSS animation clears the veil on its own (so it works with
-       JS off), but a throttled or unsupported animation would leave
-       the page covered. Force it open either way. */
-    veil.addEventListener('animationend', function (e) {
-      if (e.target === veil) lift();
-    });
-    setTimeout(lift, 1600);
-
-    /* restoring from bfcache would otherwise show the covered state */
-    window.addEventListener('pageshow', function (e) { if (e.persisted) clear(); });
-
-    /* arrival veil only: intercepting would add an exit delay these
-       visitors did not ask for */
-    if (reduced()) return;
-
-    document.addEventListener('click', function (e) {
-      if (e.defaultPrevented || e.button !== 0) return;
-      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-      var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
-      if (!a || a.target === '_blank' || a.hasAttribute('download')) return;
-
-      var url;
-      try { url = new URL(a.href, location.href); } catch (err) { return; }
-      if (url.origin !== location.origin) return;
-      if (url.pathname === location.pathname) return; /* same page / anchor */
-
-      e.preventDefault();
-      var file = url.pathname.split('/').pop();
-      var label = veil.querySelector('.veil-cmd');
-      if (label && ROUTES[file]) label.textContent = ROUTES[file];
-
-      veil.classList.remove('is-lifted');
-      veil.classList.add('is-leaving');
-      veil.style.visibility = 'visible';
-      veil.style.opacity = '0';
-      void veil.offsetWidth;
-      veil.style.opacity = '1';
-      setTimeout(function () {
-        location.href = url.href;
-        /* The navigation may never commit — the load is stopped, the
-           request stalls, or the response downloads instead of replacing
-           the document. This page would then sit sealed under an opaque,
-           click-blocking cover with no way out but a reload. On a normal
-           navigation the document is torn down and this timer dies with
-           it, so it is unobservable in the healthy case. */
-        setTimeout(clear, 6000);
-      }, 300);
-    });
-  }
-
-  /* ---------- animated benchmark bars ---------------------
-     .bar-fill grows from 0 to its inline target width when
-     scrolled into view. Static (at target) under reduced motion.
-     -------------------------------------------------------- */
-
-  function initBars() {
-    var fills = Array.prototype.slice.call(document.querySelectorAll('.bar-fill'));
-    if (!fills.length) return;
-    fills.forEach(function (f) { f.dataset.w = f.style.width || ''; });
-    if (reduced() || !('IntersectionObserver' in window)) return;
-    fills.forEach(function (f) { if (f.dataset.w) f.style.width = '0%'; });
-    var restore = function (f) { if (f.dataset.w) f.style.width = f.dataset.w; };
-    var ioAlive = false;
-    var io = new IntersectionObserver(function (entries) {
-      ioAlive = true;
-      entries.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        io.unobserve(en.target);
-        var f = en.target;
-        requestAnimationFrame(function () { restore(f); });
-      });
-    }, { threshold: 0.3 });
-    fills.forEach(function (f) { io.observe(f); });
-    /* Safety net for an observer that never fires at all. It must not
-       run on a blind timer: below-fold bars would be filled in while
-       off-screen and the grow would never be seen. A live observer
-       always delivers an initial batch, so this proves it. */
-    setTimeout(function () { if (!ioAlive) fills.forEach(restore); }, 2500);
-  }
-
-  /* ---------- count-up numbers ----------------------------
-     Animates the numeric part of .metric-num and .bar-val on
-     scroll-in, preserving surrounding markup (e.g. the % sup).
-     -------------------------------------------------------- */
-
-  function makeCounter(node) {
-    var raw = node.nodeType === 3 ? node.nodeValue : node.textContent;
-    var m = raw.match(/(\d[\d,]*(?:\.\d+)?)/);
-    if (!m) return null;
-    var numStr = m[1];
-    var target = parseFloat(numStr.replace(/,/g, ''));
-    if (!isFinite(target)) return null;
-    var decimals = (numStr.split('.')[1] || '').length;
-    var pre = raw.slice(0, m.index);
-    var post = raw.slice(m.index + numStr.length);
-    var write = function (v) {
-      var s = pre + Number(v).toFixed(decimals) + post;
-      if (node.nodeType === 3) node.nodeValue = s; else node.textContent = s;
-    };
-    write(0);
-    var ran = false;
-    return {
-      start: function () {
-        if (ran) return; ran = true;
-        var t0 = null, dur = 1100;
-        (function frame(ts) {
-          if (t0 === null) t0 = ts;
-          var p = Math.min((ts - t0) / dur, 1);
-          write(target * (1 - Math.pow(1 - p, 3)));
-          if (p < 1) requestAnimationFrame(frame); else write(target);
-        })(performance.now());
-      },
-      /* direct write of the final value — never depends on rAF firing */
-      done: function () { ran = true; write(target); }
-    };
-  }
-
-  function initCounters() {
-    if (reduced() || !('IntersectionObserver' in window)) return;
-    var items = [];
-    var add = function (owner, node) {
-      var c = makeCounter(node);
-      if (c) items.push({ owner: owner, ctl: c });
-    };
-    Array.prototype.forEach.call(document.querySelectorAll('.bar-val'), function (el) {
-      add(el, el.firstChild && el.firstChild.nodeType === 3 ? el.firstChild : el);
-    });
-    Array.prototype.forEach.call(document.querySelectorAll('.metric-num'), function (el) {
-      if (el.firstChild && el.firstChild.nodeType === 3) add(el, el.firstChild);
-    });
-    if (!items.length) return;
-    var ioAlive = false;
-    var io = new IntersectionObserver(function (entries) {
-      ioAlive = true;
-      entries.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        io.unobserve(en.target);
-        items.forEach(function (it) { if (it.owner === en.target) it.ctl.start(); });
-      });
-    }, { threshold: 0.4 });
-    items.forEach(function (it) { io.observe(it.owner); });
-    /* same reasoning as initBars: only fire if the observer is dead,
-       otherwise below-fold counters finish before they're ever seen */
-    setTimeout(function () {
-      if (!ioAlive) items.forEach(function (it) { it.ctl.done(); });
-    }, 2600);
-  }
-
-  /* ---------- image fade-in on load ----------------------- */
-
-  /* The portrait is the about page's LCP image, so it is never hidden:
-     .reveal-img only adds a settle-in scale (see site.css). */
-  function initImgReveal() {
-    if (reduced()) return;
-    var imgs = document.querySelectorAll('.portrait-frame img');
-    Array.prototype.forEach.call(imgs, function (img) {
-      img.classList.add('reveal-img');
-      var show = function () { img.classList.add('is-loaded'); };
-      /* cached image: commit the hidden frame first, or both classes
-         land in one style flush and the fade never runs */
-      if (img.complete && img.naturalWidth) { void img.offsetWidth; show(); }
-      else {
-        img.addEventListener('load', show);
-        img.addEventListener('error', show);
-        setTimeout(show, 3000); /* never leave it hidden */
-      }
-    });
-  }
-
-  /* ---------- scroll progress ----------------------------- */
-
-  function initScrollProgress() {
-    var bar = document.createElement('div');
-    bar.className = 'scroll-progress-bar';
-    bar.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(bar);
-
-    var update = function () {
-      var h = document.documentElement.scrollHeight - window.innerHeight;
-      var p = h > 0 ? (window.scrollY / h) * 100 : 0;
-      bar.style.width = Math.min(100, Math.max(0, p)) + '%';
-    };
-
-    window.addEventListener('scroll', update, { passive: true });
-    update();
-  }
-
-  /* ---------- command palette (`ctrl + k`) ---------------- */
-
-  function initCommandPalette() {
-    var itemsData = [
-      { title: 'Home', tag: 'page', url: '/' },
-      { title: 'Case Studies / Selected Work', tag: 'section', url: '/#work' },
-      { title: 'Projects Showcase', tag: 'page', url: '/projects' },
-      { title: 'About & Background', tag: 'page', url: '/about' },
-      { title: 'Experience & Timeline', tag: 'section', url: '/about#experience' },
-      { title: 'Capabilities & Tech Stack', tag: 'section', url: '/#capabilities' },
-      { title: 'Contact / Reach Out', tag: 'page', url: '/contact' },
-      { title: 'GitHub Profile (Adejare-ml)', tag: 'external', url: 'https://github.com/Adejare-ml', external: true },
-      { title: 'Download CV (PDF)', tag: 'download', url: '/Adejare_Adelugba_AI_ML_Engineer_CV.pdf', download: true }
-    ];
-
-    var backdrop = document.createElement('div');
-    backdrop.className = 'cmd-palette-backdrop';
-    backdrop.id = 'cmd-palette';
-    backdrop.setAttribute('aria-hidden', 'true');
-    /* closed = out of the tab order and the a11y tree, not just invisible */
-    backdrop.inert = true;
-
-    backdrop.innerHTML =
-      '<div class="cmd-palette-dialog" role="dialog" aria-modal="true" aria-label="Command Palette">' +
-        '<div class="cmd-palette-header">' +
-          '<span class="cmd-palette-search-icon">⌘/ctrl+k</span>' +
-          '<input type="text" class="cmd-palette-input" placeholder="Search pages, projects, actions..." aria-label="Search portfolio" role="combobox" aria-expanded="false" aria-controls="cmd-palette-list" aria-autocomplete="list">' +
-          '<span class="cmd-palette-esc">ESC</span>' +
-        '</div>' +
-        '<div class="cmd-palette-list" id="cmd-palette-list" role="listbox"></div>' +
-      '</div>';
-
-    document.body.appendChild(backdrop);
-
-    var input = backdrop.querySelector('.cmd-palette-input');
-    var list = backdrop.querySelector('.cmd-palette-list');
-    var selectedIndex = 0;
-    var currentItems = itemsData.slice();
-    var lastFocus = null;
-
-    var renderList = function () {
-      list.innerHTML = '';
-      input.removeAttribute('aria-activedescendant');
-      if (!currentItems.length) {
-        list.innerHTML = '<div style="padding:14px 18px; color:var(--muted); font-family:var(--mono); font-size:12px;">No matching results</div>';
-        return;
-      }
-      currentItems.forEach(function (it, idx) {
-        var el = document.createElement('div');
-        el.className = 'cmd-palette-item' + (idx === selectedIndex ? ' is-selected' : '');
-        el.setAttribute('role', 'option');
-        el.setAttribute('aria-selected', idx === selectedIndex ? 'true' : 'false');
-        el.id = 'cmd-opt-' + idx;
-        if (idx === selectedIndex) input.setAttribute('aria-activedescendant', el.id);
-        var title = document.createElement('span');
-        title.textContent = it.title;
-        var tag = document.createElement('span');
-        tag.className = 'cmd-palette-item-tag';
-        tag.textContent = '// ' + it.tag;
-        el.appendChild(title);
-        el.appendChild(tag);
-
-        el.addEventListener('click', function () {
-          execItem(it);
-        });
-        list.appendChild(el);
-      });
-
-      /* keyboard selection can run past the visible rows - follow it */
-      var selected = list.querySelector('.is-selected');
-      if (selected && selected.scrollIntoView) selected.scrollIntoView({ block: 'nearest' });
-    };
-
-    var execItem = function (it) {
-      closePalette();
-      if (it.external) {
-        window.open(it.url, '_blank', 'noopener');
-      } else if (it.download) {
-        var a = document.createElement('a');
-        a.href = it.url;
-        a.download = '';
-        a.click();
-      } else {
-        location.href = it.url;
-      }
-    };
-
-    var openPalette = function () {
-      lastFocus = document.activeElement;
-      backdrop.inert = false;
-      backdrop.classList.add('is-open');
-      backdrop.setAttribute('aria-hidden', 'false');
-      input.setAttribute('aria-expanded', 'true');
-      input.value = '';
-      currentItems = itemsData.slice();
-      selectedIndex = 0;
-      renderList();
-      setTimeout(function () { input.focus(); }, 50);
-    };
-
-    var closePalette = function () {
-      backdrop.classList.remove('is-open');
-      backdrop.setAttribute('aria-hidden', 'true');
-      input.setAttribute('aria-expanded', 'false');
-      backdrop.inert = true;
-      if (lastFocus && lastFocus.focus && document.contains(lastFocus)) lastFocus.focus();
-      else input.blur();
-      lastFocus = null;
-    };
-
-    input.addEventListener('input', function () {
-      var q = input.value.trim().toLowerCase();
-      if (!q) {
-        currentItems = itemsData.slice();
-      } else {
-        currentItems = itemsData.filter(function (it) {
-          return it.title.toLowerCase().indexOf(q) !== -1 || it.tag.toLowerCase().indexOf(q) !== -1;
-        });
-      }
-      selectedIndex = 0;
-      renderList();
-    });
-
-    backdrop.addEventListener('click', function (e) {
-      if (e.target === backdrop) closePalette();
-    });
-
-    var togglePalette = function () {
-      if (backdrop.classList.contains('is-open')) closePalette(); else openPalette();
-    };
-
-    /* the shortcut is undiscoverable on its own, so the nav carries a button */
-    var triggers = document.querySelectorAll('.cmd-trigger');
-    Array.prototype.forEach.call(triggers, function (trigger) {
-      trigger.addEventListener('click', function () { togglePalette(); });
-    });
-
-    document.addEventListener('keydown', function (e) {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        togglePalette();
-        return;
-      }
-      if (!backdrop.classList.contains('is-open')) return;
-
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        closePalette();
-      } else if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        if (currentItems.length) {
-          selectedIndex = (selectedIndex + 1) % currentItems.length;
-          renderList();
-        }
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        if (currentItems.length) {
-          selectedIndex = (selectedIndex - 1 + currentItems.length) % currentItems.length;
-          renderList();
-        }
-      } else if (e.key === 'Enter') {
-        e.preventDefault();
-        if (currentItems[selectedIndex]) {
-          execItem(currentItems[selectedIndex]);
-        }
-      }
-    });
-  }
-
-  /* ---------- magnetic buttons ---------------------------- */
-
-  function initMagneticButtons() {
-    if (reduced() || window.matchMedia('(pointer: coarse)').matches) return;
-
-    var btns = document.querySelectorAll('.btn-primary, .btn-ghost, [data-magnetic]');
-    Array.prototype.forEach.call(btns, function (btn) {
-      btn.addEventListener('mousemove', function (e) {
-        /* a disabled or sending button must read as inert, so no magnet pull */
-        if (btn.disabled || btn.getAttribute('aria-busy') === 'true') {
-          btn.style.transform = 'none';
-          return;
-        }
-        var rect = btn.getBoundingClientRect();
-        var cx = rect.left + rect.width / 2;
-        var cy = rect.top + rect.height / 2;
-        var dx = (e.clientX - cx) * 0.2;
-        var dy = (e.clientY - cy) * 0.2;
-        btn.style.transform = 'translate(' + Math.max(-6, Math.min(6, dx)) + 'px, ' + Math.max(-6, Math.min(6, dy)) + 'px)';
-      });
-      btn.addEventListener('mouseleave', function () {
-        btn.style.transform = 'none';
-      });
-    });
-  }
-
-  /* ---------- project filters ----------------------------- */
-
-  function initProjectFilters() {
-    var filters = document.querySelectorAll('.filter-btn');
-    if (!filters.length) return;
-
-    Array.prototype.forEach.call(filters, function (btn) {
-      btn.addEventListener('click', function () {
-        var cat = btn.dataset.filter;
-        Array.prototype.forEach.call(filters, function (f) {
-          f.classList.remove('is-active');
-          f.setAttribute('aria-pressed', 'false');
-        });
-        btn.classList.add('is-active');
-        btn.setAttribute('aria-pressed', 'true');
-
-        var items = document.querySelectorAll('[data-category]');
-        Array.prototype.forEach.call(items, function (item) {
-          var itemCats = (item.dataset.category || '').split(/\s+/);
-          if (cat === 'all' || itemCats.indexOf(cat) !== -1) {
-            item.style.display = '';
-            item.style.opacity = '1';
-          } else {
-            item.style.opacity = '0';
-            item.style.display = 'none';
-          }
-        });
-      });
-    });
-  }
-
   /* ---------- boot ---------- */
 
   function boot() {
-    initVeil();
-    initTopLoader();
-    initScrollProgress();
-    initFlow(document);
-    initHeroPlanes();
-    initMasthead();
-    initDisclosures();
-    initContactForm();
-    initCopy();
+    initStage();
+    initPipes();
     initBars();
     initCounters();
-    initImgReveal();
-    initCommandPalette();
-    initMagneticButtons();
-    initProjectFilters();
+    initFusion();
+    initPortrait();
+    initMobileBar();
+    initFilters();
+    initContactForm();
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', boot);
-  } else {
-    boot();
-  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
 })();
-

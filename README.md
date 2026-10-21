@@ -17,8 +17,8 @@ Personal portfolio site for **Adejare Adelugba** — AI / Machine Learning Engin
 
 | Page | Route | Description |
 |---|---|---|
-| Home | `/` | Hero, case studies, skills radar, certifications |
-| About | `/about` | Bio, timeline, stats |
+| Home | `/` | Animated hero, results, case studies, experience |
+| About | `/about` | Bio, experience, skills, certifications |
 | Projects | `/projects` | Full project cards with engineering details |
 | Contact | `/contact` | Contact form (Google Apps Script backend) |
 
@@ -28,72 +28,36 @@ Personal portfolio site for **Adejare Adelugba** — AI / Machine Learning Engin
 
 ```
 my-work-website/
-│
-├── index.html              ← Home page
-├── about.html              ← About / timeline
-├── projects.html           ← Full project showcase
-├── contact.html            ← Contact form
-├── 404.html                ← Custom 404 (noindex)
-├── tokens.html             ← Design-token reference (noindex)
-├── motion-lab.html         ← Motion prototypes (noindex)
-│
+├── index.html      ← Home: animated "mess → meaning" hero, results, case studies
+├── about.html      ← Bio, experience, skills, certifications
+├── projects.html   ← Featured project, lessons, all projects (filterable)
+├── contact.html    ← Contact form (Google Apps Script backend)
+├── 404.html
 ├── assets/
-│   ├── site.css            ← All styles (shared across pages)
-│   ├── site.js             ← All JS (veil, reveals, counters,
-│   │                          contact form, command palette, nav)
-│   └── ambient-grid.js     ← Background grid animation
-│
-├── favicon.svg             ← Site favicon
-├── profile-560/840.{webp,jpg}  ← About photo (responsive)
-├── og-preview.jpg          ← Social share image
-│
-├── Adejare_Adelugba_AI_ML_Engineer_CV.pdf  ← Downloadable CV
-│
-├── _headers                ← Cloudflare Pages headers (security, cache, noindex)
-├── robots.txt / sitemap.xml
-│
-└── redesign/               ← Design prototypes (noindex, not linked)
+│   ├── site.css    ← All styles
+│   └── site.js     ← Hero animation, pipeline diagrams, filters, contact form
+├── Adejare_Adelugba_AI_ML_Engineer_CV.pdf
+├── _headers, robots.txt, sitemap.xml
+└── redesign/       ← Older design prototypes (noindex, not linked)
 ```
 
----
+## Motion rules
+
+- Motion moves graphics around text that is already on the page. Text is never faded in, dimmed or held back.
+- The hero diagram's HTML already holds its finished frame, so visitors without JavaScript, or with reduced motion turned on, see the complete result.
+- Animations run only while they are on screen, and the hero has a pause button.
+- Scroll effects use CSS scroll-driven animations where supported; other browsers simply see the static design.
 
 ## Tech Stack
 
 | Layer | Technology |
 |---|---|
 | Markup | Semantic HTML5 |
-| Styling | Vanilla CSS (glassmorphism design system, v9 dark theme) |
-| Scripting | Vanilla JS (ES5/ES6, no framework, no build step) |
-| Icons | Font Awesome 6.4 via CDN |
-| Fonts | Plus Jakarta Sans + JetBrains Mono via Google Fonts |
-| Canvas | HTML5 Canvas — interactive neural network background |
-| Charts | SVG radar chart (hand-drawn in JS, no library) |
+| Styling | Vanilla CSS, scroll-driven animations, cross-document view transitions |
+| Scripting | Vanilla JS, no framework, no build step |
+| Fonts | Newsreader, Hanken Grotesk, JetBrains Mono (Google Fonts) |
 | Contact | Google Apps Script webhook |
-| Deployment | Cloudflare Pages (auto-deploy on push to `main`) |
-
----
-
-## Key Features
-
-- **Neural network canvas** — interactive background, mouse-reactive nodes
-- **SVG radar chart** — competency radar, animates on scroll
-- **Animated counters** — metrics count up when scrolled into view
-- **Scroll reveal** — staggered entrance animations via IntersectionObserver
-- **GitHub API integration** — fetches and renders public repos live
-- **Contact form** — POST to Google Apps Script, no server needed
-- **Responsive** — breakpoints at 900px, 768px, 480px, 360px
-- **`prefers-reduced-motion`** — all animations respect the OS setting
-
----
-
-## Key Metrics on Site
-
-| Metric | Project |
-|---|---|
-| **3-class late fusion** | Multimodal Breast Cancer Detection (final-year project) |
-| **95.75% Accuracy · 0.99 AUC** | Breast Ultrasound Classification (EfficientNet-B0) |
-| **4×/day, $0 hosting** | AURA News Intelligence System |
-| **State → LGA → Ward → Unit** | Nigeria Polling Unit Data Pipeline |
+| Deployment | Cloudflare Pages |
 
 ---
 
