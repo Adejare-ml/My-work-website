@@ -2,567 +2,378 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#1c1d21">
 <title>Projects — Adejare Adelugba</title>
-<meta name="description" content="Four flagship projects, each with its own page covering why I built it, the decisions I made and the results, plus every other project and experiment.">
+<meta name="description" content="Case studies with the decisions, trade-offs, and dead ends left in — the parts most portfolios delete.">
 <link rel="canonical" href="https://adelugba-adejare.pages.dev/projects">
 <meta property="og:title" content="Projects — Adejare Adelugba">
-<meta property="og:description" content="Four flagship projects, each with its own page covering why I built it, the decisions I made and the results, plus every other project and experiment.">
+<meta property="og:description" content="Case studies, model architectures, and dead ends — multimodal cancer detection, medical-imaging benchmarks, LLM pipelines and data engineering.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://adelugba-adejare.pages.dev/projects">
 <meta property="og:image" content="https://adelugba-adejare.pages.dev/og-preview.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Projects — Adejare Adelugba">
-<meta name="twitter:description" content="Four flagship projects, each with its own page covering why I built it, the decisions I made and the results, plus every other project and experiment.">
+<meta name="twitter:description" content="Detailed case studies, architecture diagrams, and documented failed experiments.">
 <meta name="twitter:image" content="https://adelugba-adejare.pages.dev/og-preview.jpg">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=11">
-<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="/assets/site.css?v=6">
 </head>
-<body class="has-mobile-bar">
-<a class="skip" href="#main">Skip to content</a>
-<div class="progress" aria-hidden="true"></div>
-<header class="masthead">
-  <div class="wrap masthead-row">
-    <a class="wordmark" href="./" aria-label="Adejare Adelugba, home"><span class="wm-full">adejare adelugba</span><span class="wm-short" aria-hidden="true">adejare</span><span class="caret" aria-hidden="true">_</span></a>
-    <nav class="nav" aria-label="Main">
-      <a href="./">home</a>
-      <a href="projects" aria-current="page">projects</a>
-      <a href="about">about</a>
-      <a href="contact">contact</a>
-    </nav>
+<body>
+<div class="veil" aria-hidden="true">
+  <div class="veil-inner">
+    <span class="veil-cmd">$ cd ~/projects</span>
+    <span class="veil-roles">developer <i>&#183;</i> data engineer <i>&#183;</i> ai / ml engineer</span>
+    <span class="veil-rule"></span>
   </div>
-</header>
+</div>
+
+<a class="skip" href="#main">skip to content</a>
+
 <div class="page">
-<div class="wrap">
-<main id="main">
+  <div class="well">
 
-  <section class="hero proj-hero" aria-labelledby="proj-title">
-    <div class="intro">
-    <span class="eyebrow"><b>[</b> THE WORK <b>]</b></span>
-    <h1 class="page-title" id="proj-title">Projects<span class="dot">.</span></h1>
-    <p class="lede">Four flagship projects, each with its own page: why I built it, the problems I hit, the decisions I made and the results. Then everything else I’ve built.</p>
-    <nav class="jump" aria-label="Flagship project pages"><a href="project-multimodal">01 multimodal cancer</a><a href="project-ultrasound">02 breast ultrasound</a><a href="project-aura">03 aura news</a><a href="project-polling">04 polling units</a></nav>
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a class="wordmark" href="/">~/adejare.ml<span>_</span></a>
+        <nav class="nav" aria-label="Main">
+          <a href="/">home</a>
+          <a href="/about">about</a>
+          <a href="/projects" aria-current="page">projects</a>
+          <a href="/contact">contact</a>
+          <button class="cmd-trigger" type="button" aria-haspopup="dialog"
+                  aria-controls="cmd-palette" aria-keyshortcuts="Control+K Meta+K"
+                  aria-label="Search this site (Ctrl K)" title="Search (Ctrl K)">⌘K</button>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+
+      <section class="intro">
+        <span class="eyebrow" data-flow="up" data-flow-i="0"><b>[</b> THE WORK <b>]</b></span>
+        <h1 class="page-title" data-flow="up" data-flow-i="1">Projects<span class="dot">.</span></h1>
+        <p class="lede" data-flow="up" data-flow-i="2">Case studies with the decisions, trade-offs, and dead ends left in — the parts most portfolios delete.</p>
+
+        <!-- Category Filter Buttons -->
+        <div class="project-filters" data-flow="up" data-flow-i="3" style="margin-top: 1.5rem;" role="group" aria-label="Filter projects">
+          <button class="filter-btn is-active" type="button" data-filter="all" aria-pressed="true">[ ALL PROJECTS ]</button>
+          <button class="filter-btn" type="button" data-filter="ml" aria-pressed="false">// MACHINE LEARNING</button>
+          <button class="filter-btn" type="button" data-filter="cv" aria-pressed="false">// COMPUTER VISION</button>
+          <button class="filter-btn" type="button" data-filter="llm" aria-pressed="false">// LLM &amp; RAG</button>
+          <button class="filter-btn" type="button" data-filter="data" aria-pressed="false">// DATA ENGINEERING</button>
+          <button class="filter-btn" type="button" data-filter="automation" aria-pressed="false">// AUTOMATION</button>
+          <button class="filter-btn" type="button" data-filter="web" aria-pressed="false">// WEB</button>
+        </div>
+      </section>
+
+      <!-- ============ featured case ============ -->
+      <section class="section">
+        <div class="section-head" data-flow="up" data-flow-i="0">
+          <span class="eyebrow"><b>[</b> FEATURED CASE <b>]</b></span>
+          <div class="section-head-row">
+            <h2 class="section-title" style="font-size:clamp(26px, 3.2vw, 40px); line-height:1.12;">Multimodal Breast Cancer Detection<span class="dot">.</span></h2>
+            <span class="comment">// final-year project · 2025</span>
+          </div>
+        </div>
+
+        <div class="panels">
+          <div class="panel" data-flow="left" data-flow-i="1">
+            <span class="comment">// the problem</span>
+            <p>An image alone misses context a clinician has on paper. The project combines MedCLIP image embeddings with TabNet clinical features to give a three-class diagnosis — on a small, imbalanced, real dataset.</p>
+            <span class="tech">pytorch · medclip · tabnet · fastapi · docker</span>
+          </div>
+          <div class="panel" data-flow="right" data-flow-i="2">
+            <span class="comment">// the result</span>
+            <pre class="ascii">img (medclip) ─▶ p_img ──┐
+                         ├─▶ late fusion ─▶ dx (3 classes)
+tab (tabnet)  ─▶ p_tab ──┘</pre>
+            <p class="result-line">Served through a FastAPI backend, Dockerised, <i>with API contract tests.</i></p>
+          </div>
+        </div>
+
+        <p data-flow="up" data-flow-i="3" style="margin-top:1.5rem;">
+          <a class="linkish" style="display:inline-block;" href="https://github.com/Adejare-ml/med-cancer-multimodal-diagnostics" target="_blank" rel="noopener">view the repository ↗</a>
+        </p>
+
+        <!-- ---- the honest section ---- -->
+        <div class="honest" data-flow="up" data-flow-i="4">
+          <div class="honest-rule"></div>
+          <div class="honest-head">
+            <span class="eyebrow"><b>[</b> THE HONEST SECTION <b>]</b></span>
+            <h3 class="honest-title">Engineering Decisions <i class="amp">&amp;</i> What Didn't Work<span class="dot">.</span></h3>
+            <p class="honest-note">// two dead ends, kept deliberately public — expand any entry</p>
+          </div>
+
+          <div class="honest-list" data-disclosure-group data-label-open="[-] close" data-label-shut="[+] full story">
+
+            <div class="deadend is-open" data-disclosure>
+              <button class="deadend-btn" data-disclosure-btn type="button" aria-expanded="true" aria-controls="de-1">
+                <span class="deadend-num">01</span>
+                <span class="deadend-id">
+                  <span class="deadend-title">Fine-tuning all of MedCLIP overfit in epochs.</span>
+                  <span class="deadend-sub">Validation loss diverged almost immediately on a dataset this small.</span>
+                </span>
+                <span class="deadend-toggle">[-] close</span>
+              </button>
+              <div class="disclosure-panel" id="de-1">
+                <div>
+                  <div class="deadend-body">
+                    <p>A few hundred patients cannot re-teach a foundation model. Unfreezing the full encoder memorized the training set while validation collapsed — the fix was accepting the pretrained features as-is.</p>
+                    <span class="shipped">→ shipped: frozen encoder; only the image classifier head and tabnet train</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="deadend" data-disclosure>
+              <button class="deadend-btn" data-disclosure-btn type="button" aria-expanded="false" aria-controls="de-2">
+                <span class="deadend-num">02</span>
+                <span class="deadend-id">
+                  <span class="deadend-title">Class imbalance made accuracy a liar.</span>
+                  <span class="deadend-sub">A model predicting "benign" for everyone scored deceptively well.</span>
+                </span>
+                <span class="deadend-toggle">[+] full story</span>
+              </button>
+              <div class="disclosure-panel" id="de-2">
+                <div>
+                  <div class="deadend-body">
+                    <p>Early runs looked great until the confusion matrix told the truth. Model selection moved to ROC-AUC, training got a class-weighted loss, and every later comparison reports both.</p>
+                    <span class="shipped">→ shipped: weighted loss + auc-based model selection</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ work history ============ -->
+      <section class="section">
+        <div class="section-head" data-flow="up" data-flow-i="0">
+          <span class="eyebrow"><b>[</b> CAREER <b>]</b></span>
+          <div class="section-head-row">
+            <h2 class="section-title">Work history<span class="dot">.</span></h2>
+            <span class="comment">// one role, two internships — outcomes only</span>
+          </div>
+        </div>
+        <div class="history">
+          <div class="job" data-flow="left" data-flow-i="1">
+            <span class="job-date">jul 2026 — now</span>
+            <h3>AI/ML Engineer — Integrity Organization Ltd</h3>
+            <ul>
+              <li>RAG and LLM-evaluation components with pgvector and DSPy</li>
+              <li>FastAPI · PostgreSQL · Docker backend modules for internal platforms</li>
+              <li>PDF-parsing and OCR extraction pipelines with automated tests</li>
+              <li>the organisation's website and online store</li>
+            </ul>
+          </div>
+          <div class="job" data-flow="right" data-flow-i="2">
+            <span class="job-date">sep–oct 2025</span>
+            <h3>Data Engineering Intern — Kontemporary Konsulting</h3>
+            <ul>
+              <li>Selenium scraper replaced manual polling-unit data collection</li>
+              <li>reusable Python workflow for multi-sheet Excel reports</li>
+              <li>responsive multi-page website redesign</li>
+            </ul>
+          </div>
+          <div class="job" data-flow="left" data-flow-i="3">
+            <span class="job-date">may–oct 2024</span>
+            <h3>Data Engineering Intern — TETFund</h3>
+            <ul>
+              <li>classification and reporting scripts plus an automation pipeline that cut manual reporting</li>
+              <li>more consistent datasets for institutional reporting</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ more projects ============ -->
+      <section class="section">
+        <div class="section-head" data-flow="up" data-flow-i="0">
+          <span class="eyebrow"><b>[</b> ALSO BUILT <b>]</b></span>
+          <div class="section-head-row">
+            <h2 class="section-title">More projects<span class="dot">.</span></h2>
+            <span class="comment">// each links to its repo</span>
+          </div>
+        </div>
+
+        <div class="minis">
+          <a class="mini" data-category="ml cv" data-flow="up" data-flow-i="1" href="https://github.com/Adejare-ml/breast-ultrasound-classification" target="_blank" rel="noopener">
+            <span class="mini-cat">// computer-vision</span>
+            <span class="mini-title">Breast Ultrasound Classification</span>
+            <span class="mini-desc">EfficientNet-B0 transfer learning vs Random Forest + PCA on BUSI, classes balanced to 4,000 images each.</span>
+            <span class="mini-foot"><span>95.75% acc · 0.99 auc</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="ml cv" data-flow="up" data-flow-i="2" href="https://github.com/Adejare-ml/med-brain-tumor-classification" target="_blank" rel="noopener">
+            <span class="mini-cat">// computer-vision</span>
+            <span class="mini-title">Brain Tumor MRI Benchmark</span>
+            <span class="mini-desc">Supervised Vision Transformer vs self-supervised DINOv2 for MRI tumour classification, with Grad-CAM explainability.</span>
+            <span class="mini-foot"><span>vit · dinov2 · grad-cam</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="ml" data-flow="up" data-flow-i="3" href="https://github.com/Adejare-ml/med-har-transformer-analysis" target="_blank" rel="noopener">
+            <span class="mini-cat">// deep-learning</span>
+            <span class="mini-title">HAR Transformer</span>
+            <span class="mini-desc">Transformer-encoder classifier on wearable sensor data (HAR-70) with sliding windows, normalisation and positional encoding.</span>
+            <span class="mini-foot"><span>pytorch · time-series</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="llm automation" data-flow="up" data-flow-i="4" href="https://github.com/Adejare-ml/News-Intelligence-System" target="_blank" rel="noopener">
+            <span class="mini-cat">// llm-automation</span>
+            <span class="mini-title">AURA News Intelligence</span>
+            <span class="mini-desc">News extraction, summarisation and sentiment pipeline on an LLM cascade, with a live GitHub Pages dashboard.</span>
+            <span class="mini-foot"><span>4×/day · $0 hosting</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="llm" data-flow="up" data-flow-i="5" href="https://github.com/Adejare-ml/ai-engineering-internship-projects" target="_blank" rel="noopener">
+            <span class="mini-cat">// llm-rag</span>
+            <span class="mini-title">AI Engineering Internship Projects</span>
+            <span class="mini-desc">15 tasks: NLP cleaning, semantic search, RAG over ChromaDB, LLM evaluation and tool-calling agents, ending in a full-stack capstone.</span>
+            <span class="mini-foot"><span>langchain · faiss · fastapi · redis</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="data automation" data-flow="up" data-flow-i="6" href="https://github.com/Adejare-ml/Nigeria-Polling-Unit-Scraper" target="_blank" rel="noopener">
+            <span class="mini-cat">// data</span>
+            <span class="mini-title">Nigeria Polling Unit Pipeline</span>
+            <span class="mini-desc">Selenium scraper structuring State → LGA → Ward → Polling Unit data into multi-sheet Excel workbooks.</span>
+            <span class="mini-foot"><span>selenium · ci tests</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="web llm automation" data-flow="up" data-flow-i="7" href="https://github.com/Adejare-ml/JARE-MAINFRAME" target="_blank" rel="noopener">
+            <span class="mini-cat">// full-stack</span>
+            <span class="mini-title">Jare Mainframe</span>
+            <span class="mini-desc">Personal finance and goals dashboard; an LLM-assisted workflow logs transactions from bank alert emails. Installable, offline-capable PWA.</span>
+            <span class="mini-foot"><span>react · supabase · pwa</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="ml" data-flow="up" data-flow-i="8" href="https://github.com/Adejare-ml/heart-disease-prediction" target="_blank" rel="noopener">
+            <span class="mini-cat">// clinical-ml</span>
+            <span class="mini-title">Heart Disease Risk Prediction</span>
+            <span class="mini-desc">Risk classifier with preprocessing, scaling and ROC-AUC / recall-focused evaluation.</span>
+            <span class="mini-foot"><span>scikit-learn</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="ml web" data-flow="up" data-flow-i="9" href="https://github.com/Adejare-ml/sentry-awareness-platform" target="_blank" rel="noopener">
+            <span class="mini-cat">// security-ml</span>
+            <span class="mini-title">SENTRY Awareness Platform</span>
+            <span class="mini-desc">Gamified social-engineering training with 1,600+ Nigeria-focused scenarios, plus a TF-IDF Random Forest spam detector.</span>
+            <span class="mini-foot"><span>1,600+ scenarios</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="web" data-flow="up" data-flow-i="10" href="https://github.com/Adejare-ml/kontemporary-website" target="_blank" rel="noopener">
+            <span class="mini-cat">// web</span>
+            <span class="mini-title">Kontemporary Website Redesign</span>
+            <span class="mini-desc">Multi-page responsive redesign built during the Kontemporary Konsulting internship.</span>
+            <span class="mini-foot"><span>html · css · js</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="web" data-flow="up" data-flow-i="11" href="https://github.com/Adejare-ml/Bunmi_Adelugba-CO_webpage" target="_blank" rel="noopener">
+            <span class="mini-cat">// web</span>
+            <span class="mini-title">Finance Firm Website</span>
+            <span class="mini-desc">Multi-page client website for a finance firm, with a FastAPI contact backend.</span>
+            <span class="mini-foot"><span>html · css · js · fastapi</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="web" data-flow="up" data-flow-i="12" href="https://github.com/Adejare-ml/gbenga_idowu_website" target="_blank" rel="noopener">
+            <span class="mini-cat">// web</span>
+            <span class="mini-title">Cybersecurity Portfolio Site</span>
+            <span class="mini-desc">Portfolio website built for a cybersecurity professional.</span>
+            <span class="mini-foot"><span>html · css · js</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="web" data-flow="up" data-flow-i="13" href="https://github.com/Adejare-ml/My-work-website" target="_blank" rel="noopener">
+            <span class="mini-cat">// web</span>
+            <span class="mini-title">This Portfolio</span>
+            <span class="mini-desc">Project pages, a contact form and automatic deployment on every push.</span>
+            <span class="mini-foot"><span>cloudflare pages</span><b>repo ↗</b></span>
+          </a>
+        </div>
+
+        <div class="section-head" data-flow="up" data-flow-i="0" style="margin-top:3rem;">
+          <span class="eyebrow"><b>[</b> ML EXPERIMENTS <b>]</b></span>
+          <div class="section-head-row">
+            <h3 class="section-title" style="font-size:clamp(22px, 2.6vw, 32px);">Additional experiments<span class="dot">.</span></h3>
+            <span class="comment">// smaller studies, each with its own repo</span>
+          </div>
+        </div>
+
+        <div class="minis">
+          <a class="mini" data-category="ml cv" data-flow="up" data-flow-i="1" href="https://github.com/Adejare-ml/medical-imaging-leukemia-busi-brainMRI-models" target="_blank" rel="noopener">
+            <span class="mini-cat">// medical-imaging</span>
+            <span class="mini-title">Leukemia · BUSI · Brain MRI</span>
+            <span class="mini-desc">Three PyTorch studies; ViT and DINOv2 reach 0.96–0.99 test accuracy on 4-class brain MRI.</span>
+            <span class="mini-foot"><span>0.96–0.99 acc</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="ml cv" data-flow="up" data-flow-i="2" href="https://github.com/Adejare-ml/breast-ultrasound-efficientnet-benchmark" target="_blank" rel="noopener">
+            <span class="mini-cat">// medical-imaging</span>
+            <span class="mini-title">Breast Ultrasound Benchmark</span>
+            <span class="mini-desc">EfficientNet-B0, ResNet50, SVM, XGBoost, Random Forest and Decision Tree compared on BUSI.</span>
+            <span class="mini-foot"><span>6 models</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="ml cv" data-flow="up" data-flow-i="3" href="https://github.com/Adejare-ml/colorectal-endoscopy-kvasir-classification" target="_blank" rel="noopener">
+            <span class="mini-cat">// medical-imaging</span>
+            <span class="mini-title">GI Endoscopy (Kvasir)</span>
+            <span class="mini-desc">EfficientNet-B0 and ResNet50 on 8-class Kvasir endoscopy images, with Grad-CAM.</span>
+            <span class="mini-foot"><span>0.91 acc</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="ml cv" data-flow="up" data-flow-i="4" href="https://github.com/Adejare-ml/sign-language-letter-recognition-resnet18" target="_blank" rel="noopener">
+            <span class="mini-cat">// computer-vision</span>
+            <span class="mini-title">Sign-Language Letters</span>
+            <span class="mini-desc">ResNet-18 transfer learning on 11k images.</span>
+            <span class="mini-foot"><span>~95% val acc</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="ml cv" data-flow="up" data-flow-i="5" href="https://github.com/Adejare-ml/ecg-image-classification-densenet121" target="_blank" rel="noopener">
+            <span class="mini-cat">// medical-imaging</span>
+            <span class="mini-title">ECG Image Classification</span>
+            <span class="mini-desc">DenseNet121 transfer learning on 2,000 ECG images.</span>
+            <span class="mini-foot"><span>densenet121</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="ml" data-flow="up" data-flow-i="6" href="https://github.com/Adejare-ml/har70plus-activity-recognition-transformer" target="_blank" rel="noopener">
+            <span class="mini-cat">// time-series</span>
+            <span class="mini-title">HAR70+ Activity Recognition</span>
+            <span class="mini-desc">Transformer encoder on windowed accelerometer data.</span>
+            <span class="mini-foot"><span>transformer</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="ml" data-flow="up" data-flow-i="7" href="https://github.com/Adejare-ml/fraud-detection-mobile-money-paysim" target="_blank" rel="noopener">
+            <span class="mini-cat">// fraud</span>
+            <span class="mini-title">Mobile-Money Fraud Detection</span>
+            <span class="mini-desc">Random Forest with SMOTE on highly imbalanced transactions.</span>
+            <span class="mini-foot"><span>smote · random forest</span><b>repo ↗</b></span>
+          </a>
+          <a class="mini" data-category="ml" data-flow="up" data-flow-i="8" href="https://github.com/Adejare-ml/nigeria-inflation-sarima-lstm-forecast" target="_blank" rel="noopener">
+            <span class="mini-cat">// forecasting</span>
+            <span class="mini-title">Nigeria Inflation Forecasting</span>
+            <span class="mini-desc">Hybrid SARIMA + LSTM time-series forecasting.</span>
+            <span class="mini-foot"><span>sarima + lstm</span><b>repo ↗</b></span>
+          </a>
+        </div>
+
+        <a class="gh-banner" data-flow="up" data-flow-i="6" href="https://github.com/Adejare-ml" target="_blank" rel="noopener">
+          <span class="gh-banner-title">Everything else lives on GitHub <i>— commits, notebooks, dead ends included.</i></span>
+          <span class="gh-banner-url">github.com/Adejare-ml ↗</span>
+        </a>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="cta">
+        <div class="cta-copy" data-flow="left" data-flow-i="0">
+          <span class="eyebrow"><b>[</b> AVAILABILITY <b>]</b></span>
+          <h2 class="cta-title">Open to AI/ML engineering conversations and collaborations<span class="dot">.</span></h2>
+          <span class="comment">// replies within 24 hours</span>
+        </div>
+        <div class="cta-links" data-flow="right" data-flow-i="1">
+          <a class="cta-link" href="mailto:adelugbaadejare03@gmail.com"><span class="cta-link-key">email</span><span class="cta-link-val">adelugbaadejare03@gmail.com</span></a>
+          <a class="cta-link" href="https://github.com/Adejare-ml" target="_blank" rel="noopener"><span class="cta-link-key">github</span><span class="cta-link-val">github.com/Adejare-ml ↗</span></a>
+          <a class="cta-link" href="https://linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener"><span class="cta-link-key">linkedin</span><span class="cta-link-val">in/adejare-adelugba ↗</span></a>
+        </div>
+      </div>
+      <div class="folio">
+        <span>© 2026 adejare adelugba</span>
+        <span>p.03 / 04</span>
+        <a href="/tokens">spec: token sheet →</a>
+      </div>
+    </footer>
+
   </div>
-    <figure class="stage" id="stage" aria-label="How the work turns messy input into a result">
-      <figcaption class="comment stack-cap">// mess in, meaning out</figcaption>
-      <div class="stack">
-        <div class="plane plane-back" aria-hidden="true"></div>
-        <div class="plane plane-mid" aria-hidden="true"></div>
-        <div class="sheet">
-          <div class="chrome">
-            <span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span class="chrome-file">mess_to_meaning — live</span>
-            <button class="stage-btn" type="button" aria-pressed="false" aria-label="Pause animation" data-stage-pause>
-              <svg class="i-pause" viewBox="0 0 14 14" aria-hidden="true"><rect x="2" y="1" width="3.5" height="12" fill="currentColor"/><rect x="8.5" y="1" width="3.5" height="12" fill="currentColor"/></svg>
-              <svg class="i-play" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9.5-5.5z" fill="currentColor"/></svg>
-            </button>
-          </div>
-          <div class="stage-tabs" role="tablist" aria-label="Kinds of work"><button class="stage-tab" type="button" role="tab" id="stage-tab-0" aria-controls="stage-cap-0" aria-selected="true" tabindex="0" data-scene-tab="0"><span class="t-full">medical imaging</span><span class="t-short" aria-hidden="true">imaging</span><span class="tab-timer" aria-hidden="true"></span></button><button class="stage-tab" type="button" role="tab" id="stage-tab-1" aria-controls="stage-cap-1" aria-selected="false" tabindex="-1" data-scene-tab="1"><span class="t-full">data pipelines</span><span class="t-short" aria-hidden="true">pipelines</span><span class="tab-timer" aria-hidden="true"></span></button><button class="stage-tab" type="button" role="tab" id="stage-tab-2" aria-controls="stage-cap-2" aria-selected="false" tabindex="-1" data-scene-tab="2"><span class="t-full">llm systems</span><span class="t-short" aria-hidden="true">llms</span><span class="tab-timer" aria-hidden="true"></span></button></div>
-<svg class="stage-svg" viewBox="0 0 600 340" role="img" aria-labelledby="stage-svg-title">
-<title id="stage-svg-title">Animated diagram: messy input flows through a model and comes out as a result</title>
-<defs><clipPath id="clip-in"><rect x="18" y="64" width="124" height="224" rx="3"/></clipPath></defs>
-<rect class="s-frame" x="10" y="30" width="140" height="280" rx="6"/>
-<rect class="s-frame" x="205" y="30" width="140" height="280" rx="6"/>
-<rect class="s-frame" x="400" y="30" width="190" height="280" rx="6"/>
-<path class="s-track" d="M150 170 H205"/><path class="s-track" d="M345 170 H400"/>
-<path d="M196 165 l5 5 -5 5" fill="none" stroke="#4a4e5c" stroke-width="1.5"/><path d="M391 165 l5 5 -5 5" fill="none" stroke="#4a4e5c" stroke-width="1.5"/>
-<g data-scene="0">
-<text class="s-label" x="22" y="52">scan</text><text class="s-label" x="217" y="52">model</text><text class="s-label" x="412" y="52">accuracy</text>
-<g clip-path="url(#clip-in)">
-<rect class="s-cell" x="19" y="66" width="14" height="14" rx="2" opacity="0.18" data-o="0.18" data-p="0.95"/>
-<rect class="s-cell" x="37" y="66" width="14" height="14" rx="2" opacity="0.27" data-o="0.27" data-p="0.45"/>
-<rect class="s-cell" x="55" y="66" width="14" height="14" rx="2" opacity="0.24" data-o="0.24" data-p="2.3"/>
-<rect class="s-cell" x="73" y="66" width="14" height="14" rx="2" opacity="0.12" data-o="0.12" data-p="3.19"/>
-<rect class="s-cell" x="91" y="66" width="14" height="14" rx="2" opacity="0.11" data-o="0.11" data-p="2.72"/>
-<rect class="s-cell" x="109" y="66" width="14" height="14" rx="2" opacity="0.12" data-o="0.12" data-p="0.57"/>
-<rect class="s-cell" x="127" y="66" width="14" height="14" rx="2" opacity="0.21" data-o="0.21" data-p="5.19"/>
-<rect class="s-cell" x="19" y="84" width="14" height="14" rx="2" opacity="0.13" data-o="0.13" data-p="1.4"/>
-<rect class="s-cell" x="37" y="84" width="14" height="14" rx="2" opacity="0.26" data-o="0.26" data-p="5.95"/>
-<rect class="s-cell" x="55" y="84" width="14" height="14" rx="2" opacity="0.25" data-o="0.25" data-p="2.49"/>
-<rect class="s-cell" x="73" y="84" width="14" height="14" rx="2" opacity="0.35" data-o="0.35" data-p="0.29"/>
-<rect class="s-cell" x="91" y="84" width="14" height="14" rx="2" opacity="0.32" data-o="0.32" data-p="1.82"/>
-<rect class="s-cell" x="109" y="84" width="14" height="14" rx="2" opacity="0.14" data-o="0.14" data-p="0.74"/>
-<rect class="s-cell" x="127" y="84" width="14" height="14" rx="2" opacity="0.18" data-o="0.18" data-p="5.13"/>
-<rect class="s-cell" x="19" y="102" width="14" height="14" rx="2" opacity="0.15" data-o="0.15" data-p="3.65"/>
-<rect class="s-cell" x="37" y="102" width="14" height="14" rx="2" opacity="0.27" data-o="0.27" data-p="2.34"/>
-<rect class="s-cell" x="55" y="102" width="14" height="14" rx="2" opacity="0.24" data-o="0.24" data-p="0.39"/>
-<rect class="s-cell" x="73" y="102" width="14" height="14" rx="2" opacity="0.12" data-o="0.12" data-p="1.29"/>
-<rect class="s-cell" x="91" y="102" width="14" height="14" rx="2" opacity="0.28" data-o="0.28" data-p="2.69"/>
-<rect class="s-cell" x="109" y="102" width="14" height="14" rx="2" opacity="0.18" data-o="0.18" data-p="3.68"/>
-<rect class="s-cell" x="127" y="102" width="14" height="14" rx="2" opacity="0.22" data-o="0.22" data-p="1.88"/>
-<rect class="s-cell" x="19" y="120" width="14" height="14" rx="2" opacity="0.31" data-o="0.31" data-p="4.39"/>
-<rect class="s-cell" x="37" y="120" width="14" height="14" rx="2" opacity="0.16" data-o="0.16" data-p="3.61"/>
-<rect class="s-cell" x="55" y="120" width="14" height="14" rx="2" opacity="0.24" data-o="0.24" data-p="5.5"/>
-<rect class="s-cell" x="73" y="120" width="14" height="14" rx="2" opacity="0.29" data-o="0.29" data-p="1.81"/>
-<rect class="s-cell" x="91" y="120" width="14" height="14" rx="2" opacity="0.35" data-o="0.35" data-p="0.74"/>
-<rect class="s-cell" x="109" y="120" width="14" height="14" rx="2" opacity="0.21" data-o="0.21" data-p="4.75"/>
-<rect class="s-cell" x="127" y="120" width="14" height="14" rx="2" opacity="0.14" data-o="0.14" data-p="3.07"/>
-<rect class="s-cell" x="19" y="138" width="14" height="14" rx="2" opacity="0.11" data-o="0.11" data-p="4.2"/>
-<rect class="s-cell" x="37" y="138" width="14" height="14" rx="2" opacity="0.30" data-o="0.30" data-p="3.6"/>
-<rect class="s-cell" x="55" y="138" width="14" height="14" rx="2" opacity="0.55" data-o="0.55" data-p="5.5"/>
-<rect class="s-cell" x="73" y="138" width="14" height="14" rx="2" opacity="0.55" data-o="0.55" data-p="1.97"/>
-<rect class="s-cell" x="91" y="138" width="14" height="14" rx="2" opacity="0.55" data-o="0.55" data-p="4.37"/>
-<rect class="s-cell" x="109" y="138" width="14" height="14" rx="2" opacity="0.25" data-o="0.25" data-p="3.64"/>
-<rect class="s-cell" x="127" y="138" width="14" height="14" rx="2" opacity="0.22" data-o="0.22" data-p="5.27"/>
-<rect class="s-cell" x="19" y="156" width="14" height="14" rx="2" opacity="0.35" data-o="0.35" data-p="2.98"/>
-<rect class="s-cell" x="37" y="156" width="14" height="14" rx="2" opacity="0.55" data-o="0.55" data-p="4.17"/>
-<rect class="s-cell" x="55" y="156" width="14" height="14" rx="2" opacity="0.05" data-o="0.05" data-p="0.38"/>
-<rect class="s-cell" x="73" y="156" width="14" height="14" rx="2" opacity="0.05" data-o="0.05" data-p="4.41"/>
-<rect class="s-cell" x="91" y="156" width="14" height="14" rx="2" opacity="0.05" data-o="0.05" data-p="4.06"/>
-<rect class="s-cell" x="109" y="156" width="14" height="14" rx="2" opacity="0.55" data-o="0.55" data-p="6.24"/>
-<rect class="s-cell" x="127" y="156" width="14" height="14" rx="2" opacity="0.31" data-o="0.31" data-p="1.79"/>
-<rect class="s-cell" x="19" y="174" width="14" height="14" rx="2" opacity="0.20" data-o="0.20" data-p="4.2"/>
-<rect class="s-cell" x="37" y="174" width="14" height="14" rx="2" opacity="0.55" data-o="0.55" data-p="0.14"/>
-<rect class="s-cell" x="55" y="174" width="14" height="14" rx="2" opacity="0.05" data-o="0.05" data-p="2.9"/>
-<rect class="s-cell" x="73" y="174" width="14" height="14" rx="2" opacity="0.05" data-o="0.05" data-p="1.06"/>
-<rect class="s-cell" x="91" y="174" width="14" height="14" rx="2" opacity="0.05" data-o="0.05" data-p="0.74"/>
-<rect class="s-cell" x="109" y="174" width="14" height="14" rx="2" opacity="0.55" data-o="0.55" data-p="0.37"/>
-<rect class="s-cell" x="127" y="174" width="14" height="14" rx="2" opacity="0.30" data-o="0.30" data-p="0.81"/>
-<rect class="s-cell" x="19" y="192" width="14" height="14" rx="2" opacity="0.16" data-o="0.16" data-p="2.46"/>
-<rect class="s-cell" x="37" y="192" width="14" height="14" rx="2" opacity="0.33" data-o="0.33" data-p="0.51"/>
-<rect class="s-cell" x="55" y="192" width="14" height="14" rx="2" opacity="0.55" data-o="0.55" data-p="2.82"/>
-<rect class="s-cell" x="73" y="192" width="14" height="14" rx="2" opacity="0.55" data-o="0.55" data-p="3.45"/>
-<rect class="s-cell" x="91" y="192" width="14" height="14" rx="2" opacity="0.55" data-o="0.55" data-p="5.55"/>
-<rect class="s-cell" x="109" y="192" width="14" height="14" rx="2" opacity="0.31" data-o="0.31" data-p="5.43"/>
-<rect class="s-cell" x="127" y="192" width="14" height="14" rx="2" opacity="0.17" data-o="0.17" data-p="2.61"/>
-<rect class="s-cell" x="19" y="210" width="14" height="14" rx="2" opacity="0.19" data-o="0.19" data-p="5.55"/>
-<rect class="s-cell" x="37" y="210" width="14" height="14" rx="2" opacity="0.35" data-o="0.35" data-p="0.95"/>
-<rect class="s-cell" x="55" y="210" width="14" height="14" rx="2" opacity="0.15" data-o="0.15" data-p="1.46"/>
-<rect class="s-cell" x="73" y="210" width="14" height="14" rx="2" opacity="0.16" data-o="0.16" data-p="3.05"/>
-<rect class="s-cell" x="91" y="210" width="14" height="14" rx="2" opacity="0.25" data-o="0.25" data-p="1.65"/>
-<rect class="s-cell" x="109" y="210" width="14" height="14" rx="2" opacity="0.10" data-o="0.10" data-p="2.63"/>
-<rect class="s-cell" x="127" y="210" width="14" height="14" rx="2" opacity="0.20" data-o="0.20" data-p="3.56"/>
-<rect class="s-cell" x="19" y="228" width="14" height="14" rx="2" opacity="0.35" data-o="0.35" data-p="4.34"/>
-<rect class="s-cell" x="37" y="228" width="14" height="14" rx="2" opacity="0.23" data-o="0.23" data-p="3.88"/>
-<rect class="s-cell" x="55" y="228" width="14" height="14" rx="2" opacity="0.28" data-o="0.28" data-p="0.34"/>
-<rect class="s-cell" x="73" y="228" width="14" height="14" rx="2" opacity="0.33" data-o="0.33" data-p="4.9"/>
-<rect class="s-cell" x="91" y="228" width="14" height="14" rx="2" opacity="0.33" data-o="0.33" data-p="5.01"/>
-<rect class="s-cell" x="109" y="228" width="14" height="14" rx="2" opacity="0.20" data-o="0.20" data-p="2.51"/>
-<rect class="s-cell" x="127" y="228" width="14" height="14" rx="2" opacity="0.13" data-o="0.13" data-p="3.98"/>
-<rect class="s-cell" x="19" y="246" width="14" height="14" rx="2" opacity="0.12" data-o="0.12" data-p="0.42"/>
-<rect class="s-cell" x="37" y="246" width="14" height="14" rx="2" opacity="0.15" data-o="0.15" data-p="1.02"/>
-<rect class="s-cell" x="55" y="246" width="14" height="14" rx="2" opacity="0.19" data-o="0.19" data-p="0.33"/>
-<rect class="s-cell" x="73" y="246" width="14" height="14" rx="2" opacity="0.10" data-o="0.10" data-p="0.95"/>
-<rect class="s-cell" x="91" y="246" width="14" height="14" rx="2" opacity="0.13" data-o="0.13" data-p="2.28"/>
-<rect class="s-cell" x="109" y="246" width="14" height="14" rx="2" opacity="0.11" data-o="0.11" data-p="5.49"/>
-<rect class="s-cell" x="127" y="246" width="14" height="14" rx="2" opacity="0.26" data-o="0.26" data-p="0.93"/>
-<rect class="s-cell" x="19" y="264" width="14" height="14" rx="2" opacity="0.17" data-o="0.17" data-p="2.18"/>
-<rect class="s-cell" x="37" y="264" width="14" height="14" rx="2" opacity="0.19" data-o="0.19" data-p="0.77"/>
-<rect class="s-cell" x="55" y="264" width="14" height="14" rx="2" opacity="0.32" data-o="0.32" data-p="6.24"/>
-<rect class="s-cell" x="73" y="264" width="14" height="14" rx="2" opacity="0.22" data-o="0.22" data-p="3.04"/>
-<rect class="s-cell" x="91" y="264" width="14" height="14" rx="2" opacity="0.12" data-o="0.12" data-p="0.64"/>
-<rect class="s-cell" x="109" y="264" width="14" height="14" rx="2" opacity="0.19" data-o="0.19" data-p="1.66"/>
-<rect class="s-cell" x="127" y="264" width="14" height="14" rx="2" opacity="0.32" data-o="0.32" data-p="1.01"/>
-<rect id="s1-scan" x="18" y="64" width="124" height="2" fill="#a7b5f2" opacity="0"/>
-</g>
-<ellipse class="s-lesion" cx="80" cy="172" rx="36" ry="26" stroke-dasharray="4 4"/>
-<text class="s-label s-minor" x="22" y="300">flagged region</text>
-<text class="s-label-ink" x="217" y="74">EfficientNet-B0</text>
-<rect class="s-layer" data-layer="0" x="219.0" y="96" width="112" height="24" rx="3"/>
-<rect class="s-layer" data-layer="1" x="227.0" y="134" width="96" height="24" rx="3"/>
-<rect class="s-layer" data-layer="2" x="235.0" y="172" width="80" height="24" rx="3"/>
-<rect class="s-layer" data-layer="3" x="243.0" y="210" width="64" height="24" rx="3"/>
-<rect class="s-layer" data-layer="4" x="251.0" y="248" width="48" height="24" rx="3"/>
-<text class="s-label s-minor" x="217" y="300">simplified</text>
-<text class="s-label-ink" x="412" y="96">Deep model</text><text class="s-num" x="578" y="96" text-anchor="end">95.75%</text>
-<rect class="s-bar-bg" x="412" y="106" width="166" height="10" rx="5"/><rect class="s-bar" id="s1-bar-a" x="412" y="106" width="159" height="10" rx="5"/>
-<text class="s-label-ink" x="412" y="150" style="fill:#a0a4b2">Baseline</text><text class="s-num-muted" x="578" y="150" text-anchor="end">58.2%</text>
-<rect class="s-bar-bg" x="412" y="160" width="166" height="10" rx="5"/><rect class="s-bar-muted" id="s1-bar-b" x="412" y="160" width="97" height="10" rx="5"/>
-<line x1="412" x2="578" y1="204" y2="204" stroke="#2a2c33"/>
-<text class="s-label" x="412" y="232">AUC-ROC</text><text class="s-num" x="578" y="232" text-anchor="end">0.99</text>
-<text class="s-label s-minor" x="412" y="262">baseline:</text><text class="s-label s-minor" x="412" y="282">random forest</text>
-</g>
-<g data-scene="1" display="none">
-<text class="s-label" x="22" y="52">records</text><text class="s-label" x="217" y="52">scraper</text><text class="s-label" x="412" y="52">hierarchy</text>
-<g class="s2-doc" data-x="58" data-y="98" data-r="-9" transform="translate(58 98) rotate(-9)">
-<rect class="s-doc" x="-34" y="-22" width="68" height="44" rx="3"/>
-<rect class="s-doc-line" x="-26" y="-12" width="44" height="3" rx="1.5"/>
-<rect class="s-doc-line" x="-26" y="-2" width="36" height="3" rx="1.5"/>
-<rect class="s-doc-line" x="-26" y="8" width="50" height="3" rx="1.5"/>
-</g>
-<g class="s2-doc" data-x="98" data-y="132" data-r="7" transform="translate(98 132) rotate(7)">
-<rect class="s-doc" x="-34" y="-22" width="68" height="44" rx="3"/>
-<rect class="s-doc-line" x="-26" y="-12" width="44" height="3" rx="1.5"/>
-<rect class="s-doc-line" x="-26" y="-2" width="36" height="3" rx="1.5"/>
-<rect class="s-doc-line" x="-26" y="8" width="50" height="3" rx="1.5"/>
-</g>
-<g class="s2-doc" data-x="52" data-y="172" data-r="5" transform="translate(52 172) rotate(5)">
-<rect class="s-doc" x="-34" y="-22" width="68" height="44" rx="3"/>
-<rect class="s-doc-line" x="-26" y="-12" width="44" height="3" rx="1.5"/>
-<rect class="s-doc-line" x="-26" y="-2" width="36" height="3" rx="1.5"/>
-<rect class="s-doc-line" x="-26" y="8" width="50" height="3" rx="1.5"/>
-</g>
-<g class="s2-doc" data-x="100" data-y="210" data-r="-6" transform="translate(100 210) rotate(-6)">
-<rect class="s-doc" x="-34" y="-22" width="68" height="44" rx="3"/>
-<rect class="s-doc-line" x="-26" y="-12" width="44" height="3" rx="1.5"/>
-<rect class="s-doc-line" x="-26" y="-2" width="36" height="3" rx="1.5"/>
-<rect class="s-doc-line" x="-26" y="8" width="50" height="3" rx="1.5"/>
-</g>
-<g class="s2-doc" data-x="64" data-y="252" data-r="10" transform="translate(64 252) rotate(10)">
-<rect class="s-doc" x="-34" y="-22" width="68" height="44" rx="3"/>
-<rect class="s-doc-line" x="-26" y="-12" width="44" height="3" rx="1.5"/>
-<rect class="s-doc-line" x="-26" y="-2" width="36" height="3" rx="1.5"/>
-<rect class="s-doc-line" x="-26" y="8" width="50" height="3" rx="1.5"/>
-</g>
-<circle cx="275" cy="160" r="40" fill="none" stroke="#3a3d47" stroke-width="1"/>
-<circle id="s2-ring" cx="275" cy="160" r="40" fill="none" stroke="#a7b5f2" stroke-width="2" stroke-dasharray="40 211" stroke-linecap="round" transform="rotate(0 275 160)"/>
-<text class="s-label-ink" x="275" y="165" text-anchor="middle">Selenium</text>
-<text class="s-label s-minor" x="217" y="236">visits pages</text><text class="s-label s-minor" x="217" y="256">fixes labels</text><text class="s-label s-minor" x="217" y="276">to Excel</text>
-<text class="s-label" x="412" y="90">State</text>
-<text class="s-label" x="412" y="140">LGA</text>
-<text class="s-label" x="412" y="190">Ward</text>
-<text class="s-label" x="412" y="240">Unit</text>
-<path class="s-edge" data-edge="1" d="M525 86 L495 136" stroke-dasharray="59.3" stroke-dashoffset="0" data-len="59.3"/>
-<path class="s-edge" data-edge="1" d="M525 86 L555 136" stroke-dasharray="59.3" stroke-dashoffset="0" data-len="59.3"/>
-<path class="s-edge" data-edge="2" d="M495 136 L480 186" stroke-dasharray="53.2" stroke-dashoffset="0" data-len="53.2"/>
-<path class="s-edge" data-edge="2" d="M495 136 L510 186" stroke-dasharray="53.2" stroke-dashoffset="0" data-len="53.2"/>
-<path class="s-edge" data-edge="2" d="M555 136 L540 186" stroke-dasharray="53.2" stroke-dashoffset="0" data-len="53.2"/>
-<path class="s-edge" data-edge="2" d="M555 136 L570 186" stroke-dasharray="53.2" stroke-dashoffset="0" data-len="53.2"/>
-<path class="s-edge" data-edge="3" d="M480 186 L474 236" stroke-dasharray="51.4" stroke-dashoffset="0" data-len="51.4"/>
-<path class="s-edge" data-edge="3" d="M480 186 L489 236" stroke-dasharray="51.8" stroke-dashoffset="0" data-len="51.8"/>
-<path class="s-edge" data-edge="3" d="M510 186 L504 236" stroke-dasharray="51.4" stroke-dashoffset="0" data-len="51.4"/>
-<path class="s-edge" data-edge="3" d="M510 186 L519 236" stroke-dasharray="51.8" stroke-dashoffset="0" data-len="51.8"/>
-<path class="s-edge" data-edge="3" d="M540 186 L534 236" stroke-dasharray="51.4" stroke-dashoffset="0" data-len="51.4"/>
-<path class="s-edge" data-edge="3" d="M540 186 L549 236" stroke-dasharray="51.8" stroke-dashoffset="0" data-len="51.8"/>
-<path class="s-edge" data-edge="3" d="M570 186 L564 236" stroke-dasharray="51.4" stroke-dashoffset="0" data-len="51.4"/>
-<path class="s-edge" data-edge="3" d="M570 186 L579 236" stroke-dasharray="51.8" stroke-dashoffset="0" data-len="51.8"/>
-<circle class="s-node s-node-on" data-level="0" cx="525" cy="86" r="9"/>
-<circle class="s-node s-node-on" data-level="1" cx="495" cy="136" r="7"/>
-<circle class="s-node s-node-on" data-level="1" cx="555" cy="136" r="7"/>
-<circle class="s-node s-node-on" data-level="2" cx="480" cy="186" r="5.5"/>
-<circle class="s-node s-node-on" data-level="2" cx="510" cy="186" r="5.5"/>
-<circle class="s-node s-node-on" data-level="2" cx="540" cy="186" r="5.5"/>
-<circle class="s-node s-node-on" data-level="2" cx="570" cy="186" r="5.5"/>
-<circle class="s-node s-node-on" data-level="3" cx="474" cy="236" r="4"/>
-<circle class="s-node s-node-on" data-level="3" cx="489" cy="236" r="4"/>
-<circle class="s-node s-node-on" data-level="3" cx="504" cy="236" r="4"/>
-<circle class="s-node s-node-on" data-level="3" cx="519" cy="236" r="4"/>
-<circle class="s-node s-node-on" data-level="3" cx="534" cy="236" r="4"/>
-<circle class="s-node s-node-on" data-level="3" cx="549" cy="236" r="4"/>
-<circle class="s-node s-node-on" data-level="3" cx="564" cy="236" r="4"/>
-<circle class="s-node s-node-on" data-level="3" cx="579" cy="236" r="4"/>
-<text class="s-label s-minor" x="412" y="282">sheet per level</text>
-</g>
-<g data-scene="2" display="none">
-<text class="s-label" x="22" y="52">headlines</text><text class="s-label" x="217" y="52">llm chain</text><text class="s-label" x="412" y="52">daily brief</text>
-<g clip-path="url(#clip-in)"><g id="s3-feed">
-<rect class="s-line" x="24" y="70" width="70" height="6" rx="3" opacity="0.55"/>
-<rect class="s-line" x="24" y="86" width="116" height="6" rx="3" opacity="0.63"/>
-<rect class="s-line" x="24" y="102" width="62" height="6" rx="3" opacity="0.72"/>
-<rect class="s-line" x="24" y="118" width="70" height="6" rx="3" opacity="0.83"/>
-<rect class="s-line" x="24" y="134" width="96" height="6" rx="3" opacity="0.94"/>
-<rect class="s-line" x="24" y="150" width="90" height="6" rx="3" opacity="0.50"/>
-<rect class="s-line" x="24" y="166" width="90" height="6" rx="3" opacity="0.58"/>
-<rect class="s-line" x="24" y="182" width="96" height="6" rx="3" opacity="0.90"/>
-<rect class="s-line" x="24" y="198" width="96" height="6" rx="3" opacity="0.84"/>
-<rect class="s-line" x="24" y="214" width="116" height="6" rx="3" opacity="0.72"/>
-<rect class="s-line" x="24" y="230" width="116" height="6" rx="3" opacity="0.61"/>
-<rect class="s-line" x="24" y="246" width="84" height="6" rx="3" opacity="0.76"/>
-<rect class="s-line" x="24" y="262" width="90" height="6" rx="3" opacity="0.94"/>
-<rect class="s-line" x="24" y="278" width="90" height="6" rx="3" opacity="0.55"/>
-<rect class="s-line" x="24" y="294" width="70" height="6" rx="3" opacity="0.55"/>
-<rect class="s-line" x="24" y="310" width="116" height="6" rx="3" opacity="0.63"/>
-<rect class="s-line" x="24" y="326" width="62" height="6" rx="3" opacity="0.72"/>
-<rect class="s-line" x="24" y="342" width="70" height="6" rx="3" opacity="0.83"/>
-<rect class="s-line" x="24" y="358" width="96" height="6" rx="3" opacity="0.94"/>
-<rect class="s-line" x="24" y="374" width="90" height="6" rx="3" opacity="0.50"/>
-<rect class="s-line" x="24" y="390" width="90" height="6" rx="3" opacity="0.58"/>
-<rect class="s-line" x="24" y="406" width="96" height="6" rx="3" opacity="0.90"/>
-<rect class="s-line" x="24" y="422" width="96" height="6" rx="3" opacity="0.84"/>
-<rect class="s-line" x="24" y="438" width="116" height="6" rx="3" opacity="0.72"/>
-<rect class="s-line" x="24" y="454" width="116" height="6" rx="3" opacity="0.61"/>
-<rect class="s-line" x="24" y="470" width="84" height="6" rx="3" opacity="0.76"/>
-<rect class="s-line" x="24" y="486" width="90" height="6" rx="3" opacity="0.94"/>
-<rect class="s-line" x="24" y="502" width="90" height="6" rx="3" opacity="0.55"/>
-</g></g>
-<path class="s-edge" data-llm-edge="0" d="M243 118 V144"/>
-<path class="s-edge" data-llm-edge="1" d="M243 180 V206"/>
-<circle class="s-node" data-llm="0" cx="243" cy="100" r="17"/><text class="s-num" x="243" y="105" text-anchor="middle">1</text>
-<text class="s-label" x="268" y="104">extract</text>
-<circle class="s-node" data-llm="1" cx="243" cy="162" r="17"/><text class="s-num" x="243" y="167" text-anchor="middle">2</text>
-<text class="s-label" x="268" y="166">summary</text>
-<circle class="s-node" data-llm="2" cx="243" cy="224" r="17"/><text class="s-num" x="243" y="229" text-anchor="middle">3</text>
-<text class="s-label" x="268" y="228">score</text>
-<rect class="s-line-ink s3-sum" x="412" y="76" width="156" height="6" rx="3"/>
-<rect class="s-line-ink s3-sum" x="412" y="90" width="140" height="6" rx="3"/>
-<rect class="s-line-ink s3-sum" x="412" y="104" width="96" height="6" rx="3"/>
-<g class="s3-mark" data-x="419" data-y="148" transform="translate(419 148)"><circle class="s-pos" r="6"/></g>
-<rect class="s-line" x="434" y="145" width="96" height="6" rx="3"/>
-<g class="s3-mark" data-x="419" data-y="178" transform="translate(419 178)"><circle class="s-neu" r="6"/></g>
-<rect class="s-line" x="434" y="175" width="120" height="6" rx="3"/>
-<g class="s3-mark" data-x="419" data-y="208" transform="translate(419 208)"><circle class="s-neg" r="6"/></g>
-<rect class="s-line" x="434" y="205" width="84" height="6" rx="3"/>
-<line x1="412" x2="578" y1="236" y2="236" stroke="#2a2c33"/>
-<text class="s-num" x="412" y="262">4× a day</text>
-<text class="s-num" x="412" y="286">$0 hosting</text>
-</g>
-<g id="packets">
-<circle class="s-packet" r="3.6" cx="0" cy="0" opacity="0"/>
-<circle class="s-packet" r="3.6" cx="0" cy="0" opacity="0"/>
-<circle class="s-packet" r="3.6" cx="0" cy="0" opacity="0"/>
-<circle class="s-packet" r="3.6" cx="0" cy="0" opacity="0"/>
-<circle class="s-packet" r="3.6" cx="0" cy="0" opacity="0"/>
-<circle class="s-packet" r="3.6" cx="0" cy="0" opacity="0"/>
-</g>
-</svg>
-
-          <p class="stage-caption" role="tabpanel" id="stage-cap-0" aria-labelledby="stage-tab-0"><b>Breast-ultrasound scans → a deep-learning model → a predicted class.</b> EfficientNet-B0 reached 95.75% accuracy against 58.2% for a Random Forest baseline.</p><p class="stage-caption" role="tabpanel" id="stage-cap-1" aria-labelledby="stage-tab-1" hidden><b>Scattered polling-unit records → an automated scraper → one clean workbook.</b> Every State, LGA, Ward and Polling Unit in one structured file.</p><p class="stage-caption" role="tabpanel" id="stage-cap-2" aria-labelledby="stage-tab-2" hidden><b>News articles → a chain of language models → a short daily brief.</b> Structured records and a brief, four times a day at zero hosting cost.</p>
-        </div>
-      </div>
-    </figure>
-  </section>
-
-  <section class="section" aria-labelledby="flag-title">
-    <div class="section-head">
-      <span class="eyebrow"><b>[</b> FLAGSHIP <b>]</b></span>
-      <div class="section-head-row">
-        <h2 class="section-title drift" id="flag-title">How they work<span class="dot">.</span></h2>
-        <span class="comment">// open one for the full story</span>
-      </div>
-      
-    </div>
-    <div class="explainers">
-    <article class="explainer" id="multimodal" aria-labelledby="multimodal-title">
-      <div>
-        <span class="explainer-num">01 / 04 · medical imaging · final-year project</span>
-        <h2 id="multimodal-title" class="drift">Multimodal breast cancer detection<span class="dot">.</span></h2>
-        <p class="card-outcome">Looks at a breast scan and the patient’s clinical record together, and suggests one of three diagnoses.</p>
-        <div class="figs"><div><b>0.91</b><span>AUC on the test set</span></div><div><b>3</b><span>diagnostic classes</span></div><div><b>2</b><span>data streams fused</span></div></div>
-        <p class="card-note">// research project, not a clinical tool.</p>
-        <div class="actions"><a class="btn btn-primary" href="project-multimodal">Read the project <span aria-hidden="true">→</span></a></div>
-        <p class="explainer-what">// why I built it · 3 decisions · results</p>
-      </div>
-      <figure class="p-visual">
-        <figcaption class="comment stack-cap">// two inputs, one diagnosis</figcaption>
-        <div class="stack"><div class="plane plane-back" aria-hidden="true"></div><div class="plane plane-mid" aria-hidden="true"></div>
-          <div class="sheet"><div class="chrome"><span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="chrome-file">feature_fusion — live</span></div>
-<svg class="fusion-svg" viewBox="0 0 520 300" role="img" aria-labelledby="fusion-title" data-fusion>
-  <title id="fusion-title">Diagram: a breast scan goes through MedCLIP and a clinical record goes through TabNet; their feature vectors are joined (feature fusion) into a three-class diagnosis served by an API.</title>
-  <path class="s-track" d="M118 80 C 200 80, 210 150, 290 150"/>
-  <path class="s-track" d="M118 220 C 200 220, 210 150, 290 150"/>
-  <path class="s-track" d="M380 150 H420"/>
-  <rect class="s-node" x="20" y="52" width="98" height="56" rx="6"/><text class="s-label-ink" x="69" y="78" text-anchor="middle">Scan</text><text class="s-label" x="69" y="96" text-anchor="middle">MedCLIP</text>
-  <rect class="s-node" x="20" y="192" width="98" height="56" rx="6"/><text class="s-label-ink" x="69" y="218" text-anchor="middle">Record</text><text class="s-label" x="69" y="236" text-anchor="middle">TabNet</text>
-  <rect class="s-node s-node-on" x="290" y="118" width="90" height="64" rx="6"/><text class="s-label-ink" x="335" y="146" text-anchor="middle">Feature</text><text class="s-label-ink" x="335" y="164" text-anchor="middle">fusion</text>
-  <rect class="s-node" x="420" y="110" width="84" height="80" rx="6"/><text class="s-num" x="462" y="140" text-anchor="middle">3</text><text class="s-label" x="462" y="158" text-anchor="middle">classes</text><text class="s-label" x="462" y="176" text-anchor="middle">via API</text>
-  <circle class="s-packet" data-fp="0" r="4" cx="118" cy="80" opacity="0"/>
-  <circle class="s-packet" data-fp="1" r="4" cx="118" cy="220" opacity="0"/>
-  <circle class="s-packet" data-fp="2" r="4" cx="380" cy="150" opacity="0"/>
-</svg>
-          </div></div>
-      </figure>
-    </article>
-    <article class="explainer is-flipped" id="ultrasound" aria-labelledby="ultrasound-title">
-      <div>
-        <span class="explainer-num">02 / 04 · medical imaging · benchmark</span>
-        <h2 id="ultrasound-title" class="drift">Breast ultrasound classification<span class="dot">.</span></h2>
-        <p class="card-outcome">Sorts breast-ultrasound images into benign, malignant or normal — and shows why a deep model was worth it over a classic pipeline.</p>
-        <div class="figs"><div><b>95.75%</b><span>accuracy, EfficientNet-B0</span></div><div><b>0.99</b><span>AUC-ROC</span></div><div><b>98%</b><span>malignant cases caught</span></div></div>
-        <p class="card-note">// research project, not a clinical tool.</p>
-        <div class="actions"><a class="btn btn-primary" href="project-ultrasound">Read the project <span aria-hidden="true">→</span></a></div>
-        <p class="explainer-what">// why I built it · 3 decisions · results</p>
-      </div>
-      <figure class="p-visual">
-        <figcaption class="comment stack-cap">// how the data moves</figcaption>
-        <div class="stack"><div class="plane plane-back" aria-hidden="true"></div><div class="plane plane-mid" aria-hidden="true"></div>
-          <div class="sheet"><div class="chrome"><span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="chrome-file">ultrasound_pipeline — live</span></div>
-          <div class="pipe" data-pipe style="--run:4.8s">
-            <div class="pipe-head"><span>How it works</span><span aria-hidden="true">data flows ↓</span></div>
-            <ol class="pipe-steps">
-              <li class="pipe-rail" aria-hidden="true"></li>
-              <li class="pipe-packet" aria-hidden="true"></li>
-              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">01</span><div><b>BUSI images</b><span>benign · malignant · normal</span></div></li>
-              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">02</span><div><b>Balance classes</b><span>augmented to 4,000 per class</span></div></li>
-              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">03</span><div><b>EfficientNet-B0</b><span>pretrained, then fine-tuned</span></div></li>
-              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">04</span><div><b>Evaluate</b><span>accuracy, F1 and AUC-ROC on held-out scans</span></div></li>
-            </ol>
-          </div>
-          </div></div>
-      </figure>
-    </article>
-    <article class="explainer" id="aura" aria-labelledby="aura-title">
-      <div>
-        <span class="explainer-num">03 / 04 · llm systems · automation</span>
-        <h2 id="aura-title" class="drift">AURA news intelligence system<span class="dot">.</span></h2>
-        <p class="card-outcome">Reads Nigerian business news four times a day and turns it into structured ownership records and a daily executive brief.</p>
-        <div class="figs"><div><b>4×</b><span>runs a day</span></div><div><b>$0</b><span>hosting cost</span></div><div><b>5</b><span>news sources</span></div></div>
-        
-        <div class="actions"><a class="btn btn-primary" href="project-aura">Read the project <span aria-hidden="true">→</span></a></div>
-        <p class="explainer-what">// why I built it · 4 decisions · results</p>
-      </div>
-      <figure class="p-visual">
-        <figcaption class="comment stack-cap">// how the data moves</figcaption>
-        <div class="stack"><div class="plane plane-back" aria-hidden="true"></div><div class="plane plane-mid" aria-hidden="true"></div>
-          <div class="sheet"><div class="chrome"><span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="chrome-file">aura_pipeline — live</span></div>
-          <div class="pipe" data-pipe style="--run:4.8s">
-            <div class="pipe-head"><span>How it works</span><span aria-hidden="true">data flows ↓</span></div>
-            <ol class="pipe-steps">
-              <li class="pipe-rail" aria-hidden="true"></li>
-              <li class="pipe-packet" aria-hidden="true"></li>
-              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">01</span><div><b>News sources</b><span>RSS + 4 news APIs, every run</span></div></li>
-              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">02</span><div><b>LLM cascade</b><span>extract, then write the brief</span></div></li>
-              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">03</span><div><b>Google Sheets</b><span>7 tabs, auditable by people</span></div></li>
-              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">04</span><div><b>Live site</b><span>Astro on Cloudflare Pages, $0</span></div></li>
-            </ol>
-          </div>
-          </div></div>
-      </figure>
-    </article>
-    <article class="explainer is-flipped" id="polling" aria-labelledby="polling-title">
-      <div>
-        <span class="explainer-num">04 / 04 · data engineering · internship</span>
-        <h2 id="polling-title" class="drift">Nigeria polling unit data pipeline<span class="dot">.</span></h2>
-        <p class="card-outcome">Replaced manual copying of polling-unit records with a scraper that produces clean, structured workbooks for every state.</p>
-        <div class="figs"><div><b>37</b><span>administrative regions</span></div><div><b>4</b><span>levels structured</span></div><div><b>0</b><span>manual copying</span></div></div>
-        
-        <div class="actions"><a class="btn btn-primary" href="project-polling">Read the project <span aria-hidden="true">→</span></a></div>
-        <p class="explainer-what">// why I built it · 4 decisions · results</p>
-      </div>
-      <figure class="p-visual">
-        <figcaption class="comment stack-cap">// how the data moves</figcaption>
-        <div class="stack"><div class="plane plane-back" aria-hidden="true"></div><div class="plane plane-mid" aria-hidden="true"></div>
-          <div class="sheet"><div class="chrome"><span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="chrome-file">polling_pipeline — live</span></div>
-          <div class="pipe" data-pipe style="--run:4.8s">
-            <div class="pipe-head"><span>How it works</span><span aria-hidden="true">data flows ↓</span></div>
-            <ol class="pipe-steps">
-              <li class="pipe-rail" aria-hidden="true"></li>
-              <li class="pipe-packet" aria-hidden="true"></li>
-              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">01</span><div><b>State portals</b><span>records spread across many pages</span></div></li>
-              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">02</span><div><b>Selenium scraper</b><span>walks every state and page</span></div></li>
-              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">03</span><div><b>Label mapping</b><span>fixes mislabelled columns</span></div></li>
-              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">04</span><div><b>Excel workbooks</b><span>one sheet per level</span></div></li>
-            </ol>
-          </div>
-          </div></div>
-      </figure>
-    </article>
-    </div>
-  </section>
-
-  <section class="section" id="lab" aria-labelledby="lab-title">
-    <div class="section-head">
-      <span class="eyebrow"><b>[</b> EXPERIMENT LAB <b>]</b></span>
-      <div class="section-head-row">
-        <h2 class="section-title drift" id="lab-title">Decisions that changed the result<span class="dot">.</span></h2>
-        <span class="comment">// one per project · each links to its decision log</span>
-      </div>
-      
-    </div>
-    <div class="dlog">
-      <a class="dlog-row" href="project-multimodal#d1">
-        <span class="dlog-proj">01 · multimodal</span>
-        <p><b>Issue</b>Fine-tuning all of MedCLIP overfit almost at once. Validation loss climbed after the first epochs — a few hundred patients can’t re-teach a foundation model.</p>
-        <span class="lab-arrow" aria-hidden="true">→</span>
-        <p class="is-change"><b>Decision</b>Kept the pretrained encoder frozen and trained only the heads.</p>
-        <p class="is-result"><b>Result</b>Stable training and better generalisation.</p>
-      </a>
-      <a class="dlog-row" href="project-ultrasound#d3">
-        <span class="dlog-proj">02 · ultrasound</span>
-        <p><b>Issue</b>The baseline missed too many cancers. It caught only 55% of malignant cases — not acceptable for screening.</p>
-        <span class="lab-arrow" aria-hidden="true">→</span>
-        <p class="is-change"><b>Decision</b>Used EfficientNet-B0 transfer learning on the same balanced data.</p>
-        <p class="is-result"><b>Result</b>98% malignant recall and 95.75% accuracy.</p>
-      </a>
-      <a class="dlog-row" href="project-aura#d1">
-        <span class="dlog-proj">03 · aura</span>
-        <p><b>Issue</b>It once published junk while every run showed green. An earlier version silently fell back to keyword heuristics and, for days, published sports and celebrity stories as corporate intelligence.</p>
-        <span class="lab-arrow" aria-hidden="true">→</span>
-        <p class="is-change"><b>Decision</b>Fail loudly: if every provider fails, the run exits non-zero and publishes nothing. Every record now stores which model produced it.</p>
-        <p class="is-result"><b>Result</b>No more quiet bad data; failures are visible.</p>
-      </a>
-      <a class="dlog-row" href="project-polling#d1">
-        <span class="dlog-proj">04 · polling</span>
-        <p><b>Issue</b>The source data was mislabelled. Some “LGA” columns actually contained State names.</p>
-        <span class="lab-arrow" aria-hidden="true">→</span>
-        <p class="is-change"><b>Decision</b>Added a semantic mapping layer that corrects these during extraction.</p>
-        <p class="is-result"><b>Result</b>A consistent hierarchy instead of hand-fixing every sheet.</p>
-      </a>
-    </div>
-  </section>
-
-  <section class="section" id="all" aria-labelledby="all-title">
-    <div class="section-head">
-      <span class="eyebrow"><b>[</b> ALSO BUILT <b>]</b></span>
-      <div class="section-head-row">
-        <h2 class="section-title drift" id="all-title">More projects<span class="dot">.</span></h2>
-        <span class="comment">// each card links to its repo</span>
-      </div>
-      
-    </div>
-    <div class="filters" role="group" aria-label="Filter projects"><button class="filter-btn" type="button" data-filter="all" aria-pressed="true">all</button><button class="filter-btn" type="button" data-filter="ml" aria-pressed="false">machine learning</button><button class="filter-btn" type="button" data-filter="cv" aria-pressed="false">computer vision</button><button class="filter-btn" type="button" data-filter="llm" aria-pressed="false">llm & rag</button><button class="filter-btn" type="button" data-filter="data" aria-pressed="false">data engineering</button><button class="filter-btn" type="button" data-filter="automation" aria-pressed="false">automation</button><button class="filter-btn" type="button" data-filter="web" aria-pressed="false">web</button></div>
-    <p class="sr-only" aria-live="polite" data-filter-status></p>
-    <div class="grid-cards" style="margin-top:20px">
-      <a class="pcard" id="med-brain-tumor-classification" data-category="ml cv" href="https://github.com/Adejare-ml/med-brain-tumor-classification" target="_blank" rel="noopener"><span class="pcard-cat">// medical imaging</span><h3>Brain tumour MRI benchmark</h3><p>A supervised Vision Transformer against self-supervised DINOv2, with Grad-CAM to show where each model looks.</p><span class="pcard-foot"><span>ViT · DINOv2</span><b>code ↗</b></span></a>
-      <a class="pcard" id="med-har-transformer-analysis" data-category="ml" href="https://github.com/Adejare-ml/med-har-transformer-analysis" target="_blank" rel="noopener"><span class="pcard-cat">// deep learning</span><h3>Activity recognition with Transformers</h3><p>Recognises human activity from wearable-sensor data (HAR-70) with a Transformer encoder.</p><span class="pcard-foot"><span>PyTorch</span><b>code ↗</b></span></a>
-      <a class="pcard" id="ai-engineering-internship-projects" data-category="llm" href="https://github.com/Adejare-ml/ai-engineering-internship-projects" target="_blank" rel="noopener"><span class="pcard-cat">// llm & rag</span><h3>AI engineering projects (15 tasks)</h3><p>Semantic search, RAG over ChromaDB, LLM evaluation and tool-calling agents, ending in a full-stack capstone.</p><span class="pcard-foot"><span>LangChain · FastAPI</span><b>code ↗</b></span></a>
-      <a class="pcard" id="jare-mainframe" data-category="web llm automation" href="https://github.com/Adejare-ml/JARE-MAINFRAME" target="_blank" rel="noopener"><span class="pcard-cat">// full-stack</span><h3>Jare Mainframe</h3><p>Personal finance dashboard; an LLM workflow logs spending from bank-alert emails. Works offline as an app.</p><span class="pcard-foot"><span>React · Supabase</span><b>code ↗</b></span></a>
-      <a class="pcard" id="heart-disease-prediction" data-category="ml" href="https://github.com/Adejare-ml/heart-disease-prediction" target="_blank" rel="noopener"><span class="pcard-cat">// clinical ml</span><h3>Heart disease risk prediction</h3><p>Risk classifier evaluated on ROC-AUC and recall, so risky patients are not missed.</p><span class="pcard-foot"><span>scikit-learn</span><b>code ↗</b></span></a>
-      <a class="pcard" id="sentry-awareness-platform" data-category="ml web" href="https://github.com/Adejare-ml/sentry-awareness-platform" target="_blank" rel="noopener"><span class="pcard-cat">// security + ml</span><h3>SENTRY awareness platform</h3><p>Gamified training against scams with 1,600+ Nigeria-focused scenarios, plus a spam-detection model.</p><span class="pcard-foot"><span>1,600+ scenarios</span><b>code ↗</b></span></a>
-      <a class="pcard" id="kontemporary-website" data-category="web" href="https://github.com/Adejare-ml/kontemporary-website" target="_blank" rel="noopener"><span class="pcard-cat">// web</span><h3>Kontemporary website redesign</h3><p>Multi-page responsive redesign built during the Kontemporary Konsulting internship.</p><span class="pcard-foot"><span>HTML · CSS · JS</span><b>code ↗</b></span></a>
-      <a class="pcard" id="bunmi_adelugba-co_webpage" data-category="web" href="https://github.com/Adejare-ml/Bunmi_Adelugba-CO_webpage" target="_blank" rel="noopener"><span class="pcard-cat">// web</span><h3>Finance firm website</h3><p>Multi-page client website for a finance firm, with a FastAPI contact backend.</p><span class="pcard-foot"><span>FastAPI</span><b>code ↗</b></span></a>
-      <a class="pcard" id="gbenga_idowu_website" data-category="web" href="https://github.com/Adejare-ml/gbenga_idowu_website" target="_blank" rel="noopener"><span class="pcard-cat">// web</span><h3>Cybersecurity portfolio site</h3><p>Portfolio website built for a cybersecurity professional.</p><span class="pcard-foot"><span>HTML · CSS · JS</span><b>code ↗</b></span></a>
-    </div>
-  </section>
-
-  <section class="section" id="experiments" aria-labelledby="exp2-title">
-    <div class="section-head">
-      <span class="eyebrow"><b>[</b> EXPERIMENTS <b>]</b></span>
-      <div class="section-head-row">
-        <h2 class="section-title drift" id="exp2-title">Smaller ML studies<span class="dot">.</span></h2>
-        <span class="comment">// notebooks and results in each repo</span>
-      </div>
-      
-    </div>
-    <div class="grid-cards">
-      <a class="pcard" id="medical-imaging-leukemia-busi-brainmri-models" data-category="ml cv" href="https://github.com/Adejare-ml/medical-imaging-leukemia-busi-brainMRI-models" target="_blank" rel="noopener"><span class="pcard-cat">// medical imaging</span><h3>Leukemia · BUSI · Brain MRI</h3><p>Three PyTorch studies; ViT and DINOv2 reach 0.96–0.99 test accuracy on 4-class brain MRI.</p><span class="pcard-foot"><span>0.96–0.99</span><b>code ↗</b></span></a>
-      <a class="pcard" id="breast-ultrasound-efficientnet-benchmark" data-category="ml cv" href="https://github.com/Adejare-ml/breast-ultrasound-efficientnet-benchmark" target="_blank" rel="noopener"><span class="pcard-cat">// medical imaging</span><h3>Breast ultrasound benchmark</h3><p>EfficientNet-B0, ResNet50, SVM, XGBoost, Random Forest and Decision Tree compared on BUSI.</p><span class="pcard-foot"><span>6 models</span><b>code ↗</b></span></a>
-      <a class="pcard" id="colorectal-endoscopy-kvasir-classification" data-category="ml cv" href="https://github.com/Adejare-ml/colorectal-endoscopy-kvasir-classification" target="_blank" rel="noopener"><span class="pcard-cat">// medical imaging</span><h3>GI endoscopy (Kvasir)</h3><p>EfficientNet-B0 and ResNet50 on 8-class endoscopy images, with Grad-CAM.</p><span class="pcard-foot"><span>0.91 accuracy</span><b>code ↗</b></span></a>
-      <a class="pcard" id="sign-language-letter-recognition-resnet18" data-category="ml cv" href="https://github.com/Adejare-ml/sign-language-letter-recognition-resnet18" target="_blank" rel="noopener"><span class="pcard-cat">// computer vision</span><h3>Sign-language letters</h3><p>ResNet-18 transfer learning on 11,000 images.</p><span class="pcard-foot"><span>~95% val. accuracy</span><b>code ↗</b></span></a>
-      <a class="pcard" id="ecg-image-classification-densenet121" data-category="ml cv" href="https://github.com/Adejare-ml/ecg-image-classification-densenet121" target="_blank" rel="noopener"><span class="pcard-cat">// medical imaging</span><h3>ECG image classification</h3><p>DenseNet121 transfer learning on 2,000 ECG images.</p><span class="pcard-foot"><span>DenseNet121</span><b>code ↗</b></span></a>
-      <a class="pcard" id="har70plus-activity-recognition-transformer" data-category="ml" href="https://github.com/Adejare-ml/har70plus-activity-recognition-transformer" target="_blank" rel="noopener"><span class="pcard-cat">// time series</span><h3>HAR70+ activity recognition</h3><p>Transformer encoder on windowed accelerometer data.</p><span class="pcard-foot"><span>Transformer</span><b>code ↗</b></span></a>
-      <a class="pcard" id="fraud-detection-mobile-money-paysim" data-category="ml" href="https://github.com/Adejare-ml/fraud-detection-mobile-money-paysim" target="_blank" rel="noopener"><span class="pcard-cat">// fraud</span><h3>Mobile-money fraud detection</h3><p>Random Forest with SMOTE on highly imbalanced transactions.</p><span class="pcard-foot"><span>SMOTE</span><b>code ↗</b></span></a>
-      <a class="pcard" id="nigeria-inflation-sarima-lstm-forecast" data-category="ml" href="https://github.com/Adejare-ml/nigeria-inflation-sarima-lstm-forecast" target="_blank" rel="noopener"><span class="pcard-cat">// forecasting</span><h3>Nigeria inflation forecasting</h3><p>Hybrid SARIMA + LSTM time-series forecasting.</p><span class="pcard-foot"><span>SARIMA + LSTM</span><b>code ↗</b></span></a>
-    </div>
-    <a class="gh-banner" href="https://github.com/Adejare-ml" target="_blank" rel="noopener"><span>Everything else is on GitHub, including the notebooks and dead ends.</span><span>github.com/Adejare-ml ↗</span></a>
-  </section>
-
-</main>
-
-  <footer class="closing">
-    <div class="cta" id="contact-links">
-      <div>
-        <span class="eyebrow"><b>[</b> AVAILABILITY <b>]</b></span>
-        <h2 class="drift">Have messy data and a problem worth solving?</h2>
-        <p>I reply within 24 hours. Abuja, Nigeria (WAT, UTC+1), happy to work remotely.</p>
-        <div class="actions">
-          <a class="btn btn-primary" href="mailto:adelugbaadejare03@gmail.com">Email me <span aria-hidden="true">→</span></a>
-          <a class="btn" href="contact">Send a message</a>
-        </div>
-      </div>
-      <div class="channels">
-        <a class="channel" href="mailto:adelugbaadejare03@gmail.com"><span class="channel-key">email</span><span class="channel-val">adelugbaadejare03@gmail.com</span></a>
-        <a class="channel" href="https://github.com/Adejare-ml" target="_blank" rel="noopener"><span class="channel-key">github</span><span class="channel-val">github.com/Adejare-ml <span aria-hidden="true">↗</span></span></a>
-        <a class="channel" href="https://www.linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener"><span class="channel-key">linkedin</span><span class="channel-val">in/adejare-adelugba <span aria-hidden="true">↗</span></span></a>
-        <a class="channel" href="Adejare_Adelugba_AI_ML_Engineer_CV.pdf" download><span class="channel-key">cv</span><span class="channel-val">PDF, 2 pages ↓</span></a>
-      </div>
-    </div>
-    <div class="folio">
-      <span>© 2026 adejare adelugba · abuja</span>
-      <a href="https://github.com/Adejare-ml/My-work-website" target="_blank" rel="noopener">source code <span aria-hidden="true">↗</span></a>
-    </div>
-  </footer>
 </div>
-</div>
-<div class="mobile-bar" aria-label="Quick actions">
-  <a class="btn btn-primary" href="mailto:adelugbaadejare03@gmail.com">Email me</a>
-  <a class="btn" href="Adejare_Adelugba_AI_ML_Engineer_CV.pdf" download>CV ↓</a>
-</div>
-<script src="assets/site.js?v=11" defer></script>
-<script src="assets/ambient-grid.js?v=11" defer></script>
+
+<script src="/assets/site.js?v=5"></script>
+<script src="/assets/ambient-grid.js?v=3" defer></script>
 </body>
 </html>
