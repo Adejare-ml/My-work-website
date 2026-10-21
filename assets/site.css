@@ -1502,6 +1502,27 @@ a.channel:hover { color: var(--accent); }
   opacity: 0.6;
   cursor: not-allowed;
 }
+.btn[aria-busy="true"] {
+  color: transparent !important;
+  position: relative;
+  opacity: 0.8;
+}
+.btn[aria-busy="true"]::after {
+  content: "";
+  position: absolute;
+  top: calc(50% - 8px);
+  left: calc(50% - 8px);
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--bg);
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 
 /* cards / panels / jobs / minis / banner — lift with depth shadow on hover */
 .card, .panel, .job, .mini, .gh-banner {
