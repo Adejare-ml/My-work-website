@@ -2,195 +2,112 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1c1d21">
 <title>Contact — Adejare Adelugba</title>
-<meta name="description" content="Replies within 24 hours — usually sooner. Abuja (WAT), remote-friendly.">
+<meta name="description" content="Get in touch with Adejare Adelugba, AI/ML Engineer in Abuja, Nigeria (WAT). Replies within 24 hours.">
 <link rel="canonical" href="https://adelugba-adejare.pages.dev/contact">
 <meta property="og:title" content="Contact — Adejare Adelugba">
-<meta property="og:description" content="Get in touch with Adejare Adelugba — ML Engineer & Data Scientist based in Abuja (WAT), remote-friendly.">
+<meta property="og:description" content="Get in touch with Adejare Adelugba, AI/ML Engineer in Abuja, Nigeria (WAT). Replies within 24 hours.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://adelugba-adejare.pages.dev/contact">
 <meta property="og:image" content="https://adelugba-adejare.pages.dev/og-preview.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Contact — Adejare Adelugba">
-<meta name="twitter:description" content="Replies within 24 hours — ML engineering, data science, and automation collaboration.">
+<meta name="twitter:description" content="Get in touch with Adejare Adelugba, AI/ML Engineer in Abuja, Nigeria (WAT). Replies within 24 hours.">
 <meta name="twitter:image" content="https://adelugba-adejare.pages.dev/og-preview.jpg">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=6">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css?v=8">
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
-<div class="veil" aria-hidden="true">
-  <div class="veil-inner">
-    <span class="veil-cmd">$ cd ~/contact</span>
-    <span class="veil-roles">developer <i>&#183;</i> data scientist <i>&#183;</i> machine learning engineer</span>
-    <span class="veil-rule"></span>
+<a class="skip" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"></div>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="/" aria-label="Adejare Adelugba, home">
+      <svg class="brand-mark" viewBox="0 0 26 26" aria-hidden="true"><path d="M5 13H21" stroke-width="1.5"/><circle cx="5" cy="13" r="3"/><circle cx="13" cy="13" r="3"/><circle cx="21" cy="13" r="3"/></svg>
+      <span>Adejare <span class="brand-name-long">Adelugba</span></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/projects">Work</a>
+      <a href="/about">About</a>
+      <a href="/contact" aria-current="page">Contact</a>
+      <a class="nav-cv" href="/Adejare_Adelugba_AI_ML_Engineer_CV.pdf" download>CV <span aria-hidden="true">↓</span></a>
+    </nav>
   </div>
-</div>
+</header>
+<div class="wrap">
+<main id="main">
 
-<a class="skip" href="#main">skip to content</a>
+  <section class="intro" aria-labelledby="contact-title">
+    <span class="kicker">Contact</span>
+    <h1 id="contact-title">Let’s talk<span class="dot">.</span></h1>
+    <p class="lede">Roles, projects or questions. I reply within 24 hours, usually sooner. Abuja, Nigeria (WAT, UTC+1), remote-friendly.</p>
+  </section>
 
-<div class="page">
-  <div class="well">
-
-    <header class="masthead">
-      <div class="masthead-inner">
-        <a class="wordmark" href="/">~/adejare.ml<span>_</span></a>
-        <nav class="nav" aria-label="Main">
-          <a href="/">home</a>
-          <a href="/about">about</a>
-          <a href="/projects">projects</a>
-          <a href="/contact" aria-current="page">contact</a>
-          <button class="cmd-trigger" type="button" aria-haspopup="dialog"
-                  aria-controls="cmd-palette" aria-keyshortcuts="Control+K Meta+K"
-                  aria-label="Search this site (Ctrl K)" title="Search (Ctrl K)">⌘K</button>
-        </nav>
+  <section class="contact-grid">
+    <div>
+      <h2 class="pane-title">Write a message</h2>
+      <form class="form" id="contact-form" novalidate>
+        <div class="error-banner" id="error-banner" role="alert" hidden></div>
+        <div class="field-row">
+          <label class="field" for="name">
+            <span class="field-label">Name <span class="field-req" aria-hidden="true">*</span> <span class="field-flag"></span></span>
+            <input class="input" id="name" name="name" type="text" placeholder="Your name" autocomplete="name" maxlength="100" required>
+          </label>
+          <label class="field" for="email">
+            <span class="field-label">Email <span class="field-req" aria-hidden="true">*</span> <span class="field-flag"></span></span>
+            <input class="input" id="email" name="email" type="email" placeholder="you@company.com" autocomplete="email" maxlength="254" required>
+          </label>
+        </div>
+        <label class="field" for="subject">
+          <span class="field-label">Subject <span class="field-req" aria-hidden="true">*</span> <span class="field-flag"></span></span>
+          <input class="input" id="subject" name="subject" type="text" placeholder="Role, project or question" maxlength="150" required>
+        </label>
+        <label class="field" for="message">
+          <span class="field-label">Message <span class="field-req" aria-hidden="true">*</span> <span class="field-flag"></span></span>
+          <textarea class="textarea" id="message" name="message" rows="6" maxlength="600" placeholder="What are you working on, and where might I fit?" required></textarea>
+          <span class="counter-row"><span>Plain text, no attachments</span><span id="counter">0 / 600</span></span>
+        </label>
+        <input class="hp-field" name="company_website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input type="hidden" name="source" value="contact-page">
+        <div class="form-foot">
+          <button class="btn btn-primary" type="submit">Send message <span aria-hidden="true">→</span></button>
+          <span class="send-track" aria-hidden="true"><i></i></span>
+          <span>Replies within 24 hours</span>
+        </div>
+      </form>
+      <div class="sent" id="sent-panel" role="status" aria-live="polite" hidden>
+        <span class="sent-status">Delivered · <span id="sent-stamp"></span></span>
+        <p class="sent-title">Message sent, <i id="sent-name"></i>.</p>
+        <p>It’s in my inbox. Expect a reply within 24 hours. If it’s urgent, email me directly.</p>
+        <button class="linkish" id="write-another" type="button">Write another <span aria-hidden="true">→</span></button>
       </div>
-    </header>
+    </div>
 
-    <main id="main">
-
-      <section class="intro">
-        <span class="eyebrow" data-flow="up" data-flow-i="0"><b>[</b> GET IN TOUCH <b>]</b></span>
-        <h1 class="page-title" data-flow="up" data-flow-i="1">Let's talk<span class="dot">.</span></h1>
-        <p class="lede" data-flow="up" data-flow-i="2">Replies within 24 hours — usually sooner. Abuja (WAT), remote-friendly.</p>
-      </section>
-
-      <section class="contact-grid">
-
-        <!-- ---- form ---- -->
-        <div>
-          <div class="pane-head" data-flow="left" data-flow-i="0">
-            <h2 class="pane-title">Write a message<span class="dot">.</span></h2>
-            <span class="comment">// form → inbox</span>
-          </div>
-
-          <form class="form" id="contact-form" novalidate>
-            <div class="error-banner" id="error-banner" role="alert" hidden></div>
-
-            <div class="field-row" data-flow="left" data-flow-i="1">
-              <label class="field" for="name">
-                <span class="field-label">name <span class="field-req" aria-hidden="true">*</span> <span class="field-flag"></span></span>
-                <input class="input" id="name" name="name" type="text" placeholder="your name" autocomplete="name" maxlength="100" required>
-              </label>
-              <label class="field" for="email">
-                <span class="field-label">email <span class="field-req" aria-hidden="true">*</span> <span class="field-flag"></span></span>
-                <input class="input" id="email" name="email" type="email" placeholder="you@company.com" autocomplete="email" maxlength="254" required>
-              </label>
-            </div>
-
-            <label class="field" for="subject" data-flow="left" data-flow-i="2">
-              <span class="field-label">subject <span class="field-req" aria-hidden="true">*</span> <span class="field-flag"></span></span>
-              <input class="input" id="subject" name="subject" type="text" placeholder="role, project, or question" maxlength="150" required>
-            </label>
-
-            <label class="field" for="message" data-flow="left" data-flow-i="3">
-              <span class="field-label">message <span class="field-req" aria-hidden="true">*</span> <span class="field-flag"></span></span>
-              <textarea class="textarea" id="message" name="message" rows="6" maxlength="600" placeholder="what are you working on, and where might i fit?" required></textarea>
-              <span class="counter-row">
-                <i>// plain text, no attachments</i>
-                <span id="counter">0 / 600</span>
-              </span>
-            </label>
-
-            <!-- honeypot: off screen, out of the tab order, ignored by humans -->
-            <input class="hp-field" name="company_website" type="text"
-                   tabindex="-1" autocomplete="off" aria-hidden="true">
-            <input type="hidden" name="source" value="contact-page">
-
-            <div class="form-foot" data-flow="left" data-flow-i="4">
-              <button class="btn btn-primary" type="submit">Send Message →</button>
-              <span class="comment">// replies within 24h</span>
-            </div>
-          </form>
-
-          <!-- ---- sent confirmation ---- -->
-          <div class="sent" id="sent-panel" role="status" aria-live="polite" hidden>
-            <div class="sent-rule"></div>
-            <div class="sent-body">
-              <span class="sent-status">status: <b>delivered</b> · <span id="sent-stamp"></span></span>
-              <p class="sent-title">Message sent, <i id="sent-name"></i><span class="dot">.</span></p>
-              <p>It's in the inbox. Expect a reply within 24 hours — usually much sooner. If it's urgent, email directly.</p>
-              <button class="linkish" id="write-another" type="button">write another →</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- ---- direct channels ---- -->
-        <div>
-          <div class="pane-head" data-flow="right" data-flow-i="1">
-            <h2 class="pane-title">Direct channels<span class="dot">.</span></h2>
-            <span class="comment">// no form required</span>
-          </div>
-
-          <div class="channels">
-            <div class="channel" data-flow="right" data-flow-i="2">
-              <span class="channel-id">
-                <span class="channel-key">email</span>
-                <span class="channel-val">adelugbaadejare03@gmail.com</span>
-              </span>
-              <button class="copy-btn" type="button" aria-label="copy email address" data-copy="adelugbaadejare03@gmail.com">copy</button>
-            </div>
-
-            <a class="channel" data-flow="right" data-flow-i="3" href="https://github.com/Adejare-ml" target="_blank" rel="noopener">
-              <span class="channel-id">
-                <span class="channel-key">github</span>
-                <span class="channel-val">github.com/Adejare-ml</span>
-              </span>
-              <span class="channel-arrow">↗</span>
-            </a>
-
-            <a class="channel" data-flow="right" data-flow-i="4" href="https://linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener">
-              <span class="channel-id">
-                <span class="channel-key">linkedin</span>
-                <span class="channel-val">in/adejare-adelugba</span>
-              </span>
-              <span class="channel-arrow">↗</span>
-            </a>
-
-            <a class="channel" data-flow="right" data-flow-i="5" href="Adejare_Adelugba_Machine%20learning_engineer.pdf" download>
-              <span class="channel-id">
-                <span class="channel-key">cv</span>
-                <span class="channel-val">pdf — two pages, current</span>
-              </span>
-              <span class="channel-arrow">↓</span>
-            </a>
-          </div>
-
-          <p class="tz" data-flow="right" data-flow-i="6">// timezone — wat (utc+1) · best hours 09:00–18:00</p>
-        </div>
-
-      </section>
-
-    </main>
-
-    <footer class="site-footer">
-      <div class="cta">
-        <div class="cta-copy" data-flow="left" data-flow-i="0">
-          <span class="eyebrow"><b>[</b> AVAILABILITY <b>]</b></span>
-          <h2 class="cta-title">Available for ML engineering and data science roles<span class="dot">.</span></h2>
-          <span class="comment">// replies within 24 hours</span>
-        </div>
-        <div class="cta-links" data-flow="right" data-flow-i="1">
-          <a class="cta-link" href="mailto:adelugbaadejare03@gmail.com"><span class="cta-link-key">email</span><span class="cta-link-val">adelugbaadejare03@gmail.com</span></a>
-          <a class="cta-link" href="https://github.com/Adejare-ml" target="_blank" rel="noopener"><span class="cta-link-key">github</span><span class="cta-link-val">github.com/Adejare-ml ↗</span></a>
-          <a class="cta-link" href="https://linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener"><span class="cta-link-key">linkedin</span><span class="cta-link-val">in/adejare-adelugba ↗</span></a>
-        </div>
+    <div>
+      <h2 class="pane-title">Or reach me directly</h2>
+      <div class="channels">
+        <a class="channel" href="mailto:adelugbaadejare03@gmail.com"><span class="channel-key">Email</span><span class="channel-val">adelugbaadejare03@gmail.com</span></a>
+        <a class="channel" href="https://github.com/Adejare-ml" target="_blank" rel="noopener"><span class="channel-key">GitHub</span><span class="channel-val">github.com/Adejare-ml <span aria-hidden="true">↗</span></span></a>
+        <a class="channel" href="https://www.linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener"><span class="channel-key">LinkedIn</span><span class="channel-val">in/adejare-adelugba <span aria-hidden="true">↗</span></span></a>
+        <a class="channel" href="/Adejare_Adelugba_AI_ML_Engineer_CV.pdf" download><span class="channel-key">CV</span><span class="channel-val">Download PDF (2 pages) ↓</span></a>
       </div>
-      <div class="folio">
-        <span>© 2026 adejare adelugba</span>
-        <span>p.04 / 04</span>
-        <a href="/tokens">spec: token sheet →</a>
-      </div>
-    </footer>
+    </div>
+  </section>
 
+</main>
+<footer class="closing" style="margin-top:var(--section-gap)">
+  <div class="footnote" style="margin-top:0">
+    <span>© 2026 Adejare Adelugba · Abuja, Nigeria</span>
+    <a href="https://github.com/Adejare-ml/My-work-website" target="_blank" rel="noopener">Source code <span aria-hidden="true">↗</span></a>
   </div>
+</footer>
 </div>
-
-<script src="/assets/site.js?v=5"></script>
-<script src="/assets/ambient-grid.js?v=3" defer></script>
+<script src="/assets/site.js?v=8" defer></script>
 </body>
 </html>
