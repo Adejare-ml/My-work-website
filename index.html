@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=9">
+<link rel="stylesheet" href="assets/site.css?v=10">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body class="has-mobile-bar">
@@ -46,7 +46,7 @@
 
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-copy">
-      <span class="status-chip"><span class="pulse" aria-hidden="true"></span>ai/ml engineer at integrity · abuja · open to work</span>
+      <span class="status-chip"><span class="pulse" aria-hidden="true"></span>ai/ml engineer · integrity organization ltd · abuja</span>
       <h1 class="display" id="hero-title">Adejare<br>Adelugba<span class="dot">.</span></h1>
       <p class="role">AI <span class="amp">/</span> Machine Learning Engineer</p>
       <p class="hero-lede">I turn messy, real-world data — medical scans, scattered public records, the daily news — into models and tools people can actually use.</p>
@@ -320,100 +320,45 @@
 </g>
 </svg>
 
-          <p class="stage-caption" role="tabpanel" id="stage-cap-0" aria-labelledby="stage-tab-0"><b>Breast-ultrasound scans → a deep-learning model → a predicted class.</b> EfficientNet-B0 reached 95.75% accuracy against 58.2% for a Random Forest baseline.</p><p class="stage-caption" role="tabpanel" id="stage-cap-1" aria-labelledby="stage-tab-1" hidden><b>Scattered polling-unit records → an automated scraper → one clean workbook.</b> Every State, LGA, Ward and Polling Unit in one structured file.</p><p class="stage-caption" role="tabpanel" id="stage-cap-2" aria-labelledby="stage-tab-2" hidden><b>News articles → a chain of language models → a short daily brief.</b> Summaries and sentiment, refreshed four times a day at zero hosting cost.</p>
+          <p class="stage-caption" role="tabpanel" id="stage-cap-0" aria-labelledby="stage-tab-0"><b>Breast-ultrasound scans → a deep-learning model → a predicted class.</b> EfficientNet-B0 reached 95.75% accuracy against 58.2% for a Random Forest baseline.</p><p class="stage-caption" role="tabpanel" id="stage-cap-1" aria-labelledby="stage-tab-1" hidden><b>Scattered polling-unit records → an automated scraper → one clean workbook.</b> Every State, LGA, Ward and Polling Unit in one structured file.</p><p class="stage-caption" role="tabpanel" id="stage-cap-2" aria-labelledby="stage-tab-2" hidden><b>News articles → a chain of language models → a short daily brief.</b> Structured records and a brief, four times a day at zero hosting cost.</p>
         </div>
       </div>
     </figure>
   </section>
 
   <section class="section" aria-label="Results in numbers">
-    <div class="proof"><a class="proof-item" href="projects#ultrasound"><span class="proof-num">0.99<small>auc-roc</small></span><span class="proof-what">breast-ultrasound classifier</span><span class="proof-meter" aria-hidden="true"><i style="--v:0.99"></i></span><span class="proof-go">see project →</span></a><a class="proof-item" href="projects#medical-imaging-leukemia-busi-brainmri-models"><span class="proof-num">0.96–0.99<small></small></span><span class="proof-what">test accuracy, 4-class brain MRI</span><span class="proof-meter" aria-hidden="true"><i style="--v:0.99"></i></span><span class="proof-go">see project →</span></a><a class="proof-item" href="projects#colorectal-endoscopy-kvasir-classification"><span class="proof-num">0.91<small>accuracy</small></span><span class="proof-what">8-class GI endoscopy (Kvasir)</span><span class="proof-meter" aria-hidden="true"><i style="--v:0.91"></i></span><span class="proof-go">see project →</span></a><a class="proof-item" href="projects#sentry-awareness-platform"><span class="proof-num">1,600<small>+</small></span><span class="proof-what">training scenarios in SENTRY</span><span class="proof-go">see project →</span></a></div>
+    <div class="proof"><a class="proof-item" href="project-ultrasound"><span class="proof-num">95.75<small>%</small></span><span class="proof-what">accuracy classifying breast-ultrasound scans (baseline: 58.2%)</span><span class="proof-meter" aria-hidden="true"><i style="--v:0.9575"></i></span><span class="proof-go">read the project →</span></a><a class="proof-item" href="project-multimodal"><span class="proof-num">0.91<small>auc</small></span><span class="proof-what">scan + clinical record model, final-year project</span><span class="proof-meter" aria-hidden="true"><i style="--v:0.91"></i></span><span class="proof-go">read the project →</span></a><a class="proof-item" href="project-aura"><span class="proof-num">4×<small>a day</small></span><span class="proof-what">news-intelligence runs, at $0 hosting</span><span class="proof-go">read the project →</span></a><a class="proof-item" href="project-polling"><span class="proof-num">37<small>regions</small></span><span class="proof-what">polling-unit records scraped and structured</span><span class="proof-go">read the project →</span></a></div>
   </section>
 
   <section class="section" id="work" aria-labelledby="work-title">
     <div class="section-head">
       <span class="eyebrow"><b>[</b> SELECTED WORK <b>]</b></span>
       <div class="section-head-row">
-        <h2 class="section-title drift" id="work-title">Case studies<span class="dot">.</span></h2>
-        <span class="comment">// tap one to see how it works</span>
+        <h2 class="section-title drift" id="work-title">Four projects<span class="dot">.</span></h2>
+        <span class="comment">// each one has its own page: why, decisions, results</span>
       </div>
       
     </div>
     <div class="home-cards">
-      <a class="pcard" href="projects#multimodal"><span class="pcard-cat">// medical imaging · final-year project</span><h3>Multimodal breast cancer detection</h3><p>Combines a breast scan with the patient’s clinical record to suggest one of three diagnoses.</p><span class="pcard-foot"><span>pytorch · medclip · tabnet · fastapi · docker</span><b>how it works →</b></span></a>
-      <a class="pcard" href="projects#ultrasound"><span class="pcard-cat">// medical imaging · benchmark</span><h3>Breast ultrasound classification</h3><p>A deep model that beat a classic baseline by more than 37 points on breast-ultrasound images.</p><span class="pcard-foot"><span>tensorflow · efficientnet-b0 · scikit-learn</span><b>how it works →</b></span></a>
-      <a class="pcard" href="projects#aura"><span class="pcard-cat">// llm systems · automation</span><h3>AURA news intelligence system</h3><p>Reads the news, summarises it and scores sentiment on its own, four times a day.</p><span class="pcard-foot"><span>python · llms · github actions · github pages</span><b>how it works →</b></span></a>
-      <a class="pcard" href="projects#polling"><span class="pcard-cat">// data engineering · internship</span><h3>Nigeria polling unit data pipeline</h3><p>Turned scattered polling-unit records into one clean, structured workbook.</p><span class="pcard-foot"><span>python · selenium · pandas · github actions</span><b>how it works →</b></span></a>
+      <a class="pcard" href="project-multimodal"><span class="pcard-cat">// medical imaging · final-year project</span><h3>Multimodal breast cancer detection</h3><p>Combines a breast scan with the patient’s clinical record to suggest one of three diagnoses.</p><span class="pcard-foot"><span>pytorch · medclip · tabnet · fastapi · docker</span><b>read the project →</b></span></a>
+      <a class="pcard" href="project-ultrasound"><span class="pcard-cat">// medical imaging · benchmark</span><h3>Breast ultrasound classification</h3><p>A deep model that beat a classic baseline by 37.5 points on breast-ultrasound images.</p><span class="pcard-foot"><span>tensorflow · efficientnet-b0 · scikit-learn</span><b>read the project →</b></span></a>
+      <a class="pcard" href="project-aura"><span class="pcard-cat">// llm systems · automation</span><h3>AURA news intelligence system</h3><p>Reads Nigerian business news four times a day and writes ownership records and a daily brief.</p><span class="pcard-foot"><span>python · llms · github actions · github pages</span><b>read the project →</b></span></a>
+      <a class="pcard" href="project-polling"><span class="pcard-cat">// data engineering · internship</span><h3>Nigeria polling unit data pipeline</h3><p>Turned scattered polling-unit records into one clean workbook per state.</p><span class="pcard-foot"><span>python · selenium · pandas · github actions</span><b>read the project →</b></span></a>
     </div>
     <p style="margin-top:20px"><a class="link-arrow" href="projects">all projects and experiments <span aria-hidden="true">→</span></a></p>
   </section>
 
-  <section class="section" id="lab" aria-labelledby="lab-title">
+  <section class="section" id="story" aria-labelledby="story-title">
     <div class="section-head">
-      <span class="eyebrow"><b>[</b> RESEARCH NOTEBOOK <b>]</b></span>
+      <span class="eyebrow"><b>[</b> THE STORY SO FAR <b>]</b></span>
       <div class="section-head-row">
-        <h2 class="section-title drift" id="lab-title">Experiment Lab<span class="dot">.</span></h2>
-        <span class="comment">// what didn’t work, and the fix</span>
-      </div>
-      
-    </div>
-    <div class="lab-rows">
-      <div class="lab-row">
-        <span class="lab-id">EXP_LOG_01</span>
-        <p><b>Classic ML on raw pixels stalled at 58.2%.</b> EfficientNet-B0 transfer learning on the same balanced data reached 95.75%.</p>
-        <span class="stamp">fixed</span>
-      </div>
-      <div class="lab-row">
-        <span class="lab-id">EXP_LOG_02</span>
-        <p><b>Unfreezing all of MedCLIP overfit almost at once.</b> Kept the pretrained encoder frozen and trained only the heads.</p>
-        <span class="stamp">fixed</span>
-      </div>
-      <div class="lab-row">
-        <span class="lab-id">EXP_LOG_03</span>
-        <p><b>Accuracy hid a useless model.</b> Weighted the loss and picked models by ROC-AUC instead.</p>
-        <span class="stamp is-shipped">shipped</span>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="experience" aria-labelledby="exp-title">
-    <div class="section-head">
-      <span class="eyebrow"><b>[</b> CAREER <b>]</b></span>
-      <div class="section-head-row">
-        <h2 class="section-title drift" id="exp-title">Where I’ve worked<span class="dot">.</span></h2>
+        <h2 class="section-title drift" id="story-title">From student to engineer<span class="dot">.</span></h2>
         <span class="comment">// 2021 — now</span>
       </div>
       
     </div>
-    <div class="timeline">
-      <div class="timeline-rail" aria-hidden="true"><i></i></div>
-      <div class="job is-now">
-    <span class="job-when">jul 2026 — present</span>
-    <h3>AI/ML Engineer</h3>
-    <span class="job-org">Integrity Organization Ltd</span>
-    <p>Builds RAG and LLM-evaluation components, backend services and document-extraction pipelines.</p>
-  </div>
-      <div class="job">
-    <span class="job-when">sep — oct 2025</span>
-    <h3>Data Engineering Intern</h3>
-    <span class="job-org">Kontemporary Konsulting Ltd · Abuja</span>
-    <p>Automated polling-unit data collection and built reusable Excel reporting.</p>
-  </div>
-      <div class="job">
-    <span class="job-when">may — oct 2024</span>
-    <h3>Data Engineering Intern</h3>
-    <span class="job-org">TETFund · Abuja</span>
-    <p>Built scripts and an automation pipeline that cut manual reporting work.</p>
-  </div>
-      <div class="job">
-    <span class="job-when">2021 — 2025</span>
-    <h3>B.Sc. Computer Science</h3>
-    <span class="job-org">Landmark University</span>
-    <p>Final-year project: multimodal breast-cancer detection.</p>
-  </div>
-    </div>
-    <div class="caps caps-compact"><div><span class="cap-label">// machine-learning</span><div class="chips"><span class="chip">pytorch</span><span class="chip">tensorflow / keras</span><span class="chip">scikit-learn</span><span class="chip">vit · dinov2 · medclip</span><span class="chip">tabnet</span><span class="chip">cnn transfer learning</span><span class="chip">grad-cam</span></div></div><div><span class="cap-label">// llm-and-rag</span><div class="chips"><span class="chip">langchain</span><span class="chip">dspy</span><span class="chip">faiss</span><span class="chip">chromadb</span><span class="chip">pgvector</span><span class="chip">anthropic · openai · gemini apis</span><span class="chip">tool-calling agents</span><span class="chip">mcp</span></div></div><div><span class="cap-label">// backend-and-deployment</span><div class="chips"><span class="chip">fastapi</span><span class="chip">postgresql</span><span class="chip">sqlalchemy · alembic</span><span class="chip">redis</span><span class="chip">docker</span><span class="chip">github actions</span><span class="chip">supabase</span><span class="chip">pytest</span></div></div><div><span class="cap-label">// data-engineering</span><div class="chips"><span class="chip">pandas · numpy</span><span class="chip">selenium</span><span class="chip">beautifulsoup</span><span class="chip">ocr / pdf parsing</span><span class="chip">excel reporting</span><span class="chip">web scraping</span></div></div></div>
-    <p style="margin-top:20px"><a class="link-arrow" href="about">full experience and certifications <span aria-hidden="true">→</span></a></p>
+    <ol class="story"><li><a href="about#ch-degree"><span class="story-year">2021</span><b>Landmark University</b><span>B.Sc. Computer Science begins.</span></a></li><li><a href="about#ch-tetfund"><span class="story-year">2024</span><b>TETFund · industrial training</b><span>300-level IT placement in data engineering.</span></a></li><li><a href="about#ch-kontemporary"><span class="story-year">2025</span><b>Graduation · Kontemporary</b><span>Final-year project, then a data-engineering internship.</span></a></li><li><a href="about#ch-integrity"><span class="story-year">2026</span><b>Integrity Organization</b><span>AI/ML Engineer, building RAG and backend systems.</span></a></li></ol>
+    <p style="margin-top:24px"><a class="btn" href="about">Read the full story <span aria-hidden="true">→</span></a></p>
   </section>
 
 </main>
@@ -447,7 +392,7 @@
   <a class="btn btn-primary" href="mailto:adelugbaadejare03@gmail.com">Email me</a>
   <a class="btn" href="Adejare_Adelugba_AI_ML_Engineer_CV.pdf" download>CV ↓</a>
 </div>
-<script src="assets/site.js?v=9" defer></script>
-<script src="assets/ambient-grid.js?v=9" defer></script>
+<script src="assets/site.js?v=10" defer></script>
+<script src="assets/ambient-grid.js?v=10" defer></script>
 </body>
 </html>

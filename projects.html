@@ -5,22 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1c1d21">
 <title>Projects — Adejare Adelugba</title>
-<meta name="description" content="Machine-learning, LLM and data-engineering projects — four flagship explainers with animated diagrams, plus every other project and experiment with links to the code.">
+<meta name="description" content="Four flagship projects, each with its own page covering why I built it, the decisions I made and the results, plus every other project and experiment.">
 <link rel="canonical" href="https://adelugba-adejare.pages.dev/projects">
 <meta property="og:title" content="Projects — Adejare Adelugba">
-<meta property="og:description" content="Machine-learning, LLM and data-engineering projects — four flagship explainers with animated diagrams, plus every other project and experiment with links to the code.">
+<meta property="og:description" content="Four flagship projects, each with its own page covering why I built it, the decisions I made and the results, plus every other project and experiment.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://adelugba-adejare.pages.dev/projects">
 <meta property="og:image" content="https://adelugba-adejare.pages.dev/og-preview.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Projects — Adejare Adelugba">
-<meta name="twitter:description" content="Machine-learning, LLM and data-engineering projects — four flagship explainers with animated diagrams, plus every other project and experiment with links to the code.">
+<meta name="twitter:description" content="Four flagship projects, each with its own page covering why I built it, the decisions I made and the results, plus every other project and experiment.">
 <meta name="twitter:image" content="https://adelugba-adejare.pages.dev/og-preview.jpg">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=9">
+<link rel="stylesheet" href="assets/site.css?v=10">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body class="has-mobile-bar">
@@ -44,8 +44,8 @@
   <section class="intro" aria-labelledby="proj-title">
     <span class="eyebrow"><b>[</b> THE WORK <b>]</b></span>
     <h1 class="page-title" id="proj-title">Projects<span class="dot">.</span></h1>
-    <p class="lede">Four flagship projects explained step by step, then everything else I’ve built.</p>
-    <nav class="jump" aria-label="Flagship projects"><a href="#multimodal">01 multimodal cancer</a><a href="#ultrasound">02 breast ultrasound</a><a href="#aura">03 aura news</a><a href="#polling">04 polling units</a></nav>
+    <p class="lede">Four flagship projects, each with its own page: why I built it, the problems I hit, the decisions I made and the results. Then everything else I’ve built.</p>
+    <nav class="jump" aria-label="Flagship project pages"><a href="project-multimodal">01 multimodal cancer</a><a href="project-ultrasound">02 breast ultrasound</a><a href="project-aura">03 aura news</a><a href="project-polling">04 polling units</a></nav>
   </section>
 
   <section class="section" aria-labelledby="flag-title">
@@ -53,7 +53,7 @@
       <span class="eyebrow"><b>[</b> FLAGSHIP <b>]</b></span>
       <div class="section-head-row">
         <h2 class="section-title drift" id="flag-title">How they work<span class="dot">.</span></h2>
-        <span class="comment">// each diagram shows how the data moves</span>
+        <span class="comment">// open one for the full story</span>
       </div>
       
     </div>
@@ -63,24 +63,23 @@
         <span class="explainer-num">01 / 04 · medical imaging · final-year project</span>
         <h2 id="multimodal-title" class="drift">Multimodal breast cancer detection<span class="dot">.</span></h2>
         <p class="card-outcome">Looks at a breast scan and the patient’s clinical record together, and suggests one of three diagnoses.</p>
-        <p class="card-detail">Image features from MedCLIP and clinical features from TabNet are combined in a late-fusion model, then served through a FastAPI backend in Docker with API contract tests.</p>
-
-        
+        <div class="figs"><div><b>0.91</b><span>AUC on the test set</span></div><div><b>3</b><span>diagnostic classes</span></div><div><b>2</b><span>data streams fused</span></div></div>
         <p class="card-note">// research project, not a clinical tool.</p>
-        <div class="card-links"><a class="link-arrow" href="https://github.com/Adejare-ml/med-cancer-multimodal-diagnostics" target="_blank" rel="noopener">code <span aria-hidden="true">↗</span></a></div>
+        <div class="actions"><a class="btn btn-primary" href="project-multimodal">Read the project <span aria-hidden="true">→</span></a></div>
+        <p class="explainer-what">// why I built it · 3 decisions · results</p>
       </div>
-      <figure>
-        <figcaption class="comment stack-cap">// two opinions, one diagnosis</figcaption>
+      <figure class="p-visual">
+        <figcaption class="comment stack-cap">// two inputs, one diagnosis</figcaption>
         <div class="stack"><div class="plane plane-back" aria-hidden="true"></div><div class="plane plane-mid" aria-hidden="true"></div>
-          <div class="sheet"><div class="chrome"><span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="chrome-file">late_fusion — live</span></div>
-            <svg class="fusion-svg" viewBox="0 0 520 300" role="img" aria-labelledby="fusion-title" data-fusion>
-  <title id="fusion-title">Diagram: a breast scan goes through MedCLIP and a clinical record goes through TabNet; their predictions are combined by late fusion into a three-class diagnosis served by an API.</title>
+          <div class="sheet"><div class="chrome"><span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="chrome-file">feature_fusion — live</span></div>
+<svg class="fusion-svg" viewBox="0 0 520 300" role="img" aria-labelledby="fusion-title" data-fusion>
+  <title id="fusion-title">Diagram: a breast scan goes through MedCLIP and a clinical record goes through TabNet; their feature vectors are joined (feature fusion) into a three-class diagnosis served by an API.</title>
   <path class="s-track" d="M118 80 C 200 80, 210 150, 290 150"/>
   <path class="s-track" d="M118 220 C 200 220, 210 150, 290 150"/>
   <path class="s-track" d="M380 150 H420"/>
   <rect class="s-node" x="20" y="52" width="98" height="56" rx="6"/><text class="s-label-ink" x="69" y="78" text-anchor="middle">Scan</text><text class="s-label" x="69" y="96" text-anchor="middle">MedCLIP</text>
   <rect class="s-node" x="20" y="192" width="98" height="56" rx="6"/><text class="s-label-ink" x="69" y="218" text-anchor="middle">Record</text><text class="s-label" x="69" y="236" text-anchor="middle">TabNet</text>
-  <rect class="s-node s-node-on" x="290" y="118" width="90" height="64" rx="6"/><text class="s-label-ink" x="335" y="146" text-anchor="middle">Late</text><text class="s-label-ink" x="335" y="164" text-anchor="middle">fusion</text>
+  <rect class="s-node s-node-on" x="290" y="118" width="90" height="64" rx="6"/><text class="s-label-ink" x="335" y="146" text-anchor="middle">Feature</text><text class="s-label-ink" x="335" y="164" text-anchor="middle">fusion</text>
   <rect class="s-node" x="420" y="110" width="84" height="80" rx="6"/><text class="s-num" x="462" y="140" text-anchor="middle">3</text><text class="s-label" x="462" y="158" text-anchor="middle">classes</text><text class="s-label" x="462" y="176" text-anchor="middle">via API</text>
   <circle class="s-packet" data-fp="0" r="4" cx="118" cy="80" opacity="0"/>
   <circle class="s-packet" data-fp="1" r="4" cx="118" cy="220" opacity="0"/>
@@ -93,23 +92,13 @@
       <div>
         <span class="explainer-num">02 / 04 · medical imaging · benchmark</span>
         <h2 id="ultrasound-title" class="drift">Breast ultrasound classification<span class="dot">.</span></h2>
-        <p class="card-outcome">Sorts breast-ultrasound images into diagnostic classes. The deep model beat a classic baseline by more than 37 percentage points.</p>
-        <p class="card-detail">EfficientNet-B0 transfer learning against Random Forest + PCA on the public BUSI dataset, with classes balanced by augmenting to 4,000 images each.</p>
-          <div class="bars" data-bars role="group" aria-label="Test accuracy">
-            <div class="bar-row">
-    <div class="bar-head"><span>EfficientNet-B0 (deep model)</span><b>95.75%</b></div>
-    <div class="bar-track"><div class="bar-fill" style="--v:0.9575"></div></div>
-  </div>
-            <div class="bar-row">
-    <div class="bar-head"><span>Random Forest + PCA (baseline)</span><b>58.2%</b></div>
-    <div class="bar-track"><div class="bar-fill is-muted" style="--v:0.582"></div></div>
-  </div>
-          </div>
-        <div class="badge"><b>0.99 AUC-ROC</b>Classes balanced to 4,000 images each before training.</div>
+        <p class="card-outcome">Sorts breast-ultrasound images into benign, malignant or normal — and shows why a deep model was worth it over a classic pipeline.</p>
+        <div class="figs"><div><b>95.75%</b><span>accuracy, EfficientNet-B0</span></div><div><b>0.99</b><span>AUC-ROC</span></div><div><b>98%</b><span>malignant cases caught</span></div></div>
         <p class="card-note">// research project, not a clinical tool.</p>
-        <div class="card-links"><a class="link-arrow" href="https://github.com/Adejare-ml/breast-ultrasound-classification" target="_blank" rel="noopener">code <span aria-hidden="true">↗</span></a></div>
+        <div class="actions"><a class="btn btn-primary" href="project-ultrasound">Read the project <span aria-hidden="true">→</span></a></div>
+        <p class="explainer-what">// why I built it · 3 decisions · results</p>
       </div>
-      <figure>
+      <figure class="p-visual">
         <figcaption class="comment stack-cap">// how the data moves</figcaption>
         <div class="stack"><div class="plane plane-back" aria-hidden="true"></div><div class="plane plane-mid" aria-hidden="true"></div>
           <div class="sheet"><div class="chrome"><span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="chrome-file">ultrasound_pipeline — live</span></div>
@@ -118,10 +107,10 @@
             <ol class="pipe-steps">
               <li class="pipe-rail" aria-hidden="true"></li>
               <li class="pipe-packet" aria-hidden="true"></li>
-              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">01</span><div><b>BUSI images</b><span>public breast-ultrasound set</span></div></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">01</span><div><b>BUSI images</b><span>benign · malignant · normal</span></div></li>
               <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">02</span><div><b>Balance classes</b><span>augmented to 4,000 per class</span></div></li>
               <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">03</span><div><b>EfficientNet-B0</b><span>pretrained, then fine-tuned</span></div></li>
-              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">04</span><div><b>Evaluate</b><span>accuracy and AUC-ROC on held-out scans</span></div></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">04</span><div><b>Evaluate</b><span>accuracy, F1 and AUC-ROC on held-out scans</span></div></li>
             </ol>
           </div>
           </div></div>
@@ -131,14 +120,13 @@
       <div>
         <span class="explainer-num">03 / 04 · llm systems · automation</span>
         <h2 id="aura-title" class="drift">AURA news intelligence system<span class="dot">.</span></h2>
-        <p class="card-outcome">Reads the news, writes short summaries and scores the sentiment of each story, on its own, four times a day.</p>
-        <p class="card-detail">An LLM cascade runs on GitHub Actions, stores results in Google Sheets and publishes a live dashboard on GitHub Pages, at zero hosting cost.</p>
-
+        <p class="card-outcome">Reads Nigerian business news four times a day and turns it into structured ownership records and a daily executive brief.</p>
+        <div class="figs"><div><b>4×</b><span>runs a day</span></div><div><b>$0</b><span>hosting cost</span></div><div><b>5</b><span>news sources</span></div></div>
         
-        
-        <div class="card-links"><a class="link-arrow" href="https://adejare-ml.github.io/News-Intelligence-System/" target="_blank" rel="noopener">live dashboard <span aria-hidden="true">↗</span></a><a class="link-arrow" href="https://github.com/Adejare-ml/News-Intelligence-System" target="_blank" rel="noopener">code <span aria-hidden="true">↗</span></a></div>
+        <div class="actions"><a class="btn btn-primary" href="project-aura">Read the project <span aria-hidden="true">→</span></a></div>
+        <p class="explainer-what">// why I built it · 4 decisions · results</p>
       </div>
-      <figure>
+      <figure class="p-visual">
         <figcaption class="comment stack-cap">// how the data moves</figcaption>
         <div class="stack"><div class="plane plane-back" aria-hidden="true"></div><div class="plane plane-mid" aria-hidden="true"></div>
           <div class="sheet"><div class="chrome"><span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="chrome-file">aura_pipeline — live</span></div>
@@ -147,10 +135,10 @@
             <ol class="pipe-steps">
               <li class="pipe-rail" aria-hidden="true"></li>
               <li class="pipe-packet" aria-hidden="true"></li>
-              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">01</span><div><b>News sources</b><span>articles collected every run</span></div></li>
-              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">02</span><div><b>LLM cascade</b><span>summarise, then score sentiment</span></div></li>
-              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">03</span><div><b>Google Sheets</b><span>every result stored</span></div></li>
-              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">04</span><div><b>Live dashboard</b><span>GitHub Pages, $0 hosting</span></div></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">01</span><div><b>News sources</b><span>RSS + 4 news APIs, every run</span></div></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">02</span><div><b>LLM cascade</b><span>extract, then write the brief</span></div></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">03</span><div><b>Google Sheets</b><span>7 tabs, auditable by people</span></div></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">04</span><div><b>Live site</b><span>Astro on Cloudflare Pages, $0</span></div></li>
             </ol>
           </div>
           </div></div>
@@ -160,14 +148,13 @@
       <div>
         <span class="explainer-num">04 / 04 · data engineering · internship</span>
         <h2 id="polling-title" class="drift">Nigeria polling unit data pipeline<span class="dot">.</span></h2>
-        <p class="card-outcome">Replaced manual copying of polling-unit records with a scraper that produces one clean, structured workbook.</p>
-        <p class="card-detail">Selenium walks Nigeria’s State → LGA → Ward → Polling Unit hierarchy, a mapping layer fixes mislabelled columns, and tests run on GitHub Actions.</p>
-
+        <p class="card-outcome">Replaced manual copying of polling-unit records with a scraper that produces clean, structured workbooks for every state.</p>
+        <div class="figs"><div><b>37</b><span>administrative regions</span></div><div><b>4</b><span>levels structured</span></div><div><b>0</b><span>manual copying</span></div></div>
         
-        
-        <div class="card-links"><a class="link-arrow" href="https://github.com/Adejare-ml/Nigeria-Polling-Unit-Scraper" target="_blank" rel="noopener">code <span aria-hidden="true">↗</span></a></div>
+        <div class="actions"><a class="btn btn-primary" href="project-polling">Read the project <span aria-hidden="true">→</span></a></div>
+        <p class="explainer-what">// why I built it · 4 decisions · results</p>
       </div>
-      <figure>
+      <figure class="p-visual">
         <figcaption class="comment stack-cap">// how the data moves</figcaption>
         <div class="stack"><div class="plane plane-back" aria-hidden="true"></div><div class="plane plane-mid" aria-hidden="true"></div>
           <div class="sheet"><div class="chrome"><span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="chrome-file">polling_pipeline — live</span></div>
@@ -177,14 +164,55 @@
               <li class="pipe-rail" aria-hidden="true"></li>
               <li class="pipe-packet" aria-hidden="true"></li>
               <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">01</span><div><b>State portals</b><span>records spread across many pages</span></div></li>
-              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">02</span><div><b>Selenium scraper</b><span>visits every level</span></div></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">02</span><div><b>Selenium scraper</b><span>walks every state and page</span></div></li>
               <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">03</span><div><b>Label mapping</b><span>fixes mislabelled columns</span></div></li>
-              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">04</span><div><b>Excel workbook</b><span>one sheet per level</span></div></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">04</span><div><b>Excel workbooks</b><span>one sheet per level</span></div></li>
             </ol>
           </div>
           </div></div>
       </figure>
     </article>
+    </div>
+  </section>
+
+  <section class="section" id="lab" aria-labelledby="lab-title">
+    <div class="section-head">
+      <span class="eyebrow"><b>[</b> EXPERIMENT LAB <b>]</b></span>
+      <div class="section-head-row">
+        <h2 class="section-title drift" id="lab-title">Decisions that changed the result<span class="dot">.</span></h2>
+        <span class="comment">// one per project · each links to its decision log</span>
+      </div>
+      
+    </div>
+    <div class="dlog">
+      <a class="dlog-row" href="project-multimodal#d1">
+        <span class="dlog-proj">01 · multimodal</span>
+        <p><b>Issue</b>Fine-tuning all of MedCLIP overfit almost at once. Validation loss climbed after the first epochs — a few hundred patients can’t re-teach a foundation model.</p>
+        <span class="lab-arrow" aria-hidden="true">→</span>
+        <p class="is-change"><b>Decision</b>Kept the pretrained encoder frozen and trained only the heads.</p>
+        <p class="is-result"><b>Result</b>Stable training and better generalisation.</p>
+      </a>
+      <a class="dlog-row" href="project-ultrasound#d3">
+        <span class="dlog-proj">02 · ultrasound</span>
+        <p><b>Issue</b>The baseline missed too many cancers. It caught only 55% of malignant cases — not acceptable for screening.</p>
+        <span class="lab-arrow" aria-hidden="true">→</span>
+        <p class="is-change"><b>Decision</b>Used EfficientNet-B0 transfer learning on the same balanced data.</p>
+        <p class="is-result"><b>Result</b>98% malignant recall and 95.75% accuracy.</p>
+      </a>
+      <a class="dlog-row" href="project-aura#d1">
+        <span class="dlog-proj">03 · aura</span>
+        <p><b>Issue</b>It once published junk while every run showed green. An earlier version silently fell back to keyword heuristics and, for days, published sports and celebrity stories as corporate intelligence.</p>
+        <span class="lab-arrow" aria-hidden="true">→</span>
+        <p class="is-change"><b>Decision</b>Fail loudly: if every provider fails, the run exits non-zero and publishes nothing. Every record now stores which model produced it.</p>
+        <p class="is-result"><b>Result</b>No more quiet bad data; failures are visible.</p>
+      </a>
+      <a class="dlog-row" href="project-polling#d1">
+        <span class="dlog-proj">04 · polling</span>
+        <p><b>Issue</b>The source data was mislabelled. Some “LGA” columns actually contained State names.</p>
+        <span class="lab-arrow" aria-hidden="true">→</span>
+        <p class="is-change"><b>Decision</b>Added a semantic mapping layer that corrects these during extraction.</p>
+        <p class="is-result"><b>Result</b>A consistent hierarchy instead of hand-fixing every sheet.</p>
+      </a>
     </div>
   </section>
 
@@ -265,7 +293,7 @@
   <a class="btn btn-primary" href="mailto:adelugbaadejare03@gmail.com">Email me</a>
   <a class="btn" href="Adejare_Adelugba_AI_ML_Engineer_CV.pdf" download>CV ↓</a>
 </div>
-<script src="assets/site.js?v=9" defer></script>
-<script src="assets/ambient-grid.js?v=9" defer></script>
+<script src="assets/site.js?v=10" defer></script>
+<script src="assets/ambient-grid.js?v=10" defer></script>
 </body>
 </html>
