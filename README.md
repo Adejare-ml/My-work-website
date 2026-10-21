@@ -35,7 +35,8 @@ my-work-website/
 ├── 404.html
 ├── assets/
 │   ├── site.css    ← All styles
-│   └── site.js     ← Hero animation, pipeline diagrams, filters, contact form
+│   ├── site.js     ← Hero animation, pipeline diagrams, filters, contact form
+│   └── ambient-grid.js ← Desktop starfield background (WebGL, off on phones and reduced motion)
 ├── Adejare_Adelugba_AI_ML_Engineer_CV.pdf
 ├── _headers, robots.txt, sitemap.xml
 └── redesign/       ← Older design prototypes (noindex, not linked)
