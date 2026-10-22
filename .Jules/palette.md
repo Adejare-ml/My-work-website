@@ -1,0 +1,3 @@
+## 2025-05-19 - Button Loading and Disabled States
+**Learning:** Using `color: transparent !important` correctly hides button text during a loading state while maintaining its layout, but also hides spinners styled with `currentColor`. Also, `pointer-events: none` is a bad practice for disabled states when you want to show a `cursor: not-allowed`.
+**Action:** Always explicitely color `border` elements for absolute-positioned loading spinners (e.g. `border: 2px solid var(--ink)`). Ensure hover and active styles apply conditionally by wrapping their selectors with `:not(:disabled):not([aria-busy="true"])`.
