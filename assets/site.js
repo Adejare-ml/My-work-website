@@ -673,11 +673,99 @@
     paint();
   }
 
+
+  /* ---------- home: a paper plane flies the path, stop by stop ----
+     The list of stops is plain text and always readable. The plane
+     only marks progress; with reduced motion it sits at the last stop.
+     -------------------------------------------------------- */
+
+  function initFlight() {
+    var f = document.querySelector('[data-flight]');
+    if (!f) return;
+    var svg = f.querySelector('.flight-svg');
+    var path = svg.querySelector('.flight-path');
+    var trail = svg.querySelector('.flight-trail');
+    var plane = svg.querySelector('.flight-plane');
+    var stops = $$('.flight-stop', f);
+    var replay = document.querySelector('[data-flight-replay]');
+    if (!path.getTotalLength || stops.length < 2) { if (replay) replay.hidden = true; return; }
+    var total = 0, marks = [], raf = 0, t0 = 0, cur = 1, SEG = 1.5, HOLD = 0.35;
+
+    function lengthAtY(y) {
+      var lo = 0, hi = total;
+      for (var i = 0; i < 24; i++) { var mid = (lo + hi) / 2; if (path.getPointAtLength(mid).y < y) lo = mid; else hi = mid; }
+      return hi;
+    }
+    function measure() {
+      var r = f.getBoundingClientRect();
+      var pts = stops.map(function (s) {
+        var d = s.querySelector('.flight-dot').getBoundingClientRect();
+        return [d.left - r.left + d.width / 2, d.top - r.top + d.height / 2];
+      });
+      var d = 'M' + pts[0][0].toFixed(1) + ' ' + (pts[0][1] - 26).toFixed(1) + ' L' + pts[0][0].toFixed(1) + ' ' + pts[0][1].toFixed(1);
+      for (var i = 1; i < pts.length; i++) {
+        var a = pts[i - 1], b = pts[i], dy = b[1] - a[1], k = (i % 2 ? 1 : -1) * Math.min(22, a[0] + 4);
+        d += ' C' + (a[0] + k).toFixed(1) + ' ' + (a[1] + dy * 0.35).toFixed(1) + ' ' + (b[0] + k).toFixed(1) + ' ' + (b[1] - dy * 0.35).toFixed(1) + ' ' + b[0].toFixed(1) + ' ' + b[1].toFixed(1);
+      }
+      path.setAttribute('d', d);
+      trail.setAttribute('d', d);
+      total = path.getTotalLength();
+      trail.style.strokeDasharray = total + ' ' + total;
+      marks = pts.map(function (p) { return lengthAtY(p[1] - 0.5); });
+      marks[0] = lengthAtY(pts[0][1] - 0.5);
+    }
+    function draw(p) {
+      cur = p;
+      var L = total * clamp(p);
+      var pt = path.getPointAtLength(L);
+      var ah = path.getPointAtLength(Math.min(total, L + 2)), bh = path.getPointAtLength(Math.max(0, L - 2));
+      var ang = Math.atan2(ah.y - bh.y, ah.x - bh.x) * 180 / Math.PI;
+      plane.setAttribute('transform', 'translate(' + pt.x.toFixed(1) + ' ' + pt.y.toFixed(1) + ') rotate(' + ang.toFixed(1) + ')');
+      trail.style.strokeDashoffset = String(total - L);
+      stops.forEach(function (s, i) { s.classList.toggle('is-reached', L >= marks[i] - 1); });
+    }
+    /* time → progress: glide between stops, pause briefly at each */
+    function progressAt(sec) {
+      var n = marks.length, per = SEG + HOLD;
+      var seg = Math.floor(sec / per), local = (sec - seg * per) / SEG;
+      if (seg >= n) return 1;
+      var from = seg === 0 ? 0 : marks[seg - 1], to = marks[seg];
+      return (from + (to - from) * easeInOut(Math.min(1, local))) / total;
+    }
+    function frame(now) {
+      if (!t0) t0 = now;
+      var sec = (now - t0) / 1000;
+      var p = progressAt(sec);
+      draw(p);
+      if (p < 1) raf = requestAnimationFrame(frame);
+      else { raf = 0; f.classList.remove('is-flying'); f.classList.add('is-landed'); }
+    }
+    function play() {
+      if (raf) cancelAnimationFrame(raf);
+      t0 = 0; f.classList.remove('is-landed'); f.classList.add('is-flying'); draw(0);
+      raf = requestAnimationFrame(frame);
+    }
+
+    measure();
+    f.classList.add('is-ready');
+    if (reduce) { draw(1); f.classList.add('is-landed'); if (replay) replay.hidden = true; }
+    else {
+      draw(0); f.classList.add('is-flying');
+      var io = watch(f, function (inView) { if (inView) { play(); if (io) io.disconnect(); } }, { threshold: 0.35 });
+      if (replay) replay.addEventListener('click', play);
+    }
+    if ('ResizeObserver' in window) {
+      var last = f.offsetWidth;
+      new ResizeObserver(function () { if (f.offsetWidth === last) return; last = f.offsetWidth; measure(); draw(cur); }).observe(f);
+    }
+  }
+
   /* ---------- boot ---------- */
 
   function boot() {
     initStage();
     initPipes();
+    initFlight();
     initBars();
     initMeters();
     initCards();

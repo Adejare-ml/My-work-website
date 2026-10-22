@@ -28,14 +28,16 @@ Personal portfolio site for **Adejare Adelugba** — AI / Machine Learning Engin
 
 ```
 my-work-website/
-├── index.html      ← Home: animated "mess → meaning" hero, results, case studies
-├── about.html      ← Bio, experience, skills, certifications
-├── projects.html   ← Featured project, lessons, all projects (filterable)
+├── index.html      ← Home: name, a plane-flight story of the path so far, three projects, contact line
+├── about.html      ← The story: degree, IT placement, internships, current role; skills, certifications
+├── projects.html   ← Four flagship projects, decision log, all projects (filterable)
+├── project-*.html  ← One page per flagship project: figures, why, how, decisions, results
 ├── contact.html    ← Contact form (Google Apps Script backend)
 ├── 404.html
 ├── assets/
 │   ├── site.css    ← All styles
-│   └── site.js     ← Hero animation, pipeline diagrams, filters, contact form
+│   ├── site.js     ← Hero animation, pipeline diagrams, filters, contact form
+│   └── ambient-grid.js ← Desktop starfield background (WebGL, off on phones and reduced motion)
 ├── Adejare_Adelugba_AI_ML_Engineer_CV.pdf
 ├── _headers, robots.txt, sitemap.xml
 └── redesign/       ← Older design prototypes (noindex, not linked)

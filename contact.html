@@ -16,98 +16,96 @@
 <meta name="twitter:title" content="Contact — Adejare Adelugba">
 <meta name="twitter:description" content="Get in touch with Adejare Adelugba, AI/ML Engineer in Abuja, Nigeria (WAT). Replies within 24 hours.">
 <meta name="twitter:image" content="https://adelugba-adejare.pages.dev/og-preview.jpg">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=8">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=11">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="progress" aria-hidden="true"></div>
-<header class="site-header">
-  <div class="wrap header-row">
-    <a class="brand" href="/" aria-label="Adejare Adelugba, home">
-      <svg class="brand-mark" viewBox="0 0 26 26" aria-hidden="true"><path d="M5 13H21" stroke-width="1.5"/><circle cx="5" cy="13" r="3"/><circle cx="13" cy="13" r="3"/><circle cx="21" cy="13" r="3"/></svg>
-      <span>Adejare <span class="brand-name-long">Adelugba</span></span>
-    </a>
+<header class="masthead">
+  <div class="wrap masthead-row">
+    <a class="wordmark" href="./" aria-label="Adejare Adelugba, home"><span class="wm-full">adejare adelugba</span><span class="wm-short" aria-hidden="true">adejare</span><span class="caret" aria-hidden="true">_</span></a>
     <nav class="nav" aria-label="Main">
-      <a href="/projects">Work</a>
-      <a href="/about">About</a>
-      <a href="/contact" aria-current="page">Contact</a>
-      <a class="nav-cv" href="/Adejare_Adelugba_AI_ML_Engineer_CV.pdf" download>CV <span aria-hidden="true">↓</span></a>
+      <a href="./">home</a>
+      <a href="projects">projects</a>
+      <a href="about">about</a>
+      <a href="contact" aria-current="page">contact</a>
     </nav>
   </div>
 </header>
+<div class="page">
 <div class="wrap">
 <main id="main">
 
   <section class="intro" aria-labelledby="contact-title">
-    <span class="kicker">Contact</span>
-    <h1 id="contact-title">Let’s talk<span class="dot">.</span></h1>
+    <span class="eyebrow"><b>[</b> GET IN TOUCH <b>]</b></span>
+    <h1 class="page-title" id="contact-title">Let’s talk<span class="dot">.</span></h1>
     <p class="lede">Roles, projects or questions. I reply within 24 hours, usually sooner. Abuja, Nigeria (WAT, UTC+1), remote-friendly.</p>
   </section>
 
   <section class="contact-grid">
     <div>
-      <h2 class="pane-title">Write a message</h2>
+      <h2 class="pane-title">Write a message<span class="dot">.</span></h2>
       <form class="form" id="contact-form" novalidate>
         <div class="error-banner" id="error-banner" role="alert" hidden></div>
         <div class="field-row">
           <label class="field" for="name">
-            <span class="field-label">Name <span class="field-req" aria-hidden="true">*</span> <span class="field-flag"></span></span>
+            <span class="field-label">name <span class="field-req" aria-hidden="true">*</span> <span class="field-flag"></span></span>
             <input class="input" id="name" name="name" type="text" placeholder="Your name" autocomplete="name" maxlength="100" required>
           </label>
           <label class="field" for="email">
-            <span class="field-label">Email <span class="field-req" aria-hidden="true">*</span> <span class="field-flag"></span></span>
+            <span class="field-label">email <span class="field-req" aria-hidden="true">*</span> <span class="field-flag"></span></span>
             <input class="input" id="email" name="email" type="email" placeholder="you@company.com" autocomplete="email" maxlength="254" required>
           </label>
         </div>
         <label class="field" for="subject">
-          <span class="field-label">Subject <span class="field-req" aria-hidden="true">*</span> <span class="field-flag"></span></span>
+          <span class="field-label">subject <span class="field-req" aria-hidden="true">*</span> <span class="field-flag"></span></span>
           <input class="input" id="subject" name="subject" type="text" placeholder="Role, project or question" maxlength="150" required>
         </label>
         <label class="field" for="message">
-          <span class="field-label">Message <span class="field-req" aria-hidden="true">*</span> <span class="field-flag"></span></span>
+          <span class="field-label">message <span class="field-req" aria-hidden="true">*</span> <span class="field-flag"></span></span>
           <textarea class="textarea" id="message" name="message" rows="6" maxlength="600" placeholder="What are you working on, and where might I fit?" required></textarea>
-          <span class="counter-row"><span>Plain text, no attachments</span><span id="counter">0 / 600</span></span>
+          <span class="counter-row"><span>// plain text, no attachments</span><span id="counter">0 / 600</span></span>
         </label>
         <input class="hp-field" name="company_website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
         <input type="hidden" name="source" value="contact-page">
         <div class="form-foot">
           <button class="btn btn-primary" type="submit">Send message <span aria-hidden="true">→</span></button>
           <span class="send-track" aria-hidden="true"><i></i></span>
-          <span>Replies within 24 hours</span>
+          <span class="comment">// replies within 24h</span>
         </div>
       </form>
       <div class="sent" id="sent-panel" role="status" aria-live="polite" hidden>
-        <span class="sent-status">Delivered · <span id="sent-stamp"></span></span>
-        <p class="sent-title">Message sent, <i id="sent-name"></i>.</p>
+        <span class="sent-status">status: delivered · <span id="sent-stamp"></span></span>
+        <p class="sent-title">Message sent, <i id="sent-name"></i><span class="dot">.</span></p>
         <p>It’s in my inbox. Expect a reply within 24 hours. If it’s urgent, email me directly.</p>
-        <button class="linkish" id="write-another" type="button">Write another <span aria-hidden="true">→</span></button>
+        <button class="linkish" id="write-another" type="button">write another <span aria-hidden="true">→</span></button>
       </div>
     </div>
 
     <div>
-      <h2 class="pane-title">Or reach me directly</h2>
+      <h2 class="pane-title">Direct channels<span class="dot">.</span></h2>
       <div class="channels">
-        <a class="channel" href="mailto:adelugbaadejare03@gmail.com"><span class="channel-key">Email</span><span class="channel-val">adelugbaadejare03@gmail.com</span></a>
-        <a class="channel" href="https://github.com/Adejare-ml" target="_blank" rel="noopener"><span class="channel-key">GitHub</span><span class="channel-val">github.com/Adejare-ml <span aria-hidden="true">↗</span></span></a>
-        <a class="channel" href="https://www.linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener"><span class="channel-key">LinkedIn</span><span class="channel-val">in/adejare-adelugba <span aria-hidden="true">↗</span></span></a>
-        <a class="channel" href="/Adejare_Adelugba_AI_ML_Engineer_CV.pdf" download><span class="channel-key">CV</span><span class="channel-val">Download PDF (2 pages) ↓</span></a>
+        <a class="channel" href="mailto:adelugbaadejare03@gmail.com"><span class="channel-key">email</span><span class="channel-val">adelugbaadejare03@gmail.com</span></a>
+        <a class="channel" href="https://github.com/Adejare-ml" target="_blank" rel="noopener"><span class="channel-key">github</span><span class="channel-val">github.com/Adejare-ml <span aria-hidden="true">↗</span></span></a>
+        <a class="channel" href="https://www.linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener"><span class="channel-key">linkedin</span><span class="channel-val">in/adejare-adelugba <span aria-hidden="true">↗</span></span></a>
+        <a class="channel" href="Adejare_Adelugba_AI_ML_Engineer_CV.pdf" download><span class="channel-key">cv</span><span class="channel-val">PDF, 2 pages ↓</span></a>
       </div>
     </div>
   </section>
 
 </main>
-<footer class="closing" style="margin-top:var(--section-gap)">
-  <div class="footnote" style="margin-top:0">
-    <span>© 2026 Adejare Adelugba · Abuja, Nigeria</span>
-    <a href="https://github.com/Adejare-ml/My-work-website" target="_blank" rel="noopener">Source code <span aria-hidden="true">↗</span></a>
-  </div>
+<footer class="folio">
+  <span>© 2026 adejare adelugba · abuja</span>
+  <a href="https://github.com/Adejare-ml/My-work-website" target="_blank" rel="noopener">source code <span aria-hidden="true">↗</span></a>
 </footer>
 </div>
-<script src="/assets/site.js?v=8" defer></script>
+</div>
+<script src="assets/site.js?v=11" defer></script>
+<script src="assets/ambient-grid.js?v=11" defer></script>
 </body>
 </html>

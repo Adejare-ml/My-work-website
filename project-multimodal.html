@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1c1d21">
+<title>Multimodal breast cancer detection — Adejare Adelugba</title>
+<meta name="description" content="Multimodal breast cancer detection: Looks at a breast scan and the patient’s clinical record together, and suggests one of three diagnoses. Why I built it, the decisions I made and the results.">
+<link rel="canonical" href="https://adelugba-adejare.pages.dev/project-multimodal">
+<meta property="og:title" content="Multimodal breast cancer detection — Adejare Adelugba">
+<meta property="og:description" content="Multimodal breast cancer detection: Looks at a breast scan and the patient’s clinical record together, and suggests one of three diagnoses. Why I built it, the decisions I made and the results.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adelugba-adejare.pages.dev/project-multimodal">
+<meta property="og:image" content="https://adelugba-adejare.pages.dev/og-preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Multimodal breast cancer detection — Adejare Adelugba">
+<meta name="twitter:description" content="Multimodal breast cancer detection: Looks at a breast scan and the patient’s clinical record together, and suggests one of three diagnoses. Why I built it, the decisions I made and the results.">
+<meta name="twitter:image" content="https://adelugba-adejare.pages.dev/og-preview.jpg">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=11">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body class="has-mobile-bar">
+<a class="skip" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"></div>
+<header class="masthead">
+  <div class="wrap masthead-row">
+    <a class="wordmark" href="./" aria-label="Adejare Adelugba, home"><span class="wm-full">adejare adelugba</span><span class="wm-short" aria-hidden="true">adejare</span><span class="caret" aria-hidden="true">_</span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="./">home</a>
+      <a href="projects" aria-current="page">projects</a>
+      <a href="about">about</a>
+      <a href="contact">contact</a>
+    </nav>
+  </div>
+</header>
+<div class="page">
+<div class="wrap">
+<main id="main" class="project-page">
+
+  <section class="intro p-intro" aria-labelledby="p-title">
+    <a class="back" href="projects">← all projects</a>
+    <span class="eyebrow"><b>[</b> PROJECT 01 / 04 · MEDICAL IMAGING · FINAL-YEAR PROJECT <b>]</b></span>
+    <h1 class="page-title" id="p-title">Multimodal breast cancer detection<span class="dot">.</span></h1>
+    <p class="lede">Looks at a breast scan and the patient’s clinical record together, and suggests one of three diagnoses.</p>
+    <p class="p-context">// Final-year project, B.Sc. Computer Science, Landmark University (2025).</p>
+    <nav class="jump" aria-label="On this page"><a href="#glance">figures</a><a href="#why">why &amp; how</a><a href="#decisions">decisions</a><a href="#results">results</a></nav>
+  </section>
+
+  <section class="section p-glance" id="glance" aria-labelledby="glance-title">
+    <div class="section-head">
+      <span class="eyebrow"><b>[</b> AT A GLANCE <b>]</b></span>
+      <div class="section-head-row">
+        <h2 class="section-title drift" id="glance-title">The figures<span class="dot">.</span></h2>
+        <span class="comment">// the short version</span>
+      </div>
+      
+    </div>
+    <div class="proof glance"><div class="proof-item"><span class="proof-num">0.91</span><span class="proof-what">AUC on the test set</span><span class="proof-sub">from the project README</span></div><div class="proof-item"><span class="proof-num">3</span><span class="proof-what">diagnostic classes</span><span class="proof-sub">one prediction per patient</span></div><div class="proof-item"><span class="proof-num">2</span><span class="proof-what">data streams fused</span><span class="proof-sub">scan + clinical record</span></div><div class="proof-item"><span class="proof-num">API</span><span class="proof-what">FastAPI in Docker</span><span class="proof-sub">contract-tested in CI</span></div></div>
+    <div class="p-meta">
+      <div><span class="cap-label">// stack</span><div class="chips"><span class="chip">pytorch</span><span class="chip">medclip (resnet50)</span><span class="chip">tabnet</span><span class="chip">fastapi</span><span class="chip">docker</span><span class="chip">vitest</span><span class="chip">pytest</span></div></div>
+      <div class="actions"><a class="btn btn-primary" href="https://github.com/Adejare-ml/med-cancer-multimodal-diagnostics" target="_blank" rel="noopener">Code <span aria-hidden="true">↗</span></a></div>
+    </div>
+  </section>
+
+  <section class="section p-why" id="why" aria-labelledby="why-title">
+    <div class="section-head">
+      <span class="eyebrow"><b>[</b> THE PROBLEM <b>]</b></span>
+      <div class="section-head-row">
+        <h2 class="section-title drift" id="why-title">Why I built it<span class="dot">.</span></h2>
+        
+      </div>
+      
+    </div>
+    <div class="p-split">
+      <div>
+        <p class="p-why-text">A scan on its own misses context a clinician has on paper — age, mass shape, breast density. I wanted to know whether a model that reads both the image and the clinical record makes a more reliable call than either one alone.</p>
+
+        <h3 class="p-sub">How I built it</h3>
+        <ol class="steps"><li><span class="step-n" aria-hidden="true">01</span><div><b>Imaging stream</b><p>MedCLIP (ResNet50 backbone) turns each scan into a feature vector.</p></div></li><li><span class="step-n" aria-hidden="true">02</span><div><b>Clinical stream</b><p>TabNet learns from the structured record, using attention to pick the clinical features that matter.</p></div></li><li><span class="step-n" aria-hidden="true">03</span><div><b>Fusion</b><p>Both feature vectors are concatenated into one representation; a classification head outputs the diagnosis probability.</p></div></li><li><span class="step-n" aria-hidden="true">04</span><div><b>Serving</b><p>An async FastAPI service in a multi-stage Docker build, with a small clinician dashboard and saved scalers and weights.</p></div></li><li><span class="step-n" aria-hidden="true">05</span><div><b>Testing</b><p>Frontend tests (Vitest) and backend API contract tests (pytest) run in GitHub Actions on every push.</p></div></li></ol>
+      </div>
+      <figure class="p-visual">
+        <figcaption class="comment stack-cap">// two inputs, one diagnosis</figcaption>
+        <div class="stack"><div class="plane plane-back" aria-hidden="true"></div><div class="plane plane-mid" aria-hidden="true"></div>
+          <div class="sheet"><div class="chrome"><span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="chrome-file">feature_fusion — live</span></div>
+<svg class="fusion-svg" viewBox="0 0 520 300" role="img" aria-labelledby="fusion-title" data-fusion>
+  <title id="fusion-title">Diagram: a breast scan goes through MedCLIP and a clinical record goes through TabNet; their feature vectors are joined (feature fusion) into a three-class diagnosis served by an API.</title>
+  <path class="s-track" d="M118 80 C 200 80, 210 150, 290 150"/>
+  <path class="s-track" d="M118 220 C 200 220, 210 150, 290 150"/>
+  <path class="s-track" d="M380 150 H420"/>
+  <rect class="s-node" x="20" y="52" width="98" height="56" rx="6"/><text class="s-label-ink" x="69" y="78" text-anchor="middle">Scan</text><text class="s-label" x="69" y="96" text-anchor="middle">MedCLIP</text>
+  <rect class="s-node" x="20" y="192" width="98" height="56" rx="6"/><text class="s-label-ink" x="69" y="218" text-anchor="middle">Record</text><text class="s-label" x="69" y="236" text-anchor="middle">TabNet</text>
+  <rect class="s-node s-node-on" x="290" y="118" width="90" height="64" rx="6"/><text class="s-label-ink" x="335" y="146" text-anchor="middle">Feature</text><text class="s-label-ink" x="335" y="164" text-anchor="middle">fusion</text>
+  <rect class="s-node" x="420" y="110" width="84" height="80" rx="6"/><text class="s-num" x="462" y="140" text-anchor="middle">3</text><text class="s-label" x="462" y="158" text-anchor="middle">classes</text><text class="s-label" x="462" y="176" text-anchor="middle">via API</text>
+  <circle class="s-packet" data-fp="0" r="4" cx="118" cy="80" opacity="0"/>
+  <circle class="s-packet" data-fp="1" r="4" cx="118" cy="220" opacity="0"/>
+  <circle class="s-packet" data-fp="2" r="4" cx="380" cy="150" opacity="0"/>
+</svg>
+          </div></div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="decisions" aria-labelledby="dec-title">
+    <div class="section-head">
+      <span class="eyebrow"><b>[</b> DECISION LOG <b>]</b></span>
+      <div class="section-head-row">
+        <h2 class="section-title drift" id="dec-title">What went wrong, and what I decided<span class="dot">.</span></h2>
+        <span class="comment">// 3 decisions</span>
+      </div>
+      
+    </div>
+    <div class="decisions">
+      <article class="decision" id="d1">
+        <div class="decision-head"><span class="decision-id">D1</span><h3>Fine-tuning all of MedCLIP overfit almost at once.</h3></div>
+        <dl class="decision-flow">
+          <div><dt>what happened</dt><dd>Validation loss climbed after the first epochs — a few hundred patients can’t re-teach a foundation model.</dd></div>
+          <div class="is-choice"><dt>decision</dt><dd>Kept the pretrained encoder frozen and trained only the heads.</dd></div>
+          <div class="is-result"><dt>result</dt><dd>Stable training and better generalisation.</dd></div>
+        </dl>
+      </article>
+      <article class="decision" id="d2">
+        <div class="decision-head"><span class="decision-id">D2</span><h3>Accuracy hid a useless model.</h3></div>
+        <dl class="decision-flow">
+          <div><dt>what happened</dt><dd>The data is imbalanced, so a model that called almost everything “benign” still scored well.</dd></div>
+          <div class="is-choice"><dt>decision</dt><dd>Weighted the loss and chose models by ROC-AUC, reporting both.</dd></div>
+          <div class="is-result"><dt>result</dt><dd>Model selection that reflects missed cancers, not just the majority class.</dd></div>
+        </dl>
+      </article>
+      <article class="decision" id="d3">
+        <div class="decision-head"><span class="decision-id">D3</span><h3>XGBoost beat TabNet on the clinical data alone.</h3></div>
+        <dl class="decision-flow">
+          <div><dt>what happened</dt><dd>But trees don’t produce a feature vector that can be fused with the image features.</dd></div>
+          <div class="is-choice"><dt>decision</dt><dd>Used TabNet for the clinical stream so both streams could be concatenated.</dd></div>
+          <div class="is-result"><dt>result</dt><dd>One fused model that outperformed the single-modality baselines.</dd></div>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="results" aria-labelledby="res-title">
+    <div class="section-head">
+      <span class="eyebrow"><b>[</b> RESULTS <b>]</b></span>
+      <div class="section-head-row">
+        <h2 class="section-title drift" id="res-title">Where it ended up<span class="dot">.</span></h2>
+        
+      </div>
+      
+    </div>
+    <dl class="results"><div><dt>AUC (fused model)</dt><dd>0.91</dd></div><div><dt>Output</dt><dd>3-class diagnosis</dd></div><div><dt>Deployment</dt><dd>Dockerised FastAPI + dashboard</dd></div></dl>
+    <p class="card-note">// research project, not a clinical tool.</p>
+  </section>
+
+  <nav class="p-nav" aria-label="More projects">
+    <a href="project-polling"><span>← previous</span><b>Nigeria polling unit data pipeline</b></a>
+    <a href="project-ultrasound"><span>next →</span><b>Breast ultrasound classification</b></a>
+  </nav>
+
+</main>
+
+  <footer class="closing">
+    <div class="cta" id="contact-links">
+      <div>
+        <span class="eyebrow"><b>[</b> AVAILABILITY <b>]</b></span>
+        <h2 class="drift">Have messy data and a problem worth solving?</h2>
+        <p>I reply within 24 hours. Abuja, Nigeria (WAT, UTC+1), happy to work remotely.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="mailto:adelugbaadejare03@gmail.com">Email me <span aria-hidden="true">→</span></a>
+          <a class="btn" href="contact">Send a message</a>
+        </div>
+      </div>
+      <div class="channels">
+        <a class="channel" href="mailto:adelugbaadejare03@gmail.com"><span class="channel-key">email</span><span class="channel-val">adelugbaadejare03@gmail.com</span></a>
+        <a class="channel" href="https://github.com/Adejare-ml" target="_blank" rel="noopener"><span class="channel-key">github</span><span class="channel-val">github.com/Adejare-ml <span aria-hidden="true">↗</span></span></a>
+        <a class="channel" href="https://www.linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener"><span class="channel-key">linkedin</span><span class="channel-val">in/adejare-adelugba <span aria-hidden="true">↗</span></span></a>
+        <a class="channel" href="Adejare_Adelugba_AI_ML_Engineer_CV.pdf" download><span class="channel-key">cv</span><span class="channel-val">PDF, 2 pages ↓</span></a>
+      </div>
+    </div>
+    <div class="folio">
+      <span>© 2026 adejare adelugba · abuja</span>
+      <a href="https://github.com/Adejare-ml/My-work-website" target="_blank" rel="noopener">source code <span aria-hidden="true">↗</span></a>
+    </div>
+  </footer>
+</div>
+</div>
+<div class="mobile-bar" aria-label="Quick actions">
+  <a class="btn btn-primary" href="mailto:adelugbaadejare03@gmail.com">Email me</a>
+  <a class="btn" href="Adejare_Adelugba_AI_ML_Engineer_CV.pdf" download>CV ↓</a>
+</div>
+<script src="assets/site.js?v=11" defer></script>
+<script src="assets/ambient-grid.js?v=11" defer></script>
+</body>
+</html>
