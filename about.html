@@ -2,359 +2,191 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1c1d21">
 <title>About — Adejare Adelugba</title>
-<meta name="description" content="AI/ML Engineer at Integrity Organization Ltd and Computer Science graduate from Landmark University. Experience, skills, certifications, and the short version of the story.">
+<meta name="description" content="The story so far: Computer Science at Landmark University, an industrial-training placement at TETFund, a data-engineering internship, and now AI/ML Engineer at Integrity Organization Ltd.">
 <link rel="canonical" href="https://adelugba-adejare.pages.dev/about">
 <meta property="og:title" content="About — Adejare Adelugba">
-<meta property="og:description" content="AI/ML Engineer building deep-learning models, RAG and LLM applications, and data pipelines in Python.">
-<meta property="og:type" content="profile">
+<meta property="og:description" content="The story so far: Computer Science at Landmark University, an industrial-training placement at TETFund, a data-engineering internship, and now AI/ML Engineer at Integrity Organization Ltd.">
+<meta property="og:type" content="website">
 <meta property="og:url" content="https://adelugba-adejare.pages.dev/about">
 <meta property="og:image" content="https://adelugba-adejare.pages.dev/og-preview.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="About — Adejare Adelugba">
-<meta name="twitter:description" content="AI/ML Engineer — background, career history, skills and certifications.">
+<meta name="twitter:description" content="The story so far: Computer Science at Landmark University, an industrial-training placement at TETFund, a data-engineering internship, and now AI/ML Engineer at Integrity Organization Ltd.">
 <meta name="twitter:image" content="https://adelugba-adejare.pages.dev/og-preview.jpg">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ProfilePage",
-  "url": "https://adelugba-adejare.pages.dev/about",
-  "mainEntity": {
-    "@type": "Person",
-    "@id": "https://adelugba-adejare.pages.dev/#person",
-    "name": "Adejare Adelugba",
-    "jobTitle": "AI / Machine Learning Engineer",
-    "image": "https://adelugba-adejare.pages.dev/profile-840.jpg",
-    "url": "https://adelugba-adejare.pages.dev/",
-    "sameAs": [
-      "https://github.com/Adejare-ml",
-      "https://www.linkedin.com/in/adejare-adelugba"
-    ]
-  }
-}
-</script>
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=6">
+<link rel="stylesheet" href="assets/site.css?v=11">
+<script>document.documentElement.classList.add('js')</script>
 </head>
-<body>
-<div class="veil" aria-hidden="true">
-  <div class="veil-inner">
-    <span class="veil-cmd">$ cd ~/about</span>
-    <span class="veil-roles">developer <i>&#183;</i> data engineer <i>&#183;</i> ai / ml engineer</span>
-    <span class="veil-rule"></span>
+<body class="has-mobile-bar">
+<a class="skip" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"></div>
+<header class="masthead">
+  <div class="wrap masthead-row">
+    <a class="wordmark" href="./" aria-label="Adejare Adelugba, home"><span class="wm-full">adejare adelugba</span><span class="wm-short" aria-hidden="true">adejare</span><span class="caret" aria-hidden="true">_</span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="./">home</a>
+      <a href="projects">projects</a>
+      <a href="about" aria-current="page">about</a>
+      <a href="contact">contact</a>
+    </nav>
   </div>
-</div>
-
-<a class="skip" href="#main">skip to content</a>
-
+</header>
 <div class="page">
-  <div class="well">
+<div class="wrap">
+<main id="main">
 
-    <header class="masthead">
-      <div class="masthead-inner">
-        <a class="wordmark" href="/">~/adejare.ml<span>_</span></a>
-        <nav class="nav" aria-label="Main">
-          <a href="/">home</a>
-          <a href="/about" aria-current="page">about</a>
-          <a href="/projects">projects</a>
-          <a href="/contact">contact</a>
-          <button class="cmd-trigger" type="button" aria-haspopup="dialog"
-                  aria-controls="cmd-palette" aria-keyshortcuts="Control+K Meta+K"
-                  aria-label="Search this site (Ctrl K)" title="Search (Ctrl K)">⌘K</button>
-        </nav>
-      </div>
-    </header>
-
-    <main id="main">
-
-      <!-- ============ portrait + bio ============ -->
-      <section class="about-hero">
-        <figure class="portrait-fig" data-flow="left" data-flow-i="0">
-          <div class="portrait-frame">
-            <!-- The slot is 420px at desktop and (100vw - 32px) below the
-                 2-up breakpoint. Width descriptors let the browser pick by
-                 DEVICE pixels, so a DPR-3 phone still gets the 840 file and
-                 only low-DPR/narrow cases drop to 560. width/height are the
-                 files' true 840x1120 — they were declared 840x1050, which
-                 is the wrong intrinsic ratio. -->
-            <picture>
-              <source type="image/webp"
-                      srcset="profile-560.webp 560w, profile-840.webp 840w"
-                      sizes="(max-width: 767px) calc(100vw - 32px), 420px">
-              <img src="profile-840.jpg"
-                   srcset="profile-560.jpg 560w, profile-840.jpg 840w"
-                   sizes="(max-width: 767px) calc(100vw - 32px), 420px"
-                   alt="Adejare Adelugba" width="840" height="1120"
-                   fetchpriority="high" decoding="async">
-            </picture>
-          </div>
-          <figcaption class="portrait-cap">
-            <i>// the author</i>
-            <span>abuja, 2026</span>
-          </figcaption>
-        </figure>
-
-        <div class="bio">
-          <span class="eyebrow" data-flow="right" data-flow-i="1"><b>[</b> WHO I AM <b>]</b></span>
-          <h1 class="page-title" data-flow="right" data-flow-i="2">About<span class="dot">.</span></h1>
-          <p data-flow="right" data-flow-i="3">I'm an AI/ML Engineer at Integrity Organization Ltd and a Computer Science graduate from Landmark University. I work across the full cycle — extracting and cleaning data, training and evaluating models, deploying them with FastAPI and Docker, and writing documentation non-technical teams can actually use. My work spans medical-imaging classification, retrieval-augmented generation (RAG), workflow automation and web scraping. My final-year project combined MedCLIP image embeddings with TabNet clinical features in a late-fusion model for three-class breast-cancer diagnosis. Every project I publish documents what didn't work, not just what did.</p>
-        </div>
-      </section>
-
-      <!-- ============ experience ============ -->
-      <section class="section" id="experience">
-        <div class="section-head" data-flow="up" data-flow-i="0">
-          <span class="eyebrow"><b>[</b> CAREER <b>]</b></span>
-          <div class="section-head-row">
-            <h2 class="section-title">Experience<span class="dot">.</span></h2>
-            <span class="comment">// 2021 — present</span>
-          </div>
-        </div>
-
-        <div data-disclosure-group data-label-open="[-] close" data-label-shut="[+] details">
-
-          <div class="disclosure is-open" data-disclosure data-flow="up" data-flow-i="1">
-            <button class="disclosure-btn" data-disclosure-btn type="button" aria-expanded="true" aria-controls="exp-0">
-              <span class="disclosure-date">jul 2026 — now</span>
-              <span class="disclosure-id">
-                <span class="disclosure-role">AI/ML Engineer</span>
-                <span class="disclosure-org">integrity organization ltd</span>
-              </span>
-              <span class="disclosure-toggle">[-] close</span>
-            </button>
-            <div class="disclosure-panel" id="exp-0">
-              <div>
-                <ul class="bullets">
-                  <li>built backend modules for internal web platforms with Python, FastAPI, PostgreSQL and Docker</li>
-                  <li>built retrieval-augmented generation (RAG) and LLM-evaluation components using LLM APIs, vector search (pgvector) and DSPy</li>
-                  <li>built document-processing and data-extraction pipelines (PDF parsing, OCR) backed by automated tests</li>
-                  <li>built the organisation's website and online store</li>
-                  <li>wrote technical documentation, meeting minutes and progress reports for non-technical stakeholders</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="disclosure" data-disclosure data-flow="up" data-flow-i="2">
-            <button class="disclosure-btn" data-disclosure-btn type="button" aria-expanded="false" aria-controls="exp-1">
-              <span class="disclosure-date">sep–oct 2025</span>
-              <span class="disclosure-id">
-                <span class="disclosure-role">Data Engineering Intern</span>
-                <span class="disclosure-org">kontemporary konsulting · abuja</span>
-              </span>
-              <span class="disclosure-toggle">[+] details</span>
-            </button>
-            <div class="disclosure-panel" id="exp-1">
-              <div>
-                <ul class="bullets">
-                  <li>developed a Selenium-based scraping system that aggregated polling-unit records across Nigerian states, replacing manual collection</li>
-                  <li>cleaned and standardised datasets by State and LGA, resolving mislabelled fields for downstream analysis</li>
-                  <li>developed a reusable Python workflow that exports structured multi-sheet Excel reports for stakeholders</li>
-                  <li>designed and developed a multi-page responsive <a href="https://github.com/Adejare-ml/kontemporary-website" target="_blank" rel="noopener">website redesign ↗</a> (HTML, CSS, JavaScript)</li>
-                  <li>implemented a Random Forest classification model with preprocessing, evaluation and metric visualisation, documented for reuse</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="disclosure" data-disclosure data-flow="up" data-flow-i="3">
-            <button class="disclosure-btn" data-disclosure-btn type="button" aria-expanded="false" aria-controls="exp-2">
-              <span class="disclosure-date">may–oct 2024</span>
-              <span class="disclosure-id">
-                <span class="disclosure-role">Data Engineering Intern</span>
-                <span class="disclosure-org">tetfund · abuja</span>
-              </span>
-              <span class="disclosure-toggle">[+] details</span>
-            </button>
-            <div class="disclosure-panel" id="exp-2">
-              <div>
-                <ul class="bullets">
-                  <li>supported institutional data management with Python and Excel, improving consistency across datasets used for reporting</li>
-                  <li>developed classification and reporting scripts and an automation pipeline that reduced manual reporting work</li>
-                  <li>assisted with database maintenance and smoother reporting workflows</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="disclosure" data-disclosure data-flow="up" data-flow-i="4">
-            <button class="disclosure-btn" data-disclosure-btn type="button" aria-expanded="false" aria-controls="exp-3">
-              <span class="disclosure-date">2021 — 2025</span>
-              <span class="disclosure-id">
-                <span class="disclosure-role">B.Sc. Computer Science</span>
-                <span class="disclosure-org">landmark university · omu-aran</span>
-              </span>
-              <span class="disclosure-toggle">[+] details</span>
-            </button>
-            <div class="disclosure-panel" id="exp-3">
-              <div>
-                <ul class="bullets">
-                  <li>final-year project: multimodal breast-cancer detection — late fusion of MedCLIP image embeddings and TabNet clinical features</li>
-                  <li>focus areas: machine learning, databases, distributed systems</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ============ capabilities matrix ============ -->
-      <section class="section" id="capabilities">
-        <div class="section-head" data-flow="up" data-flow-i="0">
-          <span class="eyebrow"><b>[</b> TECHNICAL MATRIX <b>]</b></span>
-          <div class="section-head-row">
-            <h2 class="section-title">Capabilities &amp; Stack<span class="dot">.</span></h2>
-            <span class="comment">// verified tools &amp; frameworks</span>
-          </div>
-        </div>
-
-        <div class="caps">
-          <div class="cap" data-flow="up" data-flow-i="1">
-            <span class="cap-label">// languages</span>
-            <div class="chips">
-              <span class="chip">python</span>
-              <span class="chip">sql</span>
-              <span class="chip">javascript</span>
-              <span class="chip">c#</span>
-              <span class="chip">c++</span>
-            </div>
-          </div>
-          <div class="cap" data-flow="up" data-flow-i="2">
-            <span class="cap-label">// machine-learning</span>
-            <div class="chips">
-              <span class="chip">pytorch</span>
-              <span class="chip">tensorflow / keras</span>
-              <span class="chip">scikit-learn</span>
-              <span class="chip">vit · dinov2 · medclip</span>
-              <span class="chip">tabnet</span>
-              <span class="chip">cnn transfer learning</span>
-              <span class="chip">grad-cam</span>
-              <span class="chip">model evaluation</span>
-            </div>
-          </div>
-          <div class="cap" data-flow="up" data-flow-i="3">
-            <span class="cap-label">// llm-rag</span>
-            <div class="chips">
-              <span class="chip">langchain</span>
-              <span class="chip">dspy</span>
-              <span class="chip">faiss · chromadb · pgvector</span>
-              <span class="chip">anthropic · openai · gemini apis</span>
-              <span class="chip">llm evaluation</span>
-              <span class="chip">tool-calling agents</span>
-              <span class="chip">mcp</span>
-            </div>
-          </div>
-          <div class="cap" data-flow="up" data-flow-i="4">
-            <span class="cap-label">// backend-deployment</span>
-            <div class="chips">
-              <span class="chip">fastapi</span>
-              <span class="chip">postgresql</span>
-              <span class="chip">sqlalchemy · alembic</span>
-              <span class="chip">redis</span>
-              <span class="chip">docker</span>
-              <span class="chip">github actions</span>
-              <span class="chip">supabase</span>
-              <span class="chip">pytest</span>
-            </div>
-          </div>
-          <div class="cap" data-flow="up" data-flow-i="5">
-            <span class="cap-label">// data-engineering</span>
-            <div class="chips">
-              <span class="chip">pandas · numpy</span>
-              <span class="chip">selenium · beautifulsoup</span>
-              <span class="chip">ocr / pdf parsing</span>
-              <span class="chip">excel reporting (openpyxl)</span>
-              <span class="chip">data cleaning · eda</span>
-              <span class="chip">automation</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="tech-tree" data-flow="up" data-flow-i="6">
-          <div><span class="root">SYSTEM_ARCHITECTURE</span></div>
-          <div><span class="branch">├── </span><span class="leaf">Multimodal ML</span> <span class="comment">// Vision (MedCLIP/ViT) + Tabular (TabNet), late fusion</span></div>
-          <div><span class="branch">├── </span><span class="leaf">LLM &amp; RAG</span> <span class="comment">// Vector search (pgvector) + DSPy + LLM evaluation</span></div>
-          <div><span class="branch">├── </span><span class="leaf">Data pipelines</span> <span class="comment">// Selenium scraping, OCR / PDF extraction, Excel reporting</span></div>
-          <div><span class="branch">└── </span><span class="leaf">Deployment</span> <span class="comment">// FastAPI + Docker + GitHub Actions + Cloudflare Pages</span></div>
-        </div>
-      </section>
-
-      <!-- ============ at a glance ============ -->
-      <section class="section">
-        <div class="section-head" data-flow="up" data-flow-i="0">
-          <span class="eyebrow"><b>[</b> QUICK FACTS <b>]</b></span>
-          <div class="section-head-row">
-            <h2 class="section-title">At a glance<span class="dot">.</span></h2>
-            <span class="comment">// for the 90-second reader</span>
-          </div>
-        </div>
-
-        <dl class="facts">
-          <div class="fact" data-flow="up" data-flow-i="1">
-            <dt>education</dt>
-            <dd>B.Sc. Computer Science, Landmark University</dd>
-          </div>
-          <div class="fact" data-flow="up" data-flow-i="2">
-            <dt>focus</dt>
-            <dd>Medical imaging · RAG &amp; LLM applications · data pipelines</dd>
-          </div>
-          <div class="fact" data-flow="up" data-flow-i="3">
-            <dt>stack</dt>
-            <dd>Python · PyTorch · LangChain / DSPy · FastAPI · PostgreSQL · Docker</dd>
-          </div>
-          <div class="fact" data-flow="up" data-flow-i="4">
-            <dt>location</dt>
-            <dd>Abuja, Nigeria — remote-friendly (WAT)</dd>
-          </div>
-          <div class="fact" data-flow="up" data-flow-i="5">
-            <dt>status</dt>
-            <dd class="is-accent">AI/ML Engineer at Integrity Organization Ltd</dd>
-          </div>
-          <div class="fact" data-flow="up" data-flow-i="6">
-            <dt>elsewhere</dt>
-            <dd>
-              <a href="https://github.com/Adejare-ml" target="_blank" rel="noopener">GitHub ↗</a> ·
-              <a href="https://linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener">LinkedIn ↗</a> ·
-              <a href="Adejare_Adelugba_AI_ML_Engineer_CV.pdf" download data-magnetic>CV (PDF) ↓</a>
-            </dd>
-          </div>
-        </dl>
-
-        <p class="certs" data-flow="up" data-flow-i="7">// certifications — anthropic: claude 101 · building with the claude api · ai fluency: framework &amp; foundations · introduction to agent skills · aws educate: machine learning foundations · afrihub ict institute: data science certificate</p>
-      </section>
-
-    </main>
-
-    <footer class="site-footer">
-      <div class="cta">
-        <div class="cta-copy" data-flow="left" data-flow-i="0">
-          <span class="eyebrow"><b>[</b> AVAILABILITY <b>]</b></span>
-          <h2 class="cta-title">Open to AI/ML engineering conversations and collaborations<span class="dot">.</span></h2>
-          <span class="comment">// replies within 24 hours</span>
-        </div>
-        <div class="cta-links" data-flow="right" data-flow-i="1">
-          <a class="cta-link" href="mailto:adelugbaadejare03@gmail.com"><span class="cta-link-key">email</span><span class="cta-link-val">adelugbaadejare03@gmail.com</span></a>
-          <a class="cta-link" href="https://github.com/Adejare-ml" target="_blank" rel="noopener"><span class="cta-link-key">github</span><span class="cta-link-val">github.com/Adejare-ml ↗</span></a>
-          <a class="cta-link" href="https://linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener"><span class="cta-link-key">linkedin</span><span class="cta-link-val">in/adejare-adelugba ↗</span></a>
+  <section class="about-top" aria-labelledby="about-title">
+    <figure class="portrait">
+      <div class="stack">
+        <div class="plane plane-back" aria-hidden="true"></div>
+        <div class="plane plane-mid" aria-hidden="true"></div>
+        <div class="sheet">
+          <picture>
+            <source type="image/webp" srcset="profile-560.webp 560w, profile-840.webp 840w" sizes="(max-width: 899px) calc(100vw - 48px), 400px">
+            <img src="profile-840.jpg" srcset="profile-560.jpg 560w, profile-840.jpg 840w" sizes="(max-width: 899px) calc(100vw - 48px), 400px" alt="Portrait of Adejare Adelugba" width="840" height="1120" fetchpriority="high" decoding="async">
+          </picture>
+          <span class="portrait-scan" aria-hidden="true"></span>
+          <figcaption><span>// the author</span><span>abuja, 2026</span></figcaption>
         </div>
       </div>
-      <div class="folio">
-        <span>© 2026 adejare adelugba</span>
-        <span>p.02 / 04</span>
-        <a href="/tokens">spec: token sheet →</a>
+    </figure>
+    <div class="bio">
+      <span class="eyebrow"><b>[</b> WHO I AM <b>]</b></span>
+      <h1 class="page-title" id="about-title">I build models that survive real data<span class="dot">.</span></h1>
+      <p>I’m an AI/ML Engineer at Integrity Organization Ltd and a Computer Science graduate of Landmark University. I work across the whole cycle: getting data out of PDFs, websites and spreadsheets, cleaning it, training and evaluating models, deploying them with FastAPI and Docker, and writing documentation that non-technical teams can use.</p>
+      <p>My work so far covers medical-image classification, retrieval-augmented generation (RAG), workflow automation and web scraping. Each flagship project has its own page with the decisions I made and what went wrong along the way.</p>
+      <dl class="facts">
+        <div class="fact"><dt>Role</dt><dd>AI/ML Engineer, Integrity Organization Ltd</dd></div>
+        <div class="fact"><dt>Location</dt><dd>Abuja, Nigeria · WAT (UTC+1) · remote-friendly</dd></div>
+        <div class="fact"><dt>Education</dt><dd>B.Sc. Computer Science, Landmark University</dd></div>
+        <div class="fact"><dt>Focus</dt><dd>Medical imaging · RAG &amp; LLM apps · data pipelines</dd></div>
+      </dl>
+      <div class="actions">
+        <a class="btn btn-primary" href="Adejare_Adelugba_AI_ML_Engineer_CV.pdf" download>Download CV ↓</a>
+        <a class="btn" href="mailto:adelugbaadejare03@gmail.com">Email me</a>
       </div>
-    </footer>
+    </div>
+  </section>
 
+  <nav class="jump jump-sticky" aria-label="On this page"><a href="#story">story</a><a href="#skills">skills</a><a href="#certs">certifications</a></nav>
+
+  <section class="section" id="story" aria-labelledby="exp-title">
+    <div class="section-head">
+      <span class="eyebrow"><b>[</b> THE STORY <b>]</b></span>
+      <div class="section-head-row">
+        <h2 class="section-title drift" id="exp-title">How I got here<span class="dot">.</span></h2>
+        <span class="comment">// 2021 — now, oldest first</span>
+      </div>
+      
+    </div>
+    <div class="timeline journey">
+      <div class="timeline-rail" aria-hidden="true"><i></i></div>
+      <div class="job" id="ch-degree">
+    <span class="job-when">2021 — 2025</span>
+    <h3>B.Sc. Computer Science</h3>
+    <span class="job-org">Landmark University</span>
+    <p class="job-why">Where it started. Two things happened during the degree:</p>
   </div>
-</div>
+        <div class="within" aria-label="During the degree">
+      <span class="within-label">// during the degree</span>
+  <div class="job" id="ch-tetfund">
+    <span class="job-when">may — oct 2024</span>
+    <h3>Data Engineering Intern · industrial training (IT)</h3>
+    <span class="job-org">TETFund · Abuja</span>
+    <p class="job-why">My industrial-training (IT) placement, taken in 300 level in the middle of the degree. That is why it sits inside my university years.</p>
+    <ul><li>Supported institutional data management with Python and Excel, improving consistency across datasets used for reporting.</li><li>Developed classification and reporting scripts and an automation pipeline that reduced manual reporting work.</li><li>Assisted with database maintenance and smoother reporting workflows.</li></ul>
+    
+  </div>
+      <div class="job" id="ch-fyp">
+        <span class="job-when">2025 · final year</span>
+        <h3>Final-year project: multimodal breast cancer detection</h3>
+        <span class="job-org">Landmark University</span>
+        <p class="job-why">A model that reads a breast scan and the clinical record together. 0.91 AUC, served through FastAPI in Docker.</p>
+        <div class="job-links"><a class="link-arrow" href="project-multimodal">read the project <span aria-hidden="true">→</span></a></div>
+      </div>
+    </div>
+      <div class="job" id="ch-kontemporary">
+    <span class="job-when">sep — oct 2025</span>
+    <h3>Data Engineering Intern</h3>
+    <span class="job-org">Kontemporary Konsulting Ltd · Abuja</span>
+    <p class="job-why">My first role after graduating: automating data collection a team was doing by hand.</p>
+    <ul><li>Developed a Selenium-based scraping system that aggregated polling-unit records across Nigerian states, replacing manual collection.</li><li>Cleaned and standardised datasets by State and LGA, resolving mislabelled fields for downstream analysis.</li><li>Developed a reusable Python workflow that exports structured multi-sheet Excel reports for stakeholders.</li><li>Designed and developed a multi-page responsive <a href="https://github.com/Adejare-ml/kontemporary-website" target="_blank" rel="noopener">website redesign ↗</a>.</li><li>Implemented a Random Forest classification model with preprocessing, evaluation and metric visualisation, documented for reuse.</li></ul>
+    <div class="job-links"><a class="link-arrow" href="project-polling">read the polling-unit project <span aria-hidden="true">→</span></a></div>
+  </div>
+      <div class="job is-now" id="ch-integrity">
+    <span class="job-when">jul 2026 — present</span>
+    <h3>AI/ML Engineer</h3>
+    <span class="job-org">Integrity Organization Ltd</span>
+    <p class="job-why">Where I am now: building LLM and backend systems used inside the organisation.</p>
+    <ul><li>Built backend modules for internal web platforms with Python, FastAPI, PostgreSQL and Docker.</li><li>Built retrieval-augmented generation (RAG) and LLM-evaluation components using LLM APIs, vector search (pgvector) and DSPy.</li><li>Built document-processing and data-extraction pipelines (PDF parsing, OCR) backed by automated tests.</li><li>Built the organisation’s website and online store.</li><li>Wrote technical documentation, meeting minutes and progress reports for non-technical stakeholders.</li></ul>
+    
+  </div>
+    </div>
+  </section>
 
-<script src="/assets/site.js?v=5"></script>
-<script src="/assets/ambient-grid.js?v=3" defer></script>
+  <section class="section" id="skills" aria-labelledby="skills-title">
+    <div class="section-head">
+      <span class="eyebrow"><b>[</b> TECHNICAL MATRIX <b>]</b></span>
+      <div class="section-head-row">
+        <h2 class="section-title drift" id="skills-title">Capabilities<span class="dot">.</span></h2>
+        <span class="comment">// tools I use in real projects</span>
+      </div>
+      
+    </div>
+    <div class="caps"><div><span class="cap-label">// machine-learning</span><div class="chips"><span class="chip">pytorch</span><span class="chip">tensorflow / keras</span><span class="chip">scikit-learn</span><span class="chip">vit · dinov2 · medclip</span><span class="chip">tabnet</span><span class="chip">cnn transfer learning</span><span class="chip">grad-cam</span></div></div><div><span class="cap-label">// llm-and-rag</span><div class="chips"><span class="chip">langchain</span><span class="chip">dspy</span><span class="chip">faiss</span><span class="chip">chromadb</span><span class="chip">pgvector</span><span class="chip">anthropic · openai · gemini apis</span><span class="chip">tool-calling agents</span><span class="chip">mcp</span></div></div><div><span class="cap-label">// backend-and-deployment</span><div class="chips"><span class="chip">fastapi</span><span class="chip">postgresql</span><span class="chip">sqlalchemy · alembic</span><span class="chip">redis</span><span class="chip">docker</span><span class="chip">github actions</span><span class="chip">supabase</span><span class="chip">pytest</span></div></div><div><span class="cap-label">// data-engineering</span><div class="chips"><span class="chip">pandas · numpy</span><span class="chip">selenium</span><span class="chip">beautifulsoup</span><span class="chip">ocr / pdf parsing</span><span class="chip">excel reporting</span><span class="chip">web scraping</span></div></div><div><span class="cap-label">// languages</span><div class="chips"><span class="chip">python</span><span class="chip">sql</span><span class="chip">javascript</span><span class="chip">c#</span><span class="chip">c++</span></div></div></div>
+    <div class="tree" aria-label="Stack summary"><div><span class="root">SYSTEM_STACK</span></div><div><span class="branch">├── </span>PyTorch &amp; TensorFlow <span class="comment">// medical imaging, vision transformers, multimodal fusion</span></div><div><span class="branch">├── </span>LLMs &amp; RAG <span class="comment">// pgvector / FAISS / ChromaDB retrieval, DSPy, LLM evaluation</span></div><div><span class="branch">├── </span>FastAPI, PostgreSQL &amp; Docker <span class="comment">// backend services and containerised deployment</span></div><div><span class="branch">└── </span>Python &amp; Selenium <span class="comment">// scraping, OCR / PDF extraction, scheduled automation</span></div></div>
+  </section>
+
+  <section class="section" id="certs" aria-labelledby="cert-title">
+    <div class="section-head">
+      <span class="eyebrow"><b>[</b> CERTIFICATIONS <b>]</b></span>
+      <div class="section-head-row">
+        <h2 class="section-title drift" id="cert-title">Certifications<span class="dot">.</span></h2>
+        
+      </div>
+      
+    </div>
+    <div class="certs"><div class="cert"><b>Claude 101</b><span>anthropic · april 2026</span></div><div class="cert"><b>Building with the Claude API</b><span>anthropic</span></div><div class="cert"><b>AI Fluency: Framework & Foundations</b><span>anthropic</span></div><div class="cert"><b>Introduction to Agent Skills</b><span>anthropic</span></div><div class="cert"><b>Machine Learning Foundations</b><span>aws educate</span></div><div class="cert"><b>Data Science Certificate</b><span>afrihub ict institute</span></div></div>
+  </section>
+
+</main>
+
+  <footer class="closing">
+    <div class="cta" id="contact-links">
+      <div>
+        <span class="eyebrow"><b>[</b> AVAILABILITY <b>]</b></span>
+        <h2 class="drift">Have messy data and a problem worth solving?</h2>
+        <p>I reply within 24 hours. Abuja, Nigeria (WAT, UTC+1), happy to work remotely.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="mailto:adelugbaadejare03@gmail.com">Email me <span aria-hidden="true">→</span></a>
+          <a class="btn" href="contact">Send a message</a>
+        </div>
+      </div>
+      <div class="channels">
+        <a class="channel" href="mailto:adelugbaadejare03@gmail.com"><span class="channel-key">email</span><span class="channel-val">adelugbaadejare03@gmail.com</span></a>
+        <a class="channel" href="https://github.com/Adejare-ml" target="_blank" rel="noopener"><span class="channel-key">github</span><span class="channel-val">github.com/Adejare-ml <span aria-hidden="true">↗</span></span></a>
+        <a class="channel" href="https://www.linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener"><span class="channel-key">linkedin</span><span class="channel-val">in/adejare-adelugba <span aria-hidden="true">↗</span></span></a>
+        <a class="channel" href="Adejare_Adelugba_AI_ML_Engineer_CV.pdf" download><span class="channel-key">cv</span><span class="channel-val">PDF, 2 pages ↓</span></a>
+      </div>
+    </div>
+    <div class="folio">
+      <span>© 2026 adejare adelugba · abuja</span>
+      <a href="https://github.com/Adejare-ml/My-work-website" target="_blank" rel="noopener">source code <span aria-hidden="true">↗</span></a>
+    </div>
+  </footer>
+</div>
+</div>
+<div class="mobile-bar" aria-label="Quick actions">
+  <a class="btn btn-primary" href="mailto:adelugbaadejare03@gmail.com">Email me</a>
+  <a class="btn" href="Adejare_Adelugba_AI_ML_Engineer_CV.pdf" download>CV ↓</a>
+</div>
+<script src="assets/site.js?v=11" defer></script>
+<script src="assets/ambient-grid.js?v=11" defer></script>
 </body>
 </html>

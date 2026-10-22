@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1c1d21">
+<title>Breast ultrasound classification — Adejare Adelugba</title>
+<meta name="description" content="Breast ultrasound classification: Sorts breast-ultrasound images into benign, malignant or normal — and shows why a deep model was worth it over a classic pipeline. Why I built it, the decisions I made and the results.">
+<link rel="canonical" href="https://adelugba-adejare.pages.dev/project-ultrasound">
+<meta property="og:title" content="Breast ultrasound classification — Adejare Adelugba">
+<meta property="og:description" content="Breast ultrasound classification: Sorts breast-ultrasound images into benign, malignant or normal — and shows why a deep model was worth it over a classic pipeline. Why I built it, the decisions I made and the results.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adelugba-adejare.pages.dev/project-ultrasound">
+<meta property="og:image" content="https://adelugba-adejare.pages.dev/og-preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Breast ultrasound classification — Adejare Adelugba">
+<meta name="twitter:description" content="Breast ultrasound classification: Sorts breast-ultrasound images into benign, malignant or normal — and shows why a deep model was worth it over a classic pipeline. Why I built it, the decisions I made and the results.">
+<meta name="twitter:image" content="https://adelugba-adejare.pages.dev/og-preview.jpg">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=11">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body class="has-mobile-bar">
+<a class="skip" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"></div>
+<header class="masthead">
+  <div class="wrap masthead-row">
+    <a class="wordmark" href="./" aria-label="Adejare Adelugba, home"><span class="wm-full">adejare adelugba</span><span class="wm-short" aria-hidden="true">adejare</span><span class="caret" aria-hidden="true">_</span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="./">home</a>
+      <a href="projects" aria-current="page">projects</a>
+      <a href="about">about</a>
+      <a href="contact">contact</a>
+    </nav>
+  </div>
+</header>
+<div class="page">
+<div class="wrap">
+<main id="main" class="project-page">
+
+  <section class="intro p-intro" aria-labelledby="p-title">
+    <a class="back" href="projects">← all projects</a>
+    <span class="eyebrow"><b>[</b> PROJECT 02 / 04 · MEDICAL IMAGING · BENCHMARK <b>]</b></span>
+    <h1 class="page-title" id="p-title">Breast ultrasound classification<span class="dot">.</span></h1>
+    <p class="lede">Sorts breast-ultrasound images into benign, malignant or normal — and shows why a deep model was worth it over a classic pipeline.</p>
+    <p class="p-context">// Comparative study on the public BUSI dataset (Breast Ultrasound Images).</p>
+    <nav class="jump" aria-label="On this page"><a href="#glance">figures</a><a href="#why">why &amp; how</a><a href="#decisions">decisions</a><a href="#results">results</a></nav>
+  </section>
+
+  <section class="section p-glance" id="glance" aria-labelledby="glance-title">
+    <div class="section-head">
+      <span class="eyebrow"><b>[</b> AT A GLANCE <b>]</b></span>
+      <div class="section-head-row">
+        <h2 class="section-title drift" id="glance-title">The figures<span class="dot">.</span></h2>
+        <span class="comment">// the short version</span>
+      </div>
+      
+    </div>
+    <div class="proof glance"><div class="proof-item"><span class="proof-num">95.75%</span><span class="proof-what">accuracy, EfficientNet-B0</span><span class="proof-sub">vs 58.2% Random Forest</span></div><div class="proof-item"><span class="proof-num">0.99</span><span class="proof-what">AUC-ROC</span><span class="proof-sub">vs 0.75 baseline</span></div><div class="proof-item"><span class="proof-num">98%</span><span class="proof-what">malignant cases caught</span><span class="proof-sub">recall · vs 55% baseline</span></div><div class="proof-item"><span class="proof-num">12,000</span><span class="proof-what">balanced images</span><span class="proof-sub">4,000 per class</span></div></div>
+    <div class="p-meta">
+      <div><span class="cap-label">// stack</span><div class="chips"><span class="chip">tensorflow</span><span class="chip">pytorch</span><span class="chip">efficientnet-b0</span><span class="chip">scikit-learn</span><span class="chip">pca</span><span class="chip">random forest</span></div></div>
+      <div class="actions"><a class="btn btn-primary" href="https://github.com/Adejare-ml/breast-ultrasound-classification" target="_blank" rel="noopener">Code <span aria-hidden="true">↗</span></a></div>
+    </div>
+  </section>
+
+  <section class="section p-why" id="why" aria-labelledby="why-title">
+    <div class="section-head">
+      <span class="eyebrow"><b>[</b> THE PROBLEM <b>]</b></span>
+      <div class="section-head-row">
+        <h2 class="section-title drift" id="why-title">Why I built it<span class="dot">.</span></h2>
+        
+      </div>
+      
+    </div>
+    <div class="p-split">
+      <div>
+        <p class="p-why-text">Reading ultrasound is hard and the public dataset is small and imbalanced. Before reaching for deep learning I wanted a fair answer to a simple question: does it actually beat a well-built classic pipeline, and by how much?</p>
+<div class="p-bars">          <div class="bars" data-bars role="group" aria-label="Test accuracy">
+            <div class="bar-row">
+    <div class="bar-head"><span>EfficientNet-B0 (deep model)</span><b>95.75%</b></div>
+    <div class="bar-track"><div class="bar-fill" style="--v:0.9575"></div></div>
+  </div>
+            <div class="bar-row">
+    <div class="bar-head"><span>Random Forest + PCA (baseline)</span><b>58.2%</b></div>
+    <div class="bar-track"><div class="bar-fill is-muted" style="--v:0.582"></div></div>
+  </div>
+          </div></div>
+        <h3 class="p-sub">How I built it</h3>
+        <ol class="steps"><li><span class="step-n" aria-hidden="true">01</span><div><b>Balance the data</b><p>A TensorFlow augmentation pipeline — flips, 90/180/270° rotations, random crops — generated 4,000 images per class.</p></div></li><li><span class="step-n" aria-hidden="true">02</span><div><b>Deep model</b><p>EfficientNet-B0 pretrained on ImageNet, head replaced for 3 classes; 224×224 input, Adam (lr 1e-4), 25 epochs.</p></div></li><li><span class="step-n" aria-hidden="true">03</span><div><b>Classic baseline</b><p>Images at 64×64, flattened, reduced to 100 PCA components, then a 100-tree Random Forest with balanced class weights.</p></div></li><li><span class="step-n" aria-hidden="true">04</span><div><b>Evaluate</b><p>Accuracy, weighted F1, AUC-ROC and a per-class report for both models on the same held-out images.</p></div></li></ol>
+      </div>
+      <figure class="p-visual">
+        <figcaption class="comment stack-cap">// how the data moves</figcaption>
+        <div class="stack"><div class="plane plane-back" aria-hidden="true"></div><div class="plane plane-mid" aria-hidden="true"></div>
+          <div class="sheet"><div class="chrome"><span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="chrome-file">ultrasound_pipeline — live</span></div>
+          <div class="pipe" data-pipe style="--run:4.8s">
+            <div class="pipe-head"><span>How it works</span><span aria-hidden="true">data flows ↓</span></div>
+            <ol class="pipe-steps">
+              <li class="pipe-rail" aria-hidden="true"></li>
+              <li class="pipe-packet" aria-hidden="true"></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">01</span><div><b>BUSI images</b><span>benign · malignant · normal</span></div></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">02</span><div><b>Balance classes</b><span>augmented to 4,000 per class</span></div></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">03</span><div><b>EfficientNet-B0</b><span>pretrained, then fine-tuned</span></div></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">04</span><div><b>Evaluate</b><span>accuracy, F1 and AUC-ROC on held-out scans</span></div></li>
+            </ol>
+          </div>
+          </div></div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="decisions" aria-labelledby="dec-title">
+    <div class="section-head">
+      <span class="eyebrow"><b>[</b> DECISION LOG <b>]</b></span>
+      <div class="section-head-row">
+        <h2 class="section-title drift" id="dec-title">What went wrong, and what I decided<span class="dot">.</span></h2>
+        <span class="comment">// 3 decisions</span>
+      </div>
+      
+    </div>
+    <div class="decisions">
+      <article class="decision" id="d1">
+        <div class="decision-head"><span class="decision-id">D1</span><h3>The dataset was small and imbalanced.</h3></div>
+        <dl class="decision-flow">
+          <div><dt>what happened</dt><dd>Training on it directly would favour the biggest class.</dd></div>
+          <div class="is-choice"><dt>decision</dt><dd>Augmented every class to 4,000 images.</dd></div>
+          <div class="is-result"><dt>result</dt><dd>A balanced 12,000-image set for both models.</dd></div>
+        </dl>
+      </article>
+      <article class="decision" id="d2">
+        <div class="decision-head"><span class="decision-id">D2</span><h3>Full-size pixels were too many features for classic ML.</h3></div>
+        <dl class="decision-flow">
+          <div><dt>what happened</dt><dd>A Random Forest on 224×224×3 raw values is slow and noisy.</dd></div>
+          <div class="is-choice"><dt>decision</dt><dd>Resized to 64×64 and kept 100 PCA components for the baseline.</dd></div>
+          <div class="is-result"><dt>result</dt><dd>A fair, tractable baseline: 58.2% accuracy.</dd></div>
+        </dl>
+      </article>
+      <article class="decision" id="d3">
+        <div class="decision-head"><span class="decision-id">D3</span><h3>The baseline missed too many cancers.</h3></div>
+        <dl class="decision-flow">
+          <div><dt>what happened</dt><dd>It caught only 55% of malignant cases — not acceptable for screening.</dd></div>
+          <div class="is-choice"><dt>decision</dt><dd>Used EfficientNet-B0 transfer learning on the same balanced data.</dd></div>
+          <div class="is-result"><dt>result</dt><dd>98% malignant recall and 95.75% accuracy.</dd></div>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="results" aria-labelledby="res-title">
+    <div class="section-head">
+      <span class="eyebrow"><b>[</b> RESULTS <b>]</b></span>
+      <div class="section-head-row">
+        <h2 class="section-title drift" id="res-title">Where it ended up<span class="dot">.</span></h2>
+        
+      </div>
+      
+    </div>
+    <dl class="results"><div><dt>Accuracy</dt><dd>95.75% vs 58.20%</dd></div><div><dt>Weighted F1</dt><dd>0.96 vs 0.58</dd></div><div><dt>AUC-ROC</dt><dd>0.99 vs 0.75</dd></div><div><dt>Malignant recall</dt><dd>98% vs 55%</dd></div></dl>
+    <p class="card-note">// research project, not a clinical tool.</p>
+  </section>
+
+  <nav class="p-nav" aria-label="More projects">
+    <a href="project-multimodal"><span>← previous</span><b>Multimodal breast cancer detection</b></a>
+    <a href="project-aura"><span>next →</span><b>AURA news intelligence system</b></a>
+  </nav>
+
+</main>
+
+  <footer class="closing">
+    <div class="cta" id="contact-links">
+      <div>
+        <span class="eyebrow"><b>[</b> AVAILABILITY <b>]</b></span>
+        <h2 class="drift">Have messy data and a problem worth solving?</h2>
+        <p>I reply within 24 hours. Abuja, Nigeria (WAT, UTC+1), happy to work remotely.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="mailto:adelugbaadejare03@gmail.com">Email me <span aria-hidden="true">→</span></a>
+          <a class="btn" href="contact">Send a message</a>
+        </div>
+      </div>
+      <div class="channels">
+        <a class="channel" href="mailto:adelugbaadejare03@gmail.com"><span class="channel-key">email</span><span class="channel-val">adelugbaadejare03@gmail.com</span></a>
+        <a class="channel" href="https://github.com/Adejare-ml" target="_blank" rel="noopener"><span class="channel-key">github</span><span class="channel-val">github.com/Adejare-ml <span aria-hidden="true">↗</span></span></a>
+        <a class="channel" href="https://www.linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener"><span class="channel-key">linkedin</span><span class="channel-val">in/adejare-adelugba <span aria-hidden="true">↗</span></span></a>
+        <a class="channel" href="Adejare_Adelugba_AI_ML_Engineer_CV.pdf" download><span class="channel-key">cv</span><span class="channel-val">PDF, 2 pages ↓</span></a>
+      </div>
+    </div>
+    <div class="folio">
+      <span>© 2026 adejare adelugba · abuja</span>
+      <a href="https://github.com/Adejare-ml/My-work-website" target="_blank" rel="noopener">source code <span aria-hidden="true">↗</span></a>
+    </div>
+  </footer>
+</div>
+</div>
+<div class="mobile-bar" aria-label="Quick actions">
+  <a class="btn btn-primary" href="mailto:adelugbaadejare03@gmail.com">Email me</a>
+  <a class="btn" href="Adejare_Adelugba_AI_ML_Engineer_CV.pdf" download>CV ↓</a>
+</div>
+<script src="assets/site.js?v=11" defer></script>
+<script src="assets/ambient-grid.js?v=11" defer></script>
+</body>
+</html>

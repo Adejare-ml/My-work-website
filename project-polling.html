@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1c1d21">
+<title>Nigeria polling unit data pipeline — Adejare Adelugba</title>
+<meta name="description" content="Nigeria polling unit data pipeline: Replaced manual copying of polling-unit records with a scraper that produces clean, structured workbooks for every state. Why I built it, the decisions I made and the results.">
+<link rel="canonical" href="https://adelugba-adejare.pages.dev/project-polling">
+<meta property="og:title" content="Nigeria polling unit data pipeline — Adejare Adelugba">
+<meta property="og:description" content="Nigeria polling unit data pipeline: Replaced manual copying of polling-unit records with a scraper that produces clean, structured workbooks for every state. Why I built it, the decisions I made and the results.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adelugba-adejare.pages.dev/project-polling">
+<meta property="og:image" content="https://adelugba-adejare.pages.dev/og-preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nigeria polling unit data pipeline — Adejare Adelugba">
+<meta name="twitter:description" content="Nigeria polling unit data pipeline: Replaced manual copying of polling-unit records with a scraper that produces clean, structured workbooks for every state. Why I built it, the decisions I made and the results.">
+<meta name="twitter:image" content="https://adelugba-adejare.pages.dev/og-preview.jpg">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=11">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body class="has-mobile-bar">
+<a class="skip" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"></div>
+<header class="masthead">
+  <div class="wrap masthead-row">
+    <a class="wordmark" href="./" aria-label="Adejare Adelugba, home"><span class="wm-full">adejare adelugba</span><span class="wm-short" aria-hidden="true">adejare</span><span class="caret" aria-hidden="true">_</span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="./">home</a>
+      <a href="projects" aria-current="page">projects</a>
+      <a href="about">about</a>
+      <a href="contact">contact</a>
+    </nav>
+  </div>
+</header>
+<div class="page">
+<div class="wrap">
+<main id="main" class="project-page">
+
+  <section class="intro p-intro" aria-labelledby="p-title">
+    <a class="back" href="projects">← all projects</a>
+    <span class="eyebrow"><b>[</b> PROJECT 04 / 04 · DATA ENGINEERING · INTERNSHIP <b>]</b></span>
+    <h1 class="page-title" id="p-title">Nigeria polling unit data pipeline<span class="dot">.</span></h1>
+    <p class="lede">Replaced manual copying of polling-unit records with a scraper that produces clean, structured workbooks for every state.</p>
+    <p class="p-context">// Built during the Data Engineering internship at Kontemporary Konsulting (2025). Source: the integrity.ng platform.</p>
+    <nav class="jump" aria-label="On this page"><a href="#glance">figures</a><a href="#why">why &amp; how</a><a href="#decisions">decisions</a><a href="#results">results</a></nav>
+  </section>
+
+  <section class="section p-glance" id="glance" aria-labelledby="glance-title">
+    <div class="section-head">
+      <span class="eyebrow"><b>[</b> AT A GLANCE <b>]</b></span>
+      <div class="section-head-row">
+        <h2 class="section-title drift" id="glance-title">The figures<span class="dot">.</span></h2>
+        <span class="comment">// the short version</span>
+      </div>
+      
+    </div>
+    <div class="proof glance"><div class="proof-item"><span class="proof-num">37</span><span class="proof-what">administrative regions</span><span class="proof-sub">36 states + FCT</span></div><div class="proof-item"><span class="proof-num">4</span><span class="proof-what">levels structured</span><span class="proof-sub">State → LGA → Ward → Unit</span></div><div class="proof-item"><span class="proof-num">0</span><span class="proof-what">manual copying</span><span class="proof-sub">fully automated extraction</span></div><div class="proof-item"><span class="proof-num">CI</span><span class="proof-what">offline test suite</span><span class="proof-sub">no calls to the live site</span></div></div>
+    <div class="p-meta">
+      <div><span class="cap-label">// stack</span><div class="chips"><span class="chip">python</span><span class="chip">selenium</span><span class="chip">pandas</span><span class="chip">openpyxl</span><span class="chip">pytest</span><span class="chip">github actions</span></div></div>
+      <div class="actions"><a class="btn btn-primary" href="https://github.com/Adejare-ml/Nigeria-Polling-Unit-Scraper" target="_blank" rel="noopener">Code <span aria-hidden="true">↗</span></a></div>
+    </div>
+  </section>
+
+  <section class="section p-why" id="why" aria-labelledby="why-title">
+    <div class="section-head">
+      <span class="eyebrow"><b>[</b> THE PROBLEM <b>]</b></span>
+      <div class="section-head-row">
+        <h2 class="section-title drift" id="why-title">Why I built it<span class="dot">.</span></h2>
+        
+      </div>
+      
+    </div>
+    <div class="p-split">
+      <div>
+        <p class="p-why-text">Polling-unit records were spread across many pages and collected by hand. The team needed one analysis-ready dataset — every State, LGA, Ward and Polling Unit — for civic auditing and stakeholder reports.</p>
+
+        <h3 class="p-sub">How I built it</h3>
+        <ol class="steps"><li><span class="step-n" aria-hidden="true">01</span><div><b>Navigate</b><p>A recursive Selenium scraper walks each state, handling dynamic pagination and state filters.</p></div></li><li><span class="step-n" aria-hidden="true">02</span><div><b>Fix the labels</b><p>A semantic mapping layer corrects the source’s labelling errors during extraction.</p></div></li><li><span class="step-n" aria-hidden="true">03</span><div><b>Structure</b><p>A processing step turns flat scraped lists into a State → LGA → Ward → Polling Unit hierarchy.</p></div></li><li><span class="step-n" aria-hidden="true">04</span><div><b>Export</b><p>Multi-sheet Excel workbooks per state, plus CSV, for auditing.</p></div></li><li><span class="step-n" aria-hidden="true">05</span><div><b>Test</b><p>Offline tests for configuration, processing and HTML parsing run in GitHub Actions.</p></div></li></ol>
+      </div>
+      <figure class="p-visual">
+        <figcaption class="comment stack-cap">// how the data moves</figcaption>
+        <div class="stack"><div class="plane plane-back" aria-hidden="true"></div><div class="plane plane-mid" aria-hidden="true"></div>
+          <div class="sheet"><div class="chrome"><span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="chrome-file">polling_pipeline — live</span></div>
+          <div class="pipe" data-pipe style="--run:4.8s">
+            <div class="pipe-head"><span>How it works</span><span aria-hidden="true">data flows ↓</span></div>
+            <ol class="pipe-steps">
+              <li class="pipe-rail" aria-hidden="true"></li>
+              <li class="pipe-packet" aria-hidden="true"></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">01</span><div><b>State portals</b><span>records spread across many pages</span></div></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">02</span><div><b>Selenium scraper</b><span>walks every state and page</span></div></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">03</span><div><b>Label mapping</b><span>fixes mislabelled columns</span></div></li>
+              <li class="pipe-step"><span class="pipe-dot" aria-hidden="true">04</span><div><b>Excel workbooks</b><span>one sheet per level</span></div></li>
+            </ol>
+          </div>
+          </div></div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="decisions" aria-labelledby="dec-title">
+    <div class="section-head">
+      <span class="eyebrow"><b>[</b> DECISION LOG <b>]</b></span>
+      <div class="section-head-row">
+        <h2 class="section-title drift" id="dec-title">What went wrong, and what I decided<span class="dot">.</span></h2>
+        <span class="comment">// 4 decisions</span>
+      </div>
+      
+    </div>
+    <div class="decisions">
+      <article class="decision" id="d1">
+        <div class="decision-head"><span class="decision-id">D1</span><h3>The source data was mislabelled.</h3></div>
+        <dl class="decision-flow">
+          <div><dt>what happened</dt><dd>Some “LGA” columns actually contained State names.</dd></div>
+          <div class="is-choice"><dt>decision</dt><dd>Added a semantic mapping layer that corrects these during extraction.</dd></div>
+          <div class="is-result"><dt>result</dt><dd>A consistent hierarchy instead of hand-fixing every sheet.</dd></div>
+        </dl>
+      </article>
+      <article class="decision" id="d2">
+        <div class="decision-head"><span class="decision-id">D2</span><h3>Pages loaded dynamically and timed out.</h3></div>
+        <dl class="decision-flow">
+          <div><dt>what happened</dt><dd>A simple page-by-page scrape missed records.</dd></div>
+          <div class="is-choice"><dt>decision</dt><dd>Prototyped page-load and timeout handling first, then built recursive, state-by-state navigation.</dd></div>
+          <div class="is-result"><dt>result</dt><dd>The full chain across all 37 regions.</dd></div>
+        </dl>
+      </article>
+      <article class="decision" id="d3">
+        <div class="decision-head"><span class="decision-id">D3</span><h3>Testing against a live government site is fragile.</h3></div>
+        <dl class="decision-flow">
+          <div><dt>what happened</dt><dd>Tests that hit the real site fail for reasons that aren’t bugs.</dd></div>
+          <div class="is-choice"><dt>decision</dt><dd>Wrote offline tests against saved HTML and config, run in CI.</dd></div>
+          <div class="is-result"><dt>result</dt><dd>Changes can be checked without touching the live site.</dd></div>
+        </dl>
+      </article>
+      <article class="decision" id="d4">
+        <div class="decision-head"><span class="decision-id">D4</span><h3>The people using the data work in spreadsheets.</h3></div>
+        <dl class="decision-flow">
+          <div><dt>what happened</dt><dd>A database would have been harder for them to audit.</dd></div>
+          <div class="is-choice"><dt>decision</dt><dd>Exported multi-sheet Excel workbooks, one sheet per level.</dd></div>
+          <div class="is-result"><dt>result</dt><dd>Reports stakeholders could open and check directly.</dd></div>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="results" aria-labelledby="res-title">
+    <div class="section-head">
+      <span class="eyebrow"><b>[</b> RESULTS <b>]</b></span>
+      <div class="section-head-row">
+        <h2 class="section-title drift" id="res-title">Where it ended up<span class="dot">.</span></h2>
+        
+      </div>
+      
+    </div>
+    <dl class="results"><div><dt>Coverage</dt><dd>37 regions</dd></div><div><dt>Structure</dt><dd>4-level hierarchy</dd></div><div><dt>Output</dt><dd>multi-sheet Excel + CSV</dd></div></dl>
+    
+  </section>
+
+  <nav class="p-nav" aria-label="More projects">
+    <a href="project-aura"><span>← previous</span><b>AURA news intelligence system</b></a>
+    <a href="project-multimodal"><span>next →</span><b>Multimodal breast cancer detection</b></a>
+  </nav>
+
+</main>
+
+  <footer class="closing">
+    <div class="cta" id="contact-links">
+      <div>
+        <span class="eyebrow"><b>[</b> AVAILABILITY <b>]</b></span>
+        <h2 class="drift">Have messy data and a problem worth solving?</h2>
+        <p>I reply within 24 hours. Abuja, Nigeria (WAT, UTC+1), happy to work remotely.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="mailto:adelugbaadejare03@gmail.com">Email me <span aria-hidden="true">→</span></a>
+          <a class="btn" href="contact">Send a message</a>
+        </div>
+      </div>
+      <div class="channels">
+        <a class="channel" href="mailto:adelugbaadejare03@gmail.com"><span class="channel-key">email</span><span class="channel-val">adelugbaadejare03@gmail.com</span></a>
+        <a class="channel" href="https://github.com/Adejare-ml" target="_blank" rel="noopener"><span class="channel-key">github</span><span class="channel-val">github.com/Adejare-ml <span aria-hidden="true">↗</span></span></a>
+        <a class="channel" href="https://www.linkedin.com/in/adejare-adelugba" target="_blank" rel="noopener"><span class="channel-key">linkedin</span><span class="channel-val">in/adejare-adelugba <span aria-hidden="true">↗</span></span></a>
+        <a class="channel" href="Adejare_Adelugba_AI_ML_Engineer_CV.pdf" download><span class="channel-key">cv</span><span class="channel-val">PDF, 2 pages ↓</span></a>
+      </div>
+    </div>
+    <div class="folio">
+      <span>© 2026 adejare adelugba · abuja</span>
+      <a href="https://github.com/Adejare-ml/My-work-website" target="_blank" rel="noopener">source code <span aria-hidden="true">↗</span></a>
+    </div>
+  </footer>
+</div>
+</div>
+<div class="mobile-bar" aria-label="Quick actions">
+  <a class="btn btn-primary" href="mailto:adelugbaadejare03@gmail.com">Email me</a>
+  <a class="btn" href="Adejare_Adelugba_AI_ML_Engineer_CV.pdf" download>CV ↓</a>
+</div>
+<script src="assets/site.js?v=11" defer></script>
+<script src="assets/ambient-grid.js?v=11" defer></script>
+</body>
+</html>
