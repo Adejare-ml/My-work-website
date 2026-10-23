@@ -1,0 +1,3 @@
+## 2026-10-23 - Button States
+**Learning:** `currentColor` inherits `transparent` when `color: transparent !important` is used to hide button text, making pseudo-element spinners invisible. Additionally, disabled buttons need explicit hover suppression using `:not(:disabled)` to prevent jarring interactions when users mouse over inactive controls.
+**Action:** Always explicitly define border colors on loading spinners using theme variables instead of `currentColor`, and use `:not(:disabled):not([aria-busy="true"])` on hover states rather than `pointer-events: none` to preserve the `not-allowed` cursor.
