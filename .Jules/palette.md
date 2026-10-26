@@ -1,0 +1,3 @@
+## 2024-10-26 - Accessible Async Button Loading States
+**Learning:** Manipulating button text content with JavaScript during async loading causes layout shifts, introduces screen-reader inconsistencies, and overrides semantic labels. Modifying DOM to show "Sending..." replaces the button's original label (`submitBtn.textContent = 'Sending…'`).
+**Action:** Use CSS pseudo-elements (like `::before`) tied to `[aria-busy="true"]` state. Hide the original text visually with `color: transparent !important` while maintaining the element structure and width, removing the need for DOM textual manipulation in JS.
