@@ -5,3 +5,7 @@
 ## 2026-10-26 - Give abbreviated controls clear accessible names
 **Learning:** Short or icon-only button text may not explain the action when announced out of context.
 **Action:** Add concise `aria-label` values that describe the action while retaining the visible button text.
+
+## 2026-10-26 - Hide decorative arrow text in labeled controls
+**Learning:** Adding an `aria-label` to a control that contains a decorative text character (like '↓' or '→') does not always prevent the screen reader from reading the inner text depending on its mode. An abbreviated control like "CV ↓" is confusing to screen readers.
+**Action:** Always wrap decorative text characters within a control in `<span aria-hidden="true">` to ensure they are ignored by assistive technologies, while using a clear `aria-label` (e.g., `aria-label="Download CV"`) for the control itself.
