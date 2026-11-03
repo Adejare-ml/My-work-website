@@ -279,6 +279,7 @@ p { margin: 0; }
 /* ---------- buttons ---------- */
 
 .btn {
+  position: relative;
   display: inline-block;
   font-family: var(--mono);
   font-size: 12.5px;
@@ -1283,3 +1284,13 @@ a.channel:hover { color: var(--accent); }
   }
   /* flow-in never runs: JS bails, so nothing is left at opacity 0 */
 }
+
+/* loading state */
+.btn[aria-busy="true"], .btn[aria-busy="true"] * { color: transparent !important; cursor: progress; }
+.btn[aria-busy="true"]::after {
+  content: ""; position: absolute; left: 50%; top: 50%; margin: -7px 0 0 -7px;
+  width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--text-1); border-right-color: transparent;
+}
+.btn-primary[aria-busy="true"]::after { border-color: var(--bg); border-right-color: transparent; }
+@media (prefers-reduced-motion: no-preference) { .btn[aria-busy="true"]::after { animation: spin 0.8s linear infinite; } }
+@keyframes spin { to { transform: rotate(360deg); } }
