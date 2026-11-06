@@ -9,7 +9,7 @@ Personal portfolio site for **Adejare Adelugba** — AI / Machine Learning Engin
 
 ## Live Site
 
-**[Visit the live site](https://adelugba-adejare.pages.dev/)**
+**[Visit the live site](https://adejare.dpdns.org/)**
 
 ---
 

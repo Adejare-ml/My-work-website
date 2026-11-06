@@ -8,4 +8,4 @@ Allow: /
 Disallow: /*.md$
 Disallow: /LICENSE
 
-Sitemap: https://adelugba-adejare.pages.dev/sitemap.xml
+Sitemap: https://adejare.dpdns.org/sitemap.xml
