@@ -296,7 +296,7 @@ p { margin: 0; }
   border: none;
   padding: 14px 24px;
 }
-.btn-primary:hover {
+.btn-primary:not(:disabled):not([aria-busy="true"]):hover {
   color: var(--bg);
   box-shadow: 0 0 0 1px var(--accent), 0 0 24px rgba(167, 181, 242, 0.35);
 }
@@ -307,11 +307,20 @@ p { margin: 0; }
   border: 1px solid var(--border);
   padding: 13px 20px;
 }
-.btn-ghost:hover {
+.btn-ghost:not(:disabled):not([aria-busy="true"]):hover {
   color: var(--ink);
   border-color: var(--accent);
   box-shadow: 0 0 16px rgba(167, 181, 242, 0.2);
 }
+
+.btn[aria-busy="true"], .btn[aria-busy="true"] * { color: transparent !important; cursor: progress; position: relative; }
+.btn[aria-busy="true"]::after {
+  content: ""; position: absolute; left: 50%; top: 50%; margin: -7px 0 0 -7px;
+  width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--text-1); border-right-color: transparent;
+}
+.btn-primary[aria-busy="true"]::after { border-color: var(--bg); border-right-color: transparent; }
+@media (prefers-reduced-motion: no-preference) { .btn[aria-busy="true"]::after { animation: spin 0.8s linear infinite; } }
+@keyframes spin { to { transform: rotate(360deg); } }
 
 /* ---------- hero code block on offset planes ---------- */
 
