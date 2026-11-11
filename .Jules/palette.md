@@ -5,3 +5,7 @@
 ## 2026-10-26 - Give abbreviated controls clear accessible names
 **Learning:** Short or icon-only button text may not explain the action when announced out of context.
 **Action:** Add concise `aria-label` values that describe the action while retaining the visible button text.
+
+## 2026-10-28 - Provide clear context for copy buttons
+**Learning:** A copy button reading just "copy" or "COPY" may lack context when read by a screen reader out of document flow.
+**Action:** Add an explicit `aria-label="Copy email address"` to ensure the button's specific target is clear.
